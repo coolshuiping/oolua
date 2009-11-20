@@ -46,12 +46,17 @@ struct foo
   int bar(float);
 };
 
-OOLUA_CLASS_NO_BASES(foo)//class has no bases
+OOLUA_CLASS_NO_BASES(foo)
     OOLUA_NO_TYPEDEFS
-    OOLUA_MEM_FUN_1(int,/*return type*/
-                   bar,/*function name*/
-                   float)/*parameter type*/
+    OOLUA_MEM_FUN_1(int/*return type*/
+                   ,bar/*function name*/
+                   ,float)/*parameter type*/
 OOLUA_CLASS_END
+}}}
+
+{{{
+EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo,bar)
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
 == Abstract class ==
