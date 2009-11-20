@@ -82,6 +82,7 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 }}}
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 
+=lua_State=
 ==OOLUA::Script==
 OOLua is purposely designed not to be dependant on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use, it scopes a lua_State and provides methods to register types, an instance to call Lua functions and functions for a little state management.
 
@@ -89,4 +90,23 @@ OOLua is purposely designed not to be dependant on the class OOLUA::Script and t
 To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
 {{{
 void setup_user_lua_state(lua_State* l);
+}}}
+
+=Calling a Lua function=
+A Lua function can be called using [[http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function]], of which there is already bound instance available in OOLUA::Script. The method can be called via it's name or via a Lua_ref_func pulled from lua.
+==Via name==
+{{{
+func = function() end
+}}}
+{{{
+OOLUA::Script s;
+s.call("func");
+}}}
+==Via reference==
+This example assumes that an function is at the top on the Lua stack.
+{{{
+OOLUA::Script s;
+OOLUA::Lua_ref_func f;
+OOLUA::pull2cpp(s,f);
+s.call(f);
 }}}
