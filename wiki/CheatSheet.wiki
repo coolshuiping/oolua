@@ -39,6 +39,21 @@ EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo /*name of class*/
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
+== Has a member function which takes one parameter == 
+{{{
+struct foo
+{
+  int bar(float);
+};
+
+OOLUA_CLASS_NO_BASES(foo)//class has no bases
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUN_1(int,/*return type*/
+                   bar,/*function name*/
+                   float)/*parameter type*/
+OOLUA_CLASS_END
+}}}
+
 == Abstract class ==
 {{{
 struct foo
@@ -143,5 +158,3 @@ OOLUA::Lua_ref_func f;
 OOLUA::pull2cpp(s,f);
 s.call(f);
 }}}
-
-
