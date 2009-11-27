@@ -63,6 +63,7 @@ struct lua_State;
 #	include "oolua_exception.h"
 #   include "oolua_registration.h"
 #	include "oolua_push_pull.h"
+#   include "oolua_error.h"
 
 namespace OOLUA
 {
