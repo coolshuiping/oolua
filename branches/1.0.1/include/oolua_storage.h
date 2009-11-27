@@ -9,14 +9,14 @@
 #include "base_checker.h"
 #include "proxy_from_stack.h"
 #include "type_list.h"
-
+#include "oolua_char_arrays.h"
 #include <cassert>
 
 namespace OOLUA
 {
 	namespace INTERNAL
 	{
-		extern char weak_lookup_name [];
+		//extern char weak_lookup_name [];
 
 		//pushes the weak top and returns its index
 		int push_weak_table(lua_State* l);
@@ -97,7 +97,8 @@ namespace OOLUA
 					if( proxy_from_stack_top<T>(l) )
 					{
 						lua_getmetatable(l,-1);//ud mt
-						lua_pushliteral(l,"__change_mt_to_none_const");//ud mt str
+						//lua_pushliteral(l,"__change_mt_to_none_const");//ud mt str
+						push_char_carray(l,change_mt_to_none_const_field);//ud mt str
 						lua_gettable(l,-2);//ud mt func
 						lua_CFunction set_metatable_none_const = lua_tocfunction(l,-1);
 						lua_pop(l,2);//ud

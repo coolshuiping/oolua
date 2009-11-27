@@ -46,7 +46,7 @@ elseif(OS == "windows" and target == "cb-gcc")then
 	tinsert(package.defines,"USING_GMOCK")
 	tinsert(package.config["Debug"].links,{ "cppunitd" , "gmockd" } )
 	tinsert(package.config["Release"].links,{ "cppunit" , "gmock" } )
-	package.buildoptions = { "-W -Wall -pedantic -Weffc++" }
+	package.buildoptions = { "-W -Wall -pedantic "}-- -Weffc++" }
 	tinsert(package.linkoptions, {"-L./lib"} )
 	tinsert(package.postbuildcommands, { "$(TARGET_OUTPUT_FILE)"})
 	package.links = { "oolua","lua" }

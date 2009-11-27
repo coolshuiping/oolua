@@ -4,18 +4,19 @@
 #include "oolua_storage.h"
 #include "oolua_push_pull.h"
 #include <stdexcept>
+#include "oolua_char_arrays.h"
 
 namespace OOLUA
 {
 
 	namespace INTERNAL
 	{
-		char weak_lookup_name [] = "__weak_lookup";
+		//char weak_lookup_name [] = "__weak_lookup";
 
 		//pushes the weak top and returns its index
 		int push_weak_table(lua_State* l)
 		{
-			lua_pushstring(l,weak_lookup_name);//string
+			push_char_carray(l, weak_lookup_name);//string
 			lua_rawget(l,LUA_REGISTRYINDEX);//weakTable
 			return lua_gettop(l);
 		}
@@ -24,7 +25,7 @@ namespace OOLUA
 		{
 			lua_getmetatable(l,-1);//ud stackMetatable
 			lua_CFunction typed_delete;
-			push2lua(l,"__typed_delete");//ud stackMetatable key
+			push_char_carray(l,typed_delete_field);//ud stackMetatable key
 			lua_gettable(l, -2);//ud stackMetatable value
 			pull2cpp(l, typed_delete);//ud stackMetatable
 			lua_pop(l,1);//ud
@@ -97,7 +98,7 @@ namespace OOLUA
 		}
 		void set_owner( lua_State* l,void* ptr, Owner own)
 		{
-			if(own == No_change)return;//should never get called but...
+			if(own == No_change){assert(0);return;}//should never get called but...
 			Lua_ud* ud = find_ud_dont_care_about_type_and_clean_stack(l,ptr);
 			if(!ud)throw std::runtime_error("(set owner)The pointer was not in the __weak_lookup table");
 			ud->gc = ( own == Cpp ? false : true);
@@ -106,7 +107,8 @@ namespace OOLUA
 		bool ud_at_index_is_const(lua_State* l, int index)
 		{
 			lua_getmetatable(l,index);//ud ... stack_mt 
-			lua_pushliteral(l,"__const");//ud  ... stack_mt str
+			//lua_pushliteral(l,"__const");//ud  ... stack_mt str
+			push_char_carray(l,const_field);//ud  ... stack_mt str
 			lua_rawget(l,-2);//ud ... stack_mt int
 			bool is_const(false);
 			if( lua_tointeger(l,-1) == 1)//is it constant

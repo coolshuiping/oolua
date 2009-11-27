@@ -40,6 +40,7 @@
 
 
 #include <cassert>
+#include "oolua_char_arrays.h"
 namespace OOLUA
 {
 
@@ -157,7 +158,9 @@ namespace OOLUA
 			int stack_mt = requested_mt -1;
 			if( ! ( lua_rawequal(l,stack_mt,requested_mt)  ) )
 			{
-				lua_pushliteral(l,"__const");//ud ... stack_mt requested_mt str
+
+				//lua_pushliteral(l,"__const");//ud ... stack_mt requested_mt str
+				push_char_carray(l,const_field);//ud ... stack_mt requested_mt str
 				lua_rawget(l,stack_mt);;//ud ... stack_mt requested_mt int
 				if( lua_tointeger(l,-1) == 1)//is it constant
 				{
