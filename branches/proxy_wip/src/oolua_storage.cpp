@@ -19,17 +19,6 @@ namespace OOLUA
 			lua_getfield(l, LUA_REGISTRYINDEX, weak_lookup_name);
 			return lua_gettop(l);
 		}
-		//userdata is top of stack and is still on top when it leaves
-		void typed_delete_for_proxy_ptr(lua_State* l)
-		{
-			lua_getmetatable(l,-1);//ud stackMetatable
-			lua_CFunction typed_delete;
-			push_char_carray(l,typed_delete_field);//ud stackMetatable key
-			lua_gettable(l, -2);//ud stackMetatable value
-			pull2cpp(l, typed_delete);//ud stackMetatable
-			lua_pop(l,1);//ud
-			typed_delete(l);
-		}
 
 		//if found it is left on the top of the stack and returns true
 		//else the stack is same as on entrance to the function and false returned
@@ -64,20 +53,6 @@ namespace OOLUA
 			return ud;
 		}
 
-		void remove_classes_ud_if_required(lua_State* l,void* ptr, int tableIndex)
-		{
-			lua_pushlightuserdata(l,ptr);
-			lua_gettable(l,tableIndex);
-			if( lua_isnil(l,-1)  == 1 )
-			{
-				lua_pop(l,1);//pop the null
-				return;
-			}
-			lua_pop(l,1);//pop ud
-			lua_pushlightuserdata(l,ptr);//weakTable ptr
-			lua_pushnil(l);//weakTable ptr nil
-			lua_settable(l,tableIndex);
-		}
 
 		//on entering user data and weaktable are on the stack
 		void add_ptr_if_required(lua_State* const l, void* ptr,int udIndex,int weakIndex)

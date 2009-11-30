@@ -1,7 +1,7 @@
-#include "proxy_from_stack.h"
+#include "class_from_stack.h"
 #include "oolua_char_arrays.h"
 
-#define OOLUA_NO_RUNTIME_CHECKS
+//#define OOLUA_NO_RUNTIME_CHECKS
 namespace OOLUA
 {
 	namespace INTERNAL

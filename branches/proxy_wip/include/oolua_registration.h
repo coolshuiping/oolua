@@ -2,7 +2,7 @@
 #   define OOLUA_REGISTRATION_H_
 
 #include "lua_includes.h"
-#include "proxy_from_stack.h"
+#include "class_from_stack.h"
 #include "proxy_class.h"
 #include "push_pointer_internal.h"
 #include "oolua_userdata.h"
@@ -56,7 +56,7 @@ namespace OOLUA
 		int delete_type(lua_State * /*const*/ l)
 		{
 			Lua_ud *ud = static_cast<Lua_ud *>( lua_touserdata(l, -1) );
-			delete static_cast<Proxy_class<T>*>(ud->void_proxy_ptr);
+			delete static_cast<T*>(ud->void_class_ptr);
 			return 0;
 		}
 		template<typename T>
@@ -66,15 +66,11 @@ namespace OOLUA
 			Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
 			lua_pop(l,1);
 			//cast to correct type
-			Proxy_class<T>* proxy = static_cast<Proxy_class<T>*>(ud->void_proxy_ptr);
 			//if responsible then clean up the cpp class
 			if(ud->gc)
 			{
-				//delete the Real_type
-				delete proxy->m_this;
+				delete static_cast<T*>(ud->void_class_ptr);
 			}
-			//clean up the proxy class
-			delete proxy;
 			//ud will be cleaned up by the Lua API
 			return 0;
 		}
@@ -101,10 +97,10 @@ namespace OOLUA
 			lua_settable(l, mt);//methods mt 
 			//mt["__mt_check"]= &stack_top_type_is_base<T>;
 
-			push_char_carray(l,typed_delete_field);;//methods mt __typed_delete
-			lua_pushcfunction(l, &delete_type<T>);//methods mt __typed_delete func
-			lua_settable(l, mt);//methods mt 
-			//mt["__typed_delete"]= &delete_type<T>;
+			//push_char_carray(l,typed_delete_field);;//methods mt __typed_delete
+			//lua_pushcfunction(l, &delete_type<T>);//methods mt __typed_delete func
+			//lua_settable(l, mt);//methods mt 
+			////mt["__typed_delete"]= &delete_type<T>;
 
 			push_char_carray(l,const_field);//methods mt __const
 			lua_pushinteger(l,0);//methods mt __const false
@@ -159,10 +155,10 @@ namespace OOLUA
 			lua_settable(l, const_mt);//const_methods const_mt
 			//const_mt["__mt_check"]= &stack_top_type_is_base<T>;
 
-			push_char_carray(l,typed_delete_field);//const_methods const_mt __typed_delete
-			lua_pushcfunction(l, &delete_type<T>);//const_methods const_mt __typed_delete func
-			lua_settable(l, const_mt);//const_methods const_mt
-			//const_mt["__typed_delete"]= &delete_type<T>;
+			//push_char_carray(l,typed_delete_field);//const_methods const_mt __typed_delete
+			//lua_pushcfunction(l, &delete_type<T>);//const_methods const_mt __typed_delete func
+			//lua_settable(l, const_mt);//const_methods const_mt
+			////const_mt["__typed_delete"]= &delete_type<T>;
 
 			push_char_carray(l,const_field);//const_methods const_mt __const
 			lua_pushinteger(l,1);//const_methods const_mt int
