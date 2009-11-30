@@ -14,8 +14,6 @@ namespace OOLUA
 		//pushes the weak top and returns its index
 		int push_weak_table(lua_State* l)
 		{
-			//push_char_carray(l, weak_lookup_name);//string
-			//lua_rawget(l,LUA_REGISTRYINDEX);//weakTable
 			lua_getfield(l, LUA_REGISTRYINDEX, weak_lookup_name);
 			return lua_gettop(l);
 		}
@@ -81,7 +79,6 @@ namespace OOLUA
 		bool ud_at_index_is_const(lua_State* l, int index)
 		{
 			lua_getmetatable(l,index);//ud ... stack_mt 
-			//lua_pushliteral(l,"__const");//ud  ... stack_mt str
 			push_char_carray(l,const_field);//ud  ... stack_mt str
 			lua_rawget(l,-2);//ud ... stack_mt int
 			bool is_const(false);
