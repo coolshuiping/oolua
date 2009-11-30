@@ -56,7 +56,7 @@ struct lua_State;
 #	include "lua_function.h"
 #	include "lua_table.h"
 #	include "lua_ref.h"
-#	include "proxy_from_stack.h"
+#	include "class_from_stack.h"
 #	include "lua_stack_dump.h"
 #	include "oolua_typedefs.h"
 #	include "member_func_helper.h"
