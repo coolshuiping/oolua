@@ -22,14 +22,34 @@ namespace OOLUA
 		static const char new_str [] = "new";
 
 		//basically does the same as lua_pushliteral in that it does not require a strlen
-		template<int Length>
-		inline void push_char_carray(lua_State* l ,const char (&carray)[Length] )
+		//template<int Length>
+		//inline void push_char_carray(lua_State* l ,const char (&carray)[Length] )
+		//{
+		//	lua_pushlstring(l, carray, Length-1);
+		//}
+
+		//template<int Length,typename const char (*&)[Length]>
+		//struct array_size
+		//{
+		//	enum {value = Length};
+		//};
+
+
+		//template<int Length>
+		//inline int array_size_(const char (&)[Length] )
+		//{
+		//	return Length-1;
+		//}
+		template<typename T,int Length>
+		inline int array_size_(T (&)[ Length ] )
 		{
-			lua_pushlstring(l, carray, Length-1);
+			return Length-1;
 		}
+
+		
 	}
 }
 
-//#define OOLUA_PUSH_CHAR_CARRAY(lua,carray)lua_pushlstring(lua, carray, sizeof(carray)-1)
+#define push_char_carray(lua,carray)lua_pushlstring(lua, carray, sizeof(carray)-1)
 
 #endif

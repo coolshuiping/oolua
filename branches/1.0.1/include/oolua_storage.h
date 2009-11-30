@@ -176,18 +176,19 @@ namespace OOLUA
 			Lua_ud* ud = reinterpret_cast<Lua_ud*>(lua_newuserdata(l, sizeof(Lua_ud)));
 			ud->void_proxy_ptr = new Proxy_class<T>(ptr);
 			ud->gc = false;
-			if(isConst)
-				luaL_getmetatable(l, Proxy_class<T>::class_name_const);
-			else
-				luaL_getmetatable(l, Proxy_class<T>::class_name);  // lookup metatable in Lua registry
 
+			if(isConst)
+				lua_getfield(l, LUA_REGISTRYINDEX,Proxy_class<T>::class_name_const);
+			else
+				lua_getfield(l, LUA_REGISTRYINDEX,Proxy_class<T>::class_name);
 
 			assert( lua_isnoneornil(l,-1) ==0 && "no metatable of this name found in registry" );
 			////Pops a table from the stack and sets it as the new metatable for the value at the given acceptable index
 			lua_setmetatable(l, -2);
 
-			int udIndex = lua_gettop(l);
+			//int udIndex = lua_gettop(l);
 			int weakIndex = push_weak_table(l);//ud,weakTable
+			int udIndex = weakIndex -1;
 
 			add_ptr_if_required(l,ptr,udIndex,weakIndex);//it is required
 
@@ -199,6 +200,7 @@ namespace OOLUA
 			addThisTypesBases(l,ptr,udIndex,weakIndex);
 
 			lua_pop(l,1);//ud
+			//lua_remove(l,weakIndex);
 			return ud;
 		}
 

@@ -27,8 +27,6 @@ namespace OOLUA
 		{
 			static void cast(lua_State* const l,int const& userdata_index)
 			{
-				//lua_pop(l,1);//pop stack type metatable
-				//lua_pushvalue(l, userdata_index/*index-1*/);//dup ud on top of stack
 				//get the userdata
 				OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud*>( lua_touserdata(l, userdata_index) );
 				//cast the proxy type from the stack to the stacktype

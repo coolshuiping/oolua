@@ -23,7 +23,6 @@ namespace OOLUA
 		template<typename Proxy_type, typename Base_type>
 		inline int member_caller(lua_State * /*const*/ l)
 		{
-			//Proxy_type *obj = Lua_interface<Proxy_type>::check_no_const(l, 1);
 			Proxy_type *obj = INTERNAL::none_const_proxy_from_index<typename Proxy_type::class_>(l, 1);
 			lua_remove(l, 1);
 			///get member function from upvalue
@@ -34,7 +33,6 @@ namespace OOLUA
 		template<typename Proxy_type, typename Base_type>
 		inline int const_member_caller(lua_State * /*const*/ l)
 		{
-			//Proxy_type const *obj = Lua_interface<Proxy_type>::check(l, 1);
 			Proxy_type const *obj = INTERNAL::proxy_from_index<typename Proxy_type::class_>(l, 1);
 			lua_remove(l, 1);
 			///get member function from upvalue

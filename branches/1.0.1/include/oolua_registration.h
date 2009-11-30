@@ -67,8 +67,6 @@ namespace OOLUA
 			lua_pop(l,1);
 			//cast to correct type
 			Proxy_class<T>* proxy = static_cast<Proxy_class<T>*>(ud->void_proxy_ptr);
-			//remove from table
-			INTERNAL::remove_proxy_ptr(l,proxy->m_this);
 			//if responsible then clean up the cpp class
 			if(ud->gc)
 			{

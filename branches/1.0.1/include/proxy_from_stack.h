@@ -53,9 +53,9 @@ namespace OOLUA
 		Proxy_class<T>  * check_index_no_const(lua_State * /*const*/ l, int narg);
 
 		bool index_is_userdata(lua_State* l,int index,char const* name);
-		bool get_metatable_and_check_type_is_registered(lua_State* l,int index,char const * name);
+		bool get_metatable_and_check_type_is_registered(lua_State* l,int const& index,char const * name);
 		bool is_requested_type_a_base(lua_State* l,int userdata_index);
-		
+
 		template<typename T>
 		inline OOLUA::Proxy_class<T>* proxy_from_stack_top(lua_State * l)
 		{
@@ -122,24 +122,34 @@ namespace OOLUA
 		template<typename T>
 		Proxy_class<T>* check_index(lua_State * /*const*/ l, int narg)
 		{
-
 			if( ! index_is_userdata(l,narg,Proxy_class<T>::class_name) )
 				return 0;
 			if( ! get_metatable_and_check_type_is_registered(l,narg,Proxy_class<T>::class_name) )
 				return 0;
-			lua_getfield(l, LUA_REGISTRYINDEX, Proxy_class<T>::class_name_const);//ud ... stackmt requested_mt requested_mtconstant
 
-			//is the type the was on the stack the same as either of the two which were pushed after
-			if( ! ( lua_rawequal(l,-3,-1)  || lua_rawequal(l,-3,-2) ) )
+			////is the type the was on the stack the same as either of the two which were pushed after
+			if( ! lua_rawequal(l,-2,-1)  )
 			{
-				lua_pop(l,1);//ud ... stack_mt requested_mt
-				return valid_base_ptr_or_null<T>(l,narg);
+				lua_getfield(l, LUA_REGISTRYINDEX, Proxy_class<T>::class_name_const);//ud ... stackmt requested_mt requested_mtconstant
+				if(! lua_rawequal(l,-3,-1) )
+				{
+					lua_pop(l,1);//ud ... stack_mt requested_mt
+					return valid_base_ptr_or_null<T>(l,narg);
+				}
+				else
+				{
+					lua_pop(l,3);
+				}
 			}
-			//remove const and non const metatable and the metatable of the userdata
-			else lua_pop(l,3);
+			////remove non const metatable and the metatable of the userdata
+			else lua_pop(l,2);
 
-			INTERNAL::Lua_ud* ud = static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, narg) );
-			return static_cast<Proxy_class<T>* >(ud->void_proxy_ptr);
+			//INTERNAL::Lua_ud* ud = static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, narg) );
+			//return static_cast<Proxy_class<T>* >(ud->void_proxy_ptr);
+			return static_cast<Proxy_class<T>* >
+				(
+					static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, narg) )->void_proxy_ptr
+				);
 		}
 
 
@@ -153,15 +163,12 @@ namespace OOLUA
 				return 0;
 			if( ! get_metatable_and_check_type_is_registered(l,narg,Proxy_class<T>::class_name) )
 				return 0;
-			//ud ... stack_mt requested_mt
-			int requested_mt = lua_gettop(l);
-			int stack_mt = requested_mt -1;
-			if( ! ( lua_rawequal(l,stack_mt,requested_mt)  ) )
-			{
 
-				//lua_pushliteral(l,"__const");//ud ... stack_mt requested_mt str
+			if( ! ( lua_rawequal(l,-2,-1)  ) )
+			{
+				int const stack_mt = lua_gettop(l) -1;
 				push_char_carray(l,const_field);//ud ... stack_mt requested_mt str
-				lua_rawget(l,stack_mt);;//ud ... stack_mt requested_mt int
+				lua_rawget(l,stack_mt);//ud ... stack_mt requested_mt int
 				if( lua_tointeger(l,-1) == 1)//is it constant
 				{
 					lua_pop(l,3);//ud
@@ -177,8 +184,10 @@ namespace OOLUA
 			//remove non const metatable and the metatable of the userdata
 			else lua_pop(l,2);//ud
 
-			INTERNAL::Lua_ud* ud = static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, narg) );
-			return static_cast<Proxy_class<T>* >(ud->void_proxy_ptr);
+			return static_cast<Proxy_class<T>* >
+				(
+					static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, narg) )->void_proxy_ptr
+				);
 		}
 
 	}

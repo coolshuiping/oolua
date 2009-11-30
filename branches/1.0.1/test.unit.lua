@@ -28,6 +28,7 @@ tinsert(package.includepaths,
 
 if(target == "vs2005" or target == "vs2008")then
 	tinsert(package.defines,"USING_GMOCK" )
+	tinsert(package.defines,"OOLUA_STORE_ERROR" )
 	tinsert(package.config["Debug"].linkoptions,{ "cppunitd.lib" , "gmockd.lib" } )
 	tinsert(package.config["Release"].linkoptions,{ "cppunit.lib" , "gmock.lib" } )
 	tinsert(package.postbuildcommands, { "$(TargetPath)" })

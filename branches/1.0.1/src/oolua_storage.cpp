@@ -11,13 +11,12 @@ namespace OOLUA
 
 	namespace INTERNAL
 	{
-		//char weak_lookup_name [] = "__weak_lookup";
-
 		//pushes the weak top and returns its index
 		int push_weak_table(lua_State* l)
 		{
-			push_char_carray(l, weak_lookup_name);//string
-			lua_rawget(l,LUA_REGISTRYINDEX);//weakTable
+			//push_char_carray(l, weak_lookup_name);//string
+			//lua_rawget(l,LUA_REGISTRYINDEX);//weakTable
+			lua_getfield(l, LUA_REGISTRYINDEX, weak_lookup_name);
 			return lua_gettop(l);
 		}
 		//userdata is top of stack and is still on top when it leaves
