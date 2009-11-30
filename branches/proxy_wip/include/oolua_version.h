@@ -1,0 +1,30 @@
+#ifndef OOLUA_VERSION_H_
+#	define OOLUA_VERSION_H_
+
+#define OOLUA_DO_STINGISE(a)   #a
+#define OOLUA_STINGISE(a)   OOLUA_DO_STINGISE(a)
+
+#ifndef OOLUA_VERSION
+#       define OOLUA_VERSION_MAJ 1
+#       define OOLUA_VERSION_MIN 0
+#       define OOLUA_VERSION_PATCH 1
+#       define OOLUA_VERSION \
+					OOLUA_STINGISE(OOLUA_VERSION_MAJ) "." \
+					OOLUA_STINGISE(OOLUA_VERSION_MIN) "." \
+					OOLUA_STINGISE(OOLUA_VERSION_PATCH)
+#endif
+
+namespace OOLUA
+{
+	static const char version_str[] = OOLUA_VERSION;
+	static const int version_number = OOLUA_VERSION_MAJ*10000+OOLUA_VERSION_MIN*1000+OOLUA_VERSION_PATCH;
+}
+
+#undef OOLUA_DO_STINGISE
+#undef OOLUA_STINGISE
+#undef OOLUA_VERSION_MAJ
+#undef OOLUA_VERSION_MIN
+#undef OOLUA_VERSION_PATCH
+#undef OOLUA_VERSION
+
+#endif
