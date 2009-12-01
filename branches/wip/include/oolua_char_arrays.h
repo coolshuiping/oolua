@@ -13,6 +13,7 @@ namespace OOLUA
 	{
 		static const char const_field[] = "__const";
 		static const char mt_check_field[] = "__mt_check";
+		static const char mt_check_field_new[] = "__mt_check_new";
 		static const char typed_delete_field[] = "__typed_delete";
 		static const char change_mt_to_none_const_field[] = "__change_mt_to_none_const";
 		static const char set_owner_str[] = "set_owner";
