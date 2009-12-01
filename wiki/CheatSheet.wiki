@@ -81,7 +81,7 @@ EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 == Derived class ==
 Expanding on the example in [CheatSheet#Abstract_class]
 {{{
-struct baz
+struct baz : foo
 {
   int bar(){return 1};
 };
@@ -106,7 +106,7 @@ This line tells the binding about the hierarchy again this is automatically adde
 Traits are used two fold.
 Where the following are used exclusively for bound member functions:
  * in_p  *Parameter is only passed to the real member function.*
- * out_p  *Parameter or a function return is passed back to Lua.*
+ * out_p  *Parameter or a function return is only passed back to Lua.*
  * in_out_p  *Parameter is passed to function and also back to Lua.*
 And the following used for member functions and also pushing and pulling to and from the Lua stack:
  * cpp_in_p  *C++ code takes ownership of a pointer.*
