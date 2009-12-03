@@ -19,6 +19,8 @@ namespace OOLUA
 	template<typename T,typename K,typename V>
 	void register_class_static(lua_State * const l,K const& k, V const& v);
 
+	template<typename T>void register_class_and_bases(lua_State * l);
+
 	namespace INTERNAL
 	{
 		template<typename T>int create_type(lua_State * /*const*/ l);
@@ -332,6 +334,41 @@ namespace OOLUA
 	{
 		Lua_table meth(l,Proxy_class<T>::class_name);
 		meth.set_value(k,v);
+	}
+
+	namespace INTERNAL
+	{
+		template<int Index,typename Bases, typename Type>
+		struct Register_bases_with_lua;
+
+		template<int Index,typename Bases, typename Type>
+		struct Register_bases_with_lua
+		{
+			static void work(lua_State * l)
+			{
+				register_class<Type>(l);
+				Register_bases_with_lua<Index+1
+								,Bases
+								,typename TYPELIST::At_default<Bases,Index+1,TYPE::Null_type>::Result
+						>::work(l);
+			}
+		};
+		template<int index,typename TL>
+		struct Register_bases_with_lua<index,TL,TYPE::Null_type>
+		{
+			static void work(lua_State * /*l*/)
+			{}
+		};
+	}
+
+	template<typename T>
+	inline void register_class_and_bases(lua_State * l)
+	{
+		register_class<T>(l);
+		INTERNAL::Register_bases_with_lua<0
+								,typename OOLUA::Proxy_class<T>::AllBases
+								,typename TYPELIST::At_default<typename OOLUA::Proxy_class<T>::AllBases,0,TYPE::Null_type>::Result 
+						>::work(l);
 	}
 
 }
