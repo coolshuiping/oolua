@@ -9,10 +9,9 @@ namespace OOLUA
         struct Lua_ud
         {
 			void* void_class_ptr;
-			//int is_const;
 			char* name;
 			char* none_const_name;//none constant name of the class
-			int name_size;
+			int name_size;//size of name
             bool gc;//should it be garbage collected
         };
 		inline bool id_is_const(Lua_ud* ud)
