@@ -1,5 +1,5 @@
 OOLua Binding Framework speed compared to other bindings.
-<wiki:toc max_depth="3" />
+<wiki:toc max_depth="4" />
 
 = Introduction =
 For these profile tests the following libraries were used:
@@ -52,7 +52,7 @@ end
 
 print('OOLua access (average elapsed time):',ave/N)
 }}}
-
+===Access results===
 || *Library* || *Time(sec)* ||
 ||OOLua||0.7203||
 ||Swig||1.4453||
@@ -136,6 +136,7 @@ end
 print('OOLua passing derived to a function that wants a base  (average elapsed time):',ave/N)
 }}}
 
+====Wants base results====
 || *Library* || *Time(sec)* ||
 ||Swig||0.7641||
 ||OOLua||0.8188||
