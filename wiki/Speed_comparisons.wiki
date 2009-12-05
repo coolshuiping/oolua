@@ -1,3 +1,4 @@
+#labels Featured
 OOLua Binding Framework speed compared to other bindings.
 <wiki:toc max_depth="4" />
 
