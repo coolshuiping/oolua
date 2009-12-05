@@ -3,7 +3,7 @@ OOLua Binding Framework speed compared to other bindings.
 
 = Introduction =
 For these profile tests the following libraries were used:
- * LuaBind 0.8.1
+ * Luabind 0.8.1
  * OOLUA 1.2
  * Swig 1.3.40
 
@@ -29,7 +29,7 @@ private:
 }}}
 
 Lua code
-Note: this code differs slightly in the construction of class instances for each framework see [library name]_set_and_get.lua in the profile directory; yet the construction is not part of the profile test.
+Note: this code differs slightly in the construction of class instances for each framework see (library name)_set_and_get.lua in the profile directory; yet the construction is not part of the profile test.
 {{{
 local N = 10
 local ave = 0
@@ -57,11 +57,3 @@ print('OOLua access (average elapsed time):',ave/N)
 ||OOLua||0.7203||
 ||Swig||1.4453||
 ||Luabind||2.7438||
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
