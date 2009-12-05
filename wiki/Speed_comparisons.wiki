@@ -28,7 +28,7 @@ private:
 };
 }}}
 
-Lua code
+Lua code <br />
 Note: this code differs slightly in the construction of class instances for each framework see (library name)_set_and_get.lua in the profile directory; yet the construction is not part of the profile test.
 {{{
 local N = 10
@@ -53,7 +53,57 @@ end
 print('OOLua access (average elapsed time):',ave/N)
 }}}
 
-||Library||Time(sec)||
+|| *Library* || *Time(sec)* ||
 ||OOLua||0.7203||
 ||Swig||1.4453||
 ||Luabind||2.7438||
+
+==Class exchanging==
+The following tests use a class hierarchy as detailed below:
+{{{
+class ProfileBase
+{
+public:
+	ProfileBase():_i(0){}
+	virtual ~ProfileBase(){}
+	void increment_a_base(ProfileBase* base)
+	{
+		++base->_i;
+	}
+	virtual void virtual_func()
+	{
+		++_i;
+	}
+	virtual void pure_virtual_func() = 0;
+private:
+	int _i;
+};
+
+class ProfileAnotherBase
+{
+public:
+	virtual ~ProfileAnotherBase(){}
+};
+class ProfileDerived : public ProfileBase
+{
+public:
+	virtual ~ProfileDerived(){}
+	virtual void pure_virtual_func()
+	{
+		++_i;
+	}
+private:
+	int _i;
+};
+
+class ProfileMultiBases : public ProfileDerived, public ProfileAnotherBase
+{
+public:
+	void virtual_func()
+	{
+		++_i;
+	}
+private:
+	int _i;
+};
+}}}
