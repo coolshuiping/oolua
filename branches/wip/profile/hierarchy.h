@@ -10,6 +10,11 @@ public:
 	{
 		++base->_i;
 	}
+	virtual void virtual_func()
+	{
+		++_i;
+	}
+	virtual void pure_virtual_func() = 0;
 private:
 	int _i;
 };
@@ -22,12 +27,24 @@ public:
 class ProfileDerived : public ProfileBase
 {
 public:
-
+	virtual ~ProfileDerived(){}
+	virtual void pure_virtual_func()
+	{
+		++_i;
+	}
+private:
+	int _i;
 };
 
-class ProfileMultiBases : public ProfileBase, public ProfileAnotherBase
+class ProfileMultiBases : public ProfileDerived, public ProfileAnotherBase
 {
 public:
+	void virtual_func()
+	{
+		++_i;
+	}
+private:
+	int _i;
 };
 
 #endif

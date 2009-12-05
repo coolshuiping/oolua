@@ -101,11 +101,6 @@ namespace OOLUA
 			lua_settable(l, mt);//methods mt 
 			//mt["__mt_check"]= &stack_top_type_is_base<T>;
 
-			push_char_carray(l,mt_check_field_new);//methods mt __mt_check
-			lua_pushcfunction(l, &stack_top_type_is_base2<T>);//methods mt __mt_check func
-			lua_settable(l, mt);//methods mt 
-			//mt["__mt_check"]= &stack_top_type_is_base<T>;
-
 			push_char_carray(l,const_field);//methods mt __const
 			lua_pushinteger(l,0);//methods mt __const false
 			lua_settable(l, mt);//methods mt 
@@ -158,11 +153,6 @@ namespace OOLUA
 			lua_pushcfunction(l, &stack_top_type_is_base<T>);//const_methods const_mt __mt_check func
 			lua_settable(l, const_mt);//const_methods const_mt
 			//const_mt["__mt_check"]= &stack_top_type_is_base<T>;
-
-			push_char_carray(l,mt_check_field_new);//methods mt __mt_check
-			lua_pushcfunction(l, &stack_top_type_is_base2<T>);//methods mt __mt_check func
-			lua_settable(l, const_mt);//const_methods const_mt
-			////const_mt["__typed_delete"]= &delete_type<T>;
 
 			push_char_carray(l,const_field);//const_methods const_mt __const
 			lua_pushinteger(l,1);//const_methods const_mt int

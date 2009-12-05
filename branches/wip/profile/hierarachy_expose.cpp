@@ -5,7 +5,10 @@
 #	include "luabind/operator.hpp"
 #endif
 
-EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(ProfileBase,increment_a_base)
+EXPORT_OOLUA_FUNCTIONS_3_NON_CONST(ProfileBase
+								   ,increment_a_base
+								   ,virtual_func
+								   ,pure_virtual_func)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(ProfileBase)
 
 EXPORT_OOLUA_NO_FUNCTIONS(ProfileAnotherBase)
@@ -21,8 +24,9 @@ void open_Luabind_hierarchy(lua_State* l)
 	luabind::module(l)
 		[
 			luabind::class_<ProfileBase>("ProfileBase")
-			.def(luabind::constructor<>())
 			.def("increment_a_base",&ProfileBase::increment_a_base)
+			.def("virtual_func",&ProfileBase::virtual_func)
+			.def("pure_virtual_func",&ProfileBase::pure_virtual_func)
 		];
 	luabind::module(l)
 		[

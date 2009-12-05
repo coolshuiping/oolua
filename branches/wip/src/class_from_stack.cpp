@@ -40,22 +40,9 @@ namespace OOLUA
 
 		bool is_requested_type_a_base(lua_State* l,int userdata_index)
 		{
-			//ud ... stackmt  requested_mt
-			int stackmt = lua_gettop(l) -1;
-			//lua_pushliteral(l,"__mt_check");//ud ... stackmt requested_mt str
-			push_char_carray(l,mt_check_field);//ud ... stackmt requested_mt str
-			lua_rawget(l,stackmt);//ud ... stackmt requested_mt  fun
-			lua_CFunction isRequestTypeaBaseOfStackType ( lua_tocfunction(l,-1) );
-			lua_pop(l,1);//ud ... stackmt requested_mt
-			lua_remove(l,stackmt);//ud requested_mt
-			lua_pushinteger(l,userdata_index);//ud... requested_mt userdataindex
-			return isRequestTypeaBaseOfStackType(l) ? true : false;
-		}
-		bool is_requested_type_a_base2(lua_State* l,int userdata_index)
-		{
 			//ud ... stackmt requested_ud
 			int stackmt = lua_gettop(l) -1;
-			push_char_carray(l,mt_check_field_new);//ud ... stackmt requested_mt str
+			push_char_carray(l,mt_check_field);//ud ... stackmt requested_mt str
 			lua_rawget(l,stackmt);//ud ... stackmt requested_mt  fun
 			lua_CFunction isRequestTypeaBaseOfStackType ( lua_tocfunction(l,-1) );
 			lua_pop(l,1);//ud ... stackmt requested_ud

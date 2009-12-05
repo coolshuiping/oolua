@@ -1622,23 +1622,6 @@ static swig_lua_class *swig_Set_get_bases[] = {0};
 static const char *swig_Set_get_base_names[] = {0};
 static swig_lua_class _wrap_class_Set_get = { "Set_get", &SWIGTYPE_p_Set_get,_wrap_new_Set_get, swig_delete_Set_get, swig_Set_get_methods, swig_Set_get_attributes, swig_Set_get_bases, swig_Set_get_base_names };
 
-static int _wrap_new_ProfileBase(lua_State* L) {
-  int SWIG_arg = 0;
-  ProfileBase *result = 0 ;
-  
-  SWIG_check_num_args("ProfileBase",0,0)
-  result = (ProfileBase *)new ProfileBase();
-  SWIG_NewPointerObj(L,result,SWIGTYPE_p_ProfileBase,1); SWIG_arg++; 
-  return SWIG_arg;
-  
-  if(0) SWIG_fail;
-  
-fail:
-  lua_error(L);
-  return SWIG_arg;
-}
-
-
 static int _wrap_ProfileBase_increment_a_base(lua_State* L) {
   int SWIG_arg = 0;
   ProfileBase *arg1 = (ProfileBase *) 0 ;
@@ -1669,12 +1652,60 @@ fail:
 }
 
 
+static int _wrap_ProfileBase_virtual_func(lua_State* L) {
+  int SWIG_arg = 0;
+  ProfileBase *arg1 = (ProfileBase *) 0 ;
+  
+  SWIG_check_num_args("virtual_func",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("virtual_func",1,"ProfileBase *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ProfileBase,0))){
+    SWIG_fail_ptr("ProfileBase_virtual_func",1,SWIGTYPE_p_ProfileBase);
+  }
+  
+  (arg1)->virtual_func();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
+static int _wrap_ProfileBase_pure_virtual_func(lua_State* L) {
+  int SWIG_arg = 0;
+  ProfileBase *arg1 = (ProfileBase *) 0 ;
+  
+  SWIG_check_num_args("pure_virtual_func",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("pure_virtual_func",1,"ProfileBase *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ProfileBase,0))){
+    SWIG_fail_ptr("ProfileBase_pure_virtual_func",1,SWIGTYPE_p_ProfileBase);
+  }
+  
+  (arg1)->pure_virtual_func();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static void swig_delete_ProfileBase(void *obj) {
 ProfileBase *arg1 = (ProfileBase *) obj;
 delete arg1;
 }
 static swig_lua_method swig_ProfileBase_methods[] = {
     {"increment_a_base", _wrap_ProfileBase_increment_a_base}, 
+    {"virtual_func", _wrap_ProfileBase_virtual_func}, 
+    {"pure_virtual_func", _wrap_ProfileBase_pure_virtual_func}, 
     {0,0}
 };
 static swig_lua_attribute swig_ProfileBase_attributes[] = {
@@ -1682,7 +1713,7 @@ static swig_lua_attribute swig_ProfileBase_attributes[] = {
 };
 static swig_lua_class *swig_ProfileBase_bases[] = {0};
 static const char *swig_ProfileBase_base_names[] = {0};
-static swig_lua_class _wrap_class_ProfileBase = { "ProfileBase", &SWIGTYPE_p_ProfileBase,_wrap_new_ProfileBase, swig_delete_ProfileBase, swig_ProfileBase_methods, swig_ProfileBase_attributes, swig_ProfileBase_bases, swig_ProfileBase_base_names };
+static swig_lua_class _wrap_class_ProfileBase = { "ProfileBase", &SWIGTYPE_p_ProfileBase,0, swig_delete_ProfileBase, swig_ProfileBase_methods, swig_ProfileBase_attributes, swig_ProfileBase_bases, swig_ProfileBase_base_names };
 
 static int _wrap_new_ProfileAnotherBase(lua_State* L) {
   int SWIG_arg = 0;
@@ -1715,6 +1746,29 @@ static swig_lua_class *swig_ProfileAnotherBase_bases[] = {0};
 static const char *swig_ProfileAnotherBase_base_names[] = {0};
 static swig_lua_class _wrap_class_ProfileAnotherBase = { "ProfileAnotherBase", &SWIGTYPE_p_ProfileAnotherBase,_wrap_new_ProfileAnotherBase, swig_delete_ProfileAnotherBase, swig_ProfileAnotherBase_methods, swig_ProfileAnotherBase_attributes, swig_ProfileAnotherBase_bases, swig_ProfileAnotherBase_base_names };
 
+static int _wrap_ProfileDerived_pure_virtual_func(lua_State* L) {
+  int SWIG_arg = 0;
+  ProfileDerived *arg1 = (ProfileDerived *) 0 ;
+  
+  SWIG_check_num_args("pure_virtual_func",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("pure_virtual_func",1,"ProfileDerived *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ProfileDerived,0))){
+    SWIG_fail_ptr("ProfileDerived_pure_virtual_func",1,SWIGTYPE_p_ProfileDerived);
+  }
+  
+  (arg1)->pure_virtual_func();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
+
 static int _wrap_new_ProfileDerived(lua_State* L) {
   int SWIG_arg = 0;
   ProfileDerived *result = 0 ;
@@ -1737,6 +1791,7 @@ ProfileDerived *arg1 = (ProfileDerived *) obj;
 delete arg1;
 }
 static swig_lua_method swig_ProfileDerived_methods[] = {
+    {"pure_virtual_func", _wrap_ProfileDerived_pure_virtual_func}, 
     {0,0}
 };
 static swig_lua_attribute swig_ProfileDerived_attributes[] = {
@@ -1745,6 +1800,29 @@ static swig_lua_attribute swig_ProfileDerived_attributes[] = {
 static swig_lua_class *swig_ProfileDerived_bases[] = {0,0};
 static const char *swig_ProfileDerived_base_names[] = {"ProfileBase *",0};
 static swig_lua_class _wrap_class_ProfileDerived = { "ProfileDerived", &SWIGTYPE_p_ProfileDerived,_wrap_new_ProfileDerived, swig_delete_ProfileDerived, swig_ProfileDerived_methods, swig_ProfileDerived_attributes, swig_ProfileDerived_bases, swig_ProfileDerived_base_names };
+
+static int _wrap_ProfileMultiBases_virtual_func(lua_State* L) {
+  int SWIG_arg = 0;
+  ProfileMultiBases *arg1 = (ProfileMultiBases *) 0 ;
+  
+  SWIG_check_num_args("virtual_func",1,1)
+  if(!SWIG_isptrtype(L,1)) SWIG_fail_arg("virtual_func",1,"ProfileMultiBases *");
+  
+  if (!SWIG_IsOK(SWIG_ConvertPtr(L,1,(void**)&arg1,SWIGTYPE_p_ProfileMultiBases,0))){
+    SWIG_fail_ptr("ProfileMultiBases_virtual_func",1,SWIGTYPE_p_ProfileMultiBases);
+  }
+  
+  (arg1)->virtual_func();
+  
+  return SWIG_arg;
+  
+  if(0) SWIG_fail;
+  
+fail:
+  lua_error(L);
+  return SWIG_arg;
+}
+
 
 static int _wrap_new_ProfileMultiBases(lua_State* L) {
   int SWIG_arg = 0;
@@ -1768,13 +1846,14 @@ ProfileMultiBases *arg1 = (ProfileMultiBases *) obj;
 delete arg1;
 }
 static swig_lua_method swig_ProfileMultiBases_methods[] = {
+    {"virtual_func", _wrap_ProfileMultiBases_virtual_func}, 
     {0,0}
 };
 static swig_lua_attribute swig_ProfileMultiBases_attributes[] = {
     {0,0,0}
 };
 static swig_lua_class *swig_ProfileMultiBases_bases[] = {0,0,0};
-static const char *swig_ProfileMultiBases_base_names[] = {"ProfileBase *","ProfileAnotherBase *",0};
+static const char *swig_ProfileMultiBases_base_names[] = {"ProfileDerived *","ProfileAnotherBase *",0};
 static swig_lua_class _wrap_class_ProfileMultiBases = { "ProfileMultiBases", &SWIGTYPE_p_ProfileMultiBases,_wrap_new_ProfileMultiBases, swig_delete_ProfileMultiBases, swig_ProfileMultiBases_methods, swig_ProfileMultiBases_attributes, swig_ProfileMultiBases_bases, swig_ProfileMultiBases_base_names };
 
 #ifdef __cplusplus
@@ -1799,10 +1878,13 @@ static void *_p_ProfileMultiBasesTo_p_ProfileAnotherBase(void *x, int *SWIGUNUSE
     return (void *)((ProfileAnotherBase *)  ((ProfileMultiBases *) x));
 }
 static void *_p_ProfileMultiBasesTo_p_ProfileBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ProfileBase *)  ((ProfileMultiBases *) x));
+    return (void *)((ProfileBase *) (ProfileDerived *) ((ProfileMultiBases *) x));
 }
 static void *_p_ProfileDerivedTo_p_ProfileBase(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ProfileBase *)  ((ProfileDerived *) x));
+}
+static void *_p_ProfileMultiBasesTo_p_ProfileDerived(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ProfileDerived *)  ((ProfileMultiBases *) x));
 }
 static swig_type_info _swigt__p_ProfileAnotherBase = {"_p_ProfileAnotherBase", "ProfileAnotherBase *", 0, 0, (void*)&_wrap_class_ProfileAnotherBase, 0};
 static swig_type_info _swigt__p_ProfileBase = {"_p_ProfileBase", "ProfileBase *", 0, 0, (void*)&_wrap_class_ProfileBase, 0};
@@ -1820,7 +1902,7 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_ProfileAnotherBase[] = {  {&_swigt__p_ProfileAnotherBase, 0, 0, 0},  {&_swigt__p_ProfileMultiBases, _p_ProfileMultiBasesTo_p_ProfileAnotherBase, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ProfileBase[] = {  {&_swigt__p_ProfileMultiBases, _p_ProfileMultiBasesTo_p_ProfileBase, 0, 0},  {&_swigt__p_ProfileBase, 0, 0, 0},  {&_swigt__p_ProfileDerived, _p_ProfileDerivedTo_p_ProfileBase, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ProfileDerived[] = {  {&_swigt__p_ProfileDerived, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ProfileDerived[] = {  {&_swigt__p_ProfileMultiBases, _p_ProfileMultiBasesTo_p_ProfileDerived, 0, 0},  {&_swigt__p_ProfileDerived, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ProfileMultiBases[] = {  {&_swigt__p_ProfileMultiBases, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Set_get[] = {  {&_swigt__p_Set_get, 0, 0, 0},{0, 0, 0, 0}};
 
@@ -2141,3 +2223,13 @@ void SWIG_init_user(lua_State* L)
   SWIG_Lua_dostring(L,SWIG_LUACODE);
 }
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+	SWIGEXPORT void OOLUA_SWIG_pass_pointer_to_lua(lua_State* L,void* ptr,char* type ,int own)
+	{
+		SWIG_Lua_NewPointerObj(L,ptr,SWIG_TypeQueryModule(SWIG_Lua_GetModule(L),SWIG_Lua_GetModule(L),type),own);
+	}
+#ifdef __cplusplus
+}
+#endif
