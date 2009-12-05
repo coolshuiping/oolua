@@ -3,7 +3,7 @@ OOLua Binding Framework speed compared to other bindings.
 
 = Introduction =
 For these profile tests the following libraries were used:
- * Luabind 0.8.1
+ * Luabind 0.8.1 (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS)
  * OOLUA 1.2
  * Swig 1.3.40
 
