@@ -1,3 +1,5 @@
+1.2.2
+For some reason pushing and pulling a signed long gives the wrong result when using the templated method, yet inlining the code in the test gives the correct result.
 1.2.0
 added fields to Lua_ud which are used for comparison removing the metatable raw_equals.
 added name_size to proxy classes and updated the generation file to reflect changes.

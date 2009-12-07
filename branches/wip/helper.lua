@@ -29,7 +29,7 @@ function configure_for_os(package)
 		tinsert(package.defines, { "PLATFORM_CHECKED", "MAC_BUILD" , "USING_CPPUNIT" })
 		tinsert(package.buildoptions, { "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" })
 		package.linkoptions = { "-llua" }
-			printf("macosx")
+			--printf("macosx")
 	else
 		--memory is broken with cygwin g++3.4.4 ,"USING_LVD_MEMORY"		
 		tinsert(package.defines, { "PLATFORM_CHECKED"  , "UNIX_BUILD" , "USING_CPPUNIT" , "USING_LVD_MEMORY"})
