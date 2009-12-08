@@ -31,16 +31,16 @@ function configure_for_os()
 	configuration { "windows","codeblocks" }
 		buildoptions{ "-W -Wall -pedantic"}
 				
-	configuration { "macosx" }
-		defines { "PLATFORM_CHECKED", "MAC_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
+	--configuration { "macosx" }
+	--	defines { "PLATFORM_CHECKED", "MAC_BUILD" }
+	--	buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
-	configuration { "linux" }
-		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
+	--configuration { "linux" }
+	--	defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
+	--	buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
 	configuration("gmake")
-		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
+		defines{ "PLATFORM_CHECKED" , "UNIX_BUILD" }
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 
 end
