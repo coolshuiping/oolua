@@ -30,13 +30,14 @@ defines
 			"USING_GMOCK",
 			"OOLUA_STORE_ERROR"
 		}
-
+links
+	{
+		"oolua"
+	}
 
 	configuration { "vs*"}
 		postbuildcommands { "$(TargetPath)" }
-		libdirs {root .. "lib"}
-		links{"oolua"}
-		--linkoptions{ "lua51" }
+		links{"lua51"}
 		
 	configuration { "vs*","Debug"}
 		links{ "cppunitd" , "gmockd" }
@@ -45,10 +46,8 @@ defines
 		links{ "cppunit" , "gmock" }
 		
 	configuration {"codeblocks" }
-		links{"oolua"}
-		--linkoptions{ "-llua" }
 		postbuildcommands { "$(TARGET_OUTPUT_FILE)"}
-		libdirs {"-L".. root .. "lib"}
+		links{"lua"}
 				
 	configuration {"linux","codeblocks" }
 		libdirs {"-Lusr/local/lib","-Lusr/lib"}
@@ -62,8 +61,8 @@ defines
 		links{ "cppunit" , "gmock" }
 		
 	configuration {"gmake"}
-		libdirs{"-L" ..root .."lib","-Lusr/local/lib","-Lusr/lib"}
-		links { "oolua","lua","cppunit" }
+		libdirs{"-Lusr/local/lib","-Lusr/lib"}
+		links { "lua","cppunit" }
 		linkoptions {"`gmock-config --cxxflags --ldflags --libs`"}
 		
 	configuration {"gmake","Debug"}	

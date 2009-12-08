@@ -16,7 +16,6 @@ function configure_for_os()
 	configuration { "vs*" }
 		defines{ "WIN32" }
 		flags { "No64BitChecks"}
-		links{"lua51"}
 		
 	configuration{"vs*","Debug"}
 		buildoptions {"/Gm","/Zi"}
@@ -30,28 +29,19 @@ function configure_for_os()
 		buildoptions {"/GL"}
 
 	configuration { "windows","codeblocks" }
-		linkoptions { "lua" }
-		buildoptions{ "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" }
-		
+		buildoptions{ "-W -Wall -pedantic"}
+				
 	configuration { "macosx" }
 		defines { "PLATFORM_CHECKED", "MAC_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" }
-		linkoptions{ "-llua" }
+		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
 	configuration { "linux" }
 		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" }
-		linkoptions{ "-llua" }
-		
-	configuration { "linux","codeblocks"  }
-		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" }
-		linkoptions{ "-llua" }
+		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
 	configuration("gmake")
 		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }
-		buildoptions { "-W -Wall -ansi -pedantic -std=c++98 -Wno-long-long" }
-		linkoptions{ "-llua" }
+		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 
 end
 
