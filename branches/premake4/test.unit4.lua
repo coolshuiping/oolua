@@ -66,9 +66,9 @@ links
 		linkoptions {"`gmock-config --cxxflags --ldflags --libs`"}
 		
 	configuration {"gmake","Debug"}	
-		postbuildcommands = { root .. "bin/Debug/test.unit" }
+		postbuildcommands  { root .. "bin/Debug/test.unit" }
 		
 	configuration {"gmake","Release"}	
-		postbuildcommands = { root .. "bin/Release/test.unit" }
+		postbuildcommands { root .. "bin/Release/test.unit" }
 
 
