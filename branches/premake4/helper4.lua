@@ -57,12 +57,12 @@ function create_package(name,path_to_root,kind_)
 	end
 
   configuration{"Debug"}
-    targetdir(root.. "bin" .."/Debug")
- 		objdir(root.. "obj" .."/Debug")
+    targetdir(root.. "bin/Debug")
+ 		objdir(root.. "obj/")
 
   configuration{"Release"}
-    targetdir(root.. "bin"  .."/Release")
-    objdir(root.. "obj" .."/Release")
+    targetdir(root.. "bin/Release")
+    objdir(root.. "obj/")
     
 	configure_for_os()
 
