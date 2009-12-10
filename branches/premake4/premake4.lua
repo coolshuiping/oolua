@@ -14,6 +14,7 @@ solution("oolua")
 
 
 dofile("./oolua4.lua")
-dofile("./test.unit4.lua")
-dofile("./file_generator/premake4.lua")
-dofile("./profile/premake4.lua")
+include("./unit_tests/")
+include("./file_generator/")
+include("./profile/")
+
