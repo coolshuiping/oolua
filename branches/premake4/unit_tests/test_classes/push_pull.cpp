@@ -26,7 +26,7 @@ namespace
 	void assert_result_equals_numeric_limits_max(OOLUA::Script * lua)
 	{
 		T input((std::numeric_limits<T >::max)());
-		T result((std::numeric_limits<T >::min)());
+		T result(0);
 		push_then_pull(lua,input,result);
 		CPPUNIT_ASSERT_EQUAL(input, result);
 	}
@@ -34,17 +34,12 @@ namespace
 	void assert_result_equals_numeric_limits_min(OOLUA::Script * lua)
 	{
 		T input((std::numeric_limits<T >::min)());
-		T result((std::numeric_limits<T >::max)());
+		T result(0);
 		push_then_pull(lua,input,result);
 		CPPUNIT_ASSERT_EQUAL(input, result);
 	}
 	const float epsilon_value(.0000001f);
 
-//	int throw_OOLUA_Runtime_at_panic(lua_State* s)
-//	{
-//		//throw OOLUA::Runtime_error(s);
-//		throw std::runtime_error();
-//	}
 }
 enum ENUM{FIRST_VALUE = 123,SECOND_VALUE = 51};
 
