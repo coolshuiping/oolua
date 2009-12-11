@@ -54,10 +54,10 @@ links
 		linkoptions{"`gmock-config --cxxflags --ldflags --libs`"}
 
 	configuration {"windows","codeblocks","Debug" }
-		links{ "cppunitd" , "gmockd" }
+		links{ "lua", "cppunitd" , "gmockd" }
 		
 	configuration {"windows","codeblocks","Release" }	
-		links{ "cppunit" , "gmock" }
+		links{ "lua", "cppunit" , "gmock" }
 		
 	configuration {"gmake or xcode3","Debug"}	
 		postbuildcommands  { root .. "bin/Debug/test.unit" }
