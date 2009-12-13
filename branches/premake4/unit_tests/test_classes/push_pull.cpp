@@ -168,7 +168,7 @@ public:
 	{
 		signed long input((std::numeric_limits<signed long >::max)());
 		lua_pushinteger(*m_lua, input );
-		signed long result =  lua_tonumber( *m_lua, -1);
+		signed long result =  lua_tointeger( *m_lua, -1);
 		CPPUNIT_ASSERT_EQUAL(input, result);
 	}
 	void pushPull_pushUnsignedLongMax_pulledValueEqualsUnsignedLongMax()
