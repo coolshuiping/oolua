@@ -78,7 +78,10 @@ class PushPull : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(pushPull_pushEnum_resultEqualsPushedValue);
 
 		CPPUNIT_TEST(pushpull_pushClassPointer_resultAddressEqualsPushValue);
+	
+		CPPUNIT_TEST(usingRawLua_pushSignedLongMax_pulledValueEqualsSignedLongMax_currentlyFails);
 
+	
 		//CPPUNIT_TEST(pull_pullIncorrectClassType_throwStdRuntimeError);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -161,6 +164,13 @@ public:
 	{
 		assert_result_equals_numeric_limits_max<signed long>(m_lua);
 	}
+	void usingRawLua_pushSignedLongMax_pulledValueEqualsSignedLongMax_currentlyFails()
+	{
+		signed long input((std::numeric_limits<signed long >::max)());
+		lua_pushinteger(*m_lua, input );
+		signed long result =  lua_tonumber( *m_lua, -1);
+		CPPUNIT_ASSERT_EQUAL(input, result);
+	}
 	void pushPull_pushUnsignedLongMax_pulledValueEqualsUnsignedLongMax()
 	{
 		assert_result_equals_numeric_limits_max<unsigned long>(m_lua);
@@ -218,6 +228,8 @@ public:
 		push_then_pull(m_lua,input,result);
 		CPPUNIT_ASSERT_EQUAL(input, result);
 	}
+	
+	
 //	void pull_pullIncorrectClassType_throwStdRuntimeError()
 //	{
 //		m_lua->register_class<Stub1>();
