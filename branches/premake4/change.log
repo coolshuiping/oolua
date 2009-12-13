@@ -1,6 +1,6 @@
 1.2.2
 *1.2.1 is skipped due to packaging error with 1.2.0
-*Converted premake scripts to premake4 (Xcode error when linking gmock needs fixing)
+*Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 
 lua_Cfunction which requires less usage of the Lua stack. 
 *moved Luna licence to a more suitable section of code
@@ -8,6 +8,9 @@ lua_Cfunction which requires less usage of the Lua stack.
 *removed dead code from class_from_stack.h
 *added setting a user data's none const name whilst changing it's constant status in set_type_top_to_none_const to 
 prevent potentail errors. As the name and none constant name use a pointer compare when checking for constant status.
+*added xcode support, tests required linking gtest and gmock normally i.e. -lgmock instead of gmock specified way gmock config - *
+*added xcode test unit bash build script.
+*build logs directed to there own directory
 1.2.0
 added fields to Lua_ud which are used for comparison removing the metatable raw_equals.
 added name_size to proxy classes and updated the generation file to reflect changes.

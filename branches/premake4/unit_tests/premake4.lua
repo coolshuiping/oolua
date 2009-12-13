@@ -1,39 +1,41 @@
 --OOLua test.unit
 local root = "../"
-create_package("test.unit",root,"ConsoleApp")
+local name = "test.unit"
+create_package(name,root,"ConsoleApp")
 
 
 configuration {}
 
 files 
-		{ 
+{ 
     	"./**.h",
     	"./**.cpp"
-		}
+}
 includedirs 
-		{
-			"include/cppunit",
-			"include/gmock",
-			"include/lua",
-			"include/",
-			root .. "include/",
-			"/usr/local/include",
-			"/usr/include",
-			"./bind_classes",
-			"./cpp_classes",
-			"./test_classes"
-		} 
+{
+	"include/cppunit",
+	"include/gmock",
+	"include/lua",
+	"include/",
+	root .. "include/",
+	"/usr/local/include",
+	"/usr/include",
+	"./bind_classes",
+	"./cpp_classes",
+	"./test_classes"
+} 
 					
 defines 
-		{
-			"USING_CPPUNIT",
-			"USING_GMOCK",
-			"OOLUA_STORE_ERROR"
-		}
+{
+	"USING_CPPUNIT",
+	"USING_GMOCK",
+	"OOLUA_STORE_ERROR"
+}
+
 links
-	{
-		"oolua"
-	}
+{
+	"oolua"
+}
 
 	configuration { "vs*"}
 		postbuildcommands { "$(TargetPath)" }
@@ -48,10 +50,16 @@ links
 	configuration {"codeblocks" }
 		postbuildcommands { "$(TARGET_OUTPUT_FILE)"}
 				
-	configuration {"gmake or codeblocks or xcode3","linux or macosx" }
-		libdirs {"-Lusr/local/lib","-Lusr/lib", "L"..root.."bin/Debug/"}
+
+	configuration {"gmake or codeblocks","linux or macosx" }
+		libdirs {"usr/local/lib","usr/lib"}
 		links{ "cppunit", "lua" }
 		linkoptions{"`gmock-config --cxxflags --ldflags --libs`"}
+
+	configuration {"xcode3" }
+		libdirs {"usr/local/lib","usr/lib"}
+		links{ "gmock","gtest","cppunit", "lua" }
+		postbuildcommands {"$TARGET_BUILD_DIR/$TARGET_NAME"}
 
 	configuration {"windows","codeblocks","Debug" }
 		links{ "lua", "cppunitd" , "gmockd" }
@@ -59,10 +67,10 @@ links
 	configuration {"windows","codeblocks","Release" }	
 		links{ "lua", "cppunit" , "gmock" }
 		
-	configuration {"gmake or xcode3","Debug"}	
-		postbuildcommands  { root .. "bin/Debug/test.unit" }
+	configuration {"gmake","Debug"}	
+		postbuildcommands  { root .. "bin/Debug/" .. name }
 		
-	configuration {"gmake or xcode3","Release"}	
-		postbuildcommands { root .. "bin/Release/test.unit" }
+	configuration {"gmake","Release"}	
+		postbuildcommands { root .. "bin/Release/" .. name }
 
 
