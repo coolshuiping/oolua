@@ -15,6 +15,7 @@ solution("oolua")
 
 dofile("./oolua4.lua")
 include("./unit_tests/")
+include("./tests_may_fail/")
 include("./file_generator/")
 include("./profile/")
 
