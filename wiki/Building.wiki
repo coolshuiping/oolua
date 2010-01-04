@@ -1,4 +1,4 @@
-Building Makefiles or IDE projects
+Building Makefiles or IDE projects (version 1.2.2 or greater, currently not released as a download).
 <wiki:toc max_depth="4" />
 
 = Details =
