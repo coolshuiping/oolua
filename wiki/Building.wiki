@@ -1,0 +1,52 @@
+Building Makefiles or IDE projects
+<wiki:toc max_depth="4" />
+
+= Details =
+
+OOLUA's source and header files can added to your project or be compiled as a static library. To compile as a static library or to run the [UnitTests], [http://industriousone.com/premake Premake] version 4 is the recommended method to generate make files/IDE projects. This can either be accomplish using the following details or using the pre-existing bash or bat files [Building#Build_Scripts]. 
+
+
+= Build_Scripts =
+Run a bash file (.sh) or bat (.bat) file of your choice in the root directory, these
+will produce output saved to disk located in a directory create (build_logs). This is the compiler output, and [UnitTests] results if selected.
+
+==Premake Format==
+{{{
+premake4 [make or IDE] [target operation system]
+}}}
+
+== Makefile == 
+{{{
+premake4 gmake []
+}}}
+  * macosx 
+  * linux
+
+== Xcode ==
+{{{
+premake4 xcode3 macosx
+}}}
+*macosx is required*
+
+== Visual Studio ==
+{{{
+premake4 vs[] windows
+}}}
+*windows is required*
+  * 2005
+  * 2008
+  * 2010
+
+== CodeBlocks ==
+{{{
+premake4 codeblocks []
+}}}
+  * windows
+  * linux
+  * macosx
+
+= Further Premake Details =
+See [http://industriousone.com/premake Premake] for options or type
+{{{
+premake4 --help
+}}}
