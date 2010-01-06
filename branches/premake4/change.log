@@ -15,6 +15,8 @@ prevent potentail errors. As the name and none constant name use a pointer compa
 this fails soft on an error i.e. returns 0 from main not 1. moved effected 
 tests (pushing and pulling signed int and signed long)to the new test project.
 *changed bash build scripts to run the tests_may_fail swell as unit.tests
+*added comment in lua_includes.h for mingw users
+*added a readme with details of library as many download locations are now available
 1.2.0
 added fields to Lua_ud which are used for comparison removing the metatable raw_equals.
 added name_size to proxy classes and updated the generation file to reflect changes.

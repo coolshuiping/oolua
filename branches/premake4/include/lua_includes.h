@@ -13,20 +13,16 @@ extern "C"
 #	include "lua/lua.h"
 #	include "lua/lauxlib.h"
 #	include "lua/lualib.h"
-#elif defined __MINGW32__
+#elif defined __MINGW32__ //you may need to change this
 #	include "lua/lua.h"
 #	include "lua/lauxlib.h"
 #	include "lua/lualib.h"
 #elif defined __GNUC__
-//just for portable codeblocks
 #	include "lua.h"
 #	include "lauxlib.h"
 #	include "lualib.h"
 #endif
 
-//#	include "lua.h"
-//#	include "lauxlib.h"
-//#	include "lualib.h"
 }
 
 #endif //LUA_INCLUDES_H_
