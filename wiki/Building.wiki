@@ -37,7 +37,7 @@ premake4 vs[] windows
   * 2008
   * 2010
 
-== CodeBlocks ==
+== Code::Blocks ==
 {{{
 premake4 codeblocks []
 }}}
