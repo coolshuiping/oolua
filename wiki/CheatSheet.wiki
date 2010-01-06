@@ -26,11 +26,11 @@ struct foo
 
 OOLUA_CLASS_NO_BASES(foo)//class has no bases
     OOLUA_NO_TYPEDEFS
-    OOLUA_MEM_FUN_0(int,bar)
+    OOLUA_MEM_FUNC_0(int,bar)
 OOLUA_CLASS_END
 }}}
 
-The line "OOLUA_MEM_FUN_0(int,bar)" tells the binding that the function takes no parameters, returns an int and the functions name is bar.
+The line "OOLUA_MEM_FUNC_0(int,bar)" tells the binding that the function takes no parameters, returns an int and the functions name is bar.
 
 Then in a source file expose the class telling the framework that the instance has a function of interest yet no constant member functions, also providing the name it will be identified by in Lua code(foo).
 {{{
@@ -48,7 +48,7 @@ struct foo
 
 OOLUA_CLASS_NO_BASES(foo)
     OOLUA_NO_TYPEDEFS
-    OOLUA_MEM_FUN_1(int/*return type*/
+    OOLUA_MEM_FUNC_1(int/*return type*/
                    ,bar/*function name*/
                    ,float)/*parameter type*/
 OOLUA_CLASS_END
@@ -68,7 +68,7 @@ struct foo
 
 OOLUA_CLASS_NO_BASES(foo)//class has no bases
     OOLUA_TYPEDEFS Abstract OOLUA_END_TYPES/*tell the framework it is abstract*/
-    OOLUA_MEM_FUN_0(int,bar)
+    OOLUA_MEM_FUNC_0(int,bar)
 OOLUA_CLASS_END
 }}}
 
