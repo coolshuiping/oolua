@@ -17,6 +17,8 @@ tests (pushing and pulling signed int and signed long)to the new test project.
 *changed bash build scripts to run the tests_may_fail swell as unit.tests
 *added comment in lua_includes.h for mingw users
 *added a readme with details of library as many download locations are now available
+* fixed passing a c style string to a member function bug as reported by airbash http://code.google.com/p/oolua/issues/detail?id=8
+* fixed a corresponding bug of a member function which returns a c style string.
 1.2.0
 added fields to Lua_ud which are used for comparison removing the metatable raw_equals.
 added name_size to proxy classes and updated the generation file to reflect changes.
