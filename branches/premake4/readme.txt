@@ -15,7 +15,7 @@ Twitter Account : http://twitter.com/OOLua
 Requirements
 ------------
 Makefiles or IDE Projects
-(version 4) http://industriousone.com/premake 
+(version 4.2) http://industriousone.com/premake 
 Unit Tests
 http://sourceforge.net/apps/mediawiki/cppunit/
 http://code.google.com/p/googlemock/

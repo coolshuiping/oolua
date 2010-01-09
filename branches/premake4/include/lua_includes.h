@@ -1,7 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///  @file lua_includes.h
-///  Prevents name mangling
-///
+///  Prevents name mangling and compatbilty for new Lua versions
 ///  @author Liam Devine
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef LUA_INCLUDES_H_
@@ -24,5 +23,10 @@ extern "C"
 #endif
 
 }
+
+#if LUA_VERSION_NUM == 502 || LUA_VERSION_NUM > 502
+//LUA_GLOBALSINDEX is deprecated and removed
+#	define LUA_GLOBALSINDEX  LUA_ENVIRONINDEX
+#endif
 
 #endif //LUA_INCLUDES_H_
