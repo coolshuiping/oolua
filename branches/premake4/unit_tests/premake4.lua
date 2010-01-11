@@ -73,4 +73,7 @@ links
 	configuration {"gmake","Release"}	
 		postbuildcommands { root .. "bin/Release/" .. name }
 
+	configuration {"linux" }
+		links{ "dl" }
+
 

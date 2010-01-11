@@ -24,6 +24,9 @@ tests (pushing and pulling signed int and signed long)to the new test project.
 * renamed gnu build script to gnu_tests.sh to reflect what it is doing
 * added gnu_build.sh for building a local install
 * added xcode_build.sh for building a local install
+* added codeblocks_build.sh for building a local install
+* renamed codeblocks_premake4.sh to codeblocks_tests.sh to reflect what it is doing
+* added dl to link flags for unit tests in linux builds
 
 1.2.1
 * was actually 1.2.0 yet due to a packaging error had to be incremented.

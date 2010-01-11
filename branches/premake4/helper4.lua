@@ -32,10 +32,10 @@ function configure_for_os()
 		buildoptions{ "-W -Wall -pedantic"}
 
 	configuration { "macosx" }
-		defines{ "PLATFORM_CHECKED" , "UNIX_BUILD" }
+		defines{ "PLATFORM_CHECKED" , "MAC_BUILD" }
 
 	configuration { "linux" }
-		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }	
+		defines{ "PLATFORM_CHECKED" , "UNIX_BUILD" }	
 		
 	configuration { "codeblocks", "linux or macosx" }
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
