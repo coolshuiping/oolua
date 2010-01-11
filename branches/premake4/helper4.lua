@@ -35,7 +35,8 @@ function configure_for_os()
 		defines{ "PLATFORM_CHECKED" , "UNIX_BUILD" }
 
 	configuration { "linux" }
-		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }				
+		defines{ "PLATFORM_CHECKED" , "LINUX_BUILD" }	
+		
 	configuration { "codeblocks", "linux or macosx" }
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
@@ -67,3 +68,4 @@ function create_package(name,path_to_root,kind_)
 
 	includepaths = { root.."include" }
 end
+

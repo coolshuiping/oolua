@@ -20,6 +20,13 @@ tests (pushing and pulling signed int and signed long)to the new test project.
 * fixed a corresponding bug of a member function which returns a c style string.
 * added define in lua_includes.h to support Lua 5.2 and 5.1.4 simultaneously 
 * fixed typo in xcode_premake4.sh
+* adjusted premake recursive file inclusion to offset premake4.2 problem
+* renamed gnu build script to gnu_tests.sh to reflect what it is doing
+* added gnu_build.sh for building a local install
+* added xcode_build.sh for building a local install
+
+1.2.1
+* was actually 1.2.0 yet due to a packaging error had to be incremented.
 1.2.0
 added fields to Lua_ud which are used for comparison removing the metatable raw_equals.
 added name_size to proxy classes and updated the generation file to reflect changes.

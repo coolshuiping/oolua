@@ -14,17 +14,27 @@ Twitter Account : http://twitter.com/OOLua
 
 Requirements
 ------------
-Makefiles or IDE Projects
+Makefiles, IDE Projects and use of Build Scripts
 (version 4.2) http://industriousone.com/premake 
-Unit Tests
+
+Additionaly for Unit Tests or use of Test Unit Scripts
 http://sourceforge.net/apps/mediawiki/cppunit/
 http://code.google.com/p/googlemock/
 
 Compile Scripts
 ---------------
-Run a bash file (.sh) or bat (.bat) file of your choice in the root directory, these will produce
-output saved to disk located in a directory create (build_logs). This is the compiler output, and 
-UnitTests results if selected.
+Two type of scripts are present test unit scripts and build scripts.
+Test Unit Scripts:
+Naming is of the format [make or IDE]_test.[sh or bat] when run in the root directory these will 
+produce compiler and test unit result output saved to disk located in a directory create named 
+"build_logs". These scripts clean up any other files produced during there running.
+
+Build Scripts:
+Naming is of the format [make of IDE]_build.[sh or bat] when run in the root directory it compiles
+the library debug and release versions. These static libraries can be found in the "local_install" 
+directory along with copies of the header files in a directory below this named "oolua". All other
+files created during the running are deleted.
+
 
 
 Building Makefiles or IDE projects.
@@ -32,7 +42,7 @@ Building Makefiles or IDE projects.
 OOLUA's source and header files can added to your project or be compiled as a static library.
 To compile as a static library or to run the UnitTests, Premake version 4 is the recommended 
 method to generate make files/IDE projects. This can either be accomplish using the following 
-details or using the pre-existing bash or bat files(Compile Scripts). 
+details or using the pre-existing bash or bat files( see Compile Scripts). 
 
 
 Premake Format

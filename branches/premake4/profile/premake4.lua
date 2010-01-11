@@ -6,9 +6,9 @@ configuration {}
 
 files 
 { 
-	"./**.h",
-	"./**.hpp",
-	"./**.cpp"
+	"**.h",
+	"**.hpp",
+	"**.cpp"
 }
 
 includedirs 
@@ -38,6 +38,6 @@ links
 	configuration { "vs*"}
 		links{"lua51"}
 
-	configuration { "gmake or linux or macosx or codeblocks"}
+	configuration { "gmake or linux or macosx or xcode3 or codeblocks"}
 		links{"lua"}
 

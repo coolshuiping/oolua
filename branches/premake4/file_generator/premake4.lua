@@ -5,8 +5,8 @@ configuration {}
 
 files 
 { 
-    	"./*.h",
-    	"./*.cpp"
+    	"*.h",
+    	"*.cpp"
 }
 includedirs 
 {
