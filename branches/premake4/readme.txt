@@ -25,7 +25,7 @@ Compile Scripts
 ---------------
 Two type of scripts are present test unit scripts and build scripts.
 Test Unit Scripts:
-Naming is of the format [make or IDE]_test.[sh or bat] when run in the root directory these will 
+Naming is of the format [make or IDE]_tests.[sh or bat] when run in the root directory these will 
 produce compiler and test unit result output saved to disk located in a directory create named 
 "build_logs". These scripts clean up any other files produced during there running.
 
