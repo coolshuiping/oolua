@@ -13,22 +13,23 @@ http://code.google.com/p/googlemock/
 = Compile_Scripts =
 Two type of scripts are present test unit scripts and build scripts.
 Test Unit Scripts:
-Naming is of the format [make or IDE]_tests.[sh or bat] when run in the root directory these will 
-produce compiler and test unit result output saved to disk located in a directory create named 
-"build_logs". These scripts clean up any other files produced during there running.
+Naming is of the format 
+{{{
+[make or IDE]_tests.[sh or bat]
+}}}
+when run in the root directory these will produce compiler and test unit result output saved to disk located in a directory create named "build_logs". These scripts clean up any other files produced during there running.
 
 = Build_Scripts =
-Naming is of the format [make of IDE]_build.[sh or bat] when run in the root directory it compiles
-the library debug and release versions. These static libraries can be found in the "local_install" 
-directory along with copies of the header files in a directory below this named "oolua". All other
-files created during the running are deleted.
+Naming is of the format
+{{{
+[make of IDE]_build.[sh or bat]
+}}}
+when run in the root directory it compiles the library debug and release versions. These static libraries can be found in the "local_install" directory along with copies of the header files in a directory below this named "oolua". All otherfiles created during the running are deleted.
  
 
 = Building Makefiles or IDE projects =
 OOLUA's source and header files can added to your project or be compiled as a static library.
-To compile as a static library or to run the UnitTests, Premake version 4 is the recommended 
-method to generate make files/IDE projects. This can either be accomplish using the following 
-details or using the pre-existing bash or bat files( see Compile_Scripts). 
+To compile as a static library or to run the UnitTests, Premake version 4 is the recommended method to generate make files/IDE projects. This can either be accomplish using the following details or using the pre-existing bash or bat files( see Compile_Scripts). 
 
 ==Premake Format==
 {{{
