@@ -27,6 +27,10 @@ tests (pushing and pulling signed int and signed long)to the new test project.
 * added codeblocks_build.sh for building a local install
 * renamed codeblocks_premake4.sh to codeblocks_tests.sh to reflect what it is doing
 * added dl to link flags for unit tests in linux builds
+* added vs2008x86_build.bat for building a local install
+* renamed vs2008x86_premake4.bat to vs2008x86_tests.bat to reflect what it is doing
+* added codeblocks_build.bat for building a local install
+* renamed codeblocks_premake4.bat to codeblocks_tests.bat to reflect what it is doing
 
 1.2.1
 * was actually 1.2.0 yet due to a packaging error had to be incremented.
