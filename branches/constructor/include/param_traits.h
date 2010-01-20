@@ -732,6 +732,43 @@ namespace OOLUA
 	};
 
 
+	template<typename T>
+	struct Converter<T,T const>
+	{
+		Converter(T& t):m_t(t){}
+		operator T () const
+		{
+			return m_t;
+		}
+		Converter& operator =(Converter const &);
+		Converter(Converter const &);
+		T const & m_t;
+	};
+	
+	template<typename T>
+	struct Converter<T,T const*>
+	{
+		Converter(T & t):m_t(&t){}
+		operator T const*&()
+		{
+			return m_t;
+		}
+		Converter& operator =(Converter const &);
+		Converter(Converter const &);
+		T const* m_t;
+	};
+	template<typename T>
+	struct Converter<T,T const *const>
+	{
+		Converter(T& t):m_t(&t){}
+		operator T*const &() const
+		{
+			return m_t;
+		}
+		Converter& operator =(Converter const &);
+		Converter(Converter const &);
+		T* m_t;
+	};
 	///////////////////////////////////////////////////////////////////////////////
 	///  Specialisation for C style strings
 	///////////////////////////////////////////////////////////////////////////////

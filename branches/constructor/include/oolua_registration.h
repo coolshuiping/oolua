@@ -35,6 +35,7 @@
 #include "oolua_storage.h"
 #include "base_checker.h"
 #include "oolua_char_arrays.h"
+#include "oolua_construct.h"
 
 namespace OOLUA
 {
@@ -47,7 +48,7 @@ namespace OOLUA
 
 	namespace INTERNAL
 	{
-		template<typename T>int create_type(lua_State * /*const*/ l);
+		//template<typename T>int create_type(lua_State * /*const*/ l);
 		template<typename T>int garbage_collect(lua_State * /*const*/ l);
 		template<typename T>int set_methods(lua_State*  /*const*/ l);
 		template<typename T>int set_const_methods(lua_State*  /*const*/ l,int none_const_methods,int none_const_mt);
@@ -71,9 +72,9 @@ namespace OOLUA
 			ud->none_const_name = (char*)Proxy_class<T>::class_name;
 			return 0;
 		}
-
+		/*
 		template<typename T>
-		inline int create_type(lua_State * /*const*/ l)
+		inline int create_type(lua_State *  l)
 		{
 			lua_remove(l, 1);
 			T* obj = new T;
@@ -81,6 +82,8 @@ namespace OOLUA
 			ud->gc = true;
 			return 1;
 		}
+		*/
+		
 		template<typename T>
 		int delete_type(lua_State * /*const*/ l)
 		{
@@ -286,11 +289,29 @@ namespace OOLUA
 		{
 			static void set(lua_State*  const l, int methods)
 			{
+				//push_char_carray(l,new_str);
+				//lua_pushcfunction(l, &INTERNAL::default_constructor<T>);
+				//lua_pushcfunction(l, &T::oolua_factory_function);
+				//lua_settable(l, methods);
+				// methods["new"] = create_type
+				set_(l,methods,LVD::Int2type< has_typedef< Proxy_class<T>,Has_new_type_constructors >::Result >() );
+			}
+		private:
+			static void set_(lua_State*  const l, int methods,LVD::Int2type<0> /*old new method*/)
+			{
 				push_char_carray(l,new_str);
-				lua_pushcfunction(l, &INTERNAL::create_type<T>);
+				lua_pushcfunction(l, &INTERNAL::default_constructor<T>);
 				lua_settable(l, methods);
 				// methods["new"] = create_type
 			}
+			static void set_(lua_State*  const l, int methods,LVD::Int2type<1> /*newer new method*/)
+			{
+				push_char_carray(l,new_str);
+				lua_pushcfunction(l, &OOLUA::Proxy_class<T>::oolua_factory_function);
+				lua_settable(l, methods);
+				// methods["new"] = create_type
+			}
+			
 		};
 
 		template<typename T>

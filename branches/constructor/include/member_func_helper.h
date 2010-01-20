@@ -4,13 +4,8 @@
 ///  @author Liam Devine
 ///  @email
 ///  See http://www.liamdevine.co.uk for contact details.
-///  @licence
-///  This work is licenced under a Creative Commons Licence. \n
-///  see: \n
-///  http://creativecommons.org/licenses/by-nc-sa/3.0/ \n
-///  and: \n
-///  http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode \n
-///  For more details.
+///  @licence 
+///  See licence.txt for more details. \n 
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef MEMBER_FUNC_HELPER_H_
 #	define MEMBER_FUNC_HELPER_H_
