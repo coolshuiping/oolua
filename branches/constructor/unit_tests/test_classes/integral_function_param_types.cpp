@@ -16,6 +16,7 @@ namespace
 		virtual void int_const_ref(int const&) = 0;
 		virtual void int_const_ptr(int const* i) = 0;
 		virtual void int_const_ptr_const(int const * const) = 0;
+		virtual void bool_(bool b) = 0;
 	};
 
 	class MockInt : public Int_params 
@@ -28,9 +29,11 @@ namespace
 		MOCK_METHOD1(int_const_ref,void (int const&) );
 		MOCK_METHOD1(int_const_ptr,void (int const*) );
 		MOCK_METHOD1(int_const_ptr_const,void (int const * const) );
+		MOCK_METHOD1(bool_,void (bool) );
 	};
 	
 	int int_set_value =1;
+	bool bool_set_value= true;
 
 }
 
@@ -43,16 +46,18 @@ OOLUA_CLASS_NO_BASES(Int_params)
 	OOLUA_MEM_FUNC_1(void, int_const_ref,int const& )
 	OOLUA_MEM_FUNC_1(void, int_const_ptr,int const*  )
 	OOLUA_MEM_FUNC_1(void, int_const_ptr_const,int const * const )
+	OOLUA_MEM_FUNC_1(void, bool_,bool)
 OOLUA_CLASS_END
 
-EXPORT_OOLUA_FUNCTIONS_7_NON_CONST(Int_params
+EXPORT_OOLUA_FUNCTIONS_8_NON_CONST(Int_params
 								   ,int_
 								   ,int_ref
 								   ,int_ptr
 								   ,int_const
 								   ,int_const_ref
 								   ,int_const_ptr
-								   ,int_const_ptr_const)
+								   ,int_const_ptr_const
+								   ,bool_)
 								
 EXPORT_OOLUA_FUNCTIONS_0_CONST(Int_params)
 
@@ -78,6 +83,7 @@ class Integral_params : public CppUnit::TestFixture
 	CPPUNIT_TEST(int_intConstRefParam_calledOnceWithCorrectParam);
 	CPPUNIT_TEST(int_intConstPtrParam_calledOnceWithCorrectParam);
 	CPPUNIT_TEST(int_intConstPtrConstParam_calledOnceWithCorrectParam);
+	CPPUNIT_TEST(int_boolParam_calledOnceWithCorrectParam);
 	CPPUNIT_TEST_SUITE_END();
 	
 	OOLUA::Script* m_lua;
@@ -162,6 +168,14 @@ public:
 					int_const_ptr_const( ::testing::Pointee(int_set_value ) ) )
 					.Times(1);
 		generate_run_and_call("int_const_ptr_const");
+	}
+	void int_boolParam_calledOnceWithCorrectParam()
+	{
+		EXPECT_CALL(m_helper->mock,
+					bool_( ::testing::Eq(bool_set_value ) ) )
+		.Times(1);
+		std::string func = generate_and_run_chunk_for_the_function_named("bool_");
+		m_lua->call(func,m_helper->mockBase,bool_set_value);
 	}
 };
 CPPUNIT_TEST_SUITE_REGISTRATION(Integral_params);

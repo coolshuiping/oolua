@@ -78,28 +78,6 @@ namespace OOLUA
 		*/
 		
 		
-		template<typename T>
-		struct Is_lua_number_type
-		{
-			typedef Type_list<
-			char,unsigned char, signed char,
-			short,unsigned short, signed short,
-			int,unsigned int, signed int,
-			long, unsigned long, signed long, LVD::int64, LVD::uint64,
-			float,
-			double, long double>::type Lua_number;
-			enum {value = TYPELIST::IndexOf<Lua_number,T>::value == -1 ? 0 : 1};
-		};
-		
-		template<typename T>
-		struct Is_lua_string_type
-		{
-			typedef Type_list<
-							char*,std::string
-							>::type Lua_string;
-			enum {value = TYPELIST::IndexOf<Lua_string,T>::value == -1 ? 0 : 1};
-		};
-		
 		template<typename Cpp_type,int Lua_type>
 		struct lua_type_is_cpp_type;
 		
@@ -131,74 +109,83 @@ namespace OOLUA
 			enum {value = LVD::is_same<bool,Cpp_type>::value};
 		};
 		
+		
+		template<typename ParamWithTraits>
+		int param_is_of_type(int const& lua_stack_type)
+		{
+			switch (lua_stack_type) 
+			{
+				case LUA_TBOOLEAN:
+					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TBOOLEAN>::value;
+					break;
+				case LUA_TNUMBER:
+					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TNUMBER>::value;
+					break;
+				case LUA_TSTRING:
+					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TSTRING>::value;
+				default:
+					return 0;
+					break;
+			}
+		}
+		
 		template<typename Class,typename Param1WithTraits,typename Param1>
 		struct Constructor1<Class,Param1WithTraits,Param1,1>
 		{
 			static int construct(lua_State* l)
 			{
-				int type = lua_type(l,1);
-//				switch (type) {
-//					case LUA_TBOOLEAN:
-//						return if_valid_construct_else_return_0<LUA_TBOOLEAN>(l);
-//						break;
-//					case LUA_TNUMBER:
-//						return if_valid_construct_else_return_0<LUA_TNUMBER>(l);
-//						break;
-//					case LUA_TSTRING:
-//						return if_valid_construct_else_return_0<LUA_TSTRING>(l);
-//						break;
-//					default:
-//						return 0;
-//						break;
-//				}
-				
-				if( type == LUA_TBOOLEAN && lua_type_is_cpp_type<typename Param1WithTraits::raw_type,LUA_TBOOLEAN>::value )
+				int type1 = lua_type(l,1);
+				if( param_is_of_type<Param1WithTraits>(type1) )
 				{
-					typename Param1WithTraits::pull_type p1;
-					OOLUA::Member_func_helper<Param1WithTraits,Param1WithTraits::owner>::pull2cpp(l,p1);
-					OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type /*Param1*/> p1_(p1);
-					Class* obj = new Class( p1_ );
-					OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-					ud->gc = true;
+					valid_construct(l);
 					return 1;
 				}
-				if( type == LUA_TNUMBER  && lua_type_is_cpp_type<typename Param1WithTraits::raw_type,LUA_TNUMBER>::value )
-				{
-					typename Param1WithTraits::pull_type p1;
-					OOLUA::Member_func_helper<Param1WithTraits,Param1WithTraits::owner>::pull2cpp(l,p1);
-					OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type /*Param1*/> p1_(p1);
-					Class* obj = new Class( p1_ );
-					OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-					ud->gc = true;
-					return 1;
-				}
-				if( type == LUA_TSTRING && lua_type_is_cpp_type<typename Param1WithTraits::raw_type,LUA_TSTRING>::value )
-				{
-					typename Param1WithTraits::pull_type p1;
-					OOLUA::pull2cpp(l,p1);
-					OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type > p1_(p1);
-					Class* obj = new Class( p1_ );
-					OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-					ud->gc = true;
-					return 1;
-				}
-
 				return 0;
 			}
-			template<int LuaType>
-			static int if_valid_construct_else_return_0(lua_State* l)
+			static void valid_construct(lua_State* l)
 			{
-				if( lua_type_is_cpp_type<typename Param1WithTraits::raw_type,LuaType>::value )
-				{
-					typename Param1WithTraits::pull_type p1;
-					OOLUA::Member_func_helper<Param1WithTraits,Param1WithTraits::owner>::pull2cpp(l,p1);
-					OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::typeintegral  /*Param1*/> p1_(p1);
-					Class* obj = new Class( p1_ );
-					OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-					ud->gc = true;
+				typename Param1WithTraits::pull_type p1;
+				OOLUA::Member_func_helper<Param1WithTraits,Param1WithTraits::owner>::pull2cpp(l,p1);
+				OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
+				Class* obj = new Class( p1_ );
+				OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
+				ud->gc = true;				
+			}
+		};
+		
+		template<typename Class,typename Param1WithTraits,typename Param2WithTraits>
+		struct Constructor2;
+		
+		template<typename Class,typename Param1WithTraits,typename Param2WithTraits>
+		struct Constructor2
+		{
+			static int construct(lua_State* l)
+			{
+				int type1 = lua_type(l,1);
+				int type2 = lua_type(l,2);
+				
+				if(param_is_of_type<Param1WithTraits>(type1) 
+				   && param_is_of_type<Param2WithTraits>(type2) )
+				{	
+					valid_construct(l);
 					return 1;
 				}
+				
 				return 0;
+			}
+			static void valid_construct(lua_State* l)
+			{
+				typename Param1WithTraits::pull_type p1;
+				typename Param2WithTraits::pull_type p2;
+				
+				OOLUA::Member_func_helper<Param2WithTraits,Param2WithTraits::owner>::pull2cpp(l,p2);
+				OOLUA::Member_func_helper<Param1WithTraits,Param1WithTraits::owner>::pull2cpp(l,p1);
+
+				OOLUA::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
+				OOLUA::Converter<typename Param2WithTraits::pull_type,typename Param2WithTraits::type> p2_(p2);
+				Class* obj = new Class( p1_,p2_ );
+				OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
+				ud->gc = true;
 			}
 		};
 	}
@@ -219,6 +206,12 @@ static int oolua_factory_function(lua_State* l) \
 	if(stack_count == 1)\
 	{\
 		if( OOLUA::CREATE::Constructor1<class_,param_type<param1Type>,param1Type,param_type<param1Type>::is_integral>::construct(l) ) return 1;\
+	}
+
+#define OOLUA_CONSTRUCTOR_2(param1Type,param2Type)\
+	if(stack_count == 2)\
+	{\
+		if( OOLUA::CREATE::Constructor2<class_,param_type<param1Type>,param_type<param2Type> >::construct(l) ) return 1;\
 	}
 
 #define OOLUA_CONSTRUCTORS_END\
@@ -244,7 +237,6 @@ LUA_TUSERDATA
 LUA_TTHREAD
 */
 
-//#define OOLUA_CONSTUCTOR_1(p1) 
 
 #endif
 

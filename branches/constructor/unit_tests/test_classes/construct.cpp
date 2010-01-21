@@ -39,7 +39,11 @@ public:
 		,m_bool(bool_not_set)
 		,m_int_ptr(int_not_set)
 		,m_string(str){}
-
+	ParamConstructor(int i,bool b)
+		:m_int(i)
+		,m_bool(b)
+		,m_int_ptr(int_not_set)
+		,m_string(string_not_set){}
 	int m_int;
 	bool m_bool;
 	int m_int_ptr;
@@ -52,6 +56,7 @@ OOLUA_CLASS_NO_BASES(ParamConstructor)
 		OOLUA_CONSTRUCTOR_1(bool )
 		OOLUA_CONSTRUCTOR_1(int )
 		OOLUA_CONSTRUCTOR_1(char const*)
+		OOLUA_CONSTRUCTOR_2(int,bool)
 	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
@@ -66,13 +71,19 @@ class Construct : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(new_CallingIntParamConstructor_runChunkReturnsTrue);
 	CPPUNIT_TEST(new_CallingIntParamConstructorPassingInitailisedValue_InstanceHasIntSetToInitailisedValue);
 	CPPUNIT_TEST(new_CallingBoolParamConstructor_runChunkReturnsTrue);
-	CPPUNIT_TEST(new_CallingBoolParamConstructorPassingInitailisedValue_InstanceHasBoolSetToInitailisedValue);
 	//To OOLUA there is no difference between a function that takes an int, int*, int& or any variation
 	//the first registered constructor which matches will be called.
 	//CPPUNIT_TEST(new_CallingIntPtrParamConstructor_runChunkReturnsTrue);
-	//CPPUNIT_TEST(new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasBoolSetToInitailisedValue);
+	//CPPUNIT_TEST(new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasIntPtrSetToInitailisedValue);
 	CPPUNIT_TEST(new_CallingCharConstPtrParamConstructor_runChunkReturnsTrue);
 	CPPUNIT_TEST(new_CallingCharConstPtrParamConstructorPassingInitailisedValue_InstanceHasStringSetToInitailisedValue);
+	
+	
+	CPPUNIT_TEST(new_twoParamConstructorIntAndBool_runChunkReturnsTrue);
+	CPPUNIT_TEST(new_twoParamConstructorIntAndBool_InstanceHasIntValueSet);
+	CPPUNIT_TEST(new_twoParamConstructorIntAndBool_InstanceHasBoolValueSet);
+	
+	CPPUNIT_TEST(new_twoParamConstructorIntAndBoolPassedStringAsFirstParam_runChunkReturnsFalse);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -80,6 +91,12 @@ class Construct : public CPPUNIT_NS::TestFixture
 	{
 		m_lua->register_class<ParamConstructor>();
 		m_lua->run_chunk("foo = function(i) return ParamConstructor:new(i) end");
+		return "foo";
+	}
+	std::string register_and_create_two_param_constructor()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function(i1,i2) return ParamConstructor:new(i1,i2) end");
 		return "foo";
 	}
 	struct ParamConstructorWrapper 
@@ -174,7 +191,7 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true,result);
 		
 	}
-	void new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasBoolSetToInitailisedValue()
+	void new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasIntPtrSetToInitailisedValue()
 	{
 		m_lua->call(register_and_create_one_param_constructor(),int_set);
 		ParamConstructorWrapper wrap;
@@ -197,6 +214,32 @@ public:
 		ParamConstructorWrapper wrap;
 		pull_ParamWrapper(wrap);
 		CPPUNIT_ASSERT_EQUAL(string_set,wrap.instance.m_ptr->m_string);
+	}
+	void new_twoParamConstructorIntAndBool_runChunkReturnsTrue()
+	{
+		m_lua->register_class<ParamConstructor>();
+		bool result = m_lua->run_chunk("ParamConstructor:new(1,true)");
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	void new_twoParamConstructorIntAndBool_InstanceHasIntValueSet()
+	{
+		m_lua->call(register_and_create_two_param_constructor(),int_set,bool_set);
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(int_set,wrap.instance.m_ptr->m_int);
+	}
+	void new_twoParamConstructorIntAndBool_InstanceHasBoolValueSet()
+	{
+		m_lua->call(register_and_create_two_param_constructor(),int_set,bool_set);
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_bool);
+	}
+	void new_twoParamConstructorIntAndBoolPassedStringAsFirstParam_runChunkReturnsFalse()
+	{
+		m_lua->register_class<ParamConstructor>();
+		bool result = m_lua->run_chunk("ParamConstructor:new(\"dont care\",true)");
+		CPPUNIT_ASSERT_EQUAL(false,result);
 	}
 	
 };
