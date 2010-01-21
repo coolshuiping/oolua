@@ -14,7 +14,12 @@ const std::string string_set("hello world");
 const char* c_string_not_set = "not set";
 const char*  c_string_set= "hello world";
 
-
+namespace
+{
+	struct Stub1{};
+	struct Stub2{};
+	struct InvalidStub{};
+}
 
 class ParamConstructor 
 {
@@ -23,32 +28,87 @@ public:
 		:m_int(i)
 		,m_bool(bool_not_set)
 		,m_int_ptr(int_not_set)
-		,m_string(string_not_set){}
+		,m_string(string_not_set)
+		,m_stub1(0)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+
 	ParamConstructor(bool b)
 		:m_int(int_not_set)
 		,m_bool(b)
 		,m_int_ptr(int_not_set)
-		,m_string(string_not_set){}
+		,m_string(string_not_set)
+		,m_stub1(0)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+	
+	
 	ParamConstructor(int *  i)
 		:m_int(int_not_set)
 		,m_bool(bool_not_set)
 		,m_int_ptr(*i)
-		,m_string(string_not_set){}
+		,m_string(string_not_set)
+		,m_stub1(0)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+
 	ParamConstructor(char const *  str)
 		:m_int(int_not_set)
 		,m_bool(bool_not_set)
 		,m_int_ptr(int_not_set)
-		,m_string(str){}
+		,m_string(str)
+		,m_stub1(0)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+
+
 	ParamConstructor(int i,bool b)
 		:m_int(i)
 		,m_bool(b)
 		,m_int_ptr(int_not_set)
-		,m_string(string_not_set){}
+		,m_string(string_not_set)
+		,m_stub1(0)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+
+	
+	ParamConstructor(Stub1* stub)
+		:m_int(int_not_set)
+		,m_bool(bool_not_set)
+		,m_int_ptr(int_not_set)
+		,m_string(string_not_set)
+		,m_stub1(stub)
+		,m_stub2(0)
+		,m_stub_passed_by_value(bool_not_set){}
+
+	
+	ParamConstructor(Stub1* stub1,Stub2 * stub2)
+		:m_int(int_not_set)
+		,m_bool(bool_not_set)
+		,m_int_ptr(int_not_set)
+		,m_string(string_not_set)
+		,m_stub1(stub1)
+		,m_stub2(stub2)
+		,m_stub_passed_by_value(bool_not_set){}
+	
+	ParamConstructor(Stub2 /*stub2*/)
+		:m_int(int_not_set)
+		,m_bool(bool_not_set)
+		,m_int_ptr(int_not_set)
+		,m_string(string_not_set)
+		,m_stub1(0)
+		,m_stub_passed_by_value(bool_set){}
+	
 	int m_int;
 	bool m_bool;
 	int m_int_ptr;
 	std::string m_string;
+	Stub1* m_stub1;
+	Stub2* m_stub2;
+	bool m_stub_passed_by_value;
 };
+
+
 
 OOLUA_CLASS_NO_BASES(ParamConstructor)
 	OOLUA_TYPEDEFS No_default_constructor,Has_new_type_constructors OOLUA_END_TYPES
@@ -57,10 +117,32 @@ OOLUA_CLASS_NO_BASES(ParamConstructor)
 		OOLUA_CONSTRUCTOR_1(int )
 		OOLUA_CONSTRUCTOR_1(char const*)
 		OOLUA_CONSTRUCTOR_2(int,bool)
+		OOLUA_CONSTRUCTOR_1(Stub1 *)
+		OOLUA_CONSTRUCTOR_2(Stub1 *,Stub2*)
+		OOLUA_CONSTRUCTOR_1(Stub2)
 	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(ParamConstructor)
+
+
+OOLUA_CLASS_NO_BASES(Stub1)
+	OOLUA_NO_TYPEDEFS
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(Stub1)
+
+OOLUA_CLASS_NO_BASES(InvalidStub)
+	OOLUA_NO_TYPEDEFS
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(InvalidStub)
+
+OOLUA_CLASS_NO_BASES(Stub2)
+	OOLUA_NO_TYPEDEFS
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(Stub2)
 
 class Construct : public CPPUNIT_NS::TestFixture
 {
@@ -84,6 +166,14 @@ class Construct : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(new_twoParamConstructorIntAndBool_InstanceHasBoolValueSet);
 	
 	CPPUNIT_TEST(new_twoParamConstructorIntAndBoolPassedStringAsFirstParam_runChunkReturnsFalse);
+	
+	CPPUNIT_TEST(new_oneParamConstructorStub1_callReturnsTrue);
+	CPPUNIT_TEST(new_oneParamConstructorStub1_instanceMemberIsSet);
+	CPPUNIT_TEST(new_oneParamConstructorPassingAnInvalidParam_callReturnsFalse);
+	CPPUNIT_TEST(new_twoParamConstructorStub1AndStub2_callReturnsTrue);
+	CPPUNIT_TEST(new_twoParamConstructorStub1AndInvalid_callReturnsFalse);
+	CPPUNIT_TEST(new_oneParamConstructorStub2ByValue_callReturnsTrue);
+	CPPUNIT_TEST(new_oneParamConstructorStub2ByValue_instanceMemberIsSet);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -240,6 +330,69 @@ public:
 		m_lua->register_class<ParamConstructor>();
 		bool result = m_lua->run_chunk("ParamConstructor:new(\"dont care\",true)");
 		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	
+	void new_oneParamConstructorStub1_callReturnsTrue()
+	{
+		m_lua->register_class<Stub1>();
+		Stub1 stub1;
+		bool result = m_lua->call(register_and_create_one_param_constructor(),&stub1);
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	void new_oneParamConstructorStub1_instanceMemberIsSet()
+	{
+		m_lua->register_class<Stub1>();
+		Stub1 stub;
+		m_lua->call(register_and_create_one_param_constructor(),&stub);
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(&stub,wrap.instance.m_ptr->m_stub1);
+	}
+	
+	void new_oneParamConstructorPassingAnInvalidParam_callReturnsFalse()
+	{
+		m_lua->register_class<InvalidStub>();
+		InvalidStub stub;
+		bool result = m_lua->call(register_and_create_one_param_constructor(),&stub);
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	
+	void new_twoParamConstructorStub1AndStub2_callReturnsTrue()
+	{
+		m_lua->register_class<Stub1>();
+		m_lua->register_class<Stub2>();
+		Stub1 stub1;
+		Stub2 stub2;
+		bool result = m_lua->call(register_and_create_two_param_constructor(),&stub1,&stub2);
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	
+	void new_twoParamConstructorStub1AndInvalid_callReturnsFalse()
+	{
+		m_lua->register_class<Stub1>();
+		m_lua->register_class<InvalidStub>();
+		Stub1 stub1;
+		InvalidStub stub2;
+		bool result = m_lua->call(register_and_create_two_param_constructor(),&stub1,&stub2);
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	
+	void new_oneParamConstructorStub2ByValue_callReturnsTrue()
+	{
+		m_lua->register_class<Stub2>();
+		Stub2 stub;
+		bool result = m_lua->call(register_and_create_one_param_constructor(),&stub);
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	
+	void new_oneParamConstructorStub2ByValue_instanceMemberIsSet()
+	{
+		m_lua->register_class<Stub2>();
+		Stub2 stub;
+		m_lua->call(register_and_create_one_param_constructor(),&stub);
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_stub_passed_by_value);
 	}
 	
 };
