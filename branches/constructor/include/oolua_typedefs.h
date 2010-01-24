@@ -40,6 +40,10 @@
 ///  @struct OOLUA::Add_op
 ///  Addition operator is defined for the type.
 
+
+///  @struct OOLUA::No_public_destructor
+///  OOLua can construct yet is not able to delete an instance
+
 namespace OOLUA
 {
 
@@ -55,6 +59,7 @@ namespace OOLUA
 	struct No_default_constructor{};
 	struct Has_constructor_with_params{};
 	struct Has_new_type_constructors{};
+	struct No_public_destructor{};
 }
 	///  @}
 #endif//OOLUA_TYPEDEFS_H_

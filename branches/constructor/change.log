@@ -1,3 +1,6 @@
+1.3.0
+Initial support for constructors
+http://code.google.com/p/oolua/issues/detail?id=9 Exporting classes with no public destructor
 1.2.2
 *Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 

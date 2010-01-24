@@ -83,14 +83,16 @@ namespace OOLUA
 			return 1;
 		}
 		*/
-		
+		/*
 		template<typename T>
-		int delete_type(lua_State * /*const*/ l)
+		int delete_type(lua_State *  l)
 		{
 			Lua_ud *ud = static_cast<Lua_ud *>( lua_touserdata(l, -1) );
 			delete static_cast<T*>(ud->void_class_ptr);
 			return 0;
 		}
+		*/
+		
 		template<typename T>
 		inline int garbage_collect(lua_State * /*const*/ l)
 		{
@@ -106,6 +108,25 @@ namespace OOLUA
 			//ud will be cleaned up by the Lua API
 			return 0;
 		}
+		
+		template<typename T,int HasNoPublicConstructor>
+		struct set_delete_function
+		{
+			static void set(lua_State* l, int methods)
+			{
+				lua_pushliteral(l, "__gc");// __gc
+				lua_pushcclosure(l, &INTERNAL::garbage_collect<T>, 0);//__gc func
+				lua_settable(l, methods);
+			}
+		};
+		
+		template<typename T>
+		struct set_delete_function<T,1>
+		{
+			static void set( lua_State* /*l*/, int /*methods*/){}//no op
+		};
+		
+		
 		typedef int(*function_sig_to_check_base_)(lua_State* const l,INTERNAL::Lua_ud*,int const&);
 		template<typename T>
 		inline int set_methods(lua_State* /*const*/ l,int& mt)
@@ -148,10 +169,12 @@ namespace OOLUA
 			lua_settable(l, mt);//methods mt
 			//mt["__newindex"]= methods
 
-			lua_pushliteral(l, "__gc");//methods mt __gc
-			lua_pushcfunction(l, &INTERNAL::garbage_collect<T>);//methods mt __gc func
-			lua_settable(l, mt);//methods mt
+			//lua_pushliteral(l, "__gc");//methods mt __gc
+			//lua_pushcfunction(l, &INTERNAL::garbage_collect<T>);//methods mt __gc func
+			//lua_settable(l, mt);//methods mt
 			//mt["__gc"]=&garbage_collect()
+			
+			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,mt);
 
 			set_create_function<T,has_typedef<Proxy_class<T>, Abstract >::Result>::set(l,methods);
 			//lua_pop(l,1);//metatable
@@ -214,11 +237,13 @@ namespace OOLUA
 			lua_settable(l, const_methods);//const_methods const_mt
 			//const_methods["set_owner"]=&lua_set_owner()
 
-			lua_pushliteral(l, "__gc");//const_methods const_mt __gc
-			lua_pushcclosure(l, &INTERNAL::garbage_collect<T>, 0);//const_methods const_mt __gc func
-			lua_settable(l, const_mt);//const_methods const_mt
+			//lua_pushliteral(l, "__gc");//const_methods const_mt __gc
+			//lua_pushcclosure(l, &INTERNAL::garbage_collect<T>, 0);//const_methods const_mt __gc func
+			//lua_settable(l, const_mt);//const_methods const_mt
 			//const_mt["__gc"]=&garbage_collect()
-
+			
+			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,const_mt);
+			
 			lua_pushvalue(l, const_mt);//const_methods const_mt helper_mt helper_mt
 			lua_setmetatable(l, none_const_methods);//const_methods const_mt helper_mt
 			//none_const_methods[mt] = const_mt
