@@ -19,6 +19,8 @@
 #	include "lvd_types.h"
 #	include "determin_qualifier.h"
 #	include <string>
+#	include "lua_includes.h"
+
 namespace OOLUA
 {
 	///////////////////////////////////////////////////////////////////////////////
@@ -826,6 +828,43 @@ namespace OOLUA
 		char const* m_t;
 	};
 
+}
+
+namespace OOLUA
+{
+	namespace INTERNAL
+	{
+		template<typename Cpp_type,int Lua_type>
+		struct lua_type_is_cpp_type;
+		
+		template<typename Cpp_type>
+		struct lua_type_is_cpp_type<Cpp_type,LUA_TNUMBER>
+		{
+			typedef Type_list<
+			char,unsigned char, signed char,
+			short,unsigned short, signed short,
+			int,unsigned int, signed int,
+			long, unsigned long, signed long, LVD::int64, LVD::uint64,
+			float,
+			double, long double>::type Lua_number;
+			enum {value = TYPELIST::IndexOf<Lua_number,Cpp_type>::value == -1 ? 0 : 1};
+		};
+		
+		template<typename Cpp_type>
+		struct lua_type_is_cpp_type<Cpp_type,LUA_TSTRING>
+		{
+			typedef Type_list<
+			char*,std::string
+			>::type Lua_string;
+			enum {value = TYPELIST::IndexOf<Lua_string,Cpp_type>::value == -1 ? 0 : 1};
+		};
+		
+		template<typename Cpp_type>
+		struct lua_type_is_cpp_type<Cpp_type,LUA_TBOOLEAN>
+		{
+			enum {value = LVD::is_same<bool,Cpp_type>::value};
+		};
+	}
 }
 
 

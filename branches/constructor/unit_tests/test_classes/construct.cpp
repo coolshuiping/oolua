@@ -19,6 +19,7 @@ namespace
 	struct Stub1{};
 	struct Stub2{};
 	struct InvalidStub{};
+	struct	Stub3{};
 }
 
 class ParamConstructor 
@@ -99,6 +100,26 @@ public:
 		,m_stub1(0)
 		,m_stub_passed_by_value(bool_set){}
 	
+	ParamConstructor(Stub3 const * /*stub3*/)
+	:m_int(int_not_set)
+	,m_bool(bool_not_set)
+	,m_int_ptr(int_not_set)
+	,m_string(string_not_set)
+	,m_stub1(0)
+	,m_stub_passed_by_value(bool_not_set)
+	,m_const_stub3(bool_set)
+	,m_stub3(bool_not_set){}
+	
+	ParamConstructor(Stub3 * /*stub3*/)
+	:m_int(int_not_set)
+	,m_bool(bool_not_set)
+	,m_int_ptr(int_not_set)
+	,m_string(string_not_set)
+	,m_stub1(0)
+	,m_stub_passed_by_value(bool_not_set)
+	,m_const_stub3(bool_not_set)
+	,m_stub3(bool_set){}
+	
 	int m_int;
 	bool m_bool;
 	int m_int_ptr;
@@ -106,6 +127,8 @@ public:
 	Stub1* m_stub1;
 	Stub2* m_stub2;
 	bool m_stub_passed_by_value;
+	bool m_const_stub3;
+	bool m_stub3;
 };
 
 
@@ -120,6 +143,8 @@ OOLUA_CLASS_NO_BASES(ParamConstructor)
 		OOLUA_CONSTRUCTOR_1(Stub1 *)
 		OOLUA_CONSTRUCTOR_2(Stub1 *,Stub2*)
 		OOLUA_CONSTRUCTOR_1(Stub2)
+		OOLUA_CONSTRUCTOR_1(Stub3*)
+		OOLUA_CONSTRUCTOR_1(Stub3 const *)
 	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
@@ -143,6 +168,12 @@ OOLUA_CLASS_NO_BASES(Stub2)
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(Stub2)
+
+OOLUA_CLASS_NO_BASES(Stub3)
+	OOLUA_NO_TYPEDEFS
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(Stub3)
 
 class Construct : public CPPUNIT_NS::TestFixture
 {
@@ -174,6 +205,9 @@ class Construct : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(new_twoParamConstructorStub1AndInvalid_callReturnsFalse);
 	CPPUNIT_TEST(new_oneParamConstructorStub2ByValue_callReturnsTrue);
 	CPPUNIT_TEST(new_oneParamConstructorStub2ByValue_instanceMemberIsSet);
+	
+	CPPUNIT_TEST(new_oneParamStub3WhichIsConst_callReturnsTrue);
+	CPPUNIT_TEST(new_oneParamStub3WhichIsConst_constStub3ConstructorCalled);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -394,6 +428,25 @@ public:
 		pull_ParamWrapper(wrap);
 		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_stub_passed_by_value);
 	}
+	void new_oneParamStub3WhichIsConst_callReturnsTrue()
+	{
+		m_lua->register_class<Stub3>();
+		Stub3 stub;
+		bool result = m_lua->call(register_and_create_one_param_constructor(),(Stub3 const*)&stub);
+		std::cout <<OOLUA::get_last_error(*m_lua);
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	void new_oneParamStub3WhichIsConst_constStub3ConstructorCalled()
+	{
+		m_lua->register_class<Stub3>();
+		Stub3 stub;
+		m_lua->call(register_and_create_one_param_constructor(),(Stub3 const*)&stub);
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_const_stub3);
+	}
+
+
 	
 };
 

@@ -11,11 +11,12 @@ namespace OOLUA
 {	
 	namespace INTERNAL
 	{
+		/*
 		template<typename T>
 		struct Constructor
 		{
 			template<typename P1>
-			static int with_params(lua_State * /*const*/ l)
+			static int with_params(lua_State * const l)
 			{
 				lua_remove(l, 1);
 				typedef param_type<P1> Param1;
@@ -27,7 +28,7 @@ namespace OOLUA
 				return 1;
 			}
 		};
-	
+		*/
 		template<typename T>
 		inline int default_constructor(lua_State * /*const*/ l)
 		{

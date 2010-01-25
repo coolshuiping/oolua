@@ -11,12 +11,25 @@ struct PrivateDestructor
 	{
 		delete this;
 	}
+	static PrivateDestructor* create()
+	{
+		return new PrivateDestructor;
+	}
 private:
+	PrivateDestructor (PrivateDestructor const&);
+	PrivateDestructor& operator =(PrivateDestructor const&);
+	PrivateDestructor(){}
 	~PrivateDestructor(){}
 };
 
 OOLUA_CLASS_NO_BASES(PrivateDestructor)
-	OOLUA_TYPEDEFS No_public_destructor OOLUA_END_TYPES
+	OOLUA_TYPEDEFS
+		No_default_constructor
+		,Has_new_type_constructors
+		,No_public_destructor 
+	OOLUA_END_TYPES
+	OOLUA_CONSTRUCTORS_BEGIN
+	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(PrivateDestructor)
