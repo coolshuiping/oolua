@@ -51,4 +51,4 @@
     }
 # endif
 
-#endif//OOLUA_EXCEPTION_H_
+#endif

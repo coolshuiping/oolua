@@ -62,4 +62,4 @@ namespace OOLUA
 	struct No_public_destructor{};
 }
 	///  @}
-#endif//OOLUA_TYPEDEFS_H_
+#endif

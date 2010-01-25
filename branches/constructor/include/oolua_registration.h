@@ -168,11 +168,6 @@ namespace OOLUA
 			lua_pushvalue(l, methods);//methods mt __newindex methods
 			lua_settable(l, mt);//methods mt
 			//mt["__newindex"]= methods
-
-			//lua_pushliteral(l, "__gc");//methods mt __gc
-			//lua_pushcfunction(l, &INTERNAL::garbage_collect<T>);//methods mt __gc func
-			//lua_settable(l, mt);//methods mt
-			//mt["__gc"]=&garbage_collect()
 			
 			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,mt);
 
@@ -236,11 +231,6 @@ namespace OOLUA
 			lua_pushcclosure(l, &INTERNAL::lua_set_owner<T>, 0);//const_methods const_mt set_owner func
 			lua_settable(l, const_methods);//const_methods const_mt
 			//const_methods["set_owner"]=&lua_set_owner()
-
-			//lua_pushliteral(l, "__gc");//const_methods const_mt __gc
-			//lua_pushcclosure(l, &INTERNAL::garbage_collect<T>, 0);//const_methods const_mt __gc func
-			//lua_settable(l, const_mt);//const_methods const_mt
-			//const_mt["__gc"]=&garbage_collect()
 			
 			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,const_mt);
 			
@@ -314,11 +304,6 @@ namespace OOLUA
 		{
 			static void set(lua_State*  const l, int methods)
 			{
-				//push_char_carray(l,new_str);
-				//lua_pushcfunction(l, &INTERNAL::default_constructor<T>);
-				//lua_pushcfunction(l, &T::oolua_factory_function);
-				//lua_settable(l, methods);
-				// methods["new"] = create_type
 				set_(l,methods,LVD::Int2type< has_typedef< Proxy_class<T>,Has_new_type_constructors >::Result >() );
 			}
 		private:

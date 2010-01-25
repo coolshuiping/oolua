@@ -11,11 +11,9 @@
 #	define MEMBER_FUNC_HELPER_H_
 
 #	include "lua_includes.h"
-#	include "fwd_push_pull.h"
-# include "oolua_push_pull.h" ///""""""""""""""!!!!!!!!!!!!!!!!*********&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+#	include "oolua_push_pull.h"
 namespace OOLUA
 {
-	////////////////////////////////////////////////////////////////////////////////////////////////
 
 	namespace
 	{
@@ -90,7 +88,6 @@ namespace OOLUA
 		template<typename T>
 		static void pull2cpp(lua_State* const s, T*& value)
 		{
-			//we know here if it is const or not
 			Is_intergal_pushpull<T,Type,Type::is_integral>::pull(s,value);
 		}
 		template<typename T>
@@ -150,7 +147,6 @@ namespace OOLUA
 	};
 
 
-	////////////////////////////////////////////////////////////////////////////////////////////////
 }
- #endif//MEMBER_FUNC_HELPER_H_
+ #endif
 

@@ -32,11 +32,8 @@ struct lua_State;
 #	define LUA_DEBUG_ONLY(X)
 #endif
 
-//#	define OOLUA_EXCEPTIONS
 
-//#	include <stdexcept>
 #	include <string>
-//#	include <cassert>
 
 #	include "lua_includes.h"
 #	include "lvd_types.h"
