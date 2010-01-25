@@ -35,7 +35,7 @@
 #include "oolua_storage.h"
 #include "base_checker.h"
 #include "oolua_char_arrays.h"
-#include "oolua_construct.h"
+#include "lvd_types.h"
 
 namespace OOLUA
 {
@@ -72,26 +72,6 @@ namespace OOLUA
 			ud->none_const_name = (char*)Proxy_class<T>::class_name;
 			return 0;
 		}
-		/*
-		template<typename T>
-		inline int create_type(lua_State *  l)
-		{
-			lua_remove(l, 1);
-			T* obj = new T;
-			Lua_ud* ud = add_ptr(l,obj,false);
-			ud->gc = true;
-			return 1;
-		}
-		*/
-		/*
-		template<typename T>
-		int delete_type(lua_State *  l)
-		{
-			Lua_ud *ud = static_cast<Lua_ud *>( lua_touserdata(l, -1) );
-			delete static_cast<T*>(ud->void_class_ptr);
-			return 0;
-		}
-		*/
 		
 		template<typename T>
 		inline int garbage_collect(lua_State * /*const*/ l)
@@ -171,7 +151,11 @@ namespace OOLUA
 			
 			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,mt);
 
-			set_create_function<T,has_typedef<Proxy_class<T>, Abstract >::Result>::set(l,methods);
+			set_create_function<T,LVD::if_or< 
+										has_typedef<Proxy_class<T>, Abstract >::Result
+										,has_typedef<Proxy_class<T>, No_public_constructors >::Result 
+									>::value
+								>::set(l,methods);
 			//lua_pop(l,1);//metatable
 			return methods;//methods mt
 		}
@@ -299,22 +283,10 @@ namespace OOLUA
 			void operator()(lua_State * const  /*l*/,int const& /*methods*/,int const& /*const_methods*/){}///no-op
 		};
 
-		template<typename T, bool IsAbstract>
+		template<typename T, bool IsAbstractOrNoConstructors>
 		struct set_create_function
 		{
 			static void set(lua_State*  const l, int methods)
-			{
-				set_(l,methods,LVD::Int2type< has_typedef< Proxy_class<T>,Has_new_type_constructors >::Result >() );
-			}
-		private:
-			static void set_(lua_State*  const l, int methods,LVD::Int2type<0> /*old new method*/)
-			{
-				push_char_carray(l,new_str);
-				lua_pushcfunction(l, &INTERNAL::default_constructor<T>);
-				lua_settable(l, methods);
-				// methods["new"] = create_type
-			}
-			static void set_(lua_State*  const l, int methods,LVD::Int2type<1> /*newer new method*/)
 			{
 				push_char_carray(l,new_str);
 				lua_pushcfunction(l, &OOLUA::Proxy_class<T>::oolua_factory_function);

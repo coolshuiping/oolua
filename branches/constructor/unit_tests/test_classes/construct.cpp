@@ -131,10 +131,20 @@ public:
 	bool m_stub3;
 };
 
-
+class WithOutConstructors
+{
+public:
+	static WithOutConstructors* create()
+	{
+		return new WithOutConstructors;
+	}
+private:
+	WithOutConstructors(){}
+	WithOutConstructors(WithOutConstructors const&);
+};
 
 OOLUA_CLASS_NO_BASES(ParamConstructor)
-	OOLUA_TYPEDEFS No_default_constructor,Has_new_type_constructors OOLUA_END_TYPES
+	OOLUA_TYPEDEFS No_default_constructor OOLUA_END_TYPES
 	OOLUA_CONSTRUCTORS_BEGIN
 		OOLUA_CONSTRUCTOR_1(bool )
 		OOLUA_CONSTRUCTOR_1(int )
@@ -153,27 +163,40 @@ EXPORT_OOLUA_NO_FUNCTIONS(ParamConstructor)
 
 OOLUA_CLASS_NO_BASES(Stub1)
 	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(Stub1)
 
 OOLUA_CLASS_NO_BASES(InvalidStub)
 	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(InvalidStub)
 
 OOLUA_CLASS_NO_BASES(Stub2)
 	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(Stub2)
 
 OOLUA_CLASS_NO_BASES(Stub3)
 	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(Stub3)
+
+
+
+OOLUA_CLASS_NO_BASES(WithOutConstructors)
+	OOLUA_TYPEDEFS No_public_constructors OOLUA_END_TYPES
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(WithOutConstructors)
+
 
 class Construct : public CPPUNIT_NS::TestFixture
 {
@@ -208,6 +231,9 @@ class Construct : public CPPUNIT_NS::TestFixture
 	
 	CPPUNIT_TEST(new_oneParamStub3WhichIsConst_callReturnsTrue);
 	CPPUNIT_TEST(new_oneParamStub3WhichIsConst_constStub3ConstructorCalled);
+	
+	CPPUNIT_TEST(new_callNewOnTypeWithNoPublicConstructors_runChunkReturnsFalse);
+	CPPUNIT_TEST(new_CallingDefaultConstructorOnTypeWithOutOne_runChunkReturnsFalse);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -446,6 +472,19 @@ public:
 		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_const_stub3);
 	}
 
+	void new_callNewOnTypeWithNoPublicConstructors_runChunkReturnsFalse()
+	{
+		m_lua->register_class<WithOutConstructors>();
+		bool result = m_lua->run_chunk("WithOutConstructors::new()");
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	
+	void new_CallingDefaultConstructorOnTypeWithOutOne_runChunkReturnsFalse()
+	{
+		m_lua->register_class<ParamConstructor>();
+		bool result = m_lua->run_chunk("ParamConstructor:new()");
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
 
 	
 };

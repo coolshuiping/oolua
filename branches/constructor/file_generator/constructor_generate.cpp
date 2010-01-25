@@ -111,6 +111,9 @@ void write_macros(std::ofstream& f, int paramCount)
 	<<tab<<"return 0; "<<macro_new_line
 	<<"}\n\n";
 	
+	f<<"#define OOLUA_ONLY_DEFAULT_CONSTRUCTOR "<<macro_new_line
+	<<"OOLUA_CONSTRUCTORS_BEGIN "<<macro_new_line
+	<<"OOLUA_CONSTRUCTORS_END\n\n";
 }
 void write_default_constructor(std::ofstream &f )
 {

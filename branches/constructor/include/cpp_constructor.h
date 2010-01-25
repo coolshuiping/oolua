@@ -397,6 +397,10 @@ static int oolua_factory_function(lua_State* l) \
 	return 0; \
 }
 
+#define OOLUA_ONLY_DEFAULT_CONSTRUCTOR \
+OOLUA_CONSTRUCTORS_BEGIN \
+OOLUA_CONSTRUCTORS_END
+
 
 
 #endif 

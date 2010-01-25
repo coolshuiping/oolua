@@ -40,9 +40,16 @@
 ///  @struct OOLUA::Add_op
 ///  Addition operator is defined for the type.
 
+///  @struct No_default_constructor
+///  There is not a default constructor in the public interface
+///  yet there are other constructors.
+
+///  @struct No_public_constructors
+///  There are no constructors in the public interface.
 
 ///  @struct OOLUA::No_public_destructor
-///  OOLua can construct yet is not able to delete an instance
+///  There is not a destructor in the public interface
+///  and OOLua will not attempt to delete an instance of this type
 
 namespace OOLUA
 {
@@ -57,8 +64,7 @@ namespace OOLUA
 	struct Sub_op{};
 	struct Add_op{};
 	struct No_default_constructor{};
-	struct Has_constructor_with_params{};
-	struct Has_new_type_constructors{};
+	struct No_public_constructors{};
 	struct No_public_destructor{};
 }
 	///  @}

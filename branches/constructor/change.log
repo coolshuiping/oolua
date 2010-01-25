@@ -2,6 +2,11 @@
 Initial support for constructors
 http://code.google.com/p/oolua/issues/detail?id=9 Exporting classes with no public destructor
 Added a file generator to the generator solution for constructor parameters
+Added the types No_default_constructor,No_public_constructors and No_public_destructor to oolua_typedefs.h
+Removed oolua_construct which had the default constructor for earlier versions
+Added OOLUA_ONLY_DEFAULT_CONSTRUCTOR
+Broke ABI removing default constructor being forced
+Updated tests which used old style constructors
 1.2.2
 *Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 

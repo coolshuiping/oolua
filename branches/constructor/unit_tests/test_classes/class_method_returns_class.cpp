@@ -1,9 +1,12 @@
 #	include "class_method_returns_class.h"
 
-class Return_double{};
+struct Return_double{};
+
 OOLUA_CLASS_NO_BASES(Return_double)
-OOLUA_NO_TYPEDEFS
+	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
+
 EXPORT_OOLUA_NO_FUNCTIONS(Return_double)
 
 class Method_returns_class
@@ -33,7 +36,8 @@ private:
 };
 
 OOLUA_CLASS_NO_BASES(Method_returns_class)
-OOLUA_NO_TYPEDEFS
+	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 	OOLUA_MEM_FUNC_0(Return_double&,ref)
 	OOLUA_MEM_FUNC_0(Return_double const&,ref_const)
 	OOLUA_MEM_FUNC_0(Return_double*,ptr)
