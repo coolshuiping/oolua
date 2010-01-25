@@ -48,15 +48,18 @@ namespace OOLUA
 
 	namespace INTERNAL
 	{
-		//template<typename T>int create_type(lua_State * /*const*/ l);
 		template<typename T>int garbage_collect(lua_State * /*const*/ l);
 		template<typename T>int set_methods(lua_State*  /*const*/ l);
 		template<typename T>int set_const_methods(lua_State*  /*const*/ l,int none_const_methods,int none_const_mt);
         template<typename T, bool IsAbstract>struct set_create_function;
         template<typename T,typename B>struct Add_base;
         template<typename T,typename TL, int index,typename B>struct Register_base;
-		template<typename T>int delete_type(lua_State * /*const*/ l);
 		template<typename T>int set_type_top_to_none_const(lua_State * /*const*/ l);
+		
+		template<typename T,int HasNoPublicDestructor>struct set_delete_function;
+		template<typename T,bool HasNoPublicDestructor>struct set_owner_function;
+		
+		template<typename T, bool IsAbstractOrNoConstructors>struct set_create_function;
 	}
 
     namespace INTERNAL
@@ -89,7 +92,7 @@ namespace OOLUA
 			return 0;
 		}
 		
-		template<typename T,int HasNoPublicConstructor>
+		template<typename T,int HasNoPublicDestructor>
 		struct set_delete_function
 		{
 			static void set(lua_State* l, int methods)
@@ -210,11 +213,8 @@ namespace OOLUA
 			lua_pushvalue(l, const_methods );//const_methods const_mt __newindex const_methods
 			lua_settable(l, const_mt);//const_methods const_mt
 			//const_mt["__newindex"]= const_methods
-
-			push_char_carray(l,set_owner_str);//const_methods const_mt set_owner
-			lua_pushcclosure(l, &INTERNAL::lua_set_owner<T>, 0);//const_methods const_mt set_owner func
-			lua_settable(l, const_methods);//const_methods const_mt
-			//const_methods["set_owner"]=&lua_set_owner()
+			
+			set_owner_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,const_methods);
 			
 			set_delete_function<T,has_typedef<Proxy_class<T>, No_public_destructor >::Result>::set(l,const_mt);
 			
@@ -298,6 +298,26 @@ namespace OOLUA
 
 		template<typename T>
 		struct set_create_function<T, true>
+		{
+			static void set(lua_State*  const /*l*/,int /*methods*/){}///no-op
+		};
+		
+		
+		template<typename T, bool HasNoDestructors>
+		struct set_owner_function
+		{
+			static void set(lua_State*  const l, int methods)
+			{
+				push_char_carray(l,set_owner_str);//set_owner
+				lua_pushcclosure(l, &INTERNAL::lua_set_owner<T>, 0);//set_owner func
+				lua_settable(l, methods);
+				//methods["set_owner"]=&lua_set_owner()
+			}
+			
+		};
+		
+		template<typename T>
+		struct set_owner_function<T, true>
 		{
 			static void set(lua_State*  const /*l*/,int /*methods*/){}///no-op
 		};
