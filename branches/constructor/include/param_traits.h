@@ -927,6 +927,11 @@ namespace OOLUA
 		{
 			enum {value = LVD::is_same<bool,Cpp_type>::value};
 		};
+		template<typename Cpp_type>
+		struct lua_type_is_cpp_type<Cpp_type,LUA_TFUNCTION>
+		{
+			enum {value = LVD::is_same<Lua_ref<LUA_TFUNCTION> ,Cpp_type>::value};
+		};
 	}
 }
 

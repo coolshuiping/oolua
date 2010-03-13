@@ -120,6 +120,17 @@ public:
 	,m_const_stub3(bool_not_set)
 	,m_stub3(bool_set){}
 	
+	
+	ParamConstructor(OOLUA::Lua_func_ref ref)
+	:m_int(int_not_set)
+	,m_bool(bool_not_set)
+	,m_int_ptr(int_not_set)
+	,m_string(string_not_set)
+	,m_stub1(0)
+	,m_stub2(0)
+	,m_stub_passed_by_value(bool_not_set)
+	,m_func_ref(ref){}
+	
 	int m_int;
 	bool m_bool;
 	int m_int_ptr;
@@ -129,6 +140,7 @@ public:
 	bool m_stub_passed_by_value;
 	bool m_const_stub3;
 	bool m_stub3;
+	OOLUA::Lua_func_ref m_func_ref;
 };
 
 class WithOutConstructors
@@ -155,6 +167,7 @@ OOLUA_CLASS_NO_BASES(ParamConstructor)
 		OOLUA_CONSTRUCTOR_1(Stub2)
 		OOLUA_CONSTRUCTOR_1(Stub3*)
 		OOLUA_CONSTRUCTOR_1(Stub3 const *)
+		OOLUA_CONSTRUCTOR_1(OOLUA::Lua_func_ref)
 	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
@@ -234,6 +247,9 @@ class Construct : public CPPUNIT_NS::TestFixture
 	
 	CPPUNIT_TEST(new_callNewOnTypeWithNoPublicConstructors_runChunkReturnsFalse);
 	CPPUNIT_TEST(new_CallingDefaultConstructorOnTypeWithOutOne_runChunkReturnsFalse);
+	
+	CPPUNIT_TEST(new_constructorTakesLuaFuncRef_callReturnsTrue);
+	CPPUNIT_TEST(new_constructorTakesLuaFuncRef_FuncRefMemberIsValid);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -484,6 +500,31 @@ public:
 		m_lua->register_class<ParamConstructor>();
 		bool result = m_lua->run_chunk("ParamConstructor:new()");
 		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	
+	void new_constructorTakesLuaFuncRef_callReturnsTrue()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function(obj) "
+							"local f = function() end "
+							"ParamConstructor:new(f) "
+						 "end");
+		bool result = m_lua->call("foo");
+		std::cout <<OOLUA::get_last_error(*m_lua);
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+	void new_constructorTakesLuaFuncRef_FuncRefMemberIsValid()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function(obj) "
+						 "local f = function() end "
+						 " return ParamConstructor:new(f) "
+						 "end");
+		m_lua->call("foo");
+		ParamConstructorWrapper p;
+		pull_ParamWrapper(p);
+		bool isValid = p.instance.m_ptr->m_func_ref.valid();
+		CPPUNIT_ASSERT_EQUAL(true,isValid);	
 	}
 
 	

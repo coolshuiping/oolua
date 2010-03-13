@@ -13,6 +13,7 @@ added copy constructor to Lua_ref and Lua_table
 removed static keyword from member function generator for parameter types.
 added param traits for Lua_ref 
 added push member to lua_ref
+enabled a constructor to take a Lua_func_ref
 1.2.2
 *Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 

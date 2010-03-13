@@ -50,6 +50,10 @@ namespace OOLUA
 				case LUA_TUSERDATA:
 					return index_can_convert_to_type<ParamWithTraits,ParamWithTraits::is_integral>::valid(l,index);
 					break;
+				case LUA_TFUNCTION:
+					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TFUNCTION>::value;
+					break;
+
 					
 				default:
 					return 0;
