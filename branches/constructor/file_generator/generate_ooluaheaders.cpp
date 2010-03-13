@@ -17,7 +17,7 @@ bool default_options(EXECUTABLE::Options& opt)
 		,"--cppParams","8"
 		,"--luaParams","10"
 		,"--saveDir","../include/"
-		,"--constructorParams", "2"
+		,"--constructorParams", "5"
 	};
 
 	return opt.process(num,values);
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 		options.add("--constructorParams"
 			,Option_value<int>(
 				"Maximum parameters an OOLua registered C++ constructor can have."
-				,2)
+				,5)
 			);
 	}
 	
@@ -63,7 +63,6 @@ int main(int argc, char** argv)
 		std::cout <<"No options passed via the command line\n";
 		if( !default_options(options) ) return 1;
 		options.help();
-		//return 1;
 	}
 	else if(! options.process(argc,argv) ) return 1;
 
