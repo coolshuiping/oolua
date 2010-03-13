@@ -114,8 +114,8 @@ public:
 		m_lua->register_class<HasPrivateDestructor>();
 		HasPrivateDestructor* mock = HasPrivateDestructor::create();
 		bool result = call_set_owner(mock,"Lua_owns");
-		//mock->release();
 		CPPUNIT_ASSERT_EQUAL(false,result);
+		mock->release();
 		
 	}
 	void setOwner_cppOwnsOnInstanceWithNoPublicDestructor_callSetOwnerReturnsFalse()
@@ -123,8 +123,8 @@ public:
 		m_lua->register_class<HasPrivateDestructor>();
 		HasPrivateDestructor* mock = HasPrivateDestructor::create();
 		bool result = call_set_owner(mock,"Cpp_owns");
-		//mock->release();
 		CPPUNIT_ASSERT_EQUAL(false,result);
+		mock->release();
 		
 	}
 

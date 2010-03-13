@@ -7,6 +7,12 @@ Removed oolua_construct which had the default constructor for earlier versions
 Added OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 Broke ABI removing default constructor being forced
 Updated tests which used old style constructors
+added OOLUA::table_set_value which does not retrieve the table from the registry yet uses a stack index
+added convenance function OOLUA::new_table 
+added copy constructor to Lua_ref and Lua_table
+removed static keyword from member function generator for parameter types.
+added param traits for Lua_ref 
+added push member to lua_ref
 1.2.2
 *Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 

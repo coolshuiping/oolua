@@ -36,8 +36,8 @@ namespace OOLUA
 		void bind_script(lua_State*  const lua);
 		void set_table(std::string const& name);
 		Lua_table& operator =(Lua_table const& /*rhs*/);//unimplemented
-		Lua_table(Lua_table const& /*rhs*/);//unimplemented
-
+		Lua_table(Lua_table const& rhs);
+		
 		template<typename T,typename T1>bool safe_at(T const& key,T1& value)
 		{
 			//record the stack size as we want to put the stack into the 
@@ -92,6 +92,7 @@ namespace OOLUA
 
 			restore_stack(init_stack_size);
 		}
+		
 		template<typename T>void remove_value(T const& key)
 		{
 			//record the stack size as we want to put the stack into the 
@@ -113,6 +114,7 @@ namespace OOLUA
 		typedef void(*traverse_do_function)(lua_State*);
 		void traverse(traverse_do_function do_);
 		bool get_table()const;
+		bool push_on_stack()const;
 		void swap(Lua_table & rhs);
 	private:
 		void restore_stack(int const & init_stack_size)const;
@@ -121,6 +123,19 @@ namespace OOLUA
 		Lua_table_ref m_table_ref;
 	};
 
+	//the table is at table_index which can be either absolute or pseudo in the stack
+	//table is left at the index.
+	template<typename T,typename T1>
+	inline void table_set_value(lua_State* lua,int table_index,T const& key,T1 const& value)
+	{
+		push2lua(lua,key);
+		push2lua(lua,value);
+		lua_settable(lua,table_index < 0 ? table_index-2 : table_index);
+	}
+	
+	//stack is the same on exit as entry
+	void new_table(lua_State* l,OOLUA::Lua_table& t);
+	OOLUA::Lua_table new_table(lua_State* l);
 }
 
 #endif

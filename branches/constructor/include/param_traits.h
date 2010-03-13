@@ -20,6 +20,7 @@
 #	include "determin_qualifier.h"
 #	include <string>
 #	include "lua_includes.h"
+#	include "lua_ref.h"
 
 namespace OOLUA
 {
@@ -826,6 +827,68 @@ namespace OOLUA
 		Converter& operator =(Converter const &);
 		Converter(Converter const &);
 		char const* m_t;
+	};
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///  Specialisation for registry references
+	///////////////////////////////////////////////////////////////////////////////
+	
+	template<int ID>
+	struct in_p<Lua_ref<ID> >
+	{
+		typedef Lua_ref<ID> type;
+		typedef Lua_ref<ID> raw;
+		typedef Lua_ref<ID> pull_type;
+		enum { in = 1};
+		enum { out = 0};
+		enum { owner = No_change};
+		enum { is_by_value = 1 };
+		enum { is_constant = 0 };
+		enum { is_integral = 1 };
+	};
+	
+	template<int ID>
+	struct in_p<Lua_ref<ID>&>
+	{
+		typedef Lua_ref<ID>& type;
+		typedef Lua_ref<ID> raw;
+		typedef Lua_ref<ID> pull_type;
+		enum { in = 1};
+		enum { out = 0};
+		enum { owner = No_change};
+		enum { is_by_value = 0 };
+		enum { is_constant = 0 };
+		enum { is_integral = 1 };
+	};
+	
+	template<int ID>
+	struct in_p<Lua_ref<ID> const&>
+	{
+		typedef Lua_ref<ID> const& type;
+		typedef Lua_ref<ID> raw;
+		typedef Lua_ref<ID> pull_type;
+		enum { in = 1};
+		enum { out = 0};
+		enum { owner = No_change};
+		enum { is_by_value = 0 };
+		enum { is_constant = 1 };
+		enum { is_integral = 1 };
+	};
+	
+	template<int ID>
+	struct out_p<Lua_ref<ID> >
+	{
+		typedef Lua_ref<ID> type;
+		typedef Lua_ref<ID> pull_type;
+		typedef Lua_ref<ID> raw;
+		enum { in = 0};
+		enum { out = 1};
+		enum { owner = No_change};
+		enum { is_by_value = 1 };
+		enum { is_constant = 0 };
+		enum { is_integral = 1 };
 	};
 
 }
