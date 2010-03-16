@@ -35,6 +35,11 @@ class Exchange_cpp2lua : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(push_FunctionReferenceFromDifferentState_getLastErrorHasAnEntry);
 		CPPUNIT_TEST(push_invalidFunctionReference_stackTopisNil);
 		CPPUNIT_TEST(push_invalidFunctionReference_stackSizeIncreasesByOne);
+	
+	CPPUNIT_TEST(push_tableFromDifferentState_longJumpsUsingStateWhichTriedToPushTo);
+	CPPUNIT_TEST(push_tableFromDifferentState_getLastErrorHasAnEntry);
+	CPPUNIT_TEST(push_invalidTable_stackSizeIncreasesByOne);
+	CPPUNIT_TEST(push_invalidTable_stackTopIsNil);
 
 	CPPUNIT_TEST_SUITE_END();
 
@@ -216,11 +221,57 @@ public:
 		//will return a false positive
 		CPPUNIT_ASSERT_EQUAL(1,m_lua->stack_count() );
 	}
-
-
-
-
-
+	void pullValidTable(OOLUA::Lua_table& t)
+	{
+		m_lua->run_chunk("table_ref = function() "
+							"local t={} "
+							"return  t "
+						 "end ");
+		m_lua->call("table_ref");
+		OOLUA::pull2cpp(*m_lua,t);
+	}
+	void push_tableFromDifferentState_longJumpsUsingStateWhichTriedToPushTo()
+	{
+		OOLUA::Lua_table t;
+		pullValidTable(t);
+		
+		OOLUA::Script s;
+		lua_atpanic(s, &OOLua_panic);
+		if (setjmp(mark) == 0)
+		{
+			OOLUA::push2lua(s,t);
+			CPPUNIT_ASSERT_EQUAL(0,1 );
+		}
+		else
+			CPPUNIT_ASSERT_EQUAL(0,0 );
+	}
+	void push_tableFromDifferentState_getLastErrorHasAnEntry()
+	{
+		OOLUA::Lua_table t;
+		pullValidTable(t);
+		
+		OOLUA::Script s;
+		lua_atpanic(s, &OOLua_panic);
+		if (setjmp(mark) == 0)
+		{
+			OOLUA::push2lua(s,t);
+		}		
+		else
+			CPPUNIT_ASSERT_EQUAL(false,OOLUA::get_last_error(s).empty() );
+		
+	}
+	void push_invalidTable_stackSizeIncreasesByOne()
+	{
+		OOLUA::Lua_table t;
+		push2lua(*m_lua, t);
+		CPPUNIT_ASSERT_EQUAL(1,m_lua->stack_count() );
+	}
+	void push_invalidTable_stackTopIsNil()
+	{
+		OOLUA::Lua_table t;
+		push2lua(*m_lua, t);
+		CPPUNIT_ASSERT_EQUAL(LUA_TNIL,lua_type(*m_lua, -1) );
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( Exchange_cpp2lua );

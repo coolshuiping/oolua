@@ -199,10 +199,11 @@ namespace OOLUA
 		assert(s );
 		lua_pushcclosure(s,value,0);
 	}
-	void inline push2lua(lua_State* const /*s*/, Lua_table const &  value)
+	void inline push2lua(lua_State* const s, Lua_table const &  value)
 	{
-		assert(/*s &&*/ value.valid() );
-		value.get_table();
+		assert(s /*&& value.valid() */);
+		//value.get_table();
+		value.push_on_stack(s);
 	}
 
 	void inline push2lua(lua_State* const s, Lua_func_ref const &  value)

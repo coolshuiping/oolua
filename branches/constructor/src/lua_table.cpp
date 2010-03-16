@@ -65,9 +65,9 @@ namespace OOLUA
 		lua_rawgeti(m_lua, LUA_REGISTRYINDEX, m_table_ref.ref() );
 		return  lua_type(m_lua, -1) == LUA_TTABLE;
 	}
-	bool Lua_table::push_on_stack()const
+	bool Lua_table::push_on_stack(lua_State* l)const
 	{
-		return get_table();
+		return m_table_ref.push(l);
 	}
 	void Lua_table::restore_stack(int const & init_stack_size)const
 	{

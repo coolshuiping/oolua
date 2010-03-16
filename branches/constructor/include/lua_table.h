@@ -114,7 +114,7 @@ namespace OOLUA
 		typedef void(*traverse_do_function)(lua_State*);
 		void traverse(traverse_do_function do_);
 		bool get_table()const;
-		bool push_on_stack()const;
+		bool push_on_stack(lua_State* l)const;
 		void swap(Lua_table & rhs);
 	private:
 		void restore_stack(int const & init_stack_size)const;
