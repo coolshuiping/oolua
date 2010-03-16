@@ -33,6 +33,9 @@ class Exchange_cpp2lua : public CPPUNIT_NS::TestFixture
 	
 		CPPUNIT_TEST(push_FunctionReferenceFromDifferentLuaState_longJumpsUsingStateWhichTriedToPushTo);
 		CPPUNIT_TEST(push_FunctionReferenceFromDifferentState_getLastErrorHasAnEntry);
+		CPPUNIT_TEST(push_invalidFunctionReference_stackTopisNil);
+		CPPUNIT_TEST(push_invalidFunctionReference_stackSizeIncreasesByOne);
+
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -197,6 +200,21 @@ public:
 		else
 			CPPUNIT_ASSERT_EQUAL(false,OOLUA::get_last_error(s).empty() );
 
+	}
+	void push_invalidFunctionReference_stackTopisNil()
+	{
+		OOLUA::Lua_func_ref f;
+		OOLUA::push2lua(*m_lua,f);
+		CPPUNIT_ASSERT_EQUAL(LUA_TNIL,lua_type(*m_lua, -1) );
+	}
+	
+	void push_invalidFunctionReference_stackSizeIncreasesByOne()
+	{
+		OOLUA::Lua_func_ref f;
+		OOLUA::push2lua(*m_lua,f);
+		//we can not just check for nil on the stack as an empty stack 
+		//will return a false positive
+		CPPUNIT_ASSERT_EQUAL(1,m_lua->stack_count() );
 	}
 
 

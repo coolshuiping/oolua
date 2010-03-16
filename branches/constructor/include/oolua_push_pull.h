@@ -207,7 +207,7 @@ namespace OOLUA
 
 	void inline push2lua(lua_State* const s, Lua_func_ref const &  value)
 	{
-		assert(/*s &&*/ value.valid() );
+		assert(s /*value.valid()*/ );
 		value.push(s);
 	}
 	template<typename T>

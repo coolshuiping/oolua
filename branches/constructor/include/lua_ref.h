@@ -114,7 +114,11 @@ namespace OOLUA
 	template<int ID>
 	inline bool Lua_ref<ID>::push(lua_State* const lua)const
 	{
-		if( lua != m_lua || !valid() )
+		if (!valid() ) {
+			lua_pushnil(lua);
+			return true;
+		}
+		else if( lua != m_lua )
 		{
 			luaL_error(lua,"The reference is not valid for this Lua State");
 			return false;
