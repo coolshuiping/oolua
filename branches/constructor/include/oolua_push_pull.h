@@ -205,10 +205,10 @@ namespace OOLUA
 		value.get_table();
 	}
 
-	void inline push2lua(lua_State* const /*s*/, Lua_func_ref const &  value)
+	void inline push2lua(lua_State* const s, Lua_func_ref const &  value)
 	{
 		assert(/*s &&*/ value.valid() );
-		value.push();
+		value.push(s);
 	}
 	template<typename T>
 	void inline push2lua(lua_State* const  s, T const&  value)

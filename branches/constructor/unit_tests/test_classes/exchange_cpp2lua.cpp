@@ -3,7 +3,14 @@
 #	include "cpp_class_ops.h"
 #	include "lua_class_ops.h"
 
-
+#	include <csetjmp>
+jmp_buf mark; 
+int OOLua_panic(lua_State* l)
+{
+	OOLUA::INTERNAL::set_error_from_top_of_stack(l);
+	longjmp(mark,1);
+	return 0;
+}
 class Exchange_cpp2lua : public CPPUNIT_NS::TestFixture
 {
 	CPPUNIT_TEST_SUITE(Exchange_cpp2lua);
@@ -23,6 +30,9 @@ class Exchange_cpp2lua : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(call_callsLuaFunctionOneParam_callReturnsTrue);
 		CPPUNIT_TEST(call_callsLuaFunctionThreeParams_callReturnsTrue);
 		CPPUNIT_TEST(call_callsUnknownLuaFunction_callReturnsFalse);
+	
+		CPPUNIT_TEST(push_FunctionReferenceFromDifferentLuaState_longJumpsUsingStateWhichTriedToPushTo);
+		CPPUNIT_TEST(push_FunctionReferenceFromDifferentState_getLastErrorHasAnEntry);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -146,6 +156,52 @@ public:
 	{
 		CPPUNIT_ASSERT_EQUAL(false,m_lua->call("foo") );
 	}
+	void pullFunctionReference(OOLUA::Lua_func_ref& f)
+	{
+		m_lua->run_chunk("f = function() end "
+						 "return_func_ref = function() "
+						 "return f "
+						 "end ");
+		m_lua->call("return_func_ref");
+		OOLUA::pull2cpp(*m_lua,f);
+	}
+	
+	void push_FunctionReferenceFromDifferentLuaState_longJumpsUsingStateWhichTriedToPushTo()
+	{
+		OOLUA::Lua_func_ref f;
+		pullFunctionReference(f);
+		
+		OOLUA::Script s;
+		lua_atpanic(s, &OOLua_panic);
+		if (setjmp(mark) == 0)
+		{
+			OOLUA::push2lua(s,f);
+			CPPUNIT_ASSERT_EQUAL(0,1 );
+		}
+		else
+			CPPUNIT_ASSERT_EQUAL(0,0 );
+	}
+	
+
+	void push_FunctionReferenceFromDifferentState_getLastErrorHasAnEntry()
+	{
+		OOLUA::Lua_func_ref f;
+		pullFunctionReference(f);
+		
+		OOLUA::Script s;
+		lua_atpanic(s, &OOLua_panic);
+		if (setjmp(mark) == 0)
+		{
+			OOLUA::push2lua(s,f);
+		}		
+		else
+			CPPUNIT_ASSERT_EQUAL(false,OOLUA::get_last_error(s).empty() );
+
+	}
+
+
+
+
 
 };
 

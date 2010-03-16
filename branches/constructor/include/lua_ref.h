@@ -33,7 +33,7 @@ namespace OOLUA
 		explicit Lua_ref(lua_State* const lua);
 		Lua_ref();
 		Lua_ref& operator =(Lua_ref const& /*rhs*/);//unimplemented
-		Lua_ref(Lua_ref const& rhs/**/)//;//unimplemented
+		Lua_ref(Lua_ref const& rhs)
 			:m_lua(0),m_ref(LUA_NOREF)
 		{
 			if (rhs.valid()) 
@@ -49,7 +49,7 @@ namespace OOLUA
 		int const& ref()const;
 		void set_ref(lua_State* const lua,int const& ref);
 		void swap(Lua_ref & rhs);
-		bool push()const;
+		bool push(lua_State* const lua)const;
 	private:
 		void release();
 		lua_State* m_lua;
@@ -112,9 +112,13 @@ namespace OOLUA
 	}
 	
 	template<int ID>
-	inline bool Lua_ref<ID>::push()const
+	inline bool Lua_ref<ID>::push(lua_State* const lua)const
 	{
-		if( !valid() )return false;
+		if( lua != m_lua || !valid() )
+		{
+			luaL_error(lua,"The reference is not valid for this Lua State");
+			return false;
+		}
 		lua_rawgeti(m_lua, LUA_REGISTRYINDEX, m_ref );
 		return  lua_type(m_lua, -1) == ID;
 	}
