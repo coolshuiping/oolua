@@ -9,6 +9,28 @@ OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(Return_double)
 
+
+struct Return_mock
+{
+	int x;
+	Return_mock(int i):x(i){}
+	Return_mock():x(-1){}
+};
+#warning should the macro for the method issue a compile time error
+OOLUA_CLASS_NO_BASES(Return_mock)	
+	OOLUA_NO_TYPEDEFS
+	OOLUA_ONLY_DEFAULT_CONSTRUCTOR //TODO:it is allowed to call copy constructor??
+									//should the macro for the method issue a compile time error ?
+	OOLUA_PUBLIC_MEMBER_GET(x)
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_FUNCTIONS_0_NON_CONST(Return_mock)
+EXPORT_OOLUA_FUNCTIONS_1_CONST(Return_mock, get_x) 
+
+
+
+
+
 class Method_returns_class
 {
 public:
@@ -26,6 +48,11 @@ public:
 	Return_double const*const& ref_const_ptr_const(){return return_ref_const_ptr_const;}
 	Method_returns_class& operator = (Method_returns_class const&);
 	Method_returns_class(Method_returns_class const&);
+	
+	Return_mock stackMockWithIntEqualToOne()
+	{
+		return Return_mock(1); 
+	}
 private:
 	Return_double return_instance;
 public:
@@ -44,15 +71,24 @@ OOLUA_CLASS_NO_BASES(Method_returns_class)
 	OOLUA_MEM_FUNC_0(Return_double const*, ptr_const)
 	OOLUA_MEM_FUNC_0(Return_double const * & ,ref_ptr_const)
 	OOLUA_MEM_FUNC_0(Return_double const*const&, ref_const_ptr_const)
+	OOLUA_MEM_FUNC_0(Return_mock, stackMockWithIntEqualToOne)
+//int stackFooWithIntEqualToOne(lua_State* const l)const
+//{
+//	typedef param_type<Return_mock > R;
+//	static R::type (class_::*f )()const  = &class_::stackFooWithIntEqualToOne;
+//	OOLUA::Proxy_caller<R,class_,LVD::is_void< R::type >::value >::call(l,m_this,f);
+//	return total_out_params< Type_list<out_p<Return_mock > >::type> ::out;
+//}
 OOLUA_CLASS_END
 
-EXPORT_OOLUA_FUNCTIONS_6_NON_CONST(Method_returns_class
+EXPORT_OOLUA_FUNCTIONS_7_NON_CONST(Method_returns_class
 									,ref
 									,ref_const
 									,ptr
 									,ptr_const
 									,ref_ptr_const
 									,ref_const_ptr_const
+								   ,stackMockWithIntEqualToOne
 									)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(Method_returns_class)
 
@@ -65,6 +101,7 @@ class CppFunctionReturns : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(functionReturn_returnsPtrToConstantInstance_resultComparesEqualToInstance);
 		CPPUNIT_TEST(functionReturn_returnsRefPtrToConstantInstance_resultComparesEqualToInstance);
 		CPPUNIT_TEST(functionReturn_returnsRefConstPtrToConstantInstance_resultComparesEqualToInstance);
+		CPPUNIT_TEST(push_functionReturnsIntFromStackInstance_comparesEqualToOne);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -130,6 +167,22 @@ public:
 		generate_and_call_class_method("ref_const_ptr_const");
 		assert_return_equals_input<Return_double const*>(*m_lua,m_instance->return_ptr);
 	};
+	
+	void push_functionReturnsIntFromStackInstance_comparesEqualToOne()
+	{
+		m_lua->register_class<Return_mock>();
+		m_lua->run_chunk("function bugReport() "
+					"local object = Method_returns_class:new() "
+					"local stack = object:stackMockWithIntEqualToOne() "
+					"return stack:get_x() "
+					"end");
+		m_lua->call("bugReport");
+		int result(0);
+		OOLUA::pull2cpp(*m_lua,result);
+		CPPUNIT_ASSERT_EQUAL(1,result);
+
+		
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(CppFunctionReturns);

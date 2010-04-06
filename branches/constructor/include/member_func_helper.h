@@ -22,7 +22,22 @@ namespace OOLUA
 		{
 			static void push(Owner owner,lua_State* const s, T& value)
 			{
+				push(owner,s,value, LVD::Int2type<is_by_value>());
+			}
+		private:
+			
+			//its by ref
+			static void push(Owner owner,lua_State* const s, T& value,LVD::Int2type<0> /*t*/)
+			{
 				OOLUA::INTERNAL::push_pointer<Raw>(s,&value,owner);
+			}
+			
+			//by value
+			static void push(Owner/* owner*/,lua_State* const s, T& value,LVD::Int2type<1> /*t*/)
+			{
+				//this needs an allocation and push onto the stack
+				Raw* ptr = new Raw(value);
+				OOLUA::INTERNAL::push_pointer<Raw>(s,ptr,Lua);
 			}
 		};
 		template<typename Raw,typename T,int is_by_value >

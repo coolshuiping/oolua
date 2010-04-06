@@ -14,6 +14,9 @@ removed static keyword from member function generator for parameter types.
 added param traits for Lua_ref 
 added push member to lua_ref
 enabled a constructor to take a Lua_func_ref
+* fixed user type return on the stack http://code.google.com/p/oolua/issues/detail?id=10 reported by Tomm on the mailing list
+
+
 1.2.2
 *Converted premake scripts to premake4 
 *optimised checking of a type against a requested type via casting and storing a function taking the parameters to 
