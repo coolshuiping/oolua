@@ -16,6 +16,7 @@
 
 namespace OOLUA
 {
+	class Lua_table;
 
 	///////////////////////////////////////////////////////////////////////////////
 	///  @class Lua_func_ref
@@ -51,6 +52,7 @@ namespace OOLUA
 		void swap(Lua_ref & rhs);
 		bool push(lua_State* const lua)const;
 	private:
+		friend class  Lua_table;
 		void release();
 		lua_State* m_lua;
 		int m_ref;

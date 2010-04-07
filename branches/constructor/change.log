@@ -19,6 +19,7 @@ moved Lua_table in parameter trait to parma_traits.h
 enabled a constructor to take a Lua_table
 added method to pull a table reference from the stack
 enabled a constructor to take a Lua_table_ref
+added a conversion constructor to Lua_table from Lua_ref_table, introduced a friend hack!!
 
 1.2.2
 *Converted premake scripts to premake4 

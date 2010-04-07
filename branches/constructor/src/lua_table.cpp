@@ -8,6 +8,9 @@ namespace OOLUA
 	Lua_table::Lua_table()
 		:m_lua(0)
 	{}
+	Lua_table::Lua_table(Lua_table_ref const& ref)
+		:m_lua(ref.m_lua),m_table_ref(ref)
+	{}
 	Lua_table::Lua_table(lua_State*  const lua,std::string const& name)
 		:m_lua(lua),m_table_ref(lua)
 	{

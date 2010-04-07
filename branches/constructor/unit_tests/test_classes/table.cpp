@@ -91,6 +91,8 @@ class Table : public CPPUNIT_NS::TestFixture
 	
 		CPPUNIT_TEST(registerClass_memberFunctiontakesTable_compiles);
 		CPPUNIT_TEST(callFunction_memberFunctiontakesTable_noErrors);
+	
+	CPPUNIT_TEST(construct_LuaTableFromLuaTableRef_compiles);
 		CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -320,7 +322,16 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true, res );
 
 	}
-	
+	void construct_LuaTableFromLuaTableRef_compiles()
+	{
+		m_lua->run_chunk("func = function() local t={} return t end");
+		m_lua->call("func");
+		OOLUA::Lua_table_ref ref;
+		OOLUA::pull2cpp(*m_lua,ref);
+		OOLUA::Lua_table t(ref);
+		
+	}
+
 
 	
 	

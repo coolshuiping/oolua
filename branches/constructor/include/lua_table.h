@@ -32,6 +32,7 @@ namespace OOLUA
 	{
 	public:
 		Lua_table();
+		Lua_table(Lua_table_ref const& ref);
 		Lua_table(lua_State*  const lua,std::string const& name);
 		void bind_script(lua_State*  const lua);
 		void set_table(std::string const& name);
