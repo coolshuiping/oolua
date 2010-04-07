@@ -167,6 +167,14 @@ private:
 	WithOutConstructors(WithOutConstructors const&);
 };
 
+class TableRefConstructor
+{
+public:
+	TableRefConstructor(OOLUA::Lua_table_ref ref)
+	:m_table_ref(ref){}
+	OOLUA::Lua_table_ref m_table_ref;
+};
+
 OOLUA_CLASS_NO_BASES(ParamConstructor)
 	OOLUA_TYPEDEFS No_default_constructor OOLUA_END_TYPES
 	OOLUA_CONSTRUCTORS_BEGIN
@@ -186,6 +194,15 @@ OOLUA_CLASS_END
 
 EXPORT_OOLUA_NO_FUNCTIONS(ParamConstructor)
 
+
+OOLUA_CLASS_NO_BASES(TableRefConstructor)
+	OOLUA_TYPEDEFS No_default_constructor OOLUA_END_TYPES
+	OOLUA_CONSTRUCTORS_BEGIN
+		OOLUA_CONSTRUCTOR_1(OOLUA::Lua_table_ref)
+	OOLUA_CONSTRUCTORS_END
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_NO_FUNCTIONS(TableRefConstructor)
 
 OOLUA_CLASS_NO_BASES(Stub1)
 	OOLUA_NO_TYPEDEFS
@@ -266,6 +283,8 @@ class Construct : public CPPUNIT_NS::TestFixture
 	
 	CPPUNIT_TEST(new_constructorTakesLuaTable_callReturnsTrue);
 	CPPUNIT_TEST(new_constructorTakesLuaTable_tableMemberIsValid);
+	
+	CPPUNIT_TEST(new_constructorTakesLuaTableRef_callReturnsTrue);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -563,9 +582,18 @@ public:
 		m_lua->call("foo");
 		ParamConstructorWrapper wrap;
 		pull_ParamWrapper(wrap);
-		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_table.valid() );
+		CPPUNIT_ASSERT_EQUAL(true,wrap.instance.m_ptr->m_table.valid() );
 	}
-
+	void new_constructorTakesLuaTableRef_callReturnsTrue()
+	{
+		m_lua->register_class<TableRefConstructor>();
+		m_lua->run_chunk("foo = function() "
+						 "local t = {} "
+						 "TableRefConstructor:new(t) "
+						 "end");
+		bool result = m_lua->call("foo");
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
 	
 };
 

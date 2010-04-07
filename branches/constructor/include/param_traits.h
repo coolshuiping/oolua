@@ -951,7 +951,11 @@ namespace OOLUA
 		template<typename Cpp_type>
 		struct lua_type_is_cpp_type<Cpp_type,LUA_TTABLE>
 		{
-			enum {value = LVD::is_same<Lua_table ,Cpp_type>::value};
+			
+			typedef Type_list<
+			Lua_ref<LUA_TTABLE>,Lua_table
+			>::type Table_types;
+			enum {value = TYPELIST::IndexOf<Table_types,Cpp_type>::value == -1 ? 0 : 1};
 		};
 	}
 }
