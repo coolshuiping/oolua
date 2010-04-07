@@ -41,23 +41,6 @@ namespace
 	};
 	
 }
-namespace OOLUA
-{
-	template<>
-	struct in_p<OOLUA::Lua_table>
-	{
-		typedef OOLUA::Lua_table type;
-		typedef OOLUA::Lua_table raw;
-		typedef OOLUA::Lua_table pull_type;
-		enum {in = 1};
-		enum {out = 0};
-		enum {owner = No_change};
-		enum { is_by_value = 1 };
-		enum { is_constant = 0 };
-		enum { is_integral = 1 };
-	};
-}
-
 
 OOLUA_CLASS_NO_BASES(TableMemberFunction)
 	OOLUA_TYPEDEFS No_public_constructors OOLUA_END_TYPES

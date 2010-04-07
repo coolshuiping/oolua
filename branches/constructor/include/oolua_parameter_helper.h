@@ -53,7 +53,9 @@ namespace OOLUA
 				case LUA_TFUNCTION:
 					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TFUNCTION>::value;
 					break;
-
+				case LUA_TTABLE:
+					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TTABLE>::value;
+					break;
 					
 				default:
 					return 0;

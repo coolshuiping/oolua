@@ -131,6 +131,17 @@ public:
 	,m_stub_passed_by_value(bool_not_set)
 	,m_func_ref(ref){}
 	
+	ParamConstructor(OOLUA::Lua_table ref)
+	:m_int(int_not_set)
+	,m_bool(bool_not_set)
+	,m_int_ptr(int_not_set)
+	,m_string(string_not_set)
+	,m_stub1(0)
+	,m_stub2(0)
+	,m_stub_passed_by_value(bool_not_set)
+	,m_func_ref()
+	,m_table(ref){}
+	
 	int m_int;
 	bool m_bool;
 	int m_int_ptr;
@@ -141,6 +152,7 @@ public:
 	bool m_const_stub3;
 	bool m_stub3;
 	OOLUA::Lua_func_ref m_func_ref;
+	OOLUA::Lua_table m_table;
 };
 
 class WithOutConstructors
@@ -168,6 +180,7 @@ OOLUA_CLASS_NO_BASES(ParamConstructor)
 		OOLUA_CONSTRUCTOR_1(Stub3*)
 		OOLUA_CONSTRUCTOR_1(Stub3 const *)
 		OOLUA_CONSTRUCTOR_1(OOLUA::Lua_func_ref)
+		OOLUA_CONSTRUCTOR_1(OOLUA::Lua_table)
 	OOLUA_CONSTRUCTORS_END
 OOLUA_CLASS_END
 
@@ -250,6 +263,9 @@ class Construct : public CPPUNIT_NS::TestFixture
 	
 	CPPUNIT_TEST(new_constructorTakesLuaFuncRef_callReturnsTrue);
 	CPPUNIT_TEST(new_constructorTakesLuaFuncRef_FuncRefMemberIsValid);
+	
+	CPPUNIT_TEST(new_constructorTakesLuaTable_callReturnsTrue);
+	CPPUNIT_TEST(new_constructorTakesLuaTable_tableMemberIsValid);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -505,7 +521,7 @@ public:
 	void new_constructorTakesLuaFuncRef_callReturnsTrue()
 	{
 		m_lua->register_class<ParamConstructor>();
-		m_lua->run_chunk("foo = function(obj) "
+		m_lua->run_chunk("foo = function() "
 							"local f = function() end "
 							"ParamConstructor:new(f) "
 						 "end");
@@ -516,7 +532,7 @@ public:
 	void new_constructorTakesLuaFuncRef_FuncRefMemberIsValid()
 	{
 		m_lua->register_class<ParamConstructor>();
-		m_lua->run_chunk("foo = function(obj) "
+		m_lua->run_chunk("foo = function() "
 						 "local f = function() end "
 						 " return ParamConstructor:new(f) "
 						 "end");
@@ -525,6 +541,29 @@ public:
 		pull_ParamWrapper(p);
 		bool isValid = p.instance.m_ptr->m_func_ref.valid();
 		CPPUNIT_ASSERT_EQUAL(true,isValid);	
+	}
+	void new_constructorTakesLuaTable_callReturnsTrue()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function() "
+						 "local t = {} "
+						 "ParamConstructor:new(t) "
+						 "end");
+		bool result = m_lua->call("foo");
+		CPPUNIT_ASSERT_EQUAL(true,result);
+	}
+
+	void new_constructorTakesLuaTable_tableMemberIsValid()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function(obj) "
+						 "local t = {} "
+						 "return ParamConstructor:new(t) "
+						 "end");
+		m_lua->call("foo");
+		ParamConstructorWrapper wrap;
+		pull_ParamWrapper(wrap);
+		CPPUNIT_ASSERT_EQUAL(bool_set,wrap.instance.m_ptr->m_table.valid() );
 	}
 
 	

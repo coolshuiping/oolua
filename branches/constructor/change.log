@@ -15,7 +15,8 @@ added param traits for Lua_ref
 added push member to lua_ref
 enabled a constructor to take a Lua_func_ref
 * fixed user type return on the stack http://code.google.com/p/oolua/issues/detail?id=10 reported by Tomm on the mailing list
-
+moved Lua_table in parameter trait to parma_traits.h
+enabled a constructor to take a Lua_table
 
 1.2.2
 *Converted premake scripts to premake4 
