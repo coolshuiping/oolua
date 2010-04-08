@@ -47,10 +47,9 @@ public:
 	Return_double const*const& ref_const_ptr_const(){return return_ref_const_ptr_const;}
 	Method_returns_class& operator = (Method_returns_class const&);
 	Method_returns_class(Method_returns_class const&);
-	
-	Return_mock stackMockWithIntEqualToOne()
+	Return_double returnStackInstance()
 	{
-		return Return_mock(1); 
+		return Return_double(); 
 	}
 private:
 	Return_double return_instance;
@@ -70,7 +69,7 @@ OOLUA_CLASS_NO_BASES(Method_returns_class)
 	OOLUA_MEM_FUNC_0(Return_double const*, ptr_const)
 	OOLUA_MEM_FUNC_0(Return_double const * & ,ref_ptr_const)
 	OOLUA_MEM_FUNC_0(Return_double const*const&, ref_const_ptr_const)
-	OOLUA_MEM_FUNC_0(Return_mock, stackMockWithIntEqualToOne)
+	OOLUA_MEM_FUNC_0(Return_double,returnStackInstance)
 OOLUA_CLASS_END
 
 EXPORT_OOLUA_FUNCTIONS_7_NON_CONST(Method_returns_class
@@ -80,7 +79,7 @@ EXPORT_OOLUA_FUNCTIONS_7_NON_CONST(Method_returns_class
 									,ptr_const
 									,ref_ptr_const
 									,ref_const_ptr_const
-								   ,stackMockWithIntEqualToOne
+								   ,returnStackInstance
 									)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(Method_returns_class)
 
@@ -93,7 +92,7 @@ class CppFunctionReturns : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(functionReturn_returnsPtrToConstantInstance_resultComparesEqualToInstance);
 		CPPUNIT_TEST(functionReturn_returnsRefPtrToConstantInstance_resultComparesEqualToInstance);
 		CPPUNIT_TEST(functionReturn_returnsRefConstPtrToConstantInstance_resultComparesEqualToInstance);
-		CPPUNIT_TEST(push_functionReturnsIntFromStackInstance_comparesEqualToOne);
+		CPPUNIT_TEST(push_functionReturnsClassOnStackInstance_instanceIsToBeGarbageCollected);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -160,19 +159,22 @@ public:
 		assert_return_equals_input<Return_double const*>(*m_lua,m_instance->return_ptr);
 	};
 	
-	void push_functionReturnsIntFromStackInstance_comparesEqualToOne()
+	void push_functionReturnsClassOnStackInstance_instanceIsToBeGarbageCollected()
 	{
-		m_lua->register_class<Return_mock>();
+		m_lua->register_class<Return_double>();
 		m_lua->run_chunk("function bugReport() "
-					"local object = Method_returns_class:new() "
-					"local stack = object:stackMockWithIntEqualToOne() "
-					"return stack:get_x() "
-					"end");
+						 "local object = Method_returns_class:new() "
+						 "local stack = object:returnStackInstance() "
+						 "return stack "
+						 "end");
 		m_lua->call("bugReport");
-		int result(0);
-		OOLUA::pull2cpp(*m_lua,result);
-		CPPUNIT_ASSERT_EQUAL(1,result);
 
+		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
+		CPPUNIT_ASSERT_EQUAL(true,ud->gc);
+		OOLUA::cpp_acquire_ptr<Return_double> ret;
+		OOLUA::pull2cpp(*m_lua,ret);
+		delete ret.m_ptr;
+		
 		
 	}
 };
