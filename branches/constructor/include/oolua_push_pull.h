@@ -280,43 +280,19 @@ namespace OOLUA
 		lua_pop( s, 1);
 	}
 	
-	namespace INTERNAL
-	{
-		template<typename T>
-		void inline pull_registry_type_with_set_ref_and_swap_funcs(lua_State * const s, T& value)
-		{
-			if( param_is_of_type< param_type<T> >(s,-1) )
-			{
-				value.set_ref( s, luaL_ref(s, LUA_REGISTRYINDEX) );
-			}
-			else if( lua_type(s,-1) ==LUA_TNIL && lua_gettop(s) >=1)
-			{
-				T invalid_reference_default_constructed;
-				value.swap( invalid_reference_default_constructed );
-			}
-			else
-			{
-				assert( 0 &&  "pulling incorrect type from stack");
-			}
-		}
-	}
-	
 	void inline pull2cpp(lua_State* const s, Lua_func_ref& value)
 	{
-		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
 		value.pull(s);
 	}
 
 	void inline pull2cpp(lua_State* const s, Lua_table&  value)
 	{
-		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
 		value.pull_from_stack(s);
 	}
 	
 	void inline pull2cpp(lua_State* const s, Lua_table_ref& value)
 	{
 		value.pull(s);
-		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
 	}
 	
 	namespace INTERNAL
