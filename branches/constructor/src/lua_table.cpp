@@ -22,6 +22,7 @@ namespace OOLUA
 	void Lua_table::bind_script(lua_State*  const lua)
 	{
 		m_lua = lua;
+
 	}
 	void Lua_table::set_table(std::string const& name)
 	{ 
@@ -61,6 +62,7 @@ namespace OOLUA
 		m_table_ref.set_ref(lua,ref);
 	}
 
+	
 	bool Lua_table::get_table()const
 	{
 		bool result(false);
@@ -68,9 +70,17 @@ namespace OOLUA
 		lua_rawgeti(m_lua, LUA_REGISTRYINDEX, m_table_ref.ref() );
 		return  lua_type(m_lua, -1) == LUA_TTABLE;
 	}
+	
 	bool Lua_table::push_on_stack(lua_State* l)const
 	{
 		return m_table_ref.push(l);
+	}
+	void Lua_table::pull_from_stack(lua_State* l)
+	{
+		if( m_table_ref.pull(l) )
+		{
+			m_lua = l;
+		}
 	}
 	void Lua_table::restore_stack(int const & init_stack_size)const
 	{

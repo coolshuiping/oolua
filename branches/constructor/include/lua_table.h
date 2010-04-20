@@ -114,10 +114,12 @@ namespace OOLUA
 		void set_ref(lua_State* const lua,int const& ref);
 		typedef void(*traverse_do_function)(lua_State*);
 		void traverse(traverse_do_function do_);
-		bool get_table()const;
+		
 		bool push_on_stack(lua_State* l)const;
 		void swap(Lua_table & rhs);
+		void pull_from_stack(lua_State* l);
 	private:
+		bool get_table()const;
 		void restore_stack(int const & init_stack_size)const;
 		int initail_stack_size()const;
 		lua_State* m_lua;

@@ -285,6 +285,9 @@ class Construct : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(new_constructorTakesLuaTable_tableMemberIsValid);
 	
 	CPPUNIT_TEST(new_constructorTakesLuaTableRef_callReturnsTrue);
+	
+	CPPUNIT_TEST(new_constructorTakesLuaTableRefYetPassedNil_callReturnsFalse);
+	CPPUNIT_TEST(new_constructorTakesLuaTableYetPassedNil_callReturnsFalse);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -595,6 +598,27 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true,result);
 	}
 	
+	//nil is not convertable to a type in a constructor
+	void new_constructorTakesLuaTableRefYetPassedNil_callReturnsFalse()
+	{
+		m_lua->register_class<TableRefConstructor>();
+		m_lua->run_chunk("foo = function() "
+						 "local t = nil "
+						 "TableRefConstructor:new(t) "
+						 "end");
+		bool result = m_lua->call("foo");
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
+	void new_constructorTakesLuaTableYetPassedNil_callReturnsFalse()
+	{
+		m_lua->register_class<ParamConstructor>();
+		m_lua->run_chunk("foo = function() "
+						 "local t = nil "
+						 "ParamConstructor:new(t) "
+						 "end");
+		bool result = m_lua->call("foo");
+		CPPUNIT_ASSERT_EQUAL(false,result);
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( Construct );

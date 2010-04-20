@@ -38,6 +38,14 @@ namespace
 		{
 			t.set_value(1,2);
 		}
+		bool function_takes_table_returns_result_of_valid(OOLUA::Lua_table t)
+		{
+			return t.valid();
+		}
+		void takes_table_and_pushes_to_stack(OOLUA::Lua_table /*t*/)
+		{
+			//t.get_table();
+		}
 	};
 	
 }
@@ -45,12 +53,15 @@ namespace
 OOLUA_CLASS_NO_BASES(TableMemberFunction)
 	OOLUA_TYPEDEFS No_public_constructors OOLUA_END_TYPES
 	OOLUA_MEM_FUNC_1(void,function_which_takes_a_table,OOLUA::Lua_table)
+	OOLUA_MEM_FUNC_1(bool,function_takes_table_returns_result_of_valid,OOLUA::Lua_table)
+	OOLUA_MEM_FUNC_1(void,takes_table_and_pushes_to_stack,OOLUA::Lua_table)
 OOLUA_CLASS_END
 
 
 
-EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(TableMemberFunction
-									   ,function_which_takes_a_table)
+EXPORT_OOLUA_FUNCTIONS_2_NON_CONST(TableMemberFunction
+									   ,function_which_takes_a_table
+								   ,function_takes_table_returns_result_of_valid)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(TableMemberFunction)
 	
 class Table : public CPPUNIT_NS::TestFixture
@@ -92,7 +103,10 @@ class Table : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(registerClass_memberFunctiontakesTable_compiles);
 		CPPUNIT_TEST(callFunction_memberFunctiontakesTable_noErrors);
 	
-	CPPUNIT_TEST(construct_LuaTableFromLuaTableRef_compiles);
+		CPPUNIT_TEST(construct_LuaTableFromLuaTableRef_compiles);
+		
+		CPPUNIT_TEST(callFunction_memberFunctiontakesTableYetPassedNilReturnsValidityOfTable_returnsFalse);
+
 		CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -162,7 +176,7 @@ public:
 	void getTable_pullValidTableOffStackAndCallFunc_stackSizeIsOne()
 	{
 		assign_valid_table(m_lua,*table);
-		table->get_table();
+		table->push_on_stack(*m_lua);
 		CPPUNIT_ASSERT_EQUAL(int(1), lua_gettop(*m_lua) );
 	}
 	void valid_pullValidTableOffStackAndCallFunc_resultIsTrue()
@@ -262,7 +276,7 @@ public:
 	{
 		OOLUA::Lua_table t;
 		OOLUA::new_table(*m_lua,t);
-		t.get_table();
+		t.push_on_stack(*m_lua);
 		OOLUA::table_set_value(*m_lua,-1,"a",0);
 		int storedValue(1);
 		t.at("a",storedValue);
@@ -274,7 +288,7 @@ public:
 	{
 		OOLUA::Lua_table t;
 		OOLUA::new_table(*m_lua,t);
-		t.get_table();
+		t.push_on_stack(*m_lua);
 		OOLUA::table_set_value(*m_lua,-1,"a",1);
 		int stackSize = lua_gettop(*m_lua);
 		CPPUNIT_ASSERT_EQUAL(1, stackSize );
@@ -317,7 +331,6 @@ public:
 		
 		bool res = m_lua->run_chunk("func = function(obj,t) obj:function_which_takes_a_table(t) end");
 		CPPUNIT_ASSERT_EQUAL(true, res );
-		//obj.function_which_takes_a_table(table_);
 		res =  m_lua->call("func",&obj,table_);
 		CPPUNIT_ASSERT_EQUAL(true, res );
 
@@ -331,8 +344,21 @@ public:
 		OOLUA::Lua_table t(ref);
 		
 	}
-
-
+	void callFunction_memberFunctiontakesTableYetPassedNilReturnsValidityOfTable_returnsFalse()
+	{
+		
+		m_lua->register_class<TableMemberFunction>();
+		TableMemberFunction obj;
+		bool res = m_lua->run_chunk("func = function(obj) "
+										"local t = nil "
+										"return obj:function_takes_table_returns_result_of_valid(t) "
+									"end");
+		CPPUNIT_ASSERT_EQUAL(true, res );
+		m_lua->call("func",&obj);
+		bool tableIsValid(true);
+		OOLUA::pull2cpp(*m_lua,tableIsValid);
+		CPPUNIT_ASSERT_EQUAL(false, tableIsValid);
+	}
 	
 	
 };

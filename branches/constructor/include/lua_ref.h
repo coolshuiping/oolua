@@ -13,6 +13,7 @@
 #	define LUA_REF_H_
 
 #include "lua_includes.h"
+#include <cassert>
 
 namespace OOLUA
 {
@@ -51,6 +52,7 @@ namespace OOLUA
 		void set_ref(lua_State* const lua,int const& ref);
 		void swap(Lua_ref & rhs);
 		bool push(lua_State* const lua)const;
+		bool pull(lua_State* const lua);
 	private:
 		friend class  Lua_table;
 		void release();
@@ -129,7 +131,23 @@ namespace OOLUA
 		return  lua_type(m_lua, -1) == ID;
 	}
 
-
+	template<int ID>
+	inline bool Lua_ref<ID>::pull(lua_State* const lua)
+	{
+		if( lua_type(lua, -1) == ID )
+		{
+			set_ref( lua, luaL_ref(lua, LUA_REGISTRYINDEX) );
+		}
+		else if( lua_type(lua,-1) ==LUA_TNIL && lua_gettop(lua) >=1)
+		{
+			release();
+		}
+		else
+		{
+			assert( 0 &&  "pulling incorrect type from stack");
+		}
+		return true;
+	}
 	///\typedef Lua_table_ref
 	///Wrapper for a lua table
 	typedef Lua_ref<LUA_TTABLE> Lua_table_ref;//0

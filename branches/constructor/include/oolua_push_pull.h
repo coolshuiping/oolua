@@ -12,6 +12,7 @@
 #include "push_pointer_internal.h"
 #include "fwd_push_pull.h"
 #include "oolua_storage.h"
+#include "oolua_parameter_helper.h"
 
 #include <cassert>
 
@@ -278,23 +279,46 @@ namespace OOLUA
 		value = lua_tocfunction( s, -1);
 		lua_pop( s, 1);
 	}
+	
+	namespace INTERNAL
+	{
+		template<typename T>
+		void inline pull_registry_type_with_set_ref_and_swap_funcs(lua_State * const s, T& value)
+		{
+			if( param_is_of_type< param_type<T> >(s,-1) )
+			{
+				value.set_ref( s, luaL_ref(s, LUA_REGISTRYINDEX) );
+			}
+			else if( lua_type(s,-1) ==LUA_TNIL && lua_gettop(s) >=1)
+			{
+				T invalid_reference_default_constructed;
+				value.swap( invalid_reference_default_constructed );
+			}
+			else
+			{
+				assert( 0 &&  "pulling incorrect type from stack");
+			}
+		}
+	}
+	
 	void inline pull2cpp(lua_State* const s, Lua_func_ref& value)
 	{
-		assert(s && lua_isfunction(s,-1) );
-		value.set_ref( s, luaL_ref(s, LUA_REGISTRYINDEX) );
+		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
+		value.pull(s);
 	}
+
 	void inline pull2cpp(lua_State* const s, Lua_table&  value)
 	{
-		assert(s && lua_type(s,-1) == LUA_TTABLE );
-		///luaL_ref Creates and returns a reference, in the table at index t,
-		///for the object at the top of the stack (and pops the object).
-		value.set_ref( s, luaL_ref(s, LUA_REGISTRYINDEX) );
+		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
+		value.pull_from_stack(s);
 	}
+	
 	void inline pull2cpp(lua_State* const s, Lua_table_ref& value)
 	{
-		assert(s && lua_type(s,-1) == LUA_TTABLE );
-		value.set_ref( s, luaL_ref(s, LUA_REGISTRYINDEX) );
+		value.pull(s);
+		//INTERNAL::pull_registry_type_with_set_ref_and_swap_funcs(s,value);
 	}
+	
 	namespace INTERNAL
 	{
 		template<typename T,int is_intergal>
