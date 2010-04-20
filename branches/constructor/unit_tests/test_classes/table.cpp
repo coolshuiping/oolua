@@ -42,10 +42,6 @@ namespace
 		{
 			return t.valid();
 		}
-		void takes_table_and_pushes_to_stack(OOLUA::Lua_table /*t*/)
-		{
-			//t.get_table();
-		}
 	};
 	
 }
@@ -54,7 +50,6 @@ OOLUA_CLASS_NO_BASES(TableMemberFunction)
 	OOLUA_TYPEDEFS No_public_constructors OOLUA_END_TYPES
 	OOLUA_MEM_FUNC_1(void,function_which_takes_a_table,OOLUA::Lua_table)
 	OOLUA_MEM_FUNC_1(bool,function_takes_table_returns_result_of_valid,OOLUA::Lua_table)
-	OOLUA_MEM_FUNC_1(void,takes_table_and_pushes_to_stack,OOLUA::Lua_table)
 OOLUA_CLASS_END
 
 

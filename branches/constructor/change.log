@@ -23,7 +23,7 @@ added a conversion constructor to Lua_table from Lua_ref_table, introduced a fri
 Moved the Lua_table member function get_table to the private interface
 Refactored the pulling of a registry type (Lua_ref<T> and Lua_table)
 pulling a registry type when nil is on the stack, frees the registry ref and sets it to invalid
-
+Refactored Lua_table removing the lua_State instead using the reference's state member
 
 
 1.2.2

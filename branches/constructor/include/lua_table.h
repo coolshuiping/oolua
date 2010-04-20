@@ -46,11 +46,11 @@ namespace OOLUA
 			//int init_stack_size = lua_gettop(m_lua);
 			int const init_stack_size = initail_stack_size();
 			if(!get_table())return false;
-			push2lua(m_lua,key);
+			push2lua(m_table_ref.m_lua,key);
 			//table is now at -2 (key is at -1). lua_gettable now pops the key off
 			//the stack and then puts the data found at the key location on the stack
-			lua_gettable(m_lua, -2);
-			if(lua_type(m_lua,-1) == LUA_TNIL )
+			lua_gettable(m_table_ref.m_lua, -2);
+			if(lua_type(m_table_ref.m_lua,-1) == LUA_TNIL )
 			{
 				restore_stack(init_stack_size);
 //#if defined OOLUA_EXCEPTIONS
@@ -59,7 +59,7 @@ namespace OOLUA
 				return false;
 //#endif
 			}
-			pull2cpp(m_lua, value);
+			pull2cpp(m_table_ref.m_lua, value);
 			restore_stack(init_stack_size);
 
 			return true;
@@ -70,10 +70,10 @@ namespace OOLUA
 		{
 			//int const init_stack_size = initail_stack_size();
 			get_table();//table
-			push2lua(m_lua,key);//table key
-			lua_gettable(m_lua, -2);//table value
-			pull2cpp(m_lua, value);//table
-			lua_pop(m_lua,1);
+			push2lua(m_table_ref.m_lua,key);//table key
+			lua_gettable(m_table_ref.m_lua, -2);//table value
+			pull2cpp(m_table_ref.m_lua, value);//table
+			lua_pop(m_table_ref.m_lua,1);
 			return value;
 		}
 
@@ -84,12 +84,12 @@ namespace OOLUA
 			//int init_stack_size = lua_gettop(m_lua);
 			int const init_stack_size = initail_stack_size();
 			if(!get_table())return;
-			push2lua(m_lua,key);
+			push2lua(m_table_ref.m_lua,key);
 			//table is now at -2 (key is at -1). 
 			//push the new value onto the stack
-			push2lua(m_lua,value);
+			push2lua(m_table_ref.m_lua,value);
 			//table is not at -3 set the table
-			lua_settable(m_lua,-3);
+			lua_settable(m_table_ref.m_lua,-3);
 
 			restore_stack(init_stack_size);
 		}
@@ -101,12 +101,12 @@ namespace OOLUA
 			//int init_stack_size = lua_gettop(m_lua);
 			int const init_stack_size = initail_stack_size();
 			if(!get_table())return;
-			push2lua(m_lua,key);
+			push2lua(m_table_ref.m_lua,key);
 			//table is now at -2 (key is at -1). 
 			//push the new value onto the stack
-			lua_pushnil(m_lua);
+			lua_pushnil(m_table_ref.m_lua);
 			//table is not at -3 set the table
-			lua_settable(m_lua,-3);
+			lua_settable(m_table_ref.m_lua,-3);
 
 			restore_stack(init_stack_size);
 		}
@@ -122,7 +122,6 @@ namespace OOLUA
 		bool get_table()const;
 		void restore_stack(int const & init_stack_size)const;
 		int initail_stack_size()const;
-		lua_State* m_lua;
 		Lua_table_ref m_table_ref;
 	};
 
