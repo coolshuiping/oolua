@@ -11,9 +11,13 @@ Build and test scripts have been moved to build_scripts directory and are requir
 
 = Visual Studio =
 Visual Studio 2010 (vs10) is not supported currently by premake yet if you have vs10 installed and run 
-{{{premake4 vs2010}}} 
+{{{
+premake4 vs2010
+}}} 
 this will generate a vs9 projects then use the update tool to convert to vs10. As vs10 adds files which have not been created directly by premake a specific clean operation has been added to the premake script, this is run via 
-{{{premake4 cleanVS10}}} 
+{{{
+premake4 cleanVS10
+}}} 
 Scripts to build a local install, build and run unit test etc. have been added for vs10 in the script directory.
 
 = Config =
