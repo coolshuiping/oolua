@@ -1,5 +1,5 @@
 #labels Phase-Deploy
-Building Makefiles or IDE projects OOLua version 1.3
+Building of OOLua version 1.3
 <wiki:toc max_depth="4" />
 
 = Introduction =
