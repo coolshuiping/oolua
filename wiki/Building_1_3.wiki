@@ -44,11 +44,11 @@ If 1 Throws exceptions from C++ code. This could be the return of a pcall when p
 
 == OOLUA_STORE_LAST_ERROR ==
  default 1
-When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); See [Building_1_3#ErrorNote]
+When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); See [Building_1_3#Error Note]
 
 == OOLUA_DEBUG_CHECKS ==
  default 1
 Checks for null pointers adds a stack trace to messages called within pcall.
 
-= ErrorNote =
+= Error Note =
 It is an error to have both OOLUA_USE_EXCEPTIONS and OOLUA_STORE_LAST_ERROR set to 1
