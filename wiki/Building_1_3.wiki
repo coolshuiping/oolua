@@ -40,15 +40,15 @@ If 0 compares the address' of the id strings
 
 == OOLUA_USE_EXCEPTIONS ==
  default 0
-If 1 Throws exceptions from C++ code. This could be the return of a pcall when pulling an incorrect type of the stack if OOLUA_RUNTIME_CHECKS_ENABLED == 1. See [Building_1_3#Error_Note]
+If 1 Throws exceptions from C++ code. This could be the return of a pcall when pulling an incorrect type of the stack if OOLUA_RUNTIME_CHECKS_ENABLED == 1. See Error_Note
 
 == OOLUA_STORE_LAST_ERROR ==
  default 1
-When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); See [Building_1_3#Error Note]
+When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); See Error Note
 
 == OOLUA_DEBUG_CHECKS ==
  default 1
 Checks for null pointers adds a stack trace to messages called within pcall.
 
-== Error_Note ==
+== Error Note ==
 It is an error to have both OOLUA_USE_EXCEPTIONS and OOLUA_STORE_LAST_ERROR set to 1
