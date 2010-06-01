@@ -11,7 +11,8 @@ The library comes with Unit Tests which test and also show how to accomplish any
 ||No_public_constructors||There are no constructors in the public interface.||
 ||No_public_destructor||There is not a destructor in the public interface and OOLua will not attempt to delete an instance of this type||
 
-See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_class_constructors.h expose_class_constructors.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_constructor_mock.h cpp_constructor_mock.h]
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_class_constructors.h expose_class_constructors.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_constructor_mock.h cpp_constructor_mock.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/construct.cpp construct.cpp]
+ 
 
 == Portable ==
 === Creating a proxy for a class ===
