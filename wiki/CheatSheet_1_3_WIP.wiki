@@ -1,0 +1,119 @@
+OOLua Binding Framework Cheat Sheet 
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+== Portable ==
+=== Creating a proxy for a class ===
+==== Constructors ====
+
+==== No functions of interest for Lua ====
+{{{
+struct foo{};
+
+OOLUA_CLASS_NO_BASES(foo)//class has no bases
+    OOLUA_NO_TYPEDEFS
+OOLUA_CLASS_END
+}}}
+
+Then in a source file expose the class telling framework that the instance has no functions of interest and providing the name it will be identified by in Lua code(foo).
+{{{
+EXPORT_OOLUA_NO_FUNCTIONS(foo)
+}}}
+
+==== Has a member function which takes no parameters ==== 
+{{{
+struct foo
+{
+  int bar();
+};
+
+OOLUA_CLASS_NO_BASES(foo)//class has no bases
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUNC_0(int,bar)
+OOLUA_CLASS_END
+}}}
+
+The line "OOLUA_MEM_FUNC_0(int,bar)" tells the binding that the function takes no parameters, returns an int and the functions name is bar.
+
+Then in a source file expose the class telling the framework that the instance has a function of interest yet no constant member functions, also providing the name it will be identified by in Lua code(foo).
+{{{
+EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo /*name of class*/
+                                  ,bar)/*function being exposed*/
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
+}}}
+
+==== Has a member function which takes one parameter ====
+{{{
+struct foo
+{
+  int bar(float);
+};
+
+OOLUA_CLASS_NO_BASES(foo)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUNC_1(int/*return type*/
+                   ,bar/*function name*/
+                   ,float)/*parameter type*/
+OOLUA_CLASS_END
+}}}
+
+{{{
+EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo,bar)
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
+}}}
+
+==== Abstract class ====
+{{{
+struct foo
+{
+  int bar() = 0;
+};
+
+OOLUA_CLASS_NO_BASES(foo)//class has no bases
+    OOLUA_TYPEDEFS Abstract OOLUA_END_TYPES/*tell the framework it is abstract*/
+    OOLUA_MEM_FUNC_0(int,bar)
+OOLUA_CLASS_END
+}}}
+
+{{{
+EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo /*name of class*/
+                                  ,bar)/*function being exposed*/
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
+}}}
+
+==== Derived class ====
+Expanding on the example in [CheatSheet#Abstract_class]
+{{{
+struct baz : foo
+{
+  int bar(){return 1};
+};
+
+OOLUA_CLASS(baz) : public Proxy_class<foo>
+    OOLUA_BASIC
+    OOLUA_NO_TYPEDEFS
+    OOLUA_BASES_START foo OOLUA_BASES_END
+OOLUA_CLASS_END
+}}}
+{{{
+EXPORT_OOLUA_NO_FUNCTIONS(baz)
+}}}
+
+OOLUA_BASIC defines the basic functionality which a proxy class requires, this is automatically added when not using "OOLUA_CLASS". You can see that the base class functions which have already been exposed do not need to be re-exposed and they will be available for this type.<br />
+{{{
+OOLUA_BASES_START foo OOLUA_BASES_END
+}}}
+This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
+== Platform supports __VA_ARGS__ ==
+== Platform is g++ or mscv ==
+
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
