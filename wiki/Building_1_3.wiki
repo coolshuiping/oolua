@@ -50,5 +50,5 @@ When an error occurs, the error is stored in the Lua registry and is retrievable
  default 1
 Checks for null pointers adds a stack trace to messages called within pcall.
 
-=== ErrorNote ===
+===ErrorNote===
 It is an error to have both OOLUA_USE_EXCEPTIONS and OOLUA_STORE_LAST_ERROR set to 1
