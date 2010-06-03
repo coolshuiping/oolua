@@ -114,13 +114,3 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 == Platform supports __VA_ARGS__ ==
 == Platform is g++ or mscv ==
-
-
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
