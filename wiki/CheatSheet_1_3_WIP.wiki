@@ -186,7 +186,11 @@ OOLUA::register_class_and_bases<Foo>(s);
 }}}
 *Note* It is safe to use this function with a type which has no bases.
 === Exposing static or C Functions ===
-C functions are proxied using a function whose signature matches LuaCFunction (int(*)(lua_State*)), with the added requirement that the function parameter of type pointer to lua_State is named "l" (lower case L)
+C functions are proxied using a function whose signature matches LuaCFunction 
+{{{
+int(*)(lua_State*)
+}}}
+There is an added requirement that the function parameter of type pointer to lua_State is named "l" (lower case L)
 {{{
 bool someFunc(int, float);
 
