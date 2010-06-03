@@ -267,12 +267,12 @@ If the platform in use supports variadic macros then in most cases a generic mac
 EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
                                   ,bar/*function being exposed*/
                                   ,baz)/*function being exposed*/
-EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)//requires 0(zero) in macro
 }}}
 
 === Proxying member functions ===
 {{{
-    OOLUA_MEM_FUNC_0(void,foo)
+    OOLUA_MEM_FUNC_0(void,foo)//requires 0(zero) in macro
     OOLUA_MEM_FUNC(void,bar,int,SomeClass*)
 }}}
 
@@ -294,7 +294,7 @@ struct Foo
 
 int staticMemberFunc(lua_State* l)
 {
-    OOLUA_C_FUNCTION_0(void,Foo::staticMemberFunc)//0 (zero required)
+    OOLUA_C_FUNCTION_0(void,Foo::staticMemberFunc)//requires 0(zero) in macro
 }
 }}}
 
