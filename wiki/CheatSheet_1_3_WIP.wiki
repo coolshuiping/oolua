@@ -345,7 +345,6 @@ struct foo
   void baz(int );
 };
 
-{{{
 OOLUA_PROXY_CLASS(foo)//No bases, can use the same macro which register bases
     OOLUA_NO_TYPEDEFS
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
@@ -355,7 +354,6 @@ OOLUA_CLASS_END
 }}}
 
 
-=== Proxying C and static functions ===
 {{{
 struct Foo
 {
