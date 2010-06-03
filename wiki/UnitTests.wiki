@@ -1,5 +1,5 @@
 #labels Featured
 [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests Unit tests] are provided and show OOLua usage, for anything which is not clear please ask for a sample in the [CheatSheet].<br />
-Tests are preformed using [http://sourceforge.net/apps/mediawiki/cppunit/index.php?title=Main_Page CppUnit] and [http://code.google.com/p/googlemock/ Gmock] an additional dependency of [http://premake.sourceforge.net/ Premake (4.2)] for building projects/workspaces/makefiles is required.
+Tests are preformed using [Building#Cpp_Unit] and [Building#Google_Mock] an additional dependency of [Building#Premake] for building projects/workspaces/makefiles is required.
 =Premake command line examples=
 See [http://code.google.com/p/oolua/source/browse/trunk/readme.txt readme.txt] in the download or [http://code.google.com/p/oolua/wiki/Building Building]
