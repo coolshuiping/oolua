@@ -277,6 +277,27 @@ EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
 === Proxying C and static functions ===
+{{{
+bool someFunc(int, float);
+
+int someFunc(lua_State* l)
+{
+    OOLUA_C_FUNCTION(int,someFunc,int,float)//When parameter count >=1 no number is required in the macro
+}
+}}}
+
+{{{
+struct Foo
+{
+    static void staticMemberFunc();
+};
+
+int staticMemberFunc(lua_State* l)
+{
+    OOLUA_C_FUNCTION_0(void,Foo::staticMemberFunc)//0 (zero required)
+}
+}}}
+
 === Proxying classes with bases ===
 {{{
 struct baz : foo
@@ -331,4 +352,18 @@ OOLUA_PROXY_CLASS(foo)//No bases, can use the same macro which register bases
     OOLUA_MEM_FUNC(int,bar)//No 0 (zero) required in the macro
     OOLUA_MEM_FUNC(int,bar,int)
 OOLUA_CLASS_END
+}}}
+
+
+=== Proxying C and static functions ===
+{{{
+struct Foo
+{
+    static void staticMemberFunc();
+};
+
+int staticMemberFunc(lua_State* l)
+{
+    OOLUA_C_FUNCTION(void,Foo::staticMemberFunc)////No 0 (zero) required in the macro
+}
 }}}
