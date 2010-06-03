@@ -101,7 +101,7 @@ void Lua_table::traverse(Lua_table::traverse_do_function do_);
 }}}
 Recursively calls "{{{do_}}}" with the next entry on the top of the stack.
 
-=== swap ===
+==== swap ====
 {{{
 void Lua_table::swap(Lua_table & rhs);
 }}}
