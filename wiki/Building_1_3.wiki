@@ -6,11 +6,11 @@ Building OOLua version 1.3
 Most of [Building] is relevant for 1.3, the differences are listed below.
 
 = Scripts =
-Build and test scripts have been moved to build_scripts directory and are required to be run from this directory as not as stated in [Building#Build_Scripts] as being run from the root.
+Build and test scripts have been moved to the build_scripts directory and are required to be run from this directory, not as stated in [Building#Build_Scripts] as being run from the root.
 
 
 = Visual Studio =
-Visual Studio 2010 (vs10) is not supported currently by premake yet if you have vs10 installed and run 
+Visual Studio 2010 (vs10) is not supported currently by premake, yet if you have vs10 installed and run 
 {{{
 premake4 vs2010
 }}} 
