@@ -193,14 +193,14 @@ extern lua_State* s;
 X value;
 OOLUA::push2lua(s,value);
 }}}
-Where X is registered class, a registered class with [Parameter_type_traits] or an integral type.
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
 === Pulling values from Lua ===
 {{{
 extern lua_State* s;
 X value;
 OOLUA::pull2cpp(s,value);
 }}}
-Where X is registered class, a registered class with [Parameter_type_traits] or an integral type.
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
 === Lua references ===
 === Lua Tables ===
 
