@@ -28,7 +28,7 @@ Then in a source file expose the class telling framework that the instance has n
 EXPORT_OOLUA_NO_FUNCTIONS(foo)
 }}}
 
-==== Has a member function which takes no parameters ==== 
+==== Has a member function which takes no parameters ====
 {{{
 struct foo
 {
@@ -112,5 +112,16 @@ OOLUA_BASIC defines the basic functionality which a proxy class requires, this i
 OOLUA_BASES_START foo OOLUA_BASES_END
 }}}
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
+
+=== Pushing values to Lua ===
+=== Pulling values from Lua ===
+=== Registering static or C Functions ===
+=== Registering a proxy class ===
+=== Lua references ===
+=== Lua Tables ===
+=== Calling Lua functions ===
+=== Type traits ===
+
+
 == Platform supports __VA_ARGS__ ==
 == Platform is g++ or mscv ==
