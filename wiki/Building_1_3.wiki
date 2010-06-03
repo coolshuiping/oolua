@@ -21,7 +21,7 @@ premake4 cleanVS10
 Scripts to build a local install, build and run unit test etc. have been added for vs10 in the script directory.
 
 = Config =
-A configuration header is now included to control what features are present in the library, see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_config.h oolua_config.h] for more information. To turn a feature on define it to have a default value of 1 in config or predefine it to have this value.
+A configuration header is now included to control what features are present in the library, see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_config.h oolua_config.h] for more information. To turn a feature on, define it to have a default value of 1 in config or predefine it to have this value.
 
 ||Macro||Default value||Description||
 ||OOLUA_RUNTIME_CHECKS_ENABLED || 1 ||Checks that a type being pulled off the stack is of the correct type. If this is a proxy type, it also checks the userdata on the stack was created by OOLua||
