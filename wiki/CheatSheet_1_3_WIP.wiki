@@ -179,6 +179,11 @@ s.register_class(f);
 extern lua_State* s;
 OOLUA::register_class<Foo>(s);
 }}}
+===Registering a class type and all it's bases with a lua_State===
+{{{
+extern lua_State* s;
+OOLUA::register_class_and_bases<Foo>(s);
+}}}
 === Registering static or C Functions ===
 === Pushing values to Lua ===
 === Pulling values from Lua ===
