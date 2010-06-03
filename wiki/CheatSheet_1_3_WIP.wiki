@@ -411,7 +411,24 @@ OOLUA_CLASS_END
 }}}
 If a function has no parameters then the macro OOLUA_MEM_FUNC_0 or one of its variants is required. On the other hand if it has one or more then the varadic macro OOLUA_MEM_FUNC can be used.
 
+== Varadic constructor macro ==
+{{{
+struct Foo
+{
+  Foo();
+  Foo(int );
+  Foo(int, Bar*);
+};
+OOLUA_PROXY_CLASS(Foo)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_CONSTRUCTORS_BEGIN
+        /*Foo() is auto generated due to not having No_default_constructor in typedefs*/
+        OOLUA_CONSTRUCTOR(int)/*requires no number suffix to macro*/
+        OOLUA_CONSTRUCTOR(int,Bar*)/*requires no number suffix to macro*/
+    OOLUA_CONSTRUCTORS_END
+OOLUA_CLASS_END
 
+}}}
 = Platform is g++ or mscv =
 These platforms support __VA_ARGS__ and the benefits it brings and also support a comma deletion extension which enables suffixes of "0" to be removed from macros.
 The platforms also allow registering classes which either do or do not have bases using the same macro OOLUA_PROXY_CLASS. 
