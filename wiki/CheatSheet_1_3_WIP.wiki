@@ -185,8 +185,22 @@ extern lua_State* s;
 OOLUA::register_class_and_bases<Foo>(s);
 }}}
 === Registering static or C Functions ===
+
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_static_and_c_functions.h cpp_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.h expose_static_and_c_functions.h], http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.cpp expose_static_and_c_functions.cpp] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/static_function.cpp static_function.cpp].
 === Pushing values to Lua ===
+{{{
+extern lua_State* s;
+X value;
+OOLUA::push2lua(s,value);
+}}}
+Where X is registered class, a registered class with [Parameter_type_traits] or an integral type.
 === Pulling values from Lua ===
+{{{
+extern lua_State* s;
+X value;
+OOLUA::pull2cpp(s,value);
+}}}
+Where X is registered class, a registered class with [Parameter_type_traits] or an integral type.
 === Lua references ===
 === Lua Tables ===
 
