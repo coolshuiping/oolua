@@ -127,7 +127,7 @@ Class operators are exposed between the OOLUA_TYPEDEFS_START and OOLUA_TYPEDEFS_
 ||Not_equal_op|| !=, not ==||
 ||Less_equal_op||<= Note: Greater than comes for free||
 ||Div_op||/||
-||Mul_op||*||
+||Mul_op||{{{*}}}||
 ||Sub_op||-||
 ||Add_op||+||
 
