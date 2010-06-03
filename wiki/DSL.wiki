@@ -1,7 +1,7 @@
 ||Name||Portable||Description||
 ||OOLUA_CLASS||Yes|| ||
 ||OOLUA_CLASS_NO_BASES||Yes||Helper macro which informs the library there are no base classes for this class which are wanted to be exposed. ||
-||OOLUA_PROXY_CLASS||No||Varadic macro which can be used to start the generating of a proxy class which if supported can be used without and without bases.||
+||OOLUA_PROXY_CLASS||No||Varadic macro which can be used to start the generating of a proxy class. If supported can be used without and without bases.||
 ||OOLUA_CLASS_END||Yes||Ends the generation of a proxy class.||
 ||OOLUA_BASIC||Yes||Required when using portable code for a class which has bases exposed.||
 ||OOLUA_BASES_START||Yes||List start of base classes||
