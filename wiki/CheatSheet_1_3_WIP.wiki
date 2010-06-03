@@ -142,7 +142,7 @@ s.call(f);
 == Generating a proxy for a class ==
 
 === Typedefs ===
-Typedefs always for more information to be expressed about a class which is having a proxy class created for it, this extra information is placed between the following macros in a comma separated list. For all types which can be inserted into this list see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_typedefs.h oolua_typedefs.h]
+Typedefs allow for more information to be expressed about a class which is having a proxy class created for it, this extra information is placed between the following macros in a comma separated list. For all types which can be inserted into this list see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_typedefs.h oolua_typedefs.h]
  * OOLUA_TYPEDEFS_START <br />
  * OOLUA_TYPEDEFS_END <br />
 
