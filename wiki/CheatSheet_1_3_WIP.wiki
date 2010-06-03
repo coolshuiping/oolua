@@ -39,7 +39,7 @@ extern lua_State* s;
 X value;
 OOLUA::push2lua(s,value);
 }}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type. Pushing inserts the input at the top of the stack.
 
 
 == Pulling values from Lua ==
@@ -48,7 +48,7 @@ extern lua_State* s;
 X value;
 OOLUA::pull2cpp(s,value);
 }}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type. Pulls from the top of the stack, see {CheatSheet_1_3_WIP#Lua_function_return_order].
 
 
 == Lua references ==
@@ -107,8 +107,11 @@ void Lua_table::swap(Lua_table & rhs);
 }}}
 Swaps the internal Lua_func_ref and rhs.m_table_ref;
 
+== Lua function ==
+A Lua function can be stored in a Lua_func_ref which is a registry copy of the function. See CheetSheet_1_3_WIP#Lua references] or identified as a string.
+
 ==Calling a Lua function==
-A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The class has templated overloaded functions which take up the amount of parameters defined in [Building#File_generator] or the default of eight. The method can be called via it's name or via a Lua_ref_func pulled from lua.
+A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The Lua_function class has templated overloaded call operators which take up the amount of parameters defined in [Building#File_generator]. <br />
 
 ===Via name===
 {{{
