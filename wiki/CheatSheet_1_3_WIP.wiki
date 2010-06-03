@@ -133,6 +133,21 @@ Class operators are exposed between the OOLUA_TYPEDEFS_START and OOLUA_TYPEDEFS_
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_class_ops.h cpp_class_ops.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/lua_class_ops.h lua_class_ops.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/operators.cpp operators.cpp]
 === Parameter type traits ===
+Traits are used two fold.
+Where the following are used exclusively for bound member functions:
+ * in_p  *Parameter is only passed to the real member function.*
+ * out_p  *Parameter or a function return is only passed back to Lua.*
+ * in_out_p  *Parameter is passed to function and also back to Lua.*
+And the following used for member functions and also pushing and pulling to and from the Lua stack:
+ * cpp_in_p  *C++ code takes ownership of a pointer.*
+ * cpp_out_p  *Lua takes ownership of a pointer.*
+
+If parameter traits are not defined then it defaults to OOLUA::in_p.
+For function return values OOLUA::out_p is used (inside the generating
+function), this template is specialised for void types.
+
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_out_params.h cpp_out_params.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_out_params.h expose_out_params.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/out_params.cpp out_params.cpp]
+
 === Registering static or C Functions ===
 === Registering a proxy class ===
 === Pushing values to Lua ===
