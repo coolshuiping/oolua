@@ -114,7 +114,7 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 
 === Class operators ===
-=== Paramater type traits ===
+=== Parameter type traits ===
 === Registering static or C Functions ===
 === Registering a proxy class ===
 === Pushing values to Lua ===
