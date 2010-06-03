@@ -32,7 +32,7 @@ Naming is of the format
 {{{
 [make of IDE]_build.[sh or bat]
 }}}
-when run in the root directory it compiles the library debug and release versions. These static libraries can be found in the "local_install" directory along with copies of the header files in a directory below this named "oolua". All otherfiles created during the running are deleted.
+when run in the root directory it compiles the library debug and release versions. These static libraries can be found in the "local_install" directory along with copies of the header files in a directory below this named "oolua". All other files created during the running are deleted.
  
 
 = Building Makefiles or IDE projects =
