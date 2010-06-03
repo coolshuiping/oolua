@@ -151,6 +151,9 @@ s.call(f);
 
 If the type No_public_constructors is not present in the classes Typedefs then OOLua requires to be told about constructors between the macros OOLUA_CONSTRUCTORS_BEGIN and OOLUA_CONSTRUCTORS_END. For convenience instead of using the previous two macros with no further constructors, a helper macro is defined OOLUA_ONLY_DEFAULT_CONSTRUCTOR.
 
+When interacting with the Lua stack certain types can not be differentiated between. These include some integral types such as float, int, double etc and types which are of a proxy class type or derived from that type. OOLua implicitly converts between classes in a hierarchy even if a reference is required. 
+*It is therefore defined that the first constructor which has the correct amount of parameters and can match the stack entries to a constructors parameter types is the one used.*
+
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_class_constructors.h expose_class_constructors.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_constructor_mock.h cpp_constructor_mock.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/construct.cpp construct.cpp]
 
 === Typedefs ===
