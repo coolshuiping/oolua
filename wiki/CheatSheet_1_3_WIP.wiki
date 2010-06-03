@@ -73,7 +73,7 @@ OOLUA::Lua_table t;//invalid after constructor call
 OOLUA::new_table(s,t);//valid after call
 }}}
 
-==== Constructors ====
+==== Lua table constructors ====
 ||Signature||Initialisation||
 ||{{{Lua_table()}}}|| Default creates an object on which a call to valid returns false||
 ||{{{Lua_table(Lua_table_ref const& ref)}}}||Initialises the reference to be an instance of the same registry reference or an invalid table if ref.valid() == false  ||
@@ -141,6 +141,15 @@ s.call(f);
 
 == Generating a proxy for a class ==
 
+=== Typedefs ===
+Typedefs always for more information to be expressed about a class which is having a proxy class created for it, this extra information is placed between the following macros in a comma separated list. For all types which can be inserted into this list see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_typedefs.h oolua_typedefs.h]
+ * OOLUA_TYPEDEFS_START <br />
+ * OOLUA_TYPEDEFS_END <br />
+
+ * OOLUA_NO_TYPEDEFS<br />
+For convenience OOLUA_NO_TYPEDEFS is available when no further information need be expressed. 
+
+
 
 == Class constructors ==
 1.3 version of the library adds partial support for overloaded constructors, for this the ABI is broken and three new types have been added to oolua_typedefs.h which can be included inside the OOLUA_TYPEDEFS macros.
@@ -156,7 +165,6 @@ When interacting with the Lua stack certain types can not be differentiated betw
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_class_constructors.h expose_class_constructors.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_constructor_mock.h cpp_constructor_mock.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/construct.cpp construct.cpp]
 
-=== Typedefs ===
 
 === No functions of interest for Lua ===
 {{{
