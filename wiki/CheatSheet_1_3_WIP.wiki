@@ -5,7 +5,11 @@ OOLua Binding Framework Cheat Sheet
 
 ==lua_State==
 ===OOLUA::Script===
-OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use, it scopes a lua_State and provides methods to register types, an instance to call Lua functions and functions for a little state management.
+OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use which:
+ * Scopes a lua_State pointer.
+ * Provides methods to register types.
+ * Binds an instance to call Lua functions.
+ * Has member functions for a little state management.
 
 ===Usage without OOLUA::Script===
 To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
