@@ -22,6 +22,7 @@ struct foo{};
 
 OOLUA_CLASS_NO_BASES(foo)//class has no bases
     OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 }}}
 
@@ -39,6 +40,7 @@ struct foo
 
 OOLUA_CLASS_NO_BASES(foo)//class has no bases
     OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
     OOLUA_MEM_FUNC_0(int,bar)
 OOLUA_CLASS_END
 }}}
@@ -61,6 +63,7 @@ struct foo
 
 OOLUA_CLASS_NO_BASES(foo)
     OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
     OOLUA_MEM_FUNC_1(int/*return type*/
                    ,bar/*function name*/
                    ,float)/*parameter type*/
@@ -103,6 +106,7 @@ OOLUA_CLASS(baz) : public Proxy_class<foo>
     OOLUA_BASIC
     OOLUA_NO_TYPEDEFS
     OOLUA_BASES_START foo OOLUA_BASES_END
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 }}}
 {{{
@@ -116,6 +120,18 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 
 === Class operators ===
+Class operators are exposed between the OOLUA_TYPEDEFS_START and OOLUA_TYPEDEFS_END set of macros. The following is a list of the supported operators.
+||OOLua type||C++ and Lua operator||
+||Less_op|| <||
+||Equal_op||==||
+||Not_equal_op|| !=, not ==||
+||Less_equal_op||<= Note: Greater than comes for free||
+||Div_op||/||
+||Mul_op||*||
+||Sub_op||-||
+||Add_op||+||
+
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_class_ops.h cpp_class_ops.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/lua_class_ops.h lua_class_ops.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/operators.cpp operators.cpp]
 === Parameter type traits ===
 === Registering static or C Functions ===
 === Registering a proxy class ===
@@ -161,6 +177,7 @@ struct foo
 
 OOLUA_PROXY_CLASS(foo)
     OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
     OOLUA_MEM_FUNC_0(int,bar)
     OOLUA_MEM_FUNC(int,baz,int)
 OOLUA_CLASS_END
@@ -188,6 +205,7 @@ struct foo
 
 OOLUA_PROXY_CLASS(foo)//class has no bases
     OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
     OOLUA_MEM_FUNC(int,bar)
     OOLUA_MEM_FUNC(int,bar,int)
 OOLUA_CLASS_END
