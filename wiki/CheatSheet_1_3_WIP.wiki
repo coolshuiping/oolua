@@ -1,8 +1,138 @@
 OOLua Binding Framework Cheat Sheet 
-<wiki:toc max_depth="4" />
+<wiki:toc max_depth="5" />
+
+= Portable =
+
+==lua_State==
+===OOLUA::Script===
+OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use, it scopes a lua_State and provides methods to register types, an instance to call Lua functions and functions for a little state management.
+
+===Usage without OOLUA::Script===
+To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
+{{{
+void setup_user_lua_state(lua_State* l);
+}}}
+
+== Parameter type traits ==
+Traits are used two fold.
+Where the following are used exclusively for bound member functions:
+||Type||Description||
+||in_p||Parameter is only passed to the real member function.||
+||out_p||Parameter or a function return is only passed back to Lua.||
+||in_out_p||Parameter is passed to function and also back to Lua.||
+
+And the following used for member functions and also pushing and pulling to and from the Lua stack:
+||Type||Description||
+||cpp_in_p||C++ code takes ownership of a pointer.||
+||cpp_out_p||Lua takes ownership of a pointer.||
+
+If parameter traits are not defined then it defaults to OOLUA::in_p.
+For function return values OOLUA::out_p is used (inside the generating
+function), this template is specialised for void types.
+
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_out_params.h cpp_out_params.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_out_params.h expose_out_params.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/out_params.cpp out_params.cpp]
+
+
+== Pushing values to Lua ==
+{{{
+extern lua_State* s;
+X value;
+OOLUA::push2lua(s,value);
+}}}
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
+
+
+== Pulling values from Lua ==
+{{{
+extern lua_State* s;
+X value;
+OOLUA::pull2cpp(s,value);
+}}}
+Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
+
+
+== Lua references ==
+A [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h Lua_ref] is a templated class which is a proxy for a value stored in the Lua registry.
+
+
+== Lua Tables ==
+Lua's data structure Table is represented in OOLua using a [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h OOLUA::Lua_table_ref] or [http://code.google.com/p/oolua/source/browse/trunk/include/lua_table.h OOLUA::Lua_table].
+
+=== Lua_table ===
+Lua_table is a type used to treat the Lua Table reference as a C++ object which has defined operations. <br />
+Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. 
+
+==== Constructors ====
+Construction of a Lua_table does not construct a valid registry reference using the default constructor, yet creates an instance that when the member function "valid" is called returns false.<br /> 
+To construct a new table which is represented by a Lua_table either pure Lua code can be used and either passed to the constructor or set via member methoods, alternatively a helper function is present in the library OOLUA::new_table.
+{{{
+OOLUA::Script s;
+OOLUA::Lua_table t;//invalid after constructor call
+OOLUA::new_table(s,t);//valid after call
+}}}
+
+||Signature||Initialisation||
+||{{{Lua_table()}}}|| Default creates an object on which a call to valid returns false||
+||{{{Lua_table(Lua_table_ref const& ref)}}}||Initialises the reference to be an instance of the same registry reference or an invalid table if ref.valid() == false  ||
+||{{{Lua_table(lua_State*  const lua,std::string const& name)}}}||Order of trying to initialise<br /> *name.empty() == true* Creates am invalid object<br /> *name found as a table in Lua global* Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry<br /> *name found as a table in Lua registry* Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry<br /> *else* Swaps the internal Lua_func_ref with an uninitialised instance||
+
+==== set_table ====
+{{{
+void Lua_table::set_table(std::string const& name);
+}}}
+
+==== valid ====
+{{{
+bool Lua_table::valid()const;
+}}}
+Returns a boolean which is the result of checking the internal Lua_func_ref.
+
+==== set_ref ====
+{{{
+void Lua_table::set_ref(lua_State* const lua,int const& ref);
+}}}
+Initailises the internal Lua_func_ref to the id "ref".
+
+==== traverse ====
+{{{
+void Lua_table::traverse(Lua_table::traverse_do_function do_);
+}}}
+Recursively calls "{{{do_}}}" with the next entry on the top of the stack.
+
+=== swap ===
+{{{
+void Lua_table::swap(Lua_table & rhs);
+}}}
+Swaps the internal Lua_func_ref and rhs.m_table_ref;
+
+==Calling a Lua function==
+A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The class has templated overloaded functions which take up the amount of parameters defined in [Building#File_generator] or the default of eight. The method can be called via it's name or via a Lua_ref_func pulled from lua.
+
+===Via name===
+{{{
+func = function() end
+}}}
+{{{
+OOLUA::Script s;
+s.call("func");
+}}}
+
+===Via reference===
+This example assumes that an function is at the top on the Lua stack.
+{{{
+OOLUA::Script s;
+OOLUA::Lua_ref_func f;
+OOLUA::pull2cpp(s,f);
+s.call(f);
+}}}
+
+
+
+== Generating a proxy for a class ==
+
 
 == Constructors ==
-1.3 version of the library adds partial support for constructors, for this the ABI is broken and three new types have been added to oolua_typedefs.h which can be included inside the OOLUA_TYPEDEFS macros.
+1.3 version of the library adds partial support for overloaded constructors, for this the ABI is broken and three new types have been added to oolua_typedefs.h which can be included inside the OOLUA_TYPEDEFS macros.
 ||*Type*||*Meaning*||
 ||No_default_constructor||There is not a default constructor in the public interface yet there are other constructors.||
 ||No_public_constructors||There are no constructors in the public interface.||
@@ -11,12 +141,10 @@ OOLua Binding Framework Cheat Sheet
 If the type No_public_constructors is not present in the classes Typedefs then OOLua requires to be told about constructors between the macros OOLUA_CONSTRUCTORS_BEGIN and OOLUA_CONSTRUCTORS_END. For convenience instead of using the previous two macros with no further constructors, a helper macro is defined OOLUA_ONLY_DEFAULT_CONSTRUCTOR.
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_class_constructors.h expose_class_constructors.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_constructor_mock.h cpp_constructor_mock.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/construct.cpp construct.cpp]
- 
 
-== Portable ==
-=== Creating a proxy for a class ===
+=== Typedefs ===
 
-==== No functions of interest for Lua ====
+=== No functions of interest for Lua ===
 {{{
 struct foo{};
 
@@ -31,7 +159,7 @@ Then in a source file expose the class telling framework that the instance has n
 EXPORT_OOLUA_NO_FUNCTIONS(foo)
 }}}
 
-==== Has a member function which takes no parameters ====
+=== Has a member function which takes no parameters ===
 {{{
 struct foo
 {
@@ -41,7 +169,8 @@ struct foo
 OOLUA_CLASS_NO_BASES(foo)//class has no bases
     OOLUA_NO_TYPEDEFS
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
-    OOLUA_MEM_FUNC_0(int,bar)
+    OOLUA_MEM_FUNC_0(int/*return type*/
+                   ,bar/*function name*/)
 OOLUA_CLASS_END
 }}}
 
@@ -54,7 +183,7 @@ EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo /*name of class*/
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
-==== Has a member function which takes one parameter ====
+=== Has a member function which takes one parameter ===
 {{{
 struct foo
 {
@@ -75,7 +204,10 @@ EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo,bar)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
-==== Abstract class ====
+=== Overloaded member functions ===
+
+
+=== Abstract class ===
 {{{
 struct foo
 {
@@ -94,7 +226,7 @@ EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo /*name of class*/
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
-==== Derived class ====
+=== Derived class ===
 Expanding on the example in [CheatSheet#Abstract_class]
 {{{
 struct baz : foo
@@ -119,7 +251,7 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 }}}
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 
-=== Class operators ===
+== Class operators ==
 Class operators are exposed between the OOLUA_TYPEDEFS_START and OOLUA_TYPEDEFS_END set of macros. The following is a list of the supported operators.
 ||OOLua type||C++ and Lua operator||
 ||Less_op|| <||
@@ -132,38 +264,10 @@ Class operators are exposed between the OOLUA_TYPEDEFS_START and OOLUA_TYPEDEFS_
 ||Add_op||+||
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_class_ops.h cpp_class_ops.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/lua_class_ops.h lua_class_ops.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/operators.cpp operators.cpp]
-=== Parameter type traits ===
-Traits are used two fold.
-Where the following are used exclusively for bound member functions:
-||Type||Description||
-||in_p||Parameter is only passed to the real member function.||
-||out_p||Parameter or a function return is only passed back to Lua.||
-||in_out_p||Parameter is passed to function and also back to Lua.||
 
-And the following used for member functions and also pushing and pulling to and from the Lua stack:
-||Type||Description||
-||cpp_in_p||C++ code takes ownership of a pointer.||
-||cpp_out_p||Lua takes ownership of a pointer.||
-
-If parameter traits are not defined then it defaults to OOLUA::in_p.
-For function return values OOLUA::out_p is used (inside the generating
-function), this template is specialised for void types.
-
-See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_out_params.h cpp_out_params.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_out_params.h expose_out_params.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/out_params.cpp out_params.cpp]
-
-===lua_State===
-====OOLUA::Script====
-OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use, it scopes a lua_State and provides methods to register types, an instance to call Lua functions and functions for a little state management.
-
-====Usage without OOLUA::Script====
-To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
-{{{
-void setup_user_lua_state(lua_State* l);
-}}}
-
-===Registering a class type with a lua_State===
+== Registering a class type with a lua_State ==
 As mentioned [CheatSheet_1_3_WIP#OOLUA::Script] is only a helper class, so internally it's register function is the same as without.
-====With OOLUA::Script====
+=== With OOLUA::Script ===
 {{{
 OOLUA::Script s;
 s.register_class<Foo>();
@@ -174,12 +278,12 @@ OOLUA::Script s;
 Foo* f;
 s.register_class(f);
 }}}
-====With a lua_State====
+=== With a lua_State ===
 {{{
 extern lua_State* s;
 OOLUA::register_class<Foo>(s);
 }}}
-===Registering a class type and all it's bases with a lua_State===
+== Registering a class type and all it's bases with a lua_State ==
 {{{
 extern lua_State* s;
 OOLUA::register_class_and_bases<Foo>(s);
@@ -211,58 +315,13 @@ int staticMemberFunc(lua_State* l)
     OOLUA_C_FUNCTION_0(void,Foo::staticMemberFunc)
 }
 }}}
-=== Registering static or C Functions ===
+== Registering static or C Functions ==
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_static_and_c_functions.h cpp_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.h expose_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.cpp expose_static_and_c_functions.cpp] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/static_function.cpp static_function.cpp].
-=== Pushing values to Lua ===
-{{{
-extern lua_State* s;
-X value;
-OOLUA::push2lua(s,value);
-}}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
-=== Pulling values from Lua ===
-{{{
-extern lua_State* s;
-X value;
-OOLUA::pull2cpp(s,value);
-}}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
-=== Lua references ===
-A [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h Lua_ref] is a templated class which is a proxy for a value stored in the Lua registry.
-=== Lua Tables ===
-Lua's data structure Table is represented in OOLua using a [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h OOLUA::Lua_table_ref] or [http://code.google.com/p/oolua/source/browse/trunk/include/lua_table.h OOLUA::Table].
-==== Lua_table ====
-Lua_table does not construct a valid registry reference using the default constructor yet creates a table that when the member function is_valid is called returns false.<br /> To construct a new table which is represented by a Lua_table, pure Lua code can be used and either passed to the constructor or set via member methoods. Alternatively a helper function is present in the library OOLUA::new_table.
-{{{
-OOLUA::Script s;
-OOLUA::Lua_table t;//invalid after constructor call
-OOLUA::new_table(s,t);//valid after call
-}}}
-Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. 
-===Calling a Lua function===
-A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The class has templated overloaded functions which take up the amount of parameters defined in [Building#File_generator] or the default of eight. The method can be called via it's name or via a Lua_ref_func pulled from lua.
-====Via name====
-{{{
-func = function() end
-}}}
-{{{
-OOLUA::Script s;
-s.call("func");
-}}}
-====Via reference====
-This example assumes that an function is at the top on the Lua stack.
-{{{
-OOLUA::Script s;
-OOLUA::Lua_ref_func f;
-OOLUA::pull2cpp(s,f);
-s.call(f);
-}}}
-
 
 
 == Platform supports __VA_ARGS__ ==
 If the platform in use supports variadic macros then in most cases a generic macro can be used as follows, unless the portable macro would have contained a 0 (zero).
-=== Exporting functions ===
+== Exporting functions ==
 {{{
 EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
                                   ,bar/*function being exposed*/
@@ -270,13 +329,13 @@ EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)//requires 0(zero) in macro
 }}}
 
-=== Proxying member functions ===
+== Proxying member functions ==
 {{{
     OOLUA_MEM_FUNC_0(void,foo)//requires 0(zero) in macro
     OOLUA_MEM_FUNC(void,bar,int,SomeClass*)
 }}}
 
-=== Proxying C and static functions ===
+== Proxying C and static functions ==
 {{{
 bool someFunc(int, float);
 
@@ -298,7 +357,7 @@ int staticMemberFunc(lua_State* l)
 }
 }}}
 
-=== Proxying classes with bases ===
+== Proxying classes with bases ==
 {{{
 struct baz : foo
 {
@@ -311,7 +370,7 @@ OOLUA_CLASS_END
 }}}
 *Note The base macros are not used as seen with [CheatSheet_1_3_WIP#Derived_class], this is automatically added with the correct entries*.
 
-=== Member functions with and without parameters ===
+== Member functions with and without parameters ==
 {{{
 struct foo
 {
