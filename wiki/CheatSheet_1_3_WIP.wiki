@@ -151,14 +151,58 @@ function), this template is specialised for void types.
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_out_params.h cpp_out_params.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_out_params.h expose_out_params.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/out_params.cpp out_params.cpp]
 
+===lua_State===
+====OOLUA::Script====
+OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use, it scopes a lua_State and provides methods to register types, an instance to call Lua functions and functions for a little state management.
+
+====Usage without OOLUA::Script====
+To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
+{{{
+void setup_user_lua_state(lua_State* l);
+}}}
+
+===Registering a class type with a lua_State===
+As mentioned Script is only a helper class, so internally it's register function is the same as without.
+====With OOLUA::Script====
+{{{
+OOLUA::Script s;
+s.register_class<Foo>();
+}}}
+or
+{{{
+OOLUA::Script s;
+Foo* f;
+s.register_class(f);
+}}}
+====With a lua_State====
+{{{
+extern lua_State* s;
+OOLUA::register_class<Foo>(s);
+}}}
 === Registering static or C Functions ===
-=== Registering a proxy class ===
 === Pushing values to Lua ===
 === Pulling values from Lua ===
 === Lua references ===
 === Lua Tables ===
-=== Calling Lua functions ===
 
+===Calling a Lua function===
+A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The method can be called via it's name or via a Lua_ref_func pulled from lua.
+====Via name====
+{{{
+func = function() end
+}}}
+{{{
+OOLUA::Script s;
+s.call("func");
+}}}
+====Via reference====
+This example assumes that an function is at the top on the Lua stack.
+{{{
+OOLUA::Script s;
+OOLUA::Lua_ref_func f;
+OOLUA::pull2cpp(s,f);
+s.call(f);
+}}}
 
 
 
