@@ -330,15 +330,6 @@ These platforms support __VA_ARGS__ and also a comma deletion extension which en
 Registering classes with and without bases using the same macro OOLUA_PROXY_CLASS 
 
 {{{
-struct foo{};
-
-OOLUA_PROXY_CLASS(foo)//class has no bases
-    OOLUA_NO_TYPEDEFS
-    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
-OOLUA_CLASS_END
-}}}
-
-{{{
 struct foo
 {
   int bar();
