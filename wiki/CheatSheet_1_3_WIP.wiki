@@ -82,7 +82,7 @@ OOLUA::new_table(s,t);//valid after call
 {{{
 void Lua_table::set_table(std::string const& name);
 }}}
-See Constructors {{{Lua_table(lua_State*  const lua,std::string const& name)}}}
+See [CheatSheet_1_3_WIP#Constructors] {{{Lua_table(lua_State*  const lua,std::string const& name)}}}
 ==== valid ====
 {{{
 bool Lua_table::valid()const;
