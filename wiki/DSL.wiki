@@ -1,23 +1,24 @@
-||OOLUA_CLASS|| ||
-||OOLUA_CLASS_NO_BASES|| ||
-||OOLUA_PROXY_CLASS|| ||
-||OOLUA_CLASS_END|| ||
-||OOLUA_BASIC|| ||
-||OOLUA_BASES_START|| ||
-||OOLUA_BASES_END|| ||
-||OOLUA_TYPEDEF_START|| ||
-||OOLUA_TYPEDEF_END|| ||
-||OOLUA_NO_TYPEDEFS|| ||
-||OOLUA_MEM_FUNC|| ||
-||OOLUA_MEM_FUNC_CONST|| ||
-||OOLUA_MEM_FUNC_RENAME|| ||
-||OOLUA_MEM_FUNC_CONST_RENAME|| ||
-||OOLUA_MEM_FUNC_X|| ||
-||OOLUA_MEM_FUNC_X_CONST || ||
-||OOLUA_MEM_FUNC_X_RENAME || ||
-||OOLUA_MEM_FUNC_X_CONST_RENAME || ||
-||EXPORT_OOLUA_FUNCTIONS_X_CONST|| ||
-||EXPORT_OOLUA_FUNCTIONS_X_NON_CONST|| ||
-||EXPORT_OOLUA_FUNCTIONS_CONST|| ||
-||EXPORT_OOLUA_FUNCTIONS_NON_CONST|| ||
-||EXPORT_OOLUA_NO_FUNCTIONS|| ||
+||Name||Portable||Description||
+||OOLUA_CLASS||Yes|| ||
+||OOLUA_CLASS_NO_BASES||Yes||Helper macro which informs the library there are no base classes for this class which are wanted to be exposed. ||
+||OOLUA_PROXY_CLASS||No|| ||
+||OOLUA_CLASS_END||Yes||Ends the generation of a proxy class.||
+||OOLUA_BASIC||Yes||Required when using portable code for a class which has bases exposed.||
+||OOLUA_BASES_START||Yes||List start of base classes||
+||OOLUA_BASES_END||Yes||Ends the list of base classes||
+||OOLUA_TYPEDEF_START||Yes||Starts the list of additional information||
+||OOLUA_TYPEDEF_END||Yes||Ends the list of additional information||
+||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
+||OOLUA_MEM_FUNC||No||Varadic macro for generating a member function||
+||OOLUA_MEM_FUNC_CONST||No||Varadic macro for generating a constant member function ||
+||OOLUA_MEM_FUNC_RENAME||No||Varadic macro for generating a member function which is to be renamed||
+||OOLUA_MEM_FUNC_CONST_RENAME||No||Varadic macro for generating a constant member function which is to be renamed ||
+||OOLUA_MEM_FUNC_X||Yes||Generates a function which has X parameters||
+||OOLUA_MEM_FUNC_X_CONST ||Yes||Generates a constant function which has X parameters||
+||OOLUA_MEM_FUNC_X_RENAME ||Yes||Generates a function with X parameters which is to be renamed||
+||OOLUA_MEM_FUNC_X_CONST_RENAME ||Yes||Generates a constant function with X parameters which is to be renamed||
+||EXPORT_OOLUA_FUNCTIONS_X_CONST||Yes||Exports X functions for the class ||
+||EXPORT_OOLUA_FUNCTIONS_X_NON_CONST||Yes||Exports X constant functions for the class||
+||EXPORT_OOLUA_FUNCTIONS_CONST||No||Varadic macro which exports constant functions for the class||
+||EXPORT_OOLUA_FUNCTIONS_NON_CONST||No||Varadic macro which exports functions for the class||
+||EXPORT_OOLUA_NO_FUNCTIONS||Yes|| ||
