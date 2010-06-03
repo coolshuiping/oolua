@@ -1,9 +1,6 @@
 OOLua Binding Framework Cheat Sheet 
 <wiki:toc max_depth="4" />
 
-= Introduction =
-The library comes with Unit Tests which test and also show how to accomplish anything which it is capable of, you are therefore encouraged to view the Unit Test code to find out more details. The unit tests are organised into directories,with C++ classes in [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests/cpp_classes cpp_classes], the binding of these classes in [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests/bind_classes bind_classes] and then separate unit test projects for the features being tested under the directory [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests unit_tests].
-
 == Constructors ==
 1.3 version of the library supports constructors to a certain degree, for this the ABI is broken and three new types have been added to oolua_typedefs.h which can be included inside the OOLUA_TYPEDEFS macros.
 ||*Type*||*Meaning*||
