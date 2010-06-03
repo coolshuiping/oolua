@@ -202,8 +202,17 @@ OOLUA::pull2cpp(s,value);
 }}}
 Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type.
 === Lua references ===
+A [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h Lua_ref] is a templated class which is a proxy for a value stored in the Lua registry.
 === Lua Tables ===
-
+Lua's data structure Table is represented in OOLua using a [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h OOLUA::Lua_table_ref] or [http://code.google.com/p/oolua/source/browse/trunk/include/lua_table.h OOLUA::Table].
+==== Lua_table ====
+Lua_table does not construct a valid registry reference using the default constructor yet creates a table that when the member function is_valid is called returns false.<br /> To construct a new table which is represented by a Lua_table, pure Lua code can be used and either passed to the constructor or set via member methoods. Alternatively a helper function is present in the library OOLUA::new_table.
+{{{
+OOLUA::Script s;
+OOLUA::Lua_table t;//invalid after constructor call
+OOLUA::new_table(s,t);//valid after call
+}}}
+Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. 
 ===Calling a Lua function===
 A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The method can be called via it's name or via a Lua_ref_func pulled from lua.
 ====Via name====
