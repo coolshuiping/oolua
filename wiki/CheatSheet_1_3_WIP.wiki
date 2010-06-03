@@ -309,6 +309,8 @@ OOLUA_PROXY_CLASS(baz,foo)
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 }}}
+*Note The base macros are not used as seen with [CheatSheet_1_3_WIP#Derived_class], this is automatically added with the correct entries*.
+
 === Member functions with and without parameters ===
 {{{
 struct foo
