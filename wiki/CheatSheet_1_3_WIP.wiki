@@ -114,7 +114,7 @@ void Lua_table::swap(Lua_table & rhs);
 Swaps the internal Lua_func_ref and rhs.m_table_ref;
 
 == Lua function ==
-A Lua function can be stored in a Lua_func_ref which is a registry copy of the function. See CheetSheet_1_3_WIP#Lua references] or identified as a string.
+A Lua function can be stored in a Lua_func_ref which is a registry copy of the function ( See CheetSheet_1_3_WIP#Lua references] ) or identified as a string.
 
 ==Calling a Lua function==
 A Lua function can be called using [http://code.google.com/p/oolua/source/browse/trunk/include/lua_function.h Lua_function], of which there is already bound instance available in OOLUA::Script. The Lua_function class has templated overloaded call operators which take up the amount of parameters defined in [Building#File_generator]. <br />
