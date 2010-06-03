@@ -60,10 +60,11 @@ Lua's data structure Table is represented in OOLua using a [http://code.google.c
 
 === Lua_table ===
 Lua_table is a type used to treat the Lua Table reference as a C++ object which has defined operations. <br />
-Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. 
 
-==== Constructors ====
+Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. <br />
+
 Construction of a Lua_table does not construct a valid registry reference using the default constructor, yet creates an instance that when the member function "valid" is called returns false.<br /> 
+
 To construct a new table which is represented by a Lua_table either pure Lua code can be used and either passed to the constructor or set via member methoods, alternatively a helper function is present in the library OOLUA::new_table.
 {{{
 OOLUA::Script s;
@@ -71,6 +72,7 @@ OOLUA::Lua_table t;//invalid after constructor call
 OOLUA::new_table(s,t);//valid after call
 }}}
 
+==== Constructors ====
 ||Signature||Initialisation||
 ||{{{Lua_table()}}}|| Default creates an object on which a call to valid returns false||
 ||{{{Lua_table(Lua_table_ref const& ref)}}}||Initialises the reference to be an instance of the same registry reference or an invalid table if ref.valid() == false  ||
@@ -80,7 +82,7 @@ OOLUA::new_table(s,t);//valid after call
 {{{
 void Lua_table::set_table(std::string const& name);
 }}}
-
+See Constructors {{{Lua_table(lua_State*  const lua,std::string const& name)}}}
 ==== valid ====
 {{{
 bool Lua_table::valid()const;
