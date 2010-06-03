@@ -64,13 +64,9 @@ A [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h Lua_ref]
 Lua's data structure Table is represented in OOLua using a [http://code.google.com/p/oolua/source/browse/trunk/include/lua_ref.h OOLUA::Lua_table_ref] or [http://code.google.com/p/oolua/source/browse/trunk/include/lua_table.h OOLUA::Lua_table].
 
 === Lua_table ===
-Lua_table is a type used to treat the Lua Table reference as a C++ object which has defined operations. <br />
-
+A type used to treat the Lua Table reference as a C++ object which has defined operations. <br />
 Access and setter methods for error reporting are dependent on [Building_1_3#Config], except the function safe_at which always returns a boolean reporting the success or failure of the operation. <br />
-
-Construction of a Lua_table does not construct a valid registry reference using the default constructor, yet creates an instance that when the member function "valid" is called returns false.<br /> 
-
-To construct a new table which is represented by a Lua_table either pure Lua code can be used and either passed to the constructor or set via member methoods, alternatively a helper function is present in the library OOLUA::new_table.
+Construction of a Lua_table does not construct a valid registry reference using the default constructor, yet creates an instance that when the member function "valid" is called returns false.<br /> To construct a new table which is represented by a Lua_table either pure Lua code can be used and passed to the constructor or set via member methoods, alternatively a helper function is present in the library OOLUA::new_table.
 {{{
 OOLUA::Script s;
 OOLUA::Lua_table t;//invalid after constructor call
@@ -81,18 +77,23 @@ OOLUA::new_table(s,t);//valid after call
 ||Signature||Initialisation||
 ||{{{Lua_table()}}}|| Default creates an object on which a call to valid returns false||
 ||{{{Lua_table(Lua_table_ref const& ref)}}}||Initialises the reference to be an instance of the same registry reference or an invalid table if ref.valid() == false  ||
-||{{{Lua_table(lua_State*  const lua,std::string const& name)}}}||Order of trying to initialise<br /> *name.empty() == true* Creates am invalid object<br /> *name found as a table in Lua global* Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry<br /> *name found as a table in Lua registry* Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry<br /> *else* Swaps the internal Lua_func_ref with an uninitialised instance||
+||{{{Lua_table(lua_State*  const lua,std::string const& name)}}}||Sets the lua_State and calls set_table||
 
 ==== set_table ====
 {{{
 void Lua_table::set_table(std::string const& name);
 }}}
-See [CheatSheet_1_3_WIP#Constructors] {{{Lua_table(lua_State*  const lua,std::string const& name)}}}
+Order of trying to initialise
+ * name.empty() == true: Creates am invalid object.
+ * name found as a table in Lua global: Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry.
+ * name found as a table in Lua registry: Swaps the internal Lua_func_ref with an instance initialised to an id obtained from the Lua registry.
+ * else Swaps the internal Lua_func_ref with an uninitialised instance.
+
 ==== valid ====
 {{{
 bool Lua_table::valid()const;
 }}}
-Returns a boolean which is the result of checking the internal Lua_func_ref.
+Returns a boolean which is the result of checking the state of the internal Lua_func_ref.
 
 ==== set_ref ====
 {{{
