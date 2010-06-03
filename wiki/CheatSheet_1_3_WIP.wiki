@@ -130,6 +130,13 @@ This line tells the binding about the hierarchy again this is automatically adde
 
 == Platform supports __VA_ARGS__ ==
 === Exporting functions ===
+{{{
+EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
+                                  ,bar/*function being exposed*/
+                                  ,baz)/*function being exposed*/
+EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
+}}}
+
 === Proxying functions ===
 === Proxying C and static functions ===
 === Proxying classes with bases ===
@@ -154,10 +161,10 @@ struct foo
 OOLUA_PROXY_CLASS(foo)
     OOLUA_NO_TYPEDEFS
     OOLUA_MEM_FUNC_0(int,bar)
-    OOLUA_MEM_FUNC(int,bar,int)
+    OOLUA_MEM_FUNC(int,baz,int)
 OOLUA_CLASS_END
 }}}
-
+If a function has no parameters then the macro OOLUA_MEM_FUNC_0 or one of its variants is required. On the other hand if it has one or more then the varadic macro OOLUA_MEM_FUNC can be used.
 == Platform is g++ or mscv ==
 These platforms support __VA_ARGS__ and also a comma deletion extension which enables suffixes of "0" to be removed from macros registered.
 Registering classes with and without bases using the same macro OOLUA_PROXY_CLASS 
