@@ -244,7 +244,12 @@ EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
-=== Proxying functions ===
+=== Proxying member functions ===
+{{{
+    OOLUA_MEM_FUNC_0(void,foo)
+    OOLUA_MEM_FUNC(void,bar,int,SomeClass*)
+}}}
+
 === Proxying C and static functions ===
 === Proxying classes with bases ===
 {{{
@@ -268,8 +273,8 @@ struct foo
 OOLUA_PROXY_CLASS(foo)
     OOLUA_NO_TYPEDEFS
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
-    OOLUA_MEM_FUNC_0(int,bar)
-    OOLUA_MEM_FUNC(int,baz,int)
+    OOLUA_MEM_FUNC_0(int,bar)//requires 0(zero) in macro
+    OOLUA_MEM_FUNC(int,baz,int)//if parameters count >=1 then requires no number in macro
 OOLUA_CLASS_END
 }}}
 If a function has no parameters then the macro OOLUA_MEM_FUNC_0 or one of its variants is required. On the other hand if it has one or more then the varadic macro OOLUA_MEM_FUNC can be used.
@@ -293,10 +298,11 @@ struct foo
   void baz(int );
 };
 
-OOLUA_PROXY_CLASS(foo)//class has no bases
+{{{
+OOLUA_PROXY_CLASS(foo)//No bases, can use the same macro which register bases
     OOLUA_NO_TYPEDEFS
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
-    OOLUA_MEM_FUNC(int,bar)
+    OOLUA_MEM_FUNC(int,bar)//No 0 (zero) required in the macro
     OOLUA_MEM_FUNC(int,bar,int)
 OOLUA_CLASS_END
 }}}
