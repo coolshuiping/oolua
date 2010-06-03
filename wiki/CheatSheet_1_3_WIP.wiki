@@ -129,7 +129,7 @@ This line tells the binding about the hierarchy again this is automatically adde
 
 
 == Platform supports __VA_ARGS__ ==
-If the platform in use supports variadic macros then in most cases a generic macro can be used, as following, unless the portable macro would have contained a 0 (zero).
+If the platform in use supports variadic macros then in most cases a generic macro can be used as follows, unless the portable macro would have contained a 0 (zero).
 === Exporting functions ===
 {{{
 EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
