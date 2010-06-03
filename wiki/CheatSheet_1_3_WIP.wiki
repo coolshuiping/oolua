@@ -143,6 +143,20 @@ OOLUA_PROXY_CLASS(baz,foo)
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 }}}
+=== Member functions with and without parameters ===
+{{{
+struct foo
+{
+  int bar();
+  void baz(int );
+};
+
+OOLUA_PROXY_CLASS(foo)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUNC_0(int,bar)
+    OOLUA_MEM_FUNC(int,bar,int)
+OOLUA_CLASS_END
+}}}
 
 == Platform is g++ or mscv ==
 These platforms support __VA_ARGS__ and also a comma deletion extension which enables suffixes of "0" to be removed from macros registered.
@@ -157,3 +171,16 @@ OOLUA_PROXY_CLASS(foo)//class has no bases
 OOLUA_CLASS_END
 }}}
 
+{{{
+struct foo
+{
+  int bar();
+  void baz(int );
+};
+
+OOLUA_PROXY_CLASS(foo)//class has no bases
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUNC(int,bar)
+    OOLUA_MEM_FUNC(int,bar,int)
+OOLUA_CLASS_END
+}}}
