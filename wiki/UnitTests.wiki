@@ -1,5 +1,5 @@
 #labels Featured
- The library comes with Unit Tests which test and also provide current coding examples to accomplish anything which it is capable of. Tests are preformed using [Building#Cpp_Unit] and [Building#Google_Mock], their projects have an additional dependency of [Building#Premake] for building projects/workspaces/makefiles.
+ The library comes with Unit Tests which test and also provide current coding examples to accomplish anything which it is capable of. Tests are preformed using [Building#Cpp_Unit] and [Building#Google_Mock], their IDE project files/makefile have an additional dependency of [Building#Premake].
 
 = Organisation =
  Unit test files are organised into directories, with C++ classes in [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests/cpp_classes cpp_classes], the binding of these classes in [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests/bind_classes bind_classes] and then separate unit test projects for the features being tested under the directory [http://code.google.com/p/oolua/source/browse/#svn/trunk/unit_tests unit_tests].
