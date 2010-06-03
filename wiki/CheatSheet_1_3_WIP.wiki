@@ -10,6 +10,7 @@ OOLua is purposely designed not to be dependent on the class OOLUA::Script and t
  * Provides methods to register types.
  * Binds an instance to call Lua functions.
  * Has member functions for a little state management.
+ * Sets up the state to work with OOLua.
 
 ===Usage without OOLUA::Script===
 To use the binding without this class and providing your own or 3rd party instance of lua_State, requires a call to a setup method. This method adds the necessary tables and globals for it to work with the binding.
