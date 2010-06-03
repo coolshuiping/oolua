@@ -113,6 +113,30 @@ void Lua_table::swap(Lua_table & rhs);
 }}}
 Swaps the internal Lua_func_ref and rhs.m_table_ref;
 
+==== safe_at ====
+{{{
+template<typename T,typename T1>bool safe_at(T const& key,T1& value)
+}}}
+If return is true "value" contains the value from the table at the index "key".
+
+==== at ====
+{{{
+template<typename T,typename T1>T1& at(T const& key,T1& value)
+}}}
+The result of calling this function when the table does not contain the key is undefined.
+
+==== set_value ====
+{{{
+void set_value(T const& key,T1 const& value)
+}}}
+Inserts the "key" and "value" in the table if not present else updates the table's value.
+
+==== remove_value ====		
+{{{
+void remove_value(T const& key)
+}}}
+Removes the key and also the value from the table.
+
 == Lua function ==
 A Lua function can be stored in a Lua_func_ref which is a registry copy of the function ( See CheetSheet_1_3_WIP#Lua references] ) or identified as a string.
 
