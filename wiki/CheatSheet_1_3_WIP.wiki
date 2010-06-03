@@ -142,7 +142,7 @@ s.call(f);
 == Generating a proxy for a class ==
 
 
-== Constructors ==
+== Class constructors ==
 1.3 version of the library adds partial support for overloaded constructors, for this the ABI is broken and three new types have been added to oolua_typedefs.h which can be included inside the OOLUA_TYPEDEFS macros.
 ||*Type*||*Meaning*||
 ||No_default_constructor||There is not a default constructor in the public interface yet there are other constructors.||
