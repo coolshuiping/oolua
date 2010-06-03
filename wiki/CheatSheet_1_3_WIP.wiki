@@ -113,14 +113,17 @@ OOLUA_BASES_START foo OOLUA_BASES_END
 }}}
 This line tells the binding about the hierarchy again this is automatically added when not using "OOLUA_CLASS".
 
-=== Pushing values to Lua ===
-=== Pulling values from Lua ===
+=== Class operators ===
+=== Paramater type traits ===
 === Registering static or C Functions ===
 === Registering a proxy class ===
+=== Pushing values to Lua ===
+=== Pulling values from Lua ===
 === Lua references ===
 === Lua Tables ===
 === Calling Lua functions ===
-=== Type traits ===
+
+
 
 
 == Platform supports __VA_ARGS__ ==
