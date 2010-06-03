@@ -333,8 +333,8 @@ int staticMemberFunc(lua_State* l)
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_static_and_c_functions.h cpp_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.h expose_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.cpp expose_static_and_c_functions.cpp] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/static_function.cpp static_function.cpp].
 
 
-== Platform supports __VA_ARGS__ ==
-If the platform in use supports variadic macros then in most cases a generic macro can be used as follows, unless the portable macro would have contained a 0 (zero).
+= Platform supports variadic macros =
+If the platform in use supports variadic macros (more specifically __VA_ARGS__) then in most cases a generic macro can be used as follows, unless the portable macro would have contained a 0 (zero).
 == Exporting functions ==
 {{{
 EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
@@ -400,9 +400,11 @@ OOLUA_PROXY_CLASS(foo)
 OOLUA_CLASS_END
 }}}
 If a function has no parameters then the macro OOLUA_MEM_FUNC_0 or one of its variants is required. On the other hand if it has one or more then the varadic macro OOLUA_MEM_FUNC can be used.
-== Platform is g++ or mscv ==
-These platforms support __VA_ARGS__ and also a comma deletion extension which enables suffixes of "0" to be removed from macros registered.
-Registering classes with and without bases using the same macro OOLUA_PROXY_CLASS 
+
+
+= Platform is g++ or mscv =
+These platforms support __VA_ARGS__ and the benefits it brings and also support a comma deletion extension which enables suffixes of "0" to be removed from macros.
+The platforms also allow registering classes which either do or do not have bases using the same macro OOLUA_PROXY_CLASS. 
 
 {{{
 struct foo
