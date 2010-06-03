@@ -129,4 +129,11 @@ This line tells the binding about the hierarchy again this is automatically adde
 
 
 == Platform supports __VA_ARGS__ ==
+=== Exporting functions ===
+=== Proxying functions ===
+=== Proxying C and static functions ===
+=== Proxying classes with bases ===
+
 == Platform is g++ or mscv ==
+These platforms support __VA_ARGS__ and also a comma deletion extension which enables suffixes of "0" to be removed from macros registered.
+Registering classes with and without bases using the same macro OOLUA_PROXY_CLASS 
