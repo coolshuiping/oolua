@@ -362,6 +362,13 @@ struct Foo
 
 int staticMemberFunc(lua_State* l)
 {
-    OOLUA_C_FUNCTION(void,Foo::staticMemberFunc)////No 0 (zero) required in the macro
+    OOLUA_C_FUNCTION(void,Foo::staticMemberFunc)//No 0 (zero) required in the macro
 }
+}}}
+
+{{{
+EXPORT_OOLUA_FUNCTIONS_NON_CONST(foo /*name of class*/
+                                  ,bar/*function being exposed*/
+                                  ,baz)/*function being exposed*/
+EXPORT_OOLUA_FUNCTIONS_CONST(foo)//No 0 (zero) required in the macro
 }}}
