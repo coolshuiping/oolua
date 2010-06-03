@@ -162,7 +162,7 @@ void setup_user_lua_state(lua_State* l);
 }}}
 
 ===Registering a class type with a lua_State===
-As [CheatSheet_1_3_WIP#OOLUA::Script mentioned] Script is only a helper class, so internally it's register function is the same as without.
+As mentioned [CheatSheet_1_3_WIP#OOLUA::Script] is only a helper class, so internally it's register function is the same as without.
 ====With OOLUA::Script====
 {{{
 OOLUA::Script s;
