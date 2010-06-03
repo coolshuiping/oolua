@@ -133,7 +133,27 @@ This line tells the binding about the hierarchy again this is automatically adde
 === Proxying functions ===
 === Proxying C and static functions ===
 === Proxying classes with bases ===
+{{{
+struct baz : foo
+{
+};
+
+OOLUA_PROXY_CLASS(baz,foo)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
+OOLUA_CLASS_END
+}}}
 
 == Platform is g++ or mscv ==
 These platforms support __VA_ARGS__ and also a comma deletion extension which enables suffixes of "0" to be removed from macros registered.
 Registering classes with and without bases using the same macro OOLUA_PROXY_CLASS 
+
+{{{
+struct foo{};
+
+OOLUA_PROXY_CLASS(foo)//class has no bases
+    OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
+OOLUA_CLASS_END
+}}}
+
