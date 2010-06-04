@@ -1,3 +1,4 @@
+#labels Featured
 ||Name||Portable||Description||
 ||OOLUA_CLASS||Yes||Used for portable code which is to have bases exposed||
 ||OOLUA_CLASS_NO_BASES||Yes||Helper macro which informs the library there are no base classes for this class which are wanted to be exposed. ||
