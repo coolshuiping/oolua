@@ -392,7 +392,7 @@ For convenience there are three functions which provide the same functionality a
  * {{{bool OOLUA::set_global_to_nil(lua_State*,char const*)}}}
  * {{{template<typename T>bool OOLUA::get_global(lua_State*,char const*,T& value)}}}
 <br />
-http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/lua_globals.cpp
+See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/lua_globals.cpp lua_globals.cpp]
  <br />
 = Platform supports variadic macros =
 If the platform in use supports variadic macros (more specifically __VA_ARGS__) then in most cases a generic macro can be used as follows, unless the portable macro would have contained a 0 (zero).
