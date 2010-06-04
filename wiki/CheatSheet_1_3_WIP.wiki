@@ -364,6 +364,32 @@ int staticMemberFunc(lua_State* l)
 }
 }}}
 == Registering static or C Functions in a class ==
+Registering a C exposed function "somefunction" as a static function to the type "ClassHasStaticFunction". 
+{{{
+int somefunction(lua_State* l);
+}}}
+{{{
+m_lua->register_class_static<ClassHasStaticFunction>(
+                     "static_function"/*name of function*/
+                      ,&somefunction);/*function address*/
+}}}
+*Note* taking the address of a C function is not required in C++.<br />
+This function will then be available when called :
+ * As a typed function
+{{{
+ClassHasStaticFunction:static_function()
+}}}
+ * Called on an instance
+{{{
+local obj = ClassHasStaticFunction:new()
+obj:static_function()
+}}}
+ * Called on an instance which derives from ClassHasStaticFunction
+{{{
+local obj = DerivedClassHasStaticFunction:new()
+obj:static_function()
+}}}
+
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_static_and_c_functions.h cpp_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.h expose_static_and_c_functions.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_static_and_c_functions.cpp expose_static_and_c_functions.cpp] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/static_function.cpp static_function.cpp].
 
 == Setting and getting global state ==
