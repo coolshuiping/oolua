@@ -348,8 +348,7 @@ int staticMemberFunc(lua_State* l)
 
 
 == Parameter type traits ==
-Traits can are used two fold.
-On bound member functions parameters:
+Traits can are used on functions parameters:
 ||Type||Description||
 ||in_p||Parameter is only passed to the real member function.||
 ||out_p||Parameter or a function return is only passed back to Lua.||
@@ -357,16 +356,11 @@ On bound member functions parameters:
 ||cpp_in_p||C++ code takes ownership of a pointer.||
 ||lua_out_p||Lua takes ownership of a pointer.||
 
-And pushing and pulling to and from the Lua stack:
-||Type||Description||
-||cpp_acquire_ptr||C++ code takes ownership of a pointer.||
-||lua_acquire_ptr||Lua takes ownership of a pointer.||
-
 {{{
 struct foo
 {
- bar* create_new_bar();
- void take_ownership(foo*);
+ foo* create_new_foo();
+ void cpp_takes_ownership(foo*);
  int parameter_is_returned(int& i);
 };
 }}}
@@ -375,10 +369,21 @@ struct foo
 OOLUA_CLASS_NO_BASES(foo)
  OOLUA_NO_TYPEDEFS
  OOLUA_MEM_FUNC_0(lua_out_p<foo>,create_new_bar)
- OOLUA_MEM_FUNC_1(void,take_ownership,cpp_in_p<foo*> )
+ OOLUA_MEM_FUNC_1(void,cpp_takes_ownership,cpp_in_p<foo*> )
  OOLUA_MEM_FUNC_1(int,parameter_is_returned,in_out_p<int&>)
 OOLUA_CLASS_END
 }}}
+*Note* for the function parameter_is_returned the first type in the stack will be the return and the second the function parameter.
+{{{
+local i=0
+return_int, i = obj:parameter_is_returned(i)
+}}}
+
+
+Also interacting with the Lua stack when pushing and pulling:
+||Type||Description||
+||cpp_acquire_ptr||C++ code takes ownership of a pointer.||
+||lua_acquire_ptr||Lua takes ownership of a pointer.||
 
 {{{
 OOLUA::cpp_acquire_ptr<Return_double> ret;
@@ -391,9 +396,7 @@ OOLUA::lua_acquire_ptr<Foo> input(value);
 OOLUA::push2lua(lua,input);
 }}}
 
-If parameter traits are not defined then it defaults to OOLUA::in_p.
-For function return values OOLUA::out_p is used (inside the generating
-function), this template is specialised for void types.
+If parameter traits are not defined then it defaults to OOLUA::in_p for function parameters and OOLUA::out_p is used for return values, which is specialised for void types.
 
 See [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/cpp_classes/cpp_out_params.h cpp_out_params.h], [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/bind_classes/expose_out_params.h expose_out_params.h] and [http://code.google.com/p/oolua/source/browse/trunk/unit_tests/test_classes/out_params.cpp out_params.cpp]
 
