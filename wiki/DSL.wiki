@@ -23,3 +23,8 @@
 ||EXPORT_OOLUA_FUNCTIONS_CONST||No||Varadic macro which exports constant functions for the class||
 ||EXPORT_OOLUA_FUNCTIONS_NON_CONST||No||Varadic macro which exports functions for the class||
 ||EXPORT_OOLUA_NO_FUNCTIONS||Yes||Helper macro which defines the class has not functions to export ||
+||OOLUA_CONSTRUCTORS_BEGIN||Yes||Starts the generation of constructors to make available ||
+||OOLUA_CONSTRUCTORS_END||Yes||Ends the generation of constructors ||
+||OOLUA_ONLY_DEFAULT_CONSTRUCTOR||Yes||Helper macro which only makes available a public default constructor ||
+||OOLUA_CONSTRUCTOR_X||Yes||Generates a constructor which takes X parameters ||
+||OOLUA_CONSTRUCTOR||No||Varadic macro which generates a constructor ||
