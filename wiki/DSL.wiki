@@ -7,8 +7,8 @@
 ||OOLUA_BASIC||Yes||Required when using portable code for a class which has bases exposed.||
 ||OOLUA_BASES_START||Yes||List start of base classes||
 ||OOLUA_BASES_END||Yes||Ends the list of base classes||
-||OOLUA_TYPEDEF_START||Yes||Starts the list of additional information||
-||OOLUA_TYPEDEF_END||Yes||Ends the list of additional information||
+||OOLUA_TYPEDEFS||Yes||Starts the list of additional information||
+||OOLUA_END_TYPES||Yes||Ends the list of additional information||
 ||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
 ||OOLUA_MEM_FUNC||No||Varadic macro for generating a member function||
 ||OOLUA_MEM_FUNC_CONST||No||Varadic macro for generating a constant member function ||
