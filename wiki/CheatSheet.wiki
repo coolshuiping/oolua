@@ -406,7 +406,7 @@ OOLUA_CLASS_NO_BASES(foo)
     OOLUA_MEM_FUNC_1(int,parameter_is_returned,in_out_p<int&>)
 OOLUA_CLASS_END
 }}}
-*Note* for the function parameter_is_returned the first type in the stack will be the return and the second the function parameter.
+*Note* for the function "parameter_is_returned" the first type will be the return and the second the function parameter.
 {{{
 local i=0
 return_int, i = obj:parameter_is_returned(i)
