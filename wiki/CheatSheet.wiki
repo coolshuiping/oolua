@@ -550,7 +550,7 @@ OOLUA_CLASS_END
 
 }}}
 = Platform is g++ or mscv =
-These platforms support {{{__VA_ARGS__}}} and the benefits it brings and also support a comma deletion extension which enables suffixes of "0" to be removed from macros.
+These platforms support {{{__VA_ARGS__}}} [CheetSheet#Platform_supports_variadic_macros benefits] and also support a comma deletion extension which enables suffixes of "0" to be removed from macros.
 The platforms also allow registering classes which either do or do not have bases using the same macro OOLUA_PROXY_CLASS. 
 
 {{{
