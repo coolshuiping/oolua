@@ -392,18 +392,18 @@ Traits can are used on functions parameters:
 {{{
 struct foo
 {
- foo* create_new_foo();
- void cpp_takes_ownership(foo*);
- int parameter_is_returned(int& i);
+    foo* create_new_foo();
+    void cpp_takes_ownership(foo*);
+    int parameter_is_returned(int& i);
 };
 }}}
 
 {{{
 OOLUA_CLASS_NO_BASES(foo)
- OOLUA_NO_TYPEDEFS
- OOLUA_MEM_FUNC_0(lua_out_p<foo>,create_new_bar)
- OOLUA_MEM_FUNC_1(void,cpp_takes_ownership,cpp_in_p<foo*> )
- OOLUA_MEM_FUNC_1(int,parameter_is_returned,in_out_p<int&>)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_MEM_FUNC_0(lua_out_p<foo*>,create_new_foo)
+    OOLUA_MEM_FUNC_1(void,cpp_takes_ownership,cpp_in_p<foo*> )
+    OOLUA_MEM_FUNC_1(int,parameter_is_returned,in_out_p<int&>)
 OOLUA_CLASS_END
 }}}
 *Note* for the function parameter_is_returned the first type in the stack will be the return and the second the function parameter.
