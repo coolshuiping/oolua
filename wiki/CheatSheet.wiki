@@ -26,7 +26,7 @@ extern lua_State* s;
 X value;
 OOLUA::push2lua(s,value);
 }}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type. Pushing inserts the input at the top of the stack.
+Where X is registered class, a registered class with [CheatSheet#Parameter_type_traits] or an integral type. Pushing inserts the input at the top of the stack.
 
 
 == Pulling values from Lua ==
@@ -35,7 +35,7 @@ extern lua_State* s;
 X value;
 OOLUA::pull2cpp(s,value);
 }}}
-Where X is registered class, a registered class with [CheatSheet_1_3_WIP#Parameter_type_traits] or an integral type. Pulls from the top of the stack, see {CheatSheet#Lua_function_return_order].
+Where X is registered class, a registered class with [CheatSheet#Parameter_type_traits] or an integral type. Pulls from the top of the stack, see {CheatSheet#Lua_function_return_order].
 
 
 == Lua references ==
