@@ -1,4 +1,4 @@
-#labels Phase-Deploy,Featured
+#labels Phase-Deploy,Deprecated
 Building OOLua version 1.3
 <wiki:toc max_depth="4" />
 
