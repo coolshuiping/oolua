@@ -414,7 +414,7 @@ return_int, i = obj:parameter_is_returned(i)
 
 If parameter traits are not defined then it defaults to OOLUA::in_p for function parameters and OOLUA::out_p is used for return values, which is specialised for void types.
 
-Also interacting with the Lua stack when pushing and pulling:
+Traits can also be use when interacting with the Lua stack by pushing and pulling:
 ||Type||Description||
 ||cpp_acquire_ptr||C++ code takes ownership of a pointer.||
 ||lua_acquire_ptr||Lua takes ownership of a pointer.||
