@@ -67,7 +67,7 @@ premake4 vs[] windows
 
 <br />
 === Visual Studio 2010 ==
-Visual Studio 2010 (vs10) is not currently supported by premake, yet if you have vs10 installed you can run the following command and it will generate vs9 projects, then use the update tool to convert to vs10. 
+Visual Studio 2010 (vs10) is not currently supported by premake yet if you have vs10 installed you can run the following command, it will generate vs9 projects and update them using the vs10 command line tool. 
 {{{
 premake4 vs2010
 }}} 
