@@ -102,7 +102,7 @@ A configuration header is now included to control what features are present in t
 It is an error to have both OOLUA_USE_EXCEPTIONS and OOLUA_STORE_LAST_ERROR set to 1
 
 = File generator =
-The library comes with a file generator project which when compiled is a command line executable. Which when run can generate C++ source files with limits set via the command line.
+The library comes with a file generator project which when compiled is a command line executable. Running it allows you to easily generate C++ source files with new limits set via the command line.
 ||Name||Default value if not defined||Description||
 ||--classFunctions||15||Maximum number of member functions a class can register.||
 ||--cppParams||8||Maximum parameters an OOLua registered C++ member function can have.||
