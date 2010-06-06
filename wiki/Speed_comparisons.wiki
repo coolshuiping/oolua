@@ -5,7 +5,8 @@ OOLua Binding Framework speed compared to other bindings.
 = Introduction =
 For these profile tests the following libraries were used:
  * Luabind 0.9.0 (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS) and Boost 1.4.0
- * OOLua 1.3 Using defines OOLUA_RUNTIME_CHECKS_ENABLED OOLUA_SAFE_ID_COMPARE
+ * OOLua 1.3 Using defines OOLUA_RUNTIME_CHECKS_ENABLED == 1 OOLUA_SAFE_ID_COMPARE == 1
+  Times also shown when using OOLUA_RUNTIME_CHECKS_ENABLED ==  0 
  * Swig 1.3.40
 
 ==Setting and getting ==
@@ -54,8 +55,8 @@ end
 print('OOLua access (average elapsed time):',ave/N)
 }}}
 ===Access results===
-|| *Library* || *Time(sec)* ||
-||OOLua||0.3588456||
+|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
+||OOLua||0.3588456||0.3289822||
 ||Luabind||0.6606246||
 ||Swig||0.8161317||
 
@@ -136,8 +137,8 @@ print('OOLua passing derived to a function that wants a base  (average elapsed t
 }}}
 
 ====Wants base results====
-|| *Library* || *Time(sec)* ||
-||OOLua||0.3751027||
+|| *Library* || *Time(sec)* ||OOLua no runtime checks||
+||OOLua||0.3751027||0.2739998||
 ||Swig||0.3823656||
 ||Luabind||0.4523089||
 
@@ -167,8 +168,8 @@ print('OOLua passing derived with multiple bases to a function that wants a base
 }}}
 
 ====Multiple inheritance wants base results====
-|| *Library* || *Time(sec)* ||
-||OOLua||0.3928864||
+|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
+||OOLua||0.3928864||0.3188173||
 ||Swig||0.4145844||
 ||Luabind||0.4654789||
 
@@ -199,8 +200,8 @@ print('OOLua virtual function  (average elapsed time):',ave/N)
 
 
 ====Calling a virtual function results====
-|| *Library* || *Time(sec)* ||
-||OOLua||0.1606761||
+|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
+||OOLua||0.1606761||0.1412019||
 ||Swig||0.3456166||
 ||Luabind||0.3162266||
 
@@ -229,8 +230,8 @@ print('OOLua pure virtual function  (average elapsed time):',ave/N)
 }}}
 
 ====Calling a pure virtual function results====
-|| *Library* || *Time(sec)* ||
-||OOLua||0.1636298||
+|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
+||OOLua||0.1636298||0.1382053||
 ||Swig||0.3572994||
 ||Luabind||0.3188037||
 
@@ -257,7 +258,7 @@ local times = 1000000
 end
 }}}
 ====Calling a virtual function in a function results====
-|| *Library* || *Time(sec)* ||
-||OOLua||0.153329||
+|| *Library* || *Time(sec)* ||OOLua no runtime checks||
+||OOLua||0.153329||0.137955||
 ||Luabind||0.303186||
 ||Swig||0.40603||
