@@ -99,7 +99,7 @@ Swaps the internal Lua_func_ref and rhs.m_table_ref;
 {{{
 template<typename T,typename T1>bool safe_at(T const& key,T1& value)
 }}}
-If return is true "value" contains the value from the table at the index "key".
+If the return boolean is true, then "value" contains the result from the table at the index "key".
 
 ==== at ====
 {{{
@@ -111,7 +111,7 @@ The result of calling this function when the table does not contain the key is u
 {{{
 void set_value(T const& key,T1 const& value)
 }}}
-Inserts the "key" and "value" in the table if not present else updates the table's value.
+Inserts the "key" and "value" in the table if key is not present else updates the table's value.
 
 ==== remove_value ====		
 {{{
