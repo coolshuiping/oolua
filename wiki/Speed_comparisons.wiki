@@ -4,8 +4,8 @@ OOLua Binding Framework speed compared to other bindings.
 
 = Introduction =
 For these profile tests the following libraries were used:
- * Luabind 0.8.1 (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS) and Boost 1.4.0
- * OOLua 1.2
+ * Luabind 0.9.0 (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS) and Boost 1.4.0
+ * OOLua 1.3 Using defines OOLUA_RUNTIME_CHECKS_ENABLED OOLUA_SAFE_ID_COMPARE
  * Swig 1.3.40
 
 ==Setting and getting ==
@@ -55,9 +55,10 @@ print('OOLua access (average elapsed time):',ave/N)
 }}}
 ===Access results===
 || *Library* || *Time(sec)* ||
-||OOLua||0.7203||
-||Swig||1.4453||
-||Luabind||2.7438||
+||OOLua||0.3588456||
+||Luabind||0.6606246||
+||Swig||0.8161317||
+
 
 ==Class exchanging==
 The following tests use a class hierarchy as detailed below:
@@ -136,9 +137,9 @@ print('OOLua passing derived to a function that wants a base  (average elapsed t
 
 ====Wants base results====
 || *Library* || *Time(sec)* ||
-||Swig||0.7641||
-||OOLua||0.8188||
-||Luabind||2.1421||
+||OOLua||0.3751027||
+||Swig||0.3823656||
+||Luabind||0.4523089||
 
 
 ===Passing a derived class which uses multiple inheritance in Lua to a C++ member class that wants a base ===
@@ -167,9 +168,9 @@ print('OOLua passing derived with multiple bases to a function that wants a base
 
 ====Multiple inheritance wants base results====
 || *Library* || *Time(sec)* ||
-||Swig||0.775||
-||OOLua||0.7891||
-||Luabind||2.3265||
+||OOLua||0.3928864||
+||Swig||0.4145844||
+||Luabind||0.4654789||
 
 
 The following test should give the same results per library, yet I wanted to check this.
@@ -199,9 +200,9 @@ print('OOLua virtual function  (average elapsed time):',ave/N)
 
 ====Calling a virtual function results====
 || *Library* || *Time(sec)* ||
-||OOLua||0.3125||
-||Swig||0.6922||
-||Luabind||1.5141||
+||OOLua||0.1606761||
+||Swig||0.3456166||
+||Luabind||0.3162266||
 
 
 ===Calling a pure virtual function===
@@ -229,9 +230,9 @@ print('OOLua pure virtual function  (average elapsed time):',ave/N)
 
 ====Calling a pure virtual function results====
 || *Library* || *Time(sec)* ||
-||OOLua||0.3203||
-||Swig||0.6828||
-||Luabind||1.5157||
+||OOLua||0.1636298||
+||Swig||0.3572994||
+||Luabind||0.3188037||
 
 
 ===Calling a pure virtual function on an instance passed to Lua===
@@ -257,6 +258,6 @@ end
 }}}
 ====Calling a virtual function in a function results====
 || *Library* || *Time(sec)* ||
-||OOLua||0.3156||
-||Swig||0.6843||
-||Luabind||1.1328||
+||OOLua||0.153329||
+||Luabind||0.303186||
+||Swig||0.40603||
