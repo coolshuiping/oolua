@@ -6,7 +6,7 @@ OOLua Binding Framework Cheat Sheet for version 1.3
 
 ==lua_State==
 ===OOLUA::Script===
-OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy use which:
+OOLua is purposely designed not to be dependent on the class OOLUA::Script and therefore passes around it's dependency of a lua_State. OOLUA::Script is a helper class to easy usage which:
  * Scopes a lua_State pointer.
  * Provides methods to register types.
  * Binds an instance to call Lua functions.
