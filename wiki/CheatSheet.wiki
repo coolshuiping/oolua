@@ -566,7 +566,7 @@ OOLUA_PROXY_CLASS(foo)//No bases, can use the same macro which register bases
     OOLUA_NO_TYPEDEFS
     OOLUA_ONLY_DEFAULT_CONSTRUCTOR
     OOLUA_MEM_FUNC(int,bar)//No 0 (zero) required in the macro
-    OOLUA_MEM_FUNC(int,bar,int)
+    OOLUA_MEM_FUNC(void,baz,int)
 OOLUA_CLASS_END
 }}}
 
