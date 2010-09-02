@@ -6,6 +6,10 @@
 #include "oolua_userdata.h"
 #include "proxy_class.h"
 
+#if OOLUA_USING_SHARED_PTR == 1
+#	include OOLUA_SHARED_PTR_INCLUDE
+#endif
+
 namespace OOLUA
 {
     template<typename T>
@@ -23,18 +27,34 @@ namespace OOLUA
 		struct Is_a_base;
 
 
-		//cast the class pointer to the correct type and put it onto
-		//of the stack
+		//cast the class pointer to the correct type and put it on top of the stack
 		template<typename ProxyStackType,typename BaseType,int DoWork = 1>
 		struct CastToRequestedProxyType
 		{
+			template<typename Base, typename Proxy >
+			struct maybe_shared_ptr
+			{
+				static Base* cast(OOLUA::INTERNAL::Lua_ud* ud)
+				{
+					return static_cast<typename Proxy::class_* > ( ud->void_class_ptr );
+				}
+			};
+			template<typename Base, typename Proxy >
+			struct maybe_shared_ptr<Base,OOLUA::Proxy_class< OOLUA_SHARED_PTR_TYPE<Proxy> > >
+			{
+				typedef OOLUA::Proxy_class< OOLUA_SHARED_PTR_TYPE<Proxy> > proxy_type;
+				static Base* cast(OOLUA::INTERNAL::Lua_ud* ud)
+				{
+					return static_cast<typename proxy_type::class_* > ( ud->void_class_ptr )->get();
+				}
+			};
 			static void cast(lua_State* const l,int const& userdata_index)
 			{
 				//get the userdata
 				OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud*>( lua_touserdata(l, userdata_index) );
 				//cast the class void ptr from the stack to the stacktype
 				//then to base type to get correct offset
-				BaseType* baseptr = static_cast<typename ProxyStackType::class_* > ( ud->void_class_ptr );
+				BaseType* baseptr = maybe_shared_ptr<BaseType,ProxyStackType>::cast(ud);
 				//push class pointer of requested type onto stack
 				lua_pushlightuserdata(l,baseptr);
 			}

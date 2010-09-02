@@ -57,6 +57,26 @@
 #	define OOLUA_DEBUG_CHECKS 0
 #endif
 
+# define OOLUA_USING_SHARED_PTR 1
+
+#if OOLUA_USING_SHARED_PTR == 1
+#	define OOLUA_SHARED_PTR_INCLUDE "/usr/local/include/boost/shared_ptr.hpp"
+#	define OOLUA_SHARED_PTR_TYPE boost::shared_ptr
+#else
+	namespace OOLUA
+	{
+		namespace INTERNAL
+		{
+			template<typename T>
+			struct Dummy_shared_ptr
+			{
+				T* get(){return 0;}
+			};
+		}
+	}
+#	define OOLUA_SHARED_PTR_TYPE Dummy_shared_ptr
+
+#endif
 
 //TODO: implement this
 #ifndef OOLUA_STACK_NUMBER_CAN_CONVERT_TO_BOOL

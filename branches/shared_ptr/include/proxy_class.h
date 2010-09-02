@@ -15,6 +15,9 @@
 #	define CPP_PROXY_CLASS
 
 #include "type_list.h"
+#if OOLUA_USING_SHARED_PTR == 1
+#	include OOLUA_SHARED_PTR_INCLUDE
+#endif
 
 namespace OOLUA
 {
@@ -121,6 +124,8 @@ namespace OOLUA
 									,TYPE::Null_type>::Result//starting with this entry
 				>::Result Result;
 		};
+		
+
 
 		/////////////////////////////////////////////////////////////////////////////////
 		/////  @struct OOLUA::Set_this_ptr
@@ -129,12 +134,32 @@ namespace OOLUA
 		template<typename T,typename TypeList, int TypeIndex,typename BaseType>
 		struct Set_this_ptr
 		{
+			template<typename Base, typename Proxy >
+			struct maybe_shared_ptr
+			{
+				static void set_this_pointer_in_base(OOLUA::Proxy_class<Base>* base,
+													 typename Proxy::class_* this_)
+				{
+					base->m_this = this_;
+				}
+			};
+			template<typename Base, typename Proxy >
+			struct maybe_shared_ptr<Base,OOLUA::Proxy_class< OOLUA_SHARED_PTR_TYPE <Proxy> > >
+			{
+				typedef OOLUA::Proxy_class< OOLUA_SHARED_PTR_TYPE<Proxy> > proxy_type;
+				static void set_this_pointer_in_base(OOLUA::Proxy_class<Base>* base,
+													 typename proxy_type::class_* this_)
+				{
+					base->m_this = this_->get();
+				}
+			};
+			
 			void operator()(T* proxy_this, typename T::class_* this_)
 			{
-				//base is valid add the this pointer to the base
 				OOLUA::Proxy_class<BaseType>* base(proxy_this);
-				//and set the m_this pointer
-				base->m_this = this_;
+
+				maybe_shared_ptr<BaseType,T>::set_this_pointer_in_base(base,this_);	
+
 				//move to the next class in the base list
 				Set_this_ptr<
 						T
