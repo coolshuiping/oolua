@@ -23,6 +23,10 @@
 #	include "lua_ref.h"
 #	include "oolua_config.h"
 
+#if OOLUA_USING_SHARED_PTR == 1
+#	include OOLUA_SHARED_PTR_INCLUDE
+#endif
+
 namespace OOLUA
 {
 	class Lua_table;
@@ -58,6 +62,18 @@ namespace OOLUA
 	enum Owner{No_change,Cpp,Lua};
 
 
+	template<typename T>	
+	struct Is_shared_ptr 
+	{
+		enum{value = 0};
+	};
+	
+	template<typename T>
+	struct Is_shared_ptr<OOLUA_SHARED_PTR_TYPE<T> >
+	{
+		enum{value = 1};
+	};
+	
 
 	template<typename T>
 	struct Raw_type

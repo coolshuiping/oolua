@@ -9,10 +9,19 @@ namespace OOLUA
     {
         struct Lua_ud
         {
+			Lua_ud()
+				:void_class_ptr(0)
+				,name(0)
+				,none_const_name(0)
+				,name_size(0)
+				,void_shared_ptr(0)
+				,gc(false)
+			{}
 			void* void_class_ptr;
 			char* name;
 			char* none_const_name;//none constant name of the class
 			int name_size;//size of name
+			void* void_shared_ptr;//if a shared pointer then the instance we are keeping alive
             bool gc;//should it be garbage collected
         };
 		

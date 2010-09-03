@@ -17,12 +17,12 @@ OOLUA_PROXY_CLASS(Stub1_shared_ptr,Stub1)
 	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
 OOLUA_CLASS_END
 
-struct Stub_for_shared_ptr{ int method(){return 1;} };
+struct Stub_for_shared_ptr{ int method()const{return 1;} };
 
 OOLUA_PROXY_CLASS(Stub_for_shared_ptr)
 	OOLUA_NO_TYPEDEFS
 	OOLUA_ONLY_DEFAULT_CONSTRUCTOR
-	OOLUA_MEM_FUNC(int,method)
+	OOLUA_MEM_FUNC_CONST(int,method)
 OOLUA_CLASS_END
 
 namespace OOLUA

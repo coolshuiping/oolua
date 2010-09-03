@@ -205,16 +205,52 @@ namespace OOLUA
 			return ud;
 		}
 
+		template<typename MaybeSharedType>
+		inline void add_userdata_info(Lua_ud*& ud, void* const ptr, bool isConst)
+		{
+			ud->void_class_ptr = ptr;
+			ud->gc = false;
+			ud->name = (char*) (isConst? OOLUA::Proxy_class<MaybeSharedType>::class_name_const :OOLUA::Proxy_class<MaybeSharedType>::class_name);
+			ud->none_const_name = (char*) OOLUA::Proxy_class<MaybeSharedType>::class_name;
+			ud->name_size = OOLUA::Proxy_class<MaybeSharedType>::name_size;
+		}
+		
+
+
+		template<typename T>
+		inline Lua_ud* add_shared_ptr(lua_State* const l,T* const ptr,bool isConst)
+		{
+			Lua_ud* ud = static_cast<Lua_ud*>(lua_newuserdata(l, sizeof(Lua_ud)));
+			add_userdata_info<OOLUA_SHARED_PTR_TYPE<T> >(ud,ptr,isConst);
+			lua_getfield(l, LUA_REGISTRYINDEX,ud->name);
+#if	OOLUA_DEBUG_CHECKS ==1
+			assert( lua_isnoneornil(l,-1) ==0 && "no metatable of this name found in registry" );
+#endif
+			////Pops a table from the stack and sets it as the new metatable for the value at the given acceptable index
+			lua_setmetatable(l, -2);
+			
+			int weakIndex = push_weak_table(l);//ud,weakTable
+			int udIndex = weakIndex -1;
+			
+			add_ptr_if_required(l,ptr,udIndex,weakIndex);//it is required
+			
+			Add_ptr<T
+					,typename OOLUA::Proxy_class<T>::AllBases
+					,0
+					,typename TYPELIST::At_default< typename OOLUA::Proxy_class<T>::AllBases, 0, TYPE::Null_type >::Result
+					> addThisTypesBases;
+			addThisTypesBases(l,ptr,udIndex,weakIndex);
+			
+			lua_pop(l,1);//ud
+			return ud;
+		}
+		
 		template<typename T>
 		inline Lua_ud* add_ptr(lua_State* const l,T* const ptr,bool isConst)
 		{
 			Lua_ud* ud = static_cast<Lua_ud*>(lua_newuserdata(l, sizeof(Lua_ud)));
-			ud->void_class_ptr = ptr;
-			ud->gc = false;
-			ud->name = (char*) (isConst? OOLUA::Proxy_class<T>::class_name_const :OOLUA::Proxy_class<T>::class_name);
-			ud->none_const_name = (char*) OOLUA::Proxy_class<T>::class_name;
-			ud->name_size = OOLUA::Proxy_class<T>::name_size;
-
+			add_userdata_info<T>(ud,ptr,isConst);
+			
 			lua_getfield(l, LUA_REGISTRYINDEX,ud->name);
 #if	OOLUA_DEBUG_CHECKS ==1
 			assert( lua_isnoneornil(l,-1) ==0 && "no metatable of this name found in registry" );

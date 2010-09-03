@@ -19,6 +19,9 @@
 
 #include "oolua_config.h"
 #include "oolua_error.h"
+
+
+
 namespace OOLUA
 {
 	
@@ -105,14 +108,53 @@ namespace OOLUA
 		template<typename T>
 		struct push_basic_type<T,0>
 		{
+			
+			//is it a shared_ptr?
+			template<typename Type>
+			struct Pusher	
+			{
+				static bool push(lua_State* const s,Type const& /*why const*/ value)
+				{
+					//enumeration type so a static cast must be allowed.
+					//enums will be stronger in C++0x so this will need revisiting then
+					typedef char dummy_can_convert [ can_convert<int,Type>::value ? 1 : -1];
+					lua_pushinteger(s, static_cast<lua_Integer>(value) );
+					return true;
+				}
+			};
+			template<typename Type>
+			struct Pusher<OOLUA_SHARED_PTR_TYPE<Type> >	
+			{
+				typedef OOLUA_SHARED_PTR_TYPE<Type> shared_type;
+				static bool push(lua_State* const s,shared_type const& /*why const*/ value)
+				{
+					if_check_enabled_check_type_is_registered(s,Proxy_class<shared_type>::class_name);
+					bool just_for_now_false(false);
+					Lua_ud* ud( find_ud(s,(Type* const)value.get(),just_for_now_false ) );
+					if(! ud ) 
+					{
+						ud = add_shared_ptr(s,(Type* const)value.get(),true);
+						ud->void_shared_ptr = new shared_type(value);
+					}
+					/*
+						else
+						we found it but was it a base or derived class??
+						and therefore should we delete and reset the pointer?
+					*/
+					return true;
+				}
+			};
 
 			static bool push2lua(lua_State* const  s, T const&  value)
 			{
+				/*
 				//enumeration type so a static cast must be allowed.
 				//enums will be stronger in C++0x so this will need revisiting then
 				typedef char dummy_can_convert [ can_convert<int,T>::value ? 1 : -1];
 				lua_pushinteger(s, static_cast<lua_Integer>(value) );
 				return true;
+				*/
+				return Pusher<T>::push(s,value);
 
 			}
 		};
@@ -273,13 +315,10 @@ namespace OOLUA
 		return INTERNAL::push_ptr_2lua<T,LVD::is_integral_type<T>::value>::push2lua(s,value);
 	}
 
-
-
-
-
-
-
-
+	
+	
+	
+	
 	
 
 

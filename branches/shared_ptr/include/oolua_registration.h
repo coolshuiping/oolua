@@ -37,6 +37,11 @@
 #include "oolua_char_arrays.h"
 #include "lvd_types.h"
 
+#include "oolua_config.h"
+#if OOLUA_USING_SHARED_PTR == 1
+#	include OOLUA_SHARED_PTR_INCLUDE
+#endif
+
 namespace OOLUA
 {
     template<typename T>void register_class(lua_State * /*const*/ l);
@@ -48,7 +53,8 @@ namespace OOLUA
 
 	namespace INTERNAL
 	{
-		template<typename T>int garbage_collect(lua_State * /*const*/ l);
+		template<typename T>struct garbage_collect;
+		//template<typename T>int garbage_collect(lua_State * /*const*/ l);
 		template<typename T>int set_methods(lua_State*  /*const*/ l);
 		template<typename T>int set_const_methods(lua_State*  /*const*/ l,int none_const_methods,int none_const_mt);
         template<typename T, bool IsAbstract>struct set_create_function;
@@ -75,9 +81,9 @@ namespace OOLUA
 			ud->none_const_name = (char*)Proxy_class<T>::class_name;
 			return 0;
 		}
-
+/*
 		template<typename T>
-		inline int garbage_collect(lua_State * /*const*/ l)
+		inline int garbage_collect(lua_State *  l)
 		{
 			//get the userdata
 			Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
@@ -91,6 +97,43 @@ namespace OOLUA
 			//ud will be cleaned up by the Lua API
 			return 0;
 		}
+*/
+		
+		template<typename T>
+		struct garbage_collect 
+		{
+			static int gc(lua_State *  l)
+			{
+				//get the userdata
+				Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
+				lua_pop(l,1);
+				//cast to correct type
+				//if responsible then clean up the cpp class
+				if(ud->gc)
+				{
+					delete static_cast<T*>(ud->void_class_ptr);
+				}
+				//ud will be cleaned up by the Lua API
+				return 0;
+			}
+		};
+			
+		template<typename T>
+		struct garbage_collect<OOLUA_SHARED_PTR_TYPE<T> >
+		{
+			static int gc(lua_State *  l)
+			{
+				//get the userdata
+				Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
+				lua_pop(l,1);
+				//cast to correct type
+				//always responsible for cleaning up
+				delete static_cast<OOLUA_SHARED_PTR_TYPE<T> *>(ud->void_shared_ptr);
+				//ud will be cleaned up by the Lua API
+				return 0;
+			}
+		};
+		
 		
 		template<typename T,int HasNoPublicDestructor>
 		struct set_delete_function
@@ -98,7 +141,7 @@ namespace OOLUA
 			static void set(lua_State* l, int methods)
 			{
 				lua_pushliteral(l, "__gc");// __gc
-				lua_pushcclosure(l, &INTERNAL::garbage_collect<T>, 0);//__gc func
+				lua_pushcclosure(l, &INTERNAL::garbage_collect<T>::gc, 0);//__gc func
 				lua_settable(l, methods);
 			}
 		};
