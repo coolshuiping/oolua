@@ -119,6 +119,18 @@ namespace OOLUA
 			return ud;
 		}
 		
+
+		//on entrance ud is on top
+		Lua_ud* change_to_none_const_and_return_ud(lua_State* l)
+		{
+			lua_getmetatable(l,-1);//ud mt
+			push_char_carray(l,change_mt_to_none_const_field);//ud mt str
+			lua_gettable(l,-2);//ud mt func
+			lua_CFunction set_metatable_none_const = lua_tocfunction(l,-1);
+			lua_pop(l,2);//ud
+			set_metatable_none_const(l);
+			return static_cast<Lua_ud *>( lua_touserdata(l, -1) );
+		}
 		
 	}
 }

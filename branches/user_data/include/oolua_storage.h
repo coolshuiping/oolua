@@ -97,6 +97,8 @@ namespace OOLUA
 
 		bool ud_at_index_is_const(lua_State* l, int index);
 
+		Lua_ud* change_to_none_const_and_return_ud(lua_State* l);
+
 		template<typename T>
 		int lua_set_owner(lua_State*  l)
 		{
@@ -136,14 +138,7 @@ namespace OOLUA
 				{
 					if( class_from_stack_top<T>(l) )
 					{
-						lua_getmetatable(l,-1);//ud mt
-						//lua_pushliteral(l,"__change_mt_to_none_const");//ud mt str
-						push_char_carray(l,change_mt_to_none_const_field);//ud mt str
-						lua_gettable(l,-2);//ud mt func
-						lua_CFunction set_metatable_none_const = lua_tocfunction(l,-1);
-						lua_pop(l,2);//ud
-						set_metatable_none_const(l);
-						return static_cast<Lua_ud *>( lua_touserdata(l, -1) );
+						return change_to_none_const_and_return_ud(l);
 					}
 				}
 				else //was not const and is not const
@@ -183,12 +178,13 @@ namespace OOLUA
 			return ud;
 		}
 
-		
 		template<typename T>
 		inline Lua_ud* reset_metatable(lua_State* l,T* ptr,bool is_const)
 		{
 			Lua_ud *ud = static_cast<Lua_ud *>( lua_touserdata(l, -1) );//ud
 			ud->void_class_ptr = ptr;
+
+
 			ud->base_checker = &stack_top_type_is_base<T>;
 			userdata_const_value(ud,is_const);
 			ud->type_check = &OOLUA::register_class<T>;

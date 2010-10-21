@@ -104,7 +104,7 @@ namespace OOLUA
 		template<typename T>
 		inline bool ud_is_type(Lua_ud const* ud)
 		{
-			//some compilers need a hand it also enforces that typedef in oolua_userdata is correct
+			//some compilers need a hand it also enforces that the typedef in oolua_userdata is correct
 			return ud->type_check ==  static_cast<oolua_type_check_function>(&OOLUA::register_class<T>);
 		}
 	}
