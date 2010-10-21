@@ -55,12 +55,10 @@ class Error_test : public CPPUNIT_NS::TestFixture
 	
 	
 #if OOLUA_RUNTIME_CHECKS_ENABLED ==1
-		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_stackSizeIncreasesByOne);
-		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_afterCallTopIsMetatable);
-		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_afterCallIndexMinusTwoIsUserdata);	
+#	if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
 		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidNotCreate_resultIsFalse);
 		CPPUNIT_TEST(userDataCheck_lightUserDataWithNoMetaTable_resultIsFalse);
-	
+#	endif	
 #	if OOLUA_USE_EXCEPTIONS == 1
 		CPPUNIT_TEST(memberFunctionCall_luaCallsLikeStaticFunctionWithNoParameters_throwsOoluaRunTimeError);
 #	elif OOLUA_STORE_LAST_ERROR == 1
@@ -150,9 +148,6 @@ public:
 
 	}
 	
-	
-
-	
 	void userDataCheck_runFunction()
 	{
 		m_lua->run_chunk("foo = function() "
@@ -170,7 +165,8 @@ public:
 						 "end");
 		m_lua->register_class<Stub1>();
 		m_lua->call("foo");
-		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(true,result );
 	}
 	
@@ -183,7 +179,8 @@ public:
 		Stub1 s;
 		Stub1 const * struct_ptr = &s;
 		m_lua->call("foo",struct_ptr);
-		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(true,result );
 	}
 	//if runtime checks turned off it will never effect the stack size
@@ -194,7 +191,8 @@ public:
 						 "end");
 		m_lua->call("foo");
 		int before = lua_gettop(*m_lua);
-		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		int after = lua_gettop(*m_lua);
 		CPPUNIT_ASSERT_EQUAL(before,after);
 	}
@@ -245,7 +243,8 @@ public:
 	void userDataCheck_lightUserDataWithNoMetaTable_resultIsFalse()
 	{
 		lua_pushlightuserdata(*m_lua,this);
-		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(false,result );
 	}
 	
@@ -255,37 +254,10 @@ public:
 						 "return newproxy(true) "
 						 "end");
 		m_lua->call("foo");
-		
-		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(false,result );
 	}
-
-	void userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_stackSizeIncreasesByOne()
-	{
-		userDataCheck_runFunction();
-		int before = lua_gettop(*m_lua);
-		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
-		int after = lua_gettop(*m_lua);
-		CPPUNIT_ASSERT_EQUAL(before + 1,after );
-	}
-	
-	void userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_afterCallTopIsMetatable()
-	{
-		userDataCheck_runFunction();
-		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
-		CPPUNIT_ASSERT_EQUAL(LUA_TTABLE,lua_type(*m_lua, -1));
-	}
-	
-	void userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_afterCallIndexMinusTwoIsUserdata()
-	{
-		userDataCheck_runFunction();
-		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1);
-		CPPUNIT_ASSERT_EQUAL(LUA_TUSERDATA,lua_type(*m_lua, -2));
-	}
-	
-
-	
-
 	
 #endif	
 

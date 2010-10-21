@@ -18,12 +18,29 @@ namespace OOLUA
 			lua_pushcclosure(l, func, 0);
 			lua_settable(l, tableIndex);
 		}
-		void set_void_key_and_function_value_in_table(lua_State* l ,void* key,lua_CFunction value,int tableIndex)
+		/*
+		void set_oolua_userdata_creation_key_value_in_table(lua_State* l ,void* key,lua_CFunction value,int tableIndex)
 		{
 			lua_pushlightuserdata(l,key);
-			lua_pushcfunction(l, value);
+			//lua_pushlightuserdata(l,key);
+			lua_pushboolean(l, 1);
+//			lua_pushcfunction(l, value);
 			lua_settable(l, tableIndex);
 		}
+		 */
+		
+		void set_oolua_userdata_creation_key_value_in_table(lua_State* l ,int tableIndex)
+		{
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
+			lua_pushlightuserdata(l,l);
+			lua_pushboolean(l, 1);
+			lua_settable(l, tableIndex);
+#else
+			(void)l;
+			(void)tableIndex;
+#endif
+		}
+		
 		void set_key_value_in_table(lua_State* l,char const* key_name,int valueIndex,int tableIndex)
 		{
 			lua_pushstring(l, key_name);

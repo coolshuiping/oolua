@@ -12,12 +12,13 @@
 #include "oolua_char_arrays.h"
 #include "oolua_config.h"
 
+#include "fwd_push_pull.h"
 
 namespace OOLUA
 {
 	namespace INTERNAL
 	{
-		typedef bool (*is_const_func_sig)(Lua_ud* ud);
+		typedef bool (*is_const_func_sig)(Lua_ud const* ud);
 		template<int NotTheSameSize>
 		struct VoidPointerSameSizeAsFunctionPointer;
 
@@ -32,7 +33,7 @@ namespace OOLUA
 			{
 				push_char_carray(l,OOLUA::INTERNAL::weak_lookup_name);
 				lua_pushvalue(l, value_index);
-				lua_settable(l, LUA_REGISTRYINDEX);
+				lua_rawset(l, LUA_REGISTRYINDEX);
 			}
 		};
 
@@ -45,21 +46,21 @@ namespace OOLUA
 				//it is safe as the pointers are the same size
 				//yet we need to stop warnings
 				//NOTE: in 5.2 we can push a light c function here
-				is_const_func_sig func = OOLUA::INTERNAL::id_is_const;
+				is_const_func_sig func = OOLUA::INTERNAL::userdata_is_constant;
                 void** stopwarnings = (void**)&func;
 				lua_pushlightuserdata(l,*stopwarnings);
-				lua_gettable(l, LUA_REGISTRYINDEX);
+				lua_rawget(l, LUA_REGISTRYINDEX);
 			}
 			static void setWeakTable(lua_State* l,int value_index)
 			{
 				//it is safe as the pointers are the same size
 				//yet we need to stop warnings
 				//NOTE: in 5.2 we can push a light c function here
-				is_const_func_sig func = OOLUA::INTERNAL::id_is_const;
+				is_const_func_sig func = OOLUA::INTERNAL::userdata_is_constant;
                 void** stopwarnings = (void**)&func;
 				lua_pushlightuserdata(l,*stopwarnings);
 				lua_pushvalue(l, value_index);
-				lua_settable(l, LUA_REGISTRYINDEX);
+				lua_rawset(l, LUA_REGISTRYINDEX);
 			}
 		};
 
@@ -67,7 +68,7 @@ namespace OOLUA
 
 		//pushes the weak top and returns its index
 		int push_weak_table(lua_State* l);
-		template<typename T>Lua_ud* add_ptr(lua_State*  l,T* const ptr,bool isConst);
+		template<typename T>Lua_ud* add_ptr(lua_State*  l,T* const ptr,bool is_const);
 
 		template<typename T>Lua_ud* find_ud(lua_State*  l,T* ptr,bool is_const);
 
@@ -75,7 +76,7 @@ namespace OOLUA
 		bool is_there_an_entry_for_this_void_pointer(lua_State* l,void* ptr,int tableIndex);
 
 		template<typename T>
-		Lua_ud* reset_metatable(lua_State*  l,T* ptr,bool use_const_name);
+		Lua_ud* reset_metatable(lua_State*  l,T* ptr,bool is_const);
 
 		Lua_ud* find_ud_dont_care_about_type_and_clean_stack(lua_State*  l,void* ptr);
 
@@ -83,6 +84,8 @@ namespace OOLUA
 
 		void add_ptr_if_required(lua_State* const l, void* ptr,int udIndex,int weakIndex);
 
+		Lua_ud* new_userdata(lua_State* l, void* ptr,bool is_const);
+		
 		template<typename Type,typename Bases, int BaseIndex,typename BaseType>
 		struct Add_ptr;
 
@@ -180,17 +183,22 @@ namespace OOLUA
 			return ud;
 		}
 
+		
 		template<typename T>
-		inline Lua_ud* reset_metatable(lua_State* l,T* ptr,bool use_const_name)
+		inline Lua_ud* reset_metatable(lua_State* l,T* ptr,bool is_const)
 		{
 			Lua_ud *ud = static_cast<Lua_ud *>( lua_touserdata(l, -1) );//ud
 			ud->void_class_ptr = ptr;
-			ud->name = (char*) (use_const_name? OOLUA::Proxy_class<T>::class_name_const :OOLUA::Proxy_class<T>::class_name);
-			ud->none_const_name = (char*) OOLUA::Proxy_class<T>::class_name;
-			ud->name_size = OOLUA::Proxy_class<T>::name_size;
+			ud->base_checker = &stack_top_type_is_base<T>;
+			userdata_const_value(ud,is_const);
+
 
 			//change the metatable associated with the ud
-			lua_getfield(l, LUA_REGISTRYINDEX,ud->name);
+			lua_getfield(l, LUA_REGISTRYINDEX
+						 ,  (char*) (is_const ? OOLUA::Proxy_class<T>::class_name_const 
+													 : OOLUA::Proxy_class<T>::class_name)
+						 );
+
 			lua_setmetatable(l,-2);//set ud's metatable to this
 
 			int weak_index = push_weak_table(l);//ud weakTable
@@ -204,18 +212,18 @@ namespace OOLUA
 			lua_pop(l,1);//ud
 			return ud;
 		}
-
+		
 		template<typename T>
-		inline Lua_ud* add_ptr(lua_State* const l,T* const ptr,bool isConst)
+		inline Lua_ud* add_ptr(lua_State* const l,T* const ptr,bool is_const)
 		{
-			Lua_ud* ud = static_cast<Lua_ud*>(lua_newuserdata(l, sizeof(Lua_ud)));
-			ud->void_class_ptr = ptr;
-			ud->gc = false;
-			ud->name = (char*) (isConst? OOLUA::Proxy_class<T>::class_name_const :OOLUA::Proxy_class<T>::class_name);
-			ud->none_const_name = (char*) OOLUA::Proxy_class<T>::class_name;
-			ud->name_size = OOLUA::Proxy_class<T>::name_size;
+			Lua_ud* ud = new_userdata(l, ptr, is_const);
+			ud->base_checker = &stack_top_type_is_base<T>;
+	
+			lua_getfield(l, LUA_REGISTRYINDEX
+						 ,  (char*) (is_const ? OOLUA::Proxy_class<T>::class_name_const 
+									 : OOLUA::Proxy_class<T>::class_name)
+						 );
 
-			lua_getfield(l, LUA_REGISTRYINDEX,ud->name);
 #if	OOLUA_DEBUG_CHECKS ==1
 			assert( lua_isnoneornil(l,-1) ==0 && "no metatable of this name found in registry" );
 #endif

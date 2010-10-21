@@ -97,7 +97,7 @@ public:
 		m_lua->run_chunk("func = function(obj) return obj:get_dummy_instance_none_ptr() end");
 		m_lua->call("func",m_class_with_public_vars);
 		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
-		CPPUNIT_ASSERT_EQUAL(false,ud->gc);
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::INTERNAL::userdata_is_to_be_gced(ud));
 	}
 	void getClassInstance_getDummyInstanceNonePtr_topOfStackPointerEqualsMemberAddress()
 	{

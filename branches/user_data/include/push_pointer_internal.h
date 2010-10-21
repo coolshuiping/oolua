@@ -22,10 +22,9 @@ namespace OOLUA
 		template<typename Raw,typename TypeMaybeConst>
 		inline void push_pointer_which_has_a_proxy_class(lua_State * l, TypeMaybeConst * const ptr,Owner owner)
 		{
-			enum {is_const = LVD::is_const<TypeMaybeConst>::value };
 			if_check_enabled_check_type_is_registered(l,Proxy_class<Raw>::class_name);
-			Lua_ud* ud( find_ud(l,(Raw*)ptr,is_const ? true : false ) );
-			if(! ud ) ud = add_ptr(l,(Raw*)ptr,is_const ? true : false);
+			Lua_ud* ud( find_ud(l,(Raw*)ptr,(bool)LVD::is_const<TypeMaybeConst>::value) );
+			if(! ud ) ud = add_ptr(l,(Raw*)ptr,(bool)LVD::is_const<TypeMaybeConst>::value);
 			
 			set_owner_if_change(owner,ud);
 		}

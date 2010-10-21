@@ -10,8 +10,6 @@
 #ifndef DETERMIN_QUALIFIER_H_
 #	define DETERMIN_QUALIFIER_H_
 
-#include "lvd_types.h"
-#include "type_list.h"
 
 namespace LVD
 {

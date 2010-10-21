@@ -68,6 +68,7 @@ public:
 		B b;
 		CPPUNIT_ASSERT_NO_THROW( m_lua->call("foo",&a,&b,&a,&b) );
 	}
-};
+
+};	
 
 CPPUNIT_TEST_SUITE_REGISTRATION( UserData );

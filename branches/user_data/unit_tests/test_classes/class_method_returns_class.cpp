@@ -93,7 +93,7 @@ public:
 		m_lua->call("bugReport");
 
 		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
-		CPPUNIT_ASSERT_EQUAL(true,ud->gc);
+		CPPUNIT_ASSERT_EQUAL(true,OOLUA::INTERNAL::userdata_is_to_be_gced(ud));
 		OOLUA::cpp_acquire_ptr<Return_double*> ret;
 		OOLUA::pull2cpp(*m_lua,ret);
 		delete ret.m_ptr;

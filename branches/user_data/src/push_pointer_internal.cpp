@@ -26,7 +26,7 @@ namespace OOLUA
 		{
 			if(owner != No_change)
 			{
-				ud->gc =( owner == Lua ? true : false);
+				userdata_gc_value(ud, owner == Lua ? true : false);
 			}
 		}
 		

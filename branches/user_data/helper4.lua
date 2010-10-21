@@ -47,6 +47,8 @@ function configure_for_os()
 	configuration("xcode3 or gmake")
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 
+	configuration("xcode3 or gmake or codeblocks","Release")
+		buildoptions { "-O3" }
 end
 
 function create_package(name,path_to_root,kind_)

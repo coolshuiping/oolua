@@ -4,9 +4,51 @@
 ///def OOLUA_RUNTIME_CHECKS_ENABLED
 ///Checks that a type being pulled off the stack is of the correct type
 ///If this is a proxy type, it also checks the userdata on the stack was created by OOLua
+//#define OOLUA_RUNTIME_CHECKS_ENABLED 0
 #ifndef OOLUA_RUNTIME_CHECKS_ENABLED
 #	define OOLUA_RUNTIME_CHECKS_ENABLED 1
 #endif
+
+///def OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA
+//Does what it says on the tin, only valid when 
+//#define OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA 0
+#if OOLUA_RUNTIME_CHECKS_ENABLED == 1
+#	ifndef OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA
+#		define OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA 1
+#	endif
+#else
+#	ifdef OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA
+#		undef OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA
+#	endif
+#	define OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA  0
+#endif
+
+/*
+ The following two macros tell the library to use internal knowledge of
+ the Lua implementation being used when checking a userdata type on the 
+ stack is an OOLua userdata.This uses an optimisation only when
+ OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
+ */
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
+
+	///def OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514
+	//if 1 then you are using Lua 5.1.4 and the default config
+#	ifndef OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514
+#		define OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 0
+#	endif
+
+	///def OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20
+	//if 1 then you are using LuaJit 2.0 and it's default config
+#	ifndef OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20
+#		define OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 0
+#	endif
+
+#	if OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 && OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1
+#		error Only one of these settings can be on
+#	endif
+
+#endif
+
 
 
 ///def OOLUA_STD_STRING_IS_INTEGRAL
@@ -14,13 +56,6 @@
 ///NOTE: This is always by value
 #ifndef OOLUA_STD_STRING_IS_INTEGRAL
 #	define OOLUA_STD_STRING_IS_INTEGRAL 1
-#endif
-
-///def OOLUA_SAFE_ID_COMPARE
-///If 1 then checks id lengths and if the same compares with a memcmp
-///If 0 compares the address' of the id strings
-#ifndef OOLUA_SAFE_ID_COMPARE
-#	define OOLUA_SAFE_ID_COMPARE 1
 #endif
 
 
@@ -34,12 +69,11 @@
 #	define OOLUA_USE_EXCEPTIONS 0
 #endif
 
-//TODO: tests fail due to asserts if OOLUA_USE_EXCEPTIONS == 0 && OOLUA_STORE_LAST_ERROR == 0
-//These tests need to be isolated
 
 ///def OOLUA_STORE_LAST_ERROR
 ///When it fails it stores the error in the Lua registry and is retrievable via 
 //		OOLUA::get_last_error(lua);
+//#define OOLUA_STORE_LAST_ERROR 0
 #ifndef OOLUA_STORE_LAST_ERROR
 #	define OOLUA_STORE_LAST_ERROR 1
 #endif
@@ -70,11 +104,6 @@
 #	if defined OOLUA_RUNTIME_CHECKS_ENABLED && OOLUA_RUNTIME_CHECKS_ENABLED == 0
 #		undef OOLUA_RUNTIME_CHECKS_ENABLED
 #		define OOLUA_RUNTIME_CHECKS_ENABLED 1
-#	endif
-
-#	if defined OOLUA_SAFE_ID_COMPARE && OOLUA_SAFE_ID_COMPARE == 0
-#		undef OOLUA_SAFE_ID_COMPARE
-#		define OOLUA_SAFE_ID_COMPARE 1
 #	endif
 
 #	if defined OOLUA_USE_EXCEPTIONS && OOLUA_USE_EXCEPTIONS == 0 \

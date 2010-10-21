@@ -36,6 +36,8 @@
 #include "base_checker.h"
 #include "oolua_char_arrays.h"
 #include "lvd_types.h"
+#include "oolua_typedefs.h"
+#include "lua_table.h"
 
 #include "oolua_config.h"
 #if OOLUA_USING_SHARED_PTR == 1
@@ -69,7 +71,8 @@ namespace OOLUA
 		void set_function_in_table_with_upvalue(lua_State* l, char const * func_name, lua_CFunction func
 														, int tableIndex, void* upvalue);
 		void set_function_in_table(lua_State* l, char const* func_name,lua_CFunction func,int tableIndex);
-		void set_void_key_and_function_value_in_table(lua_State* l ,void* key ,lua_CFunction value,int tableIndex);
+		void set_oolua_userdata_creation_key_value_in_table(lua_State* l ,int tableIndex);
+
 		void set_key_value_in_table(lua_State* l,char const* key_name,int valueIndex,int tableIndex);
 		int check_for_key_in_stack_top(lua_State* l);
 		
@@ -85,9 +88,9 @@ namespace OOLUA
 		{
 			luaL_getmetatable(l,Proxy_class<T>::class_name);//ud metatable
 			lua_setmetatable(l,-2);//ud
+			
 			INTERNAL::Lua_ud* ud = static_cast<INTERNAL::Lua_ud*>(lua_touserdata(l,-1));
-			ud->name = (char*)Proxy_class<T>::class_name;
-			ud->none_const_name = (char*)Proxy_class<T>::class_name;
+			userdata_const_value(ud,false);
 			return 0;
 		}
 		
@@ -98,7 +101,7 @@ namespace OOLUA
 			{
 				Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
 				lua_pop(l,1);
-				if(ud->gc)//if responsible then clean up the cpp class
+				if( ud->flags & GC_FLAG  )
 				{
 					delete static_cast<T*>(ud->void_class_ptr);
 				}
@@ -184,7 +187,6 @@ namespace OOLUA
 		}
 		
 		
-		typedef int(*function_sig_to_check_base_)(lua_State* const l,INTERNAL::Lua_ud*,int const&);
 		template<typename T>
 		inline int set_methods(lua_State* l,int& mt)
 		{
@@ -199,11 +201,8 @@ namespace OOLUA
 			lua_pushvalue(l, methods);
 			lua_setglobal(l,Proxy_class<T>::class_name);
 			//global[name]=methods
-			
-			function_sig_to_check_base_ temp_func = &stack_top_type_is_base< T>;
-			lua_CFunction func = reinterpret_cast<lua_CFunction>( temp_func);
-			set_void_key_and_function_value_in_table(l ,l ,func,mt);
-			//mt[lua_State*]= &stack_top_type_is_base<T>;
+
+			set_oolua_userdata_creation_key_value_in_table(l,mt);
 
 			set_key_value_in_table(l,"__index",methods,mt);
 			//mt["__index"]= methods
@@ -245,10 +244,7 @@ namespace OOLUA
 			lua_setglobal(l,Proxy_class<T>::class_name_const);
 			//global[name#_const]=const_methods
 
-			function_sig_to_check_base_ temp_func = &stack_top_type_is_base< T>;
-			lua_CFunction func = reinterpret_cast<lua_CFunction>( temp_func);
-			set_void_key_and_function_value_in_table(l ,l ,func,const_mt);
-			//const_mt[lua_State*]= &stack_top_type_is_base<T>;
+			set_oolua_userdata_creation_key_value_in_table(l,const_mt);
 			
 			set_function_in_table(l,change_mt_to_none_const_field
 								  ,&INTERNAL::set_type_top_to_none_const<T>,const_mt);

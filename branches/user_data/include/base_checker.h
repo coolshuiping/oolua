@@ -14,9 +14,12 @@ namespace OOLUA
 	{
 
 		template<typename T>
-		int stack_top_type_is_base(lua_State* const l
+		bool stack_top_type_is_base(lua_State* const l
 								   ,Lua_ud* requested_ud
 								   ,int const& userdata_index);
+		
+		template<typename T>
+		bool ud_is_type(Lua_ud const* ud);
 		
 		template<typename ProxyStackType,typename BaseType,int DoWork>
 		struct CastToRequestedProxyType;
@@ -55,8 +58,7 @@ namespace OOLUA
 			{
 				if(result) return;
 				//is this a base
-				if( ids_equal(requested_ud->none_const_name,requested_ud->name_size,
-					(char*)OOLUA::Proxy_class<BaseType>::class_name,OOLUA::Proxy_class<BaseType>::name_size ) )
+				if( ud_is_type<BaseType>(requested_ud) )
 				{
 					result = true;
 					CastToRequestedProxyType<ProxyStackType,BaseType,1>::cast(l,userdata_index);
@@ -84,7 +86,7 @@ namespace OOLUA
 
 
 		template<typename T>
-		inline int stack_top_type_is_base(lua_State* const l
+		inline bool stack_top_type_is_base(lua_State* const l
 										  ,Lua_ud* requested_ud
 										  ,int const& userdata_index)
 		{
@@ -96,9 +98,17 @@ namespace OOLUA
 				> checkBases;
 			bool result(false);
 			checkBases(l,userdata_index,requested_ud,result);
-			return !!result;
+			return result;
 		}
-	
+		
+		template<typename T>
+		inline bool ud_is_type(Lua_ud const* ud)
+		{
+			//some compilers need a hand it also enforces that typedef in oolua_userdata is correct
+			return ud->base_checker ==  (oolua_function_check_base)& INTERNAL::stack_top_type_is_base<T>;
+			//return ud->base_checker ==  static_cast<oolua_function_check_base>(& INTERNAL::stack_top_type_is_base<T>);
+
+		}
 	}
 }
 #endif

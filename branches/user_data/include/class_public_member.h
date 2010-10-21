@@ -16,6 +16,7 @@
 #ifndef CLASS_PUBLIC_MEMBER_H_
 #	define CLASS_PUBLIC_MEMBER_H_
 
+#include "fwd_push_pull.h"
 
 namespace OOLUA 
 {

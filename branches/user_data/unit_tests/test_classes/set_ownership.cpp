@@ -104,7 +104,7 @@ public:
 		call_set_owner(&stub,"Cpp_owns");
 		OOLUA::INTERNAL::is_there_an_entry_for_this_void_pointer(*m_lua,&stub);
 		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
-		CPPUNIT_ASSERT_EQUAL(false,ud->gc);
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::INTERNAL::userdata_is_to_be_gced(ud));
 	}
 	void setOwner_luaTakesOwnership_udGcBoolIsTrue()
 	{
@@ -112,9 +112,9 @@ public:
 		call_set_owner(&stub,"Lua_owns");
 		OOLUA::INTERNAL::is_there_an_entry_for_this_void_pointer(*m_lua,&stub);
 		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
-		CPPUNIT_ASSERT_EQUAL(true,ud->gc);
+		CPPUNIT_ASSERT_EQUAL(true,OOLUA::INTERNAL::userdata_is_to_be_gced(ud));
 		//we have to change back to Cpp or else delete will be called on a stack instance.
-		ud->gc = false;
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);
 	}
 	void setOwner_luaTakesOwnershipAndThenPassesItToCpp_udGcBoolIsFalse()
 	{
@@ -123,7 +123,7 @@ public:
 		call_set_owner(&stub,"Cpp_owns");
 		OOLUA::INTERNAL::is_there_an_entry_for_this_void_pointer(*m_lua,&stub);
 		OOLUA::INTERNAL::Lua_ud* ud = static_cast<OOLUA::INTERNAL::Lua_ud *>( lua_touserdata(*m_lua, -1) );
-		CPPUNIT_ASSERT_EQUAL(false,ud->gc);
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::INTERNAL::userdata_is_to_be_gced(ud));
 	}
 
 	
@@ -197,7 +197,7 @@ public:
 		m_lua->call(func,(OwnershipParamsAndReturns*)&object);
 
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		ud->gc = false;//stop delete being called on this stack pointer
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL((void*)&return_stub, ud->void_class_ptr);
 
 	}
@@ -216,8 +216,8 @@ public:
 		
 		m_lua->call(func,(OwnershipParamsAndReturns*)&object);
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		bool gc_value = ud->gc;
-		ud->gc = false;//stop delete being called on this stack pointe
+		bool gc_value = OOLUA::INTERNAL::userdata_is_to_be_gced(ud);
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL(true,gc_value);
 
 	}
@@ -236,7 +236,7 @@ public:
 		
 		m_lua->call(func,(OwnershipParamsAndReturns*)&object);
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		ud->gc = false;//stop delete being called on this stack pointer
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL((void*)&return_stub, ud->void_class_ptr);
 
 	}
@@ -253,8 +253,8 @@ public:
 		
 		m_lua->call(func,(OwnershipParamsAndReturns*)&object);
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		bool gc_value = ud->gc;
-		ud->gc = false;//stop delete being called on this stack pointer
+		bool gc_value = OOLUA::INTERNAL::userdata_is_to_be_gced(ud);
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL(true,gc_value);
 
 	}
@@ -264,8 +264,8 @@ public:
 		m_lua->run_chunk("foo = function(param) return param end");
 		m_lua->call("foo",OOLUA::lua_acquire_ptr<Stub1*>(&stub));
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		bool gc_value = ud->gc;
-		ud->gc=false;//stop delete being called on this stack pointer
+		bool gc_value = OOLUA::INTERNAL::userdata_is_to_be_gced(ud);
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL(true,gc_value);
 	}
 	void callFunction_passingPointerUsingLuaAcquirePtr_topOfComparesEqualToStackPointer()
@@ -274,7 +274,7 @@ public:
 		m_lua->run_chunk("foo = function(param) return param end");
 		m_lua->call("foo",OOLUA::lua_acquire_ptr<Stub1*>(&stub));
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		ud->gc=false;//stop delete being called on this stack pointer
+		OOLUA::INTERNAL::userdata_gc_value(ud,false);//stop delete being called on this stack pointer
 		CPPUNIT_ASSERT_EQUAL((void*)&stub,ud->void_class_ptr);
 	}
 	std::string generate_cpp_in_p_function(std::string func_name)
@@ -299,7 +299,7 @@ public:
 					,OOLUA::lua_acquire_ptr<Stub1*>(&stub));
 		
 		OOLUA::INTERNAL::Lua_ud * ud = get_ud_helper();
-		return ud->gc;
+		return OOLUA::INTERNAL::userdata_is_to_be_gced(ud);
 		
 	}
 	

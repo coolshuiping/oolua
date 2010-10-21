@@ -1,3 +1,45 @@
+Branch changes from trunk
+stack_top_type_is_base now returns a bool instead of an int
+refactored class_from_stack.h
+Lua_ud structure changed
+gc is no longer a bool, it now uses a bitflag
+Type comparison is no longer implemented using string, it now uses addresses of a template typed function
+Constness of type uses a bitflag
+
+OOLUA_SAFE_ID_COMPARE removed
+
+new options to not check the userdata was created by OOLua
+Or to use internal knowledge of the Lua implementation 
+	cast the pointer to the internal imps structure and decrement to the header.
+	compare the length field with the sizeof(Lua_ud) if equal continue
+	index into area of memory known to be valid and compare a pointer at an offset
+	if same then created by OOLua. Well … it is not a guarantee
+
+Added check for a valid pointer in the proxy member function
+It is possible to call a function "func" on a class type "T" 
+instance = T:new()
+T:func()
+
+And also
+
+instance = T:new()
+T:func(instance)
+
+local member_function = T:func
+for obj,_ in pairs(tableOfObjects)do
+	member_function(obj)
+end
+
+With runtime checks enabled it is an error that will be caught to call a member function without an 
+instance either via instance:func() or Type:func(instance)
+When userdata checks are enabled it will catch Type:func(new_proxy()) 
+
+oolua_registration.h
+removed registering of base checking function from the metatable it is now store in Lua_ud
+replaced with a creation key value when it is required
+swig compare file updated to version 2.0.1
+luabind comparing updated to version 0.9.1
+
 1.3.2
 Fixed bug when using va args to rename a function
 platforms fixed: gcc > 3.0

@@ -296,7 +296,6 @@ access to objects with no metatables does not fail (it simply results in nil).\n
 */
 #	include "lua_includes.h"
 #	include "fwd_push_pull.h"
-#	include "param_traits.h"
 #   include "push_pointer_internal.h"
 #   include "type_list.h"
 #	include "oolua_userdata.h"
@@ -353,7 +352,7 @@ namespace OOLUA
 			INTERNAL::LUA_CALLED::pull2cpp(l,lhs);
 			T* result ( new T( *lhs + *rhs ) );
 			OOLUA::INTERNAL::Lua_ud* ud = INTERNAL::add_ptr<T>(l,result,false);
-			ud->gc = true;
+			userdata_gc_value(ud,true);
 			return 1;
 		}
 
@@ -367,7 +366,7 @@ namespace OOLUA
 			INTERNAL::LUA_CALLED::pull2cpp(l,lhs);
 			T* result ( new T( *lhs - *rhs ) );
 			OOLUA::INTERNAL::Lua_ud* ud = INTERNAL::add_ptr<T>(l,result,false);
-			ud->gc = true;
+			userdata_gc_value(ud,true);
 			return 1;
 		}
 
@@ -380,7 +379,7 @@ namespace OOLUA
 			INTERNAL::LUA_CALLED::pull2cpp(l,lhs);
 			T* result ( new T( *lhs * *rhs ) );
 			OOLUA::INTERNAL::Lua_ud* ud = INTERNAL::add_ptr<T>(l,result,false);
-			ud->gc = true;
+			userdata_gc_value(ud,true);
 			return 1;
 		}
 
@@ -393,7 +392,7 @@ namespace OOLUA
 			INTERNAL::LUA_CALLED::pull2cpp(l,lhs);
 			T* result ( new T( *lhs / *rhs ) );
 			OOLUA::INTERNAL::Lua_ud* ud = INTERNAL::add_ptr<T>(l,result,false);
-			ud->gc = true;
+			userdata_gc_value(ud,true);
 			return 1;
 		}
 

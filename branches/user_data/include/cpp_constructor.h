@@ -29,7 +29,7 @@ struct Constructor
 	{
 		Type* obj = new Type;
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 		return 1;
 	}
 };
@@ -63,7 +63,7 @@ struct Constructor1
 		OOLUA::INTERNAL::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
 		Class* obj = new Class( p1_);
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 	}
 };
 template<typename Class,typename Param1WithTraits, typename Param2WithTraits >
@@ -89,7 +89,7 @@ struct Constructor2
 		OOLUA::INTERNAL::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
 		Class* obj = new Class( p1_,p2_);
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 	}
 };
 template<typename Class,typename Param1WithTraits, typename Param2WithTraits, typename Param3WithTraits >
@@ -119,7 +119,7 @@ struct Constructor3
 		OOLUA::INTERNAL::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
 		Class* obj = new Class( p1_,p2_,p3_);
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 	}
 };
 template<typename Class,typename Param1WithTraits, typename Param2WithTraits, typename Param3WithTraits, typename Param4WithTraits >
@@ -153,7 +153,7 @@ struct Constructor4
 		OOLUA::INTERNAL::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
 		Class* obj = new Class( p1_,p2_,p3_,p4_);
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 	}
 };
 template<typename Class,typename Param1WithTraits, typename Param2WithTraits, typename Param3WithTraits, typename Param4WithTraits, typename Param5WithTraits >
@@ -191,7 +191,7 @@ struct Constructor5
 		OOLUA::INTERNAL::Converter<typename Param1WithTraits::pull_type,typename Param1WithTraits::type> p1_(p1);
 		Class* obj = new Class( p1_,p2_,p3_,p4_,p5_);
 		OOLUA::INTERNAL::Lua_ud* ud = OOLUA::INTERNAL::add_ptr(l,obj,false);
-		ud->gc = true;
+		userdata_gc_value(ud,true);
 	}
 };
 

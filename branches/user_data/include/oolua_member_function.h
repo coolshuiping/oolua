@@ -58,14 +58,6 @@
 #	define OOLUA_SELF_CHECK(obj,which_function,which_name) 
 #endif
 
-#if OOLUA_RUNTIME_CHECKS_ENABLED == 1
-#	define OOLUA_GET_NONE_CONST_SELF \
-	INTERNAL::check_index_no_const<typename Proxy_type::class_>(l, 1);
-#else
-#	define OOLUA_GET_NONE_CONST_SELF \
-	INTERNAL::no_stack_checks_none_const_class_from_index<typename Proxy_type::class_>(l, 1);
-#endif
-
 
 
 namespace OOLUA
@@ -89,10 +81,8 @@ namespace OOLUA
 #if	OOLUA_USE_EXCEPTIONS ==1			
 			OOLUA_MEMBER_FUNCTION_TRY
 #endif
-				typename Proxy_type::class_ *obj = OOLUA_GET_NONE_CONST_SELF
-						//INTERNAL::check_index_no_const<typename Proxy_type::class_>(l, 1);
-						//INTERNAL::no_stack_checks_none_const_class_from_index<typename Proxy_type::class_>(l, 1);
-				OOLUA_SELF_CHECK(obj,"member_caller",class_name);
+				typename Proxy_type::class_ *obj = INTERNAL::check_index_no_const<typename Proxy_type::class_>(l, 1);
+				OOLUA_SELF_CHECK(obj,"member_caller",class_name)
 				lua_remove(l, 1);
 				///get member function from upvalue
 				typename Proxy_class<Base_type >::Reg_type* r =
@@ -109,8 +99,8 @@ namespace OOLUA
 #if	OOLUA_USE_EXCEPTIONS ==1			
 			OOLUA_MEMBER_FUNCTION_TRY
 #endif
-				typename Proxy_type::class_ *obj = 
-						INTERNAL::no_stack_checks_class_from_index<typename Proxy_type::class_>(l, 1);
+				typename Proxy_type::class_ *obj = INTERNAL::check_index<typename Proxy_type::class_>(l, 1);
+				OOLUA_SELF_CHECK(obj,"const_member_caller",class_name_const)
 				lua_remove(l, 1);
 				///get member function from upvalue
 				typename Proxy_class<Base_type >::Reg_type_const* r =
@@ -134,9 +124,9 @@ namespace OOLUA
 #	undef OOLUA_MEMBER_FUNCTION_CATCH
 #endif
 
-#if OOLUA_RUNTIME_CHECKS_ENABLED == 1
+#	undef OOLUA_GET_NONE_CONST_SELF
+#	undef OOLUA_GET_CONST_SELF
 #	undef OOLUA_SELF_CHECK
-#endif
 
 #endif
 

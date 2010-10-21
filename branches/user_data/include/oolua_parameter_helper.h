@@ -25,7 +25,7 @@ namespace OOLUA
 			{
 MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA
 				if( !TypeWithTraits::is_constant
-				   && INTERNAL::id_is_const(static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, index) ) )  )
+				   && INTERNAL::userdata_is_constant(static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, index) ) )  )
 				{
 					return 0;
 				}

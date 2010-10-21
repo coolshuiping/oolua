@@ -4,8 +4,6 @@
 #include "oolua_storage.h"
 #include "oolua_push_pull.h"
 
-#include "oolua_char_arrays.h"
-
 
 #if OOLUA_DEBUG_CHECKS == 1
 #	include <cassert>
@@ -95,14 +93,33 @@ namespace OOLUA
 			else
 #endif
 			{
-				ud->gc = ( own == Cpp ? false : true);
+				userdata_gc_value(ud, own == Cpp ? false : true);
 			}
 		}
 
 		bool ud_at_index_is_const(lua_State* l, int index)
 		{
-			return INTERNAL::id_is_const( static_cast<Lua_ud *>( lua_touserdata(l, index) ) ); 
+			return INTERNAL::userdata_is_constant( static_cast<Lua_ud *>( lua_touserdata(l, index) ) ); 
 		}
+		
+		Lua_ud* new_userdata(lua_State* l, void* ptr,bool is_const)
+		{
+			Lua_ud* ud = static_cast<Lua_ud*>(lua_newuserdata(l, sizeof(Lua_ud)));
+			ud->flags = 0;
+			ud->void_class_ptr = ptr;
+			userdata_const_value(ud,is_const);
+
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && \
+						( OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 \
+						|| OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1 )
+			ud->created_by_state = l;
+#else
+			(void)l;
+#endif		
+			return ud;
+		}
+		
+		
 	}
 }
 
