@@ -10,11 +10,12 @@ namespace OOLUA
     {
 		struct Lua_ud;
 		typedef bool (*oolua_function_check_base)(lua_State* const l,INTERNAL::Lua_ud*,int const&);
-
+		typedef void (*oolua_type_check_function)(lua_State * l);
         struct Lua_ud
         {
 			void* void_class_ptr;
 			oolua_function_check_base base_checker;
+			oolua_type_check_function type_check;
 #if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && \
 					( OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 \
 						|| OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1 )

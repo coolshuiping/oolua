@@ -79,6 +79,7 @@ namespace OOLUA
 		{
 			Lua_ud requested_ud;
 			requested_ud.base_checker = &stack_top_type_is_base<T>;
+			requested_ud.type_check = &OOLUA::register_class<T>;
 			if(!is_requested_type_a_base(l,stack_ud,&requested_ud,userdata_index))
 			{
 				//ud ...

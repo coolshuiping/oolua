@@ -105,9 +105,7 @@ namespace OOLUA
 		inline bool ud_is_type(Lua_ud const* ud)
 		{
 			//some compilers need a hand it also enforces that typedef in oolua_userdata is correct
-			return ud->base_checker ==  (oolua_function_check_base)& INTERNAL::stack_top_type_is_base<T>;
-			//return ud->base_checker ==  static_cast<oolua_function_check_base>(& INTERNAL::stack_top_type_is_base<T>);
-
+			return ud->type_check ==  static_cast<oolua_type_check_function>(&OOLUA::register_class<T>);
 		}
 	}
 }

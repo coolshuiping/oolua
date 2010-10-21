@@ -191,7 +191,7 @@ namespace OOLUA
 			ud->void_class_ptr = ptr;
 			ud->base_checker = &stack_top_type_is_base<T>;
 			userdata_const_value(ud,is_const);
-
+			ud->type_check = &OOLUA::register_class<T>;
 
 			//change the metatable associated with the ud
 			lua_getfield(l, LUA_REGISTRYINDEX
@@ -218,7 +218,8 @@ namespace OOLUA
 		{
 			Lua_ud* ud = new_userdata(l, ptr, is_const);
 			ud->base_checker = &stack_top_type_is_base<T>;
-	
+			ud->type_check = &OOLUA::register_class<T>;
+
 			lua_getfield(l, LUA_REGISTRYINDEX
 						 ,  (char*) (is_const ? OOLUA::Proxy_class<T>::class_name_const 
 									 : OOLUA::Proxy_class<T>::class_name)
