@@ -234,8 +234,24 @@ EXPORT_OOLUA_FUNCTIONS_1_NON_CONST(foo,bar)
 EXPORT_OOLUA_FUNCTIONS_0_CONST(foo)
 }}}
 
-=== Overloaded member functions ===
+=== Renaming member functions ===
+{{{
+struct RenameFunctions
+{
+    void func(int);
+    int func();
+};
 
+OOLUA_CLASS_NO_BASES(RenameFunctions)
+    OOLUA_NO_TYPEDEFS
+    OOLUA_ONLY_DEFAULT_CONSTRUCTOR
+    OOLUA_MEM_FUNC_1_RENAME(set_func,void,func,int)
+    OOLUA_MEM_FUNC_0_RENAME(get_func,int,func)
+OOLUA_CLASS_END
+
+EXPORT_OOLUA_FUNCTIONS_2_NON_CONST(RenameFunctions,set_func,get_func)
+EXPORT_OOLUA_FUNCTIONS_0_CONST(RenameFunctions)
+}}}
 
 === Abstract class ===
 {{{
