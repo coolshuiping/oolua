@@ -9,7 +9,9 @@
 namespace OOLUA
 {
 
-
+	template<typename T>
+	void register_class(lua_State* l);
+	
 	namespace INTERNAL
 	{
 
