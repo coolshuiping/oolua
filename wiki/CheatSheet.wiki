@@ -135,7 +135,7 @@ s.call("func");
 }}}
 
 ===Via reference===
-This example assumes that an function is at the top on the Lua stack.
+This example assumes that a function is at the top of the Lua stack.
 {{{
 OOLUA::Script s;
 OOLUA::Lua_func_ref f;
