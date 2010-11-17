@@ -138,7 +138,7 @@ s.call("func");
 This example assumes that an function is at the top on the Lua stack.
 {{{
 OOLUA::Script s;
-OOLUA::Lua_ref_func f;
+OOLUA::Lua_func_ref f;
 OOLUA::pull2cpp(s,f);
 s.call(f);
 }}}
