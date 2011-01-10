@@ -1,7 +1,8 @@
 #ifndef CPP_INTEGRAL_FUNCTION_PARAMS_H_
 #	define CPP_INTEGRAL_FUNCTION_PARAMS_H_
 
-#include "gmock/gmock.h"
+#	include "oolua_tests_pch.h"
+#	include "gmock/gmock.h"
 
 class Int_params
 {

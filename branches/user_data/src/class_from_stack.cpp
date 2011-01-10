@@ -3,8 +3,8 @@
 #include "lvd_types.h"
 
 #include <cassert>
-
-#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
+//old code which only gives a slight improvement over using objlen
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA__NOTUSED == 1
 
 #	if OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1
 
@@ -55,12 +55,12 @@ namespace OOLUA
 {
 	namespace INTERNAL
 	{
-		
+/*		
 #if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
 
 #	if OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 || OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1
 
-		bool index_is_userdata(lua_State* l,int index,Lua_ud*& ud)
+		bool __index_is_userdata(lua_State* l,int index,Lua_ud*& ud)
 		{
 			ud = static_cast<Lua_ud *>(lua_touserdata(l,index));
 			if(!ud)return false;
@@ -72,7 +72,20 @@ namespace OOLUA
 			}
 			else return true;
 		}	
+*/
 		
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 
+#	if OOLUA_USERDATA_OPTIMISATION == 1
+		bool index_is_userdata(lua_State* l,int index,Lua_ud*& ud)
+		{
+			ud = static_cast<Lua_ud *>(lua_touserdata(l,index));
+			if(!ud)return false;
+			if(	lua_objlen(l,index) != sizeof(Lua_ud) || ud->created_by_state != l )  
+			{
+				return false;
+			}
+			else return true;
+		}
 #	else
 		
 		bool index_is_userdata(lua_State* l,int index,Lua_ud*& ud)

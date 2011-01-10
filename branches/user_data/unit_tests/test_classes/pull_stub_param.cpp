@@ -1,4 +1,5 @@
 
+#	include "oolua_tests_pch.h"
 #	include "common_cppunit_headers.h"
 #	include "gmock/gmock.h"
 #	include "oolua.h"

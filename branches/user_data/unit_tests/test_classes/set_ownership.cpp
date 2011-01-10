@@ -1,3 +1,4 @@
+#	include "oolua_tests_pch.h"
 #	include "oolua.h"
 #	include "lua_ownership.h"
 #	include "common_cppunit_headers.h"

@@ -30,9 +30,10 @@ includedirs
 	"/usr/include",
 	root .. "unit_tests/bind_classes",
 	root .. "unit_tests/cpp_classes",
-	root .. "unit_tests/test_classes"
+	root .. "unit_tests/test_classes",
+--	"/usr/local/include/lua52",
 } 
---flags{ "NoExceptions"}
+
 
 defines 
 {
@@ -41,56 +42,16 @@ defines
 	"OOLUA_SAFE_ID_COMPARE=1",
 	
 	"OOLUA_STORE_LAST_ERROR=0",
-	"OOLUA_USE_EXCEPTIONS=1"
+	"OOLUA_USE_EXCEPTIONS=1",
+	"OOLUA_USE_PRECOMPILED_HEADER"
 }
 
---[[
-links
-{
-	"oolua"
-}
---]]
+
+configuration{"gmake"}
+	pchheader("unit_tests/test_classes/oolua_tests_pch.h")
+configuration{"not gmake"}
+	pchheader(root .. "unit_tests/test_classes/oolua_tests_pch.h")
 
 unit_test_config(root,name)
---[[
-	configuration { "vs*"}
-		postbuildcommands { "\"$(TargetPath)\"" }
-		links{"lua51"}
-		
-	configuration { "vs*","Debug"}
-		links{ "cppunitd" , "gmockd" }
 
-	configuration { "vs*","Release"}
-		links{ "cppunit" , "gmock" }
-		
-	configuration {"codeblocks" }
-		postbuildcommands { "$(TARGET_OUTPUT_FILE)"}
-				
-
-	configuration {"gmake or codeblocks","linux or macosx" }
-		libdirs {"usr/local/lib","usr/lib"}
-		links{ "cppunit", "lua" }
-		linkoptions{"`gmock-config --cxxflags --ldflags --libs`"}
-
-	configuration {"xcode3" }
-		libdirs {"usr/local/lib","usr/lib"}
-		links{ "gmock","gtest","cppunit", "lua" }
-		postbuildcommands {"$TARGET_BUILD_DIR/$TARGET_NAME"}
-
-	configuration {"windows","codeblocks","Debug" }
-		links{ "lua", "cppunitd" , "gmockd" }
-		
-	configuration {"windows","codeblocks","Release" }	
-		links{ "lua", "cppunit" , "gmock" }
-		
-	configuration {"gmake","Debug"}	
-		postbuildcommands  { root .. "bin/Debug/" .. name }
-		
-	configuration {"gmake","Release"}	
-		postbuildcommands { root .. "bin/Release/" .. name }
-
-	configuration {"linux" }
-		links{ "dl" }
-
---]]
 

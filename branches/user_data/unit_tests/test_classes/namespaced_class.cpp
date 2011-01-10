@@ -1,5 +1,7 @@
-#ifndef NAMESPACED_CLASS_H_
-#	define NAMESPACED_CLASS_H_
+//#ifndef NAMESPACED_CLASS_H_ //why is this wrapped and when did it become wrapped?
+//#	define NAMESPACED_CLASS_H_
+
+#	include "oolua_tests_pch.h"
 
 #	include "oolua.h"
 #	include "common_cppunit_headers.h"
@@ -33,6 +35,6 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( NamespacedClass );
-#endif
+//#endif
 
 

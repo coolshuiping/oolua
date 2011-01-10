@@ -1,9 +1,10 @@
 #ifndef CPP_OWNERSHIP_TEST_H_
 #	define CPP_OWNERSHIP_TEST_H_
 
-#include <stdexcept>
-#include "gmock/gmock.h"
-#include "cpp_stub_classes.h"
+#	include "oolua_tests_pch.h"
+// ?? #include <stdexcept>
+#	include "gmock/gmock.h"
+#	include "cpp_stub_classes.h"
 
 
 

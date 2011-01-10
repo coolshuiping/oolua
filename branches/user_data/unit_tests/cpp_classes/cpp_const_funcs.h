@@ -1,8 +1,8 @@
 #ifndef CPP_CONST_FUNCS_H
 #	define CPP_CONST_FUNCS_H_
 
-
-#include "gmock/gmock.h"
+#	include "oolua_tests_pch.h"
+#	include "gmock/gmock.h"
 
 class Constant
 {

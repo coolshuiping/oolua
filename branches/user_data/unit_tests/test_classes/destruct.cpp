@@ -1,4 +1,5 @@
 
+#	include "oolua_tests_pch.h"
 #	include "oolua.h"
 #	include "cpp_class_ops.h"
 #	include "lua_class_ops.h"

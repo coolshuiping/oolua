@@ -33,18 +33,22 @@
 
 	///def OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514
 	//if 1 then you are using Lua 5.1.4 and the default config
-#	ifndef OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514
-#		define OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 0
-#	endif
+//#	ifndef OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514
+//#		define OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 1/*0*/
+//#	endif
 
 	///def OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20
 	//if 1 then you are using LuaJit 2.0 and it's default config
-#	ifndef OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20
-#		define OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 0
-#	endif
+//#	ifndef OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20
+//#		define OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 0
+//#	endif
 
-#	if OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 && OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1
-#		error Only one of these settings can be on
+//#	if OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 && OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1
+//#		error Only one of these settings can be on
+//#	endif
+
+#	ifndef OOLUA_USERDATA_OPTIMISATION
+#		define OOLUA_USERDATA_OPTIMISATION 1
 #	endif
 
 #endif

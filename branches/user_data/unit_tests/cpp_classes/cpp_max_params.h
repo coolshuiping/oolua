@@ -1,6 +1,7 @@
 #ifndef CPP_MAX_PARAMS_H_
 #	define CPP_MAX_PARAMS_H_
 
+#	include "oolua_tests_pch.h"
 #	include "gmock/gmock.h"
 
 template<typename Return,typename Param>

@@ -1,8 +1,9 @@
 #ifndef CPP_PULLS_STUB_PARAM_H_
 #	define CPP_PULLS_STUB_PARAM_H_
 
-#include "gmock/gmock.h"
-#include "cpp_stub_classes.h"
+#	include "oolua_tests_pch.h"
+#	include "gmock/gmock.h"
+#	include "cpp_stub_classes.h"
 
 
 class Pulls_stub

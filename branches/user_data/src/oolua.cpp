@@ -56,14 +56,6 @@ namespace OOLUA
 	{
 		m_lua = luaL_newstate();
 		luaL_openlibs(m_lua);
-		
-		//temp fix to correct openlibs leaving entries on the stack
-		//in Lua 5.2 work 3
-		int top = lua_gettop(m_lua);
-		if(top != 0)lua_pop(m_lua,top);
-		//
-		
-		
 		call.bind_script(m_lua);//bind the lua state to the function caller
 		setup_user_lua_state(m_lua);
 	}

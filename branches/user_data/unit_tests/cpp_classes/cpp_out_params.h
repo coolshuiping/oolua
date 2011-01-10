@@ -1,8 +1,10 @@
 #ifndef CPP_OUT_PARAMS_OOULA_H_
 # define CPP_OUT_PARAMS_OOLUA_H_
 
+#	include "oolua_tests_pch.h"
 #	include "gmock/gmock.h"
 #	include "cpp_stub_classes.h"
+
 class OutParamsTest
 {
 public:

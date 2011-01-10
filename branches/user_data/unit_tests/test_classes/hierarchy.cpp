@@ -1,10 +1,13 @@
+#	include "oolua_tests_pch.h"
 #	include "common_cppunit_headers.h"
 #	include "gmock/gmock.h"
+
 #	include "oolua.h"
 #	include "cpp_hierarchy.h"
 #	include "expose_hierarchy.h"
-#include <vector>
-#include <string>
+
+#	include <vector>
+#	include <string>
 
 //Specialise traits for a vector of strings to provide a meaningfull toString method
 namespace CppUnit

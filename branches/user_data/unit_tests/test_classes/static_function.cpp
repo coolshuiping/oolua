@@ -1,4 +1,5 @@
 
+#	include "oolua_tests_pch.h"
 #	include "oolua.h"
 #	include "common_cppunit_headers.h"
 #	include "expose_static_and_c_functions.h"

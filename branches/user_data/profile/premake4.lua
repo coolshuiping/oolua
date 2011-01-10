@@ -8,8 +8,8 @@ files
 { 
 	"*.h",
 	"*.cpp",
-	"luabind/**.hpp",
-	"src/**.cpp"
+--	"luabind/**.hpp",
+--	"src/**.cpp"
 }
 
 includedirs 
@@ -18,15 +18,15 @@ includedirs
 	,root .. "include/"
 	,"./"
 	,"include/lua"
-	,"include/boost"
+--	,"include/boost"
 } 
 
 
 defines 
 {
 --	"OOLUA_STORE_ERROR",
-	"OOLUA_SWIG_COMPARE",
-	"OOLUA_LUABIND_COMPARE",
+--	"OOLUA_SWIG_COMPARE",
+--	"OOLUA_LUABIND_COMPARE",
 	"LUABIND_NO_ERROR_CHECKING",
 	"LUABIND_DONT_COPY_STRINGS"
 }

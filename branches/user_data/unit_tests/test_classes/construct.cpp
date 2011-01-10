@@ -1,4 +1,5 @@
 
+#	include "oolua_tests_pch.h"
 #	include "oolua.h"
 
 #	include "expose_stub_classes.h"

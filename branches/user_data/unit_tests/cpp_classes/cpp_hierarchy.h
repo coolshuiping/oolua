@@ -1,6 +1,9 @@
 #ifndef CPP_HEIRARCHY_H_
 #	define CPP_HEIRARCHY_H_
 
+#	include "oolua_tests_pch.h"
+#	include "gmock/gmock.h"
+#	include "oolua.h"
 /*
 NOTE: A change to this file which is to be propagated to Lua requires a change to the binder classes.
 Also a change in the class hierarchy of DerivedFromTwoAbstractBasesAndAbstract3 requires a change
@@ -11,8 +14,6 @@ BASE_HELPERS::rootBasesOfDerivedFromTwoAbstractBasesAndAbstract3
 Both of which can be found in the file: expose_hierarhcy.h
 */
 
-#	include "gmock/gmock.h"
-#	include "oolua.h"
 
 class Abstract1
 {

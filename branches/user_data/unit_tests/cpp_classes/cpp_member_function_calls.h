@@ -1,6 +1,7 @@
 #ifndef CPP_MEMEBER_FUNCTION_CALLS_H_
 #	define CPP_MEMEBER_FUNCTION_CALLS_H_
 
+#	include "oolua_tests_pch.h"
 #	include "gmock/gmock.h"
 
 

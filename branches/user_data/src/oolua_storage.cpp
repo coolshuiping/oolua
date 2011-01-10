@@ -109,9 +109,7 @@ namespace OOLUA
 			ud->void_class_ptr = ptr;
 			userdata_const_value(ud,is_const);
 
-#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && \
-						( OOLUA_LUA_USES_DEFAULT_CONFIG_FOR_LUA_514 == 1 \
-						|| OOLUA_USING_DEFAULT_CONFIG_FOR_LUAJIT_20 == 1 )
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && OOLUA_USERDATA_OPTIMISATION == 1
 			ud->created_by_state = l;
 #else
 			(void)l;

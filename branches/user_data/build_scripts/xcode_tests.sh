@@ -19,8 +19,11 @@ call_this_function_on_failure=failed
 function run_test()
 {
 	echo building $1 $2;
+timeStartLocal=$(date +%s)
 	xcodebuild  -project ${1}.xcodeproj -configuration $2 > ${root_dir}build_logs/${1}_xcode_${2}.log  || $call_this_function_on_failure $1 $2
-
+timeEndLocal=$(date +%s)
+timeDiffLocal=$(( $timeEndLocal - $timeStartLocal ))
+	echo "$timeDiffLocal seconds"
 }
 
 cd ..
@@ -34,6 +37,8 @@ fi
 
 cd unit_tests
 root_dir="../"
+
+timeStart=$(date +%s)
 
 run_test test.unit Debug
 run_test test.unit Release
@@ -54,6 +59,10 @@ run_test tests_may_fail Debug
 run_test tests_may_fail Release
 call_this_function_on_failure=failed
 cd ../..
+
+timeEnd=$(date +%s)
+timeDiff=$(( $timeEnd - $timeStart ))
+echo "Time to compile and run all tests was $timeDiff seconds"
 
 premake4 clean
 cd build_scripts

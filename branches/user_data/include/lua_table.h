@@ -43,117 +43,15 @@ namespace OOLUA
 		Lua_table& operator =(Lua_table const& /*rhs*/);//unimplemented
 		Lua_table(Lua_table const& rhs);
 #if OOLUA_USE_EXCEPTIONS ==1 
-		template<typename T,typename T1>void try_at(T const& key,T1& value)
-		{
-			int const init_stack_size = initail_stack_size();
-			try 
-			{
-				if(!get_table())throw OOLUA::Runtime_error("Table is invalid");
-				push2lua(m_table_ref.m_lua,key);
-				lua_gettable(m_table_ref.m_lua, -2);
-				if(lua_type(m_table_ref.m_lua,-1) == LUA_TNIL )
-				{
-					throw OOLUA::Runtime_error("key is not present in table");
-				}
-				pull2cpp(m_table_ref.m_lua, value);
-				restore_stack(init_stack_size);
-			}
-			
-			catch (...) 
-			{
-				restore_stack(init_stack_size);
-				throw;
-			}
-
-			
-		}
-		template<typename T,typename T1>bool safe_at(T const& key,T1& value)
-		{
-			try
-			{
-				try_at(key, value);
-			}
-			catch (...)
-			{
-				return false;
-			}
-			return true;
-		}
-#else
-
-		template<typename T,typename T1>bool safe_at(T const& key,T1& value)
-		{
-			//record the stack size as we want to put the stack into the 
-			//same state that it was before entering here
-			//int init_stack_size = lua_gettop(m_lua);
-			int const init_stack_size = initail_stack_size();
-			if(!get_table())return false;
-			if(! push2lua(m_table_ref.m_lua,key) )
-			{
-				restore_stack(init_stack_size);
-				return false;
-			}
-			//table is now at -2 (key is at -1). lua_gettable now pops the key off
-			//the stack and then puts the data found at the key location on the stack
-			lua_gettable(m_table_ref.m_lua, -2);
-			if(lua_type(m_table_ref.m_lua,-1) == LUA_TNIL )
-			{
-				restore_stack(init_stack_size);
-				return false;
-			}
-			pull2cpp(m_table_ref.m_lua, value);
-			restore_stack(init_stack_size);
-
-			return true;
-		}
+		template<typename T,typename T1>void try_at(T const& key,T1& value);
 #endif
-
+		template<typename T,typename T1>bool safe_at(T const& key,T1& value);
 		//no error checking
 		//undefined if lua is null or (table or key is invalid) or value is not correct type
-		template<typename T,typename T1>T1& at(T const& key,T1& value)
-		{
-			//int const init_stack_size = initail_stack_size();
-			get_table();//table
-			push2lua(m_table_ref.m_lua,key);//table key
-			lua_gettable(m_table_ref.m_lua, -2);//table value
-			pull2cpp(m_table_ref.m_lua, value);//table
-			lua_pop(m_table_ref.m_lua,1);
-			return value;
-		}
-
-		template<typename T,typename T1>void set_value(T const& key,T1 const& value)
-		{
-			//record the stack size as we want to put the stack into the 
-			//same state that it was before entering here
-			//int init_stack_size = lua_gettop(m_lua);
-			int const init_stack_size = initail_stack_size();
-			if(!get_table())return;
-			push2lua(m_table_ref.m_lua,key);
-			//table is now at -2 (key is at -1). 
-			//push the new value onto the stack
-			push2lua(m_table_ref.m_lua,value);
-			//table is not at -3 set the table
-			lua_settable(m_table_ref.m_lua,-3);
-
-			restore_stack(init_stack_size);
-		}
+		template<typename T,typename T1>T1& at(T const& key,T1& value);
+		template<typename T,typename T1>void set_value(T const& key,T1 const& value);
+		template<typename T>void remove_value(T const& key);
 		
-		template<typename T>void remove_value(T const& key)
-		{
-			//record the stack size as we want to put the stack into the 
-			//same state that it was before entering here
-			//int init_stack_size = lua_gettop(m_lua);
-			int const init_stack_size = initail_stack_size();
-			if(!get_table())return;
-			push2lua(m_table_ref.m_lua,key);
-			//table is now at -2 (key is at -1). 
-			//push the new value onto the stack
-			lua_pushnil(m_table_ref.m_lua);
-			//table is not at -3 set the table
-			lua_settable(m_table_ref.m_lua,-3);
-
-			restore_stack(init_stack_size);
-		}
 		bool valid()const;
 		void set_ref(lua_State* const lua,int const& ref);
 		typedef void(*traverse_do_function)(lua_State*);
@@ -172,6 +70,128 @@ namespace OOLUA
 
 	inline Lua_table::~Lua_table(){}
 	
+	
+	//no error checking
+	//undefined if lua is null or (table or key is invalid) or value is not correct type
+	template<typename T,typename T1>
+	inline T1& Lua_table::at(T const& key,T1& value)
+	{
+		//int const init_stack_size = initail_stack_size();
+		get_table();//table
+		push2lua(m_table_ref.m_lua,key);//table key
+		lua_gettable(m_table_ref.m_lua, -2);//table value
+		pull2cpp(m_table_ref.m_lua, value);//table
+		lua_pop(m_table_ref.m_lua,1);
+		return value;
+	}
+	
+	template<typename T,typename T1>
+	inline void Lua_table::set_value(T const& key,T1 const& value)
+	{
+		//record the stack size as we want to put the stack into the 
+		//same state that it was before entering here
+		//int init_stack_size = lua_gettop(m_lua);
+		int const init_stack_size = initail_stack_size();
+		if(!get_table())return;
+		push2lua(m_table_ref.m_lua,key);
+		//table is now at -2 (key is at -1). 
+		//push the new value onto the stack
+		push2lua(m_table_ref.m_lua,value);
+		//table is not at -3 set the table
+		lua_settable(m_table_ref.m_lua,-3);
+		
+		restore_stack(init_stack_size);
+	}
+	
+	template<typename T>
+	inline void Lua_table::remove_value(T const& key)
+	{
+		//record the stack size as we want to put the stack into the 
+		//same state that it was before entering here
+		//int init_stack_size = lua_gettop(m_lua);
+		int const init_stack_size = initail_stack_size();
+		if(!get_table())return;
+		push2lua(m_table_ref.m_lua,key);
+		//table is now at -2 (key is at -1). 
+		//push the new value onto the stack
+		lua_pushnil(m_table_ref.m_lua);
+		//table is not at -3 set the table
+		lua_settable(m_table_ref.m_lua,-3);
+		
+		restore_stack(init_stack_size);
+	}
+	
+	
+#if OOLUA_USE_EXCEPTIONS ==1 
+	template<typename T,typename T1>
+	inline void Lua_table::try_at(T const& key,T1& value)
+	{
+		int const init_stack_size = initail_stack_size();
+		try 
+		{
+			if(!get_table())throw OOLUA::Runtime_error("Table is invalid");
+			push2lua(m_table_ref.m_lua,key);
+			lua_gettable(m_table_ref.m_lua, -2);
+			if(lua_type(m_table_ref.m_lua,-1) == LUA_TNIL )
+			{
+				throw OOLUA::Runtime_error("key is not present in table");
+			}
+			pull2cpp(m_table_ref.m_lua, value);
+			restore_stack(init_stack_size);
+		}
+		
+		catch (...) 
+		{
+			restore_stack(init_stack_size);
+			throw;
+		}
+		
+		
+	}
+	template<typename T,typename T1>
+	inline bool Lua_table::safe_at(T const& key,T1& value)
+	{
+		try
+		{
+			try_at(key, value);
+		}
+		catch (...)
+		{
+			return false;
+		}
+		return true;
+	}
+#else
+	
+	template<typename T,typename T1>
+	inline bool Lua_table::safe_at(T const& key,T1& value)
+	{
+		//record the stack size as we want to put the stack into the 
+		//same state that it was before entering here
+		//int init_stack_size = lua_gettop(m_lua);
+		int const init_stack_size = initail_stack_size();
+		if(!get_table())return false;
+		if(! push2lua(m_table_ref.m_lua,key) )
+		{
+			restore_stack(init_stack_size);
+			return false;
+		}
+		//table is now at -2 (key is at -1). lua_gettable now pops the key off
+		//the stack and then puts the data found at the key location on the stack
+		lua_gettable(m_table_ref.m_lua, -2);
+		if(lua_type(m_table_ref.m_lua,-1) == LUA_TNIL )
+		{
+			restore_stack(init_stack_size);
+			return false;
+		}
+		pull2cpp(m_table_ref.m_lua, value);
+		restore_stack(init_stack_size);
+		
+		return true;
+	}
+#endif
+	
+	
 	//the table is at table_index which can be either absolute or pseudo in the stack
 	//table is left at the index.
 	template<typename T,typename T1>
@@ -180,11 +200,33 @@ namespace OOLUA
 		push2lua(lua,key);
 		push2lua(lua,value);
 		lua_settable(lua,table_index < 0 ? table_index-2 : table_index);
-}
+	}
 
 	//stack is the same on exit as entry
 	void new_table(lua_State* l,OOLUA::Lua_table& t);
 	OOLUA::Lua_table new_table(lua_State* l);
+	
+	/*
+	 you must remove the value from the stack and leave the key
+	 do not call anything which may call tostring on the actual key
+	 duplicate it instead with lua_pushvalue then call the operation on the copy
+	 */
+	template<typename ClassType>
+	inline void for_each_key_value(lua_State* lua,OOLUA::Lua_table& table
+								   , ClassType* instance, void(ClassType::*func)(lua_State*) )
+	{
+		if( table.valid() )
+		{
+			OOLUA::push2lua(lua,table);
+			lua_pushnil(lua);
+			while (lua_next(lua, 1) != 0) 
+			{
+				(instance->*(func))(lua);
+			}
+			lua_pop(lua, 1);
+		}
+	}
+	
 }
 
 #endif

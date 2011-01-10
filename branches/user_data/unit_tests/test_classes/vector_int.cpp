@@ -1,3 +1,4 @@
+#	include "oolua_tests_pch.h"
 #	include <vector>
 #	include "common_cppunit_headers.h"
 #	include "oolua.h"

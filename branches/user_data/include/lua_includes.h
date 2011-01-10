@@ -17,17 +17,18 @@ extern "C"
 #	include "lua/lauxlib.h"
 #	include "lua/lualib.h"
 #elif defined __GNUC__
+	
+#	include "lua/lua.h"
+#	include "lua/lauxlib.h"
+#	include "lua/lualib.h"
+
+/*	
 #	include "lua.h"
 #	include "lauxlib.h"
 #	include "lualib.h"
+*/
 #endif
 
 }
-
-
-#if LUA_VERSION_NUM == 502 || LUA_VERSION_NUM > 502
-//LUA_GLOBALSINDEX is deprecated and removed
-//#	define LUA_GLOBALSINDEX  LUA_ENVIRONINDEX
-#endif
 
 #endif //LUA_INCLUDES_H_

@@ -132,11 +132,8 @@ namespace LVD
 		enum Size{size_value = sizeof(void*)};
 		typedef  if_else< sizeof( uint8 ) == size_value, uint8,
 				 if_else< sizeof( uint16 ) == size_value, uint16,
-			 	 if_else< sizeof( uint32 ) == size_value, uint32
-#if defined LVD_WINDOWS_BUILD && defined __GNUC__
-				  ,
+			 	 if_else< sizeof( uint32 ) == size_value, uint32,
 			 	 if_else< sizeof( uint64 ) == size_value, uint64>::type
-#endif
                  >::type >::type >::type type;
 	};
 //

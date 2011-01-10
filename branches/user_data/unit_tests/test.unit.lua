@@ -27,12 +27,13 @@ includedirs
 	"/usr/include",
 	root .. "unit_tests/bind_classes",
 	root .. "unit_tests/cpp_classes",
-	root .. "unit_tests/test_classes"
+	root .. "unit_tests/test_classes",
+	--"/usr/local/include/lua52"
 } 
-					
+--flags{ "NoExceptions"}		
 defines 
 {
-
+	"OOLUA_USE_PRECOMPILED_HEADER"
 }
 
 links
@@ -40,5 +41,9 @@ links
 	"oolua"
 }
 
+configuration{"gmake"}
+	pchheader("unit_tests/test_classes/oolua_tests_pch.h")
+configuration{"not gmake"}
+	pchheader(root .. "unit_tests/test_classes/oolua_tests_pch.h")
 
 unit_test_config(root,name)
