@@ -35,5 +35,18 @@ OOLUA_CLASS_NO_BASES(WithOutConstructors)
 	OOLUA_TYPEDEFS No_public_constructors OOLUA_END_TYPES
 OOLUA_CLASS_END
 
+#define OOLUA_CTORS(FOO) OOLUA_CONSTRUCTORS_BEGIN FOO OOLUA_CONSTRUCTORS_END
+#define OOLUA_CTOR OOLUA_CONSTRUCTOR
+
+
+OOLUA_PROXY_CLASS(LuaStateConstructors)
+	OOLUA_TYPEDEFS No_default_constructor OOLUA_END_TYPES
+	OOLUA_CTORS(
+		OOLUA_CTOR(calling_lua_state)
+		//OOLUA_CTOR(lua_State*) this will fail to compile, "calling_lua_state" is the type for the calling state
+		OOLUA_CTOR(int,calling_lua_state)
+	)
+OOLUA_CLASS_END
+
 
 #endif

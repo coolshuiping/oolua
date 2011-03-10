@@ -81,6 +81,11 @@ class Construct : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(new_constructorTakesLuaTableYetPassedNil_throwsRuntimeError);
 #endif	
 	
+	CPPUNIT_TEST(new_constructorTakesLuaState_memberStateEqualsInput);
+	CPPUNIT_TEST(new_constructorTakesIntAndLuaState_memberStateEqualsInput);
+	CPPUNIT_TEST(new_constructorTakesIntAndLuaState_memberIntEqualsInput);
+	
+	
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -485,6 +490,44 @@ public:
 	
 #endif
 	
+	void new_constructorTakesLuaState_memberStateEqualsInput()
+	{
+		m_lua->register_class<LuaStateConstructors>();
+		m_lua->run_chunk("foo = function() "
+						 "return LuaStateConstructors:new() "
+						 "end");
+		OOLUA::cpp_acquire_ptr<LuaStateConstructors*> stateCtor;
+		m_lua->call("foo");
+		OOLUA::pull2cpp(*m_lua,stateCtor);
+		CPPUNIT_ASSERT_EQUAL(m_lua->get_ptr() ,stateCtor.m_ptr->lua);
+		delete stateCtor.m_ptr;
+	}
+	
+	void new_constructorTakesIntAndLuaState_memberStateEqualsInput()
+	{
+		m_lua->register_class<LuaStateConstructors>();
+		m_lua->run_chunk("foo = function() "
+						 "return LuaStateConstructors:new(1) "
+						 "end");
+		OOLUA::cpp_acquire_ptr<LuaStateConstructors*> stateCtor;
+		m_lua->call("foo");
+		OOLUA::pull2cpp(*m_lua,stateCtor);
+		CPPUNIT_ASSERT_EQUAL(m_lua->get_ptr(),stateCtor.m_ptr->lua);
+		delete stateCtor.m_ptr;
+	}
+	
+	void new_constructorTakesIntAndLuaState_memberIntEqualsInput()
+	{
+		m_lua->register_class<LuaStateConstructors>();
+		m_lua->run_chunk("foo = function(i) "
+						 "return LuaStateConstructors:new(i) "
+						 "end");
+		OOLUA::cpp_acquire_ptr<LuaStateConstructors*> stateCtor;
+		m_lua->call("foo",ParamValues::int_set);
+		OOLUA::pull2cpp(*m_lua,stateCtor);
+		CPPUNIT_ASSERT_EQUAL(ParamValues::int_set,stateCtor.m_ptr->m_int);
+		delete stateCtor.m_ptr;
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( Construct );

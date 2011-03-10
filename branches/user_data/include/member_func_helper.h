@@ -108,6 +108,16 @@ namespace OOLUA
 		{
 			OOLUA::push2lua(s,value,No_change);
 		}
+		static void pull2cpp(lua_State* const s, lua_State *& l)
+		{
+			typedef char type_has_to_be_calling_lua_state[LVD::is_same<param_type<calling_lua_state>,TypeWithTraits>::value ? 1 : -1];
+			l = s;
+		}
+
+		static void push2lua(lua_State* const , lua_State *& )
+		{
+			assert(0 && "this function should not be called");
+		}
 
 	};
 	template<typename TypeWithTraits>

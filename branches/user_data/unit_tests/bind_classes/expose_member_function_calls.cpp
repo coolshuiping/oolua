@@ -10,4 +10,4 @@ EXPORT_OOLUA_FUNCTIONS_8_NON_CONST(Function_calls
 								   ,returns_char_ptr
 								   ,returns_const_char_ptr)
 
-EXPORT_OOLUA_FUNCTIONS_0_CONST(Function_calls)
+EXPORT_OOLUA_FUNCTIONS_1_CONST(Function_calls,lua_state)

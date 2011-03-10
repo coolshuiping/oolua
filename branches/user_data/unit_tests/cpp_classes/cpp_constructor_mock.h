@@ -171,6 +171,24 @@ public:
 	:m_table_ref(ref){}
 	OOLUA::Lua_table_ref m_table_ref;
 };
+/*
+Order can not be differentiated between 
+(lua_State*, int) or (int, lua_State*)
+
+
+(int, int lua_State)
+	or (int, lua_State, int)
+	or (lua_State, int, int)
+	or (lua_State, int, float)
+...
+*/
+struct LuaStateConstructors
+{
+	LuaStateConstructors(lua_State* l):lua(l),m_int(ParamValues::int_not_set){}
+	LuaStateConstructors(int i,lua_State*l):lua(l),m_int(i){}
+	lua_State* lua;
+	int m_int;
+};
 
 
 

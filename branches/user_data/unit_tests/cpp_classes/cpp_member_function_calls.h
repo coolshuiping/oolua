@@ -22,7 +22,8 @@ public:
 	virtual void ptr_to_const_char(char const * ) = 0;
 	virtual char* returns_char_ptr() = 0;
 	virtual char const* returns_const_char_ptr() = 0;
-	char const* returns(){return OOLUA_UT::hello_world_cstring;}	
+	char const* returns(){return OOLUA_UT::hello_world_cstring;}
+	virtual void lua_state(lua_State* ) const=0;
 };
 
 	
@@ -37,6 +38,7 @@ public:
 	MOCK_METHOD1(ptr_to_const_char,void (char const*) );
 	MOCK_METHOD0(returns_char_ptr,char* ());
 	MOCK_METHOD0(returns_const_char_ptr,char const* ());
+	MOCK_CONST_METHOD1(lua_state,void (lua_State*));
 };
 
 #endif

@@ -33,36 +33,48 @@ MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA
 MSC_POP_COMPILER_WARNING_OOLUA
 			}
 
-		};	
-		template<typename ParamWithTraits>
-		int param_is_of_type(lua_State* l,int const& index)
+		};
+	
+		template<typename ParamWithTraits>struct Param_helper;
+		
+		template<>
+		struct Param_helper<param_type<calling_lua_state> >
 		{
-			int lua_stack_type = lua_type(l,index);
-			switch (lua_stack_type) 
+			static int param_is_of_type(lua_State* /*l*/, int& /*index*/)
 			{
-				case LUA_TBOOLEAN:
-					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TBOOLEAN>::value;
-					break;
-				case LUA_TNUMBER:
-					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TNUMBER>::value;
-					break;
-				case LUA_TSTRING:
-					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TSTRING>::value;
-				case LUA_TUSERDATA:
-					return index_can_convert_to_type<ParamWithTraits,ParamWithTraits::is_integral>::valid(l,index);
-					break;
-				case LUA_TFUNCTION:
-					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TFUNCTION>::value;
-					break;
-				case LUA_TTABLE:
-					return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TTABLE>::value;
-					break;
-					
-				default:
-					return 0;
-					break;
+				return 1;
 			}
-		}
+		};
+
+		template<typename ParamWithTraits>
+		struct Param_helper
+		{
+			static int param_is_of_type(lua_State* l,int & index)
+			{
+				switch ( lua_type(l,index) ) 
+				{
+					case LUA_TBOOLEAN :
+						return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TBOOLEAN>::value && ++index ? 1 : 0 ;
+					case LUA_TNUMBER :
+						return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TNUMBER>::value && ++index ? 1 : 0 ;
+					case LUA_TSTRING :
+						return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TSTRING>::value && ++index ? 1 : 0 ;
+					case LUA_TFUNCTION :
+						return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TFUNCTION>::value && ++index ? 1 : 0 ;
+					case LUA_TTABLE :
+						return lua_type_is_cpp_type<typename ParamWithTraits::raw_type,LUA_TTABLE>::value && ++index ? 1 : 0 ;
+					case LUA_TUSERDATA:
+						if( index_can_convert_to_type<ParamWithTraits,ParamWithTraits::is_integral>::valid(l,index) ) 
+						{	++index;
+							return 1;
+						}
+						return 0;					
+					default:
+						return 0;
+						break;
+				}
+			}
+		};
 	}
 }
 

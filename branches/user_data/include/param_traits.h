@@ -80,8 +80,7 @@ namespace OOLUA
 	///////////////////////////////////////////////////////////////////////////////
 	///  @struct lua_acquire_ptr
 	///  Informs the binding that Lua will take control of the pointer being used
-	///  and call delete on it when appropriate. This is only valid for 
-	///  OOLUA::push2lua calls.
+	///  and call delete on it when appropriate.
 	///////////////////////////////////////////////////////////////////////////////
 	template<typename T>struct lua_acquire_ptr;
 	
@@ -264,7 +263,6 @@ namespace OOLUA
 	{
 		typedef T type;
 		typedef typename INTERNAL::Raw_type<T>::type raw;
-        //typedef typename Pull_type<raw,LVD::is_integral_type<raw>::value >::type pull_type;
 		typedef typename INTERNAL::Pull_type_<raw,T,LVD::is_integral_type<raw>::value >::type pull_type;
 		enum { in = 0};
 		enum { out = 1};
@@ -288,7 +286,6 @@ namespace OOLUA
 	{
 		typedef T type;
 		typedef typename INTERNAL::Raw_type<T>::type raw;
-		//typedef typename Pull_type<raw,LVD::is_integral_type<raw>::value>::type pull_type;
 		typedef typename INTERNAL::Pull_type_<raw,T,LVD::is_integral_type<raw>::value>::type pull_type;
 		enum { in = 1 };
 		enum { out = 0 };
@@ -312,7 +309,6 @@ namespace OOLUA
 	{
 		typedef T type;
 		typedef typename INTERNAL::Raw_type<T>::type raw;
-		//typedef typename Pull_type<raw,LVD::is_integral_type<raw>::value>::type pull_type;
 		typedef typename INTERNAL::Pull_type_<raw,T,LVD::is_integral_type<raw>::value >::type pull_type;
 		enum { in = 0};
 		enum { out = 1};
@@ -321,10 +317,8 @@ namespace OOLUA
 		enum { is_constant = INTERNAL::Type_enum_defaults<type>::is_constant  };
 		enum { is_integral = INTERNAL::Type_enum_defaults<type>::is_integral  };
 
-		//lua_acquire_ptr(raw* ptr):m_ptr(ptr){}
 		lua_acquire_ptr(pull_type ptr):m_ptr(ptr){}
 		lua_acquire_ptr():m_ptr(0){}
-		//raw* m_ptr;
 		pull_type m_ptr;
 		typedef char type_can_not_be_intergal [is_integral ? -1 : 1 ];
 		typedef char type_has_to_be_by_reference [is_by_value ? -1 : 1 ];
@@ -458,10 +452,6 @@ namespace OOLUA
 			enum { is_constant = p_type::is_constant };
 			enum { is_integral = p_type::is_integral };
 		};
-
-	//lua_return or another type such as lua_acquire_ptr  or just another name?
-
-	
 	
 		template<typename T>
 		struct function_return
@@ -612,7 +602,27 @@ namespace OOLUA
 		};
 		
 	}
+	///////////////////////////////////////////////////////////////////////////////
+	///  Specialisation for lua_State
+	///////////////////////////////////////////////////////////////////////////////
+
+	//so this must be a coroutine on the stack
+	struct in_p<lua_State*>;//disable it
 	
+	struct calling_lua_state {};
+	template<>
+	struct in_p<calling_lua_state>
+	{
+		typedef lua_State* type;
+		typedef lua_State* raw;
+		typedef lua_State* pull_type;
+		enum {in = 1};
+		enum {out = 0};
+		enum {owner = No_change};
+		enum { is_by_value = 0 };
+		enum { is_constant = 0 };
+		enum { is_integral = 1 };
+	};
 
 	///////////////////////////////////////////////////////////////////////////////
 	///  Specialisation for C style strings
@@ -819,7 +829,7 @@ namespace OOLUA
 		struct lua_type_is_cpp_type;
 		
 		template<typename Cpp_type>
-		struct lua_type_is_cpp_type<Cpp_type,NUMBER>//LUA_TNUMBER>
+		struct lua_type_is_cpp_type<Cpp_type,NUMBER>
 		{
 			typedef Type_list<
 			char,unsigned char, signed char,
@@ -832,7 +842,7 @@ namespace OOLUA
 		};
 		
 		template<typename Cpp_type>
-		struct lua_type_is_cpp_type<Cpp_type,STRING>//LUA_TSTRING>
+		struct lua_type_is_cpp_type<Cpp_type,STRING>
 		{
 			typedef Type_list<
 			char*,std::string
@@ -841,21 +851,21 @@ namespace OOLUA
 		};
 		
 		template<typename Cpp_type>
-		struct lua_type_is_cpp_type<Cpp_type,BOOLEAN>//LUA_TBOOLEAN>
+		struct lua_type_is_cpp_type<Cpp_type,BOOLEAN>
 		{
 			enum {value = LVD::is_same<bool,Cpp_type>::value};
 		};
 		template<typename Cpp_type>
-		struct lua_type_is_cpp_type<Cpp_type,FUNCTION>//LUA_TFUNCTION>
+		struct lua_type_is_cpp_type<Cpp_type,FUNCTION>
 		{
-			enum {value = LVD::is_same<Lua_ref<FUNCTION/*LUA_TFUNCTION*/> ,Cpp_type>::value};
+			enum {value = LVD::is_same<Lua_ref<FUNCTION> ,Cpp_type>::value};
 		};
 		template<typename Cpp_type>
-		struct lua_type_is_cpp_type<Cpp_type,TABLE>//LUA_TTABLE>
+		struct lua_type_is_cpp_type<Cpp_type,TABLE>
 		{
 			
 			typedef Type_list<
-			Lua_ref<TABLE/*LUA_TTABLE*/>,Lua_table
+			Lua_ref<TABLE>,Lua_table
 			>::type Table_types;
 			enum {value = TYPELIST::IndexOf<Table_types,Cpp_type>::value == -1 ? 0 : 1};
 		};

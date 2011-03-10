@@ -39,7 +39,8 @@ class LuaCallsCppFunctions : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(fromLua_luaPassesBooleanToFunctionWantingInt_lastErrorHasAnEntry);
 #endif
 	
-	
+	CPPUNIT_TEST(fromLua_luaPassedNoParametersYetFunctionWantsALuaInstance_calledOnceWithCorrectInstance);
+
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -222,6 +223,18 @@ public:
 		
 	}
 #endif 
+	
+	void fromLua_luaPassedNoParametersYetFunctionWantsALuaInstance_calledOnceWithCorrectInstance()
+	{
+		m_lua->run_chunk("foo = function(object)\n"
+						 "object:lua_state()\n"
+						 "end");
+		Abstract_helper helper(m_lua);
+		lua_State* l = *m_lua;
+		EXPECT_CALL(helper.mock,lua_state(::testing::Eq(l)) )
+		.Times(1);
+		m_lua->call("foo",helper.abs_class);
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( LuaCallsCppFunctions );
