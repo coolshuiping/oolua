@@ -287,4 +287,21 @@ public:
 ///  @}
 
 
+#define OOLUA_ENUMS \
+static void oolua_enums(lua_State * l)\
+{\
+	Lua_table meth(l,Proxy_class<class_>::class_name);\
+	meth.push_on_stack(l);\
+	int const top = lua_gettop(l);\
+
+#define OOLUA_ENUM_ENTRY(Name) \
+	lua_pushliteral(l, #Name );\
+	lua_pushinteger(l,(lua_Integer)class_::Name);\
+	lua_settable(l,top);
+
+#define OOLUA_ENUMS_END \
+	lua_pop(l,1);\
+}
+
+
 #endif //CPP_PROXY_CLASS_H_

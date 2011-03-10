@@ -77,7 +77,8 @@ namespace OOLUA
 		int check_for_key_in_stack_top(lua_State* l);
 		
 		bool class_name_is_already_registered(lua_State*l, char const* name);
-
+		
+		template<typename T,int HasRegisterEnumsTag>struct set_class_enums;
 	}
 
     namespace INTERNAL
@@ -126,7 +127,20 @@ namespace OOLUA
 			}
 		};
 		*/
+		template<typename T,int HasRegisterEnumsTag>
+		struct set_class_enums
+		{
+			static void set(lua_State* /*l*/){}//nop
+		};
 		
+		template<typename T>
+		struct set_class_enums<T,1>
+		{
+			static void set(lua_State* l)
+			{
+				Proxy_class<T>::oolua_enums(l);
+			}
+		};
 		
 		template<typename T,int HasNoPublicDestructor>
 		struct set_delete_function
@@ -280,6 +294,9 @@ namespace OOLUA
 			set_sub_function<T,has_typedef<Proxy_class<T>,Sub_op>::Result>::set(l,const_mt,none_const_mt);
 			set_mul_function<T,has_typedef<Proxy_class<T>,Mul_op>::Result>::set(l,const_mt,none_const_mt);
 			set_div_function<T,has_typedef<Proxy_class<T>,Div_op>::Result>::set(l,const_mt,none_const_mt);
+			
+			
+			set_class_enums<T,has_typedef<Proxy_class<T>,Register_class_enums>::Result>::set(l);
 			
 			lua_pop(l, 1);//const_methods
 			return const_methods;

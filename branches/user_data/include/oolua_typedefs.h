@@ -51,6 +51,10 @@
 ///  There is not a destructor in the public interface
 ///  and OOLua will not attempt to delete an instance of this type
 
+///  @struct OOLUA::Register_class_enums
+///  The class has enums which need registering with OOLua when the
+///  class proxy type is registered in a state.
+
 namespace OOLUA
 {
 
@@ -66,6 +70,7 @@ namespace OOLUA
 	struct No_default_constructor{};
 	struct No_public_constructors{};
 	struct No_public_destructor{};
+	struct Register_class_enums{};
 }
 	///  @}
 #endif
