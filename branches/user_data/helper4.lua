@@ -44,7 +44,7 @@ function configure_for_os()
 	configuration { "codeblocks", "linux or macosx" }
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 		
-	configuration("xcode3 or gmake")
+	configuration("xcode3 or xcode4 or gmake")
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 
 	--configuration("xcode3 or gmake or codeblocks","Release")
@@ -98,7 +98,7 @@ unit_test_config = function(root,name)
 		links{ "cppunit", "lua" }
 		linkoptions{"`gmock-config --cxxflags --ldflags --libs`"}
 
-	configuration {"xcode3" }
+	configuration {"xcode3 or xcode4" }
 		libdirs {"usr/local/lib","usr/lib"}
 		links{ "gmock","gtest","cppunit", "lua" }
 		postbuildcommands {"$TARGET_BUILD_DIR/$TARGET_NAME"}
@@ -121,7 +121,7 @@ unit_test_config = function(root,name)
 end
 
 coverage = function()
-	configuration{"xcode3 or gmake"}
+	configuration{"xcode3 or xcode4 or gmake"}
 		links{ "gcov" }
 		buildoptions {"-fprofile-arcs -ftest-coverage"}
 end

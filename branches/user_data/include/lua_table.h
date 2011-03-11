@@ -202,6 +202,14 @@ namespace OOLUA
 		lua_settable(lua,table_index < 0 ? table_index-2 : table_index);
 	}
 
+    template<typename T,typename T1>
+	inline bool table_at(lua_State* lua, int const table_index, T const& key,T1& value)
+	{
+		push2lua(lua,key);//table key
+		lua_gettable(lua, table_index < 0 ? table_index-1 : table_index);//table value
+		return pull2cpp(lua, value);//table
+	}
+    
 	//stack is the same on exit as entry
 	void new_table(lua_State* l,OOLUA::Lua_table& t);
 	OOLUA::Lua_table new_table(lua_State* l);
