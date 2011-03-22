@@ -41,6 +41,7 @@ swig compare file updated to version 2.0.1
 luabind comparing updated to version 0.9.1
 member functions and constructors can take the calling lua_state as a parameter - initial
 friendlier registering of class enums - initial
+added function return traits for a reference to constant std::string
 
 1.3.2
 Fixed bug when using va args to rename a function

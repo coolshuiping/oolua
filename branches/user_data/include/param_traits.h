@@ -5,7 +5,7 @@
 ///  or not
 ///  @remarks
 ///  If parameter traits are not defined then it defaults to OOLUA::in_p.
-///  For function return values OOLUA::out_p is used (inside the generating
+///  For function return values OOLUA::function_return is used (inside the generating
 ///  function), this template is specialised for void types.
 ///  @author Liam Devine
 ///  @email
@@ -133,7 +133,7 @@ namespace OOLUA
 			typedef typename LVD::remove_all_ptrs<T>::type type;
 		};
 
-		template<typename T,int is_intergal>struct Pull_type;
+		template<typename T,int is_integral>struct Pull_type;
 
 		template<typename T>
 		struct Pull_type<T,0>
@@ -147,7 +147,7 @@ namespace OOLUA
 			typedef T type;
 		};
 
-		template<typename T,typename Orignal_Type,int is_intergal>struct Pull_type_;
+		template<typename T,typename Orignal_Type,int is_integral>struct Pull_type_;
 
 		template<typename T,typename Orignal_Type>
 		struct Pull_type_<T,Orignal_Type,0>
@@ -233,7 +233,7 @@ namespace OOLUA
 		enum { is_constant = INTERNAL::Type_enum_defaults<type>::is_constant  };
 		enum { is_integral = INTERNAL::Type_enum_defaults<type>::is_integral  };
 		typedef char type_has_to_be_by_reference [is_by_value ? -1 : 1 ];
-		typedef char type_can_not_be_intergal [is_integral ? -1 : 1 ];
+		typedef char type_can_not_be_integral [is_integral ? -1 : 1 ];
 		typedef char type_can_not_be_just_a_reference_to_type [	LVD::is_same<raw&,type>::value ? -1 : 1];
 	};
 
@@ -271,7 +271,7 @@ namespace OOLUA
 		enum { is_constant = INTERNAL::Type_enum_defaults<type>::is_constant  };
 		enum { is_integral = INTERNAL::Type_enum_defaults<type>::is_integral  };
 		typedef char type_has_to_be_by_reference [is_by_value ? -1 : 1 ];
-		typedef char type_can_not_be_intergal [is_integral ? -1 : 1 ];
+		typedef char type_can_not_be_integral [is_integral ? -1 : 1 ];
 		typedef char must_be_assignable [ ( is_constant && ! ref_to_ptr_const<type>::value )
 										 || ( ref_to_const_ptr<type>::value )
 											? -1 : 1];
@@ -298,7 +298,7 @@ namespace OOLUA
 		cpp_acquire_ptr():m_ptr(0){}
 
 		raw* m_ptr;
-		typedef char type_can_not_be_intergal [is_integral ? -1 : 1 ];
+		typedef char type_can_not_be_integral [is_integral ? -1 : 1 ];
 		typedef char type_has_to_be_by_reference [is_by_value ? -1 : 1 ];
 		typedef char type_can_not_be_just_a_reference_to_type [	LVD::is_same<raw&,type>::value ? -1 : 1];
 	};
@@ -320,7 +320,7 @@ namespace OOLUA
 		lua_acquire_ptr(pull_type ptr):m_ptr(ptr){}
 		lua_acquire_ptr():m_ptr(0){}
 		pull_type m_ptr;
-		typedef char type_can_not_be_intergal [is_integral ? -1 : 1 ];
+		typedef char type_can_not_be_integral [is_integral ? -1 : 1 ];
 		typedef char type_has_to_be_by_reference [is_by_value ? -1 : 1 ];
 		typedef char type_can_not_be_just_a_reference_to_type [	LVD::is_same<raw&,type>::value ? -1 : 1];
 
@@ -525,6 +525,21 @@ namespace OOLUA
 			enum { is_constant = 0 };
 			enum { is_integral = 1 };
 		};
+
+        template<>
+		struct function_return<std::string const&>
+		{
+			typedef std::string const& type;
+			typedef std::string pull_type;
+			typedef std::string raw;
+			enum { in = 0};
+			enum { out = 1};
+			enum { owner = No_change};
+			enum { is_by_value = 0 };
+			enum { is_constant = 1 };
+			enum { is_integral = 1 };
+		};
+
 #endif
 	
 	
@@ -607,7 +622,7 @@ namespace OOLUA
 	///////////////////////////////////////////////////////////////////////////////
 
 	//so this must be a coroutine on the stack
-	struct in_p<lua_State*>;//disable it
+	template struct in_p<lua_State*>;//disable it
 	
 	struct calling_lua_state {};
 	template<>
@@ -751,6 +766,21 @@ namespace OOLUA
 		enum { is_constant = 0 };
 		enum { is_integral = 1 };
 	};
+    /*
+	template<>
+	struct in_p<std::string&>
+	{
+		typedef std::string& type;
+		typedef std::string raw;
+		typedef std::string pull_type;
+		enum {in = 1};
+		enum {out = 0};
+		enum {owner = No_change};
+		enum { is_by_value = 0 };
+		enum { is_constant = 1 };
+		enum { is_integral = 1 };
+	};
+    */
 	template<>
 	struct in_p<std::string const&>
 	{

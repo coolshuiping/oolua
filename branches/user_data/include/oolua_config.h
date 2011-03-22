@@ -120,13 +120,13 @@
 
 
 #ifdef _MSC_VER 
-#	define MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA \
+#	define MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA \
 __pragma(warning(push)) \
 __pragma(warning(disable : 4127)) 
 #	define MSC_POP_COMPILER_WARNING_OOLUA \
 __pragma(warning(pop)) 
 #else
-#	define MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA 
+#	define MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA 
 #	define MSC_POP_COMPILER_WARNING_OOLUA
 #endif
 

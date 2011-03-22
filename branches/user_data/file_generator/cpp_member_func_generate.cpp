@@ -15,7 +15,7 @@ void print_back_helper_macros(std::ofstream& f,int num)
 	f<<"//param return macros\n";
 
 	f<<"#define OOLUA_BACK_INTERNAL_(NUM)\\\n";
-	f<<"MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA \\\n";
+	f<<"MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA \\\n";
 	f<<tab<<"if( P ## NUM ## _::out )\\\n";
 	f<<tab<<tab<<"OOLUA::INTERNAL::Member_func_helper<P ## NUM ##_,P ## NUM ##_::owner>::push2lua(l,p ## NUM);\\\n";
 	f<<"MSC_POP_COMPILER_WARNING_OOLUA\n\n";
@@ -38,7 +38,7 @@ void print_param_macros(std::ofstream& f,int num)
 	//a null pointer which it is an error to be constructed from
 	//<<tab<<"P ## NUM ##_::pull_type p ## NUM( static_cast<P ## NUM ##_::pull_type>(0) );\\\n"
 	f<<tab<<"P ## NUM ##_::pull_type p ## NUM;\\\n"
-		<<tab<<"MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA\\\n"
+		<<tab<<"MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA\\\n"
 		<<tab<<"if( P ## NUM ##_::in )\\\n"
 		<<tab<<tab<<"OOLUA::INTERNAL::Member_func_helper<P ## NUM ##_,P ## NUM ##_::owner>::pull2cpp(l,p ## NUM);\\\n"
 		<<tab<<"MSC_POP_COMPILER_WARNING_OOLUA\n\n";

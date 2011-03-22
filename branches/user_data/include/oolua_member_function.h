@@ -76,7 +76,7 @@ namespace OOLUA
 		///  @return int requirement of Lua functions
 		///////////////////////////////////////////////////////////////////////////////
 		template<typename Proxy_type, typename Base_type>
-		inline int member_caller(lua_State * /*const*/ l)
+		inline int member_caller(lua_State * l)
 		{
 #if	OOLUA_USE_EXCEPTIONS ==1			
 			OOLUA_MEMBER_FUNCTION_TRY
@@ -94,7 +94,7 @@ namespace OOLUA
 #endif
 		}
 		template<typename Proxy_type, typename Base_type>
-		inline int const_member_caller(lua_State * /*const*/ l)
+		inline int const_member_caller(lua_State * l)
 		{
 #if	OOLUA_USE_EXCEPTIONS ==1			
 			OOLUA_MEMBER_FUNCTION_TRY

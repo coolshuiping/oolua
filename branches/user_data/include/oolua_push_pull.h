@@ -93,7 +93,7 @@ namespace OOLUA
 			enum { value = sizeof( test( From() ) )  == 1 ? 1 : 0 };
 		};
 
-		template<typename T,int is_intergal>
+		template<typename T,int is_integral>
 		struct push_basic_type;
 
 
@@ -243,7 +243,7 @@ namespace OOLUA
 	namespace INTERNAL
 	{
 		
-		template<typename T,int is_intergal>
+		template<typename T,int is_integral>
 		struct pull_basic_type;
 
 		template<typename T>
@@ -282,8 +282,7 @@ namespace OOLUA
 		///  Pulls a pointer to C++ depending on the second template parameter. If it
 		///  is true then the type is an integral type and one of the normal overloaded
 		///  OOLUA::pull2cpp functions are called. If on the other hand the type is not
-		///  integral then OOLUA::Lua_interface is used to remove the pointer from the
-		///  Lua stack.
+		///  integral then pull_class_type is used.
 		///////////////////////////////////////////////////////////////////////////////
 		template<typename T,bool IsIntregal>
 		struct pull_ptr_2cpp;
@@ -293,7 +292,7 @@ namespace OOLUA
 		template<typename Raw_type>
 		inline void pull_class_type(lua_State *const s,int Is_const,Raw_type*& class_type)
 		{
-MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA
+MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA
 			if(Is_const) class_type = INTERNAL::class_from_stack_top< Raw_type >(s);
 			else class_type = INTERNAL::none_const_class_from_stack_top<Raw_type>(s);
 MSC_POP_COMPILER_WARNING_OOLUA
@@ -320,11 +319,6 @@ MSC_POP_COMPILER_WARNING_OOLUA
 												   : Proxy_class<typename OOLUA::INTERNAL::param_type<T>::raw_type>::class_name);
 #	elif OOLUA_DEBUG_CHECKS == 1
 					assert(class_ptr);
-					//value = 0;//added due to vs unreachable code warnings
-					//return false;//added due to vs unreachable code warnings
-//#else	//added due to vs unreachable code warnings
-					//value = 0;
-					//return false;
 #	endif
 #	if OOLUA_USE_EXCEPTIONS == 0//prevent vs warnings
 					value = 0;
@@ -394,7 +388,7 @@ MSC_POP_COMPILER_WARNING_OOLUA
 	
 	///////////////////////////////////////////////////////////////////////////////
 	///  inline public overloaded  pull2cpp
-	///  Checks if it is an integral type( LVD::is_intergal_type ) or that is a type
+	///  Checks if it is an integral type( LVD::is_integral_type ) or that is a type
 	///  that should be registered to OOLUA and calls the correct function.
 	///  @param [in]       s lua_State *const \copydoc lua_State
 	///  @param [in, out]  value T *&
@@ -424,7 +418,7 @@ MSC_POP_COMPILER_WARNING_OOLUA
 		namespace LUA_CALLED
 		{
 			
-			template<typename T,int is_intergal>
+			template<typename T,int is_integral>
 			struct pull_basic_type;
 			
 			template<typename T>
@@ -458,7 +452,7 @@ MSC_POP_COMPILER_WARNING_OOLUA
 			
 			
 			
-			template<typename T,int is_intergal>
+			template<typename T,int is_integral>
 			struct pull_ptr_2cpp;
 			
 			template<typename T>

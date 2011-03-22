@@ -14,6 +14,7 @@ public:
 	virtual void param_ref_2_string(std::string& s)=0;
 	virtual void param_ref_2_constString(std::string const& s)=0;
 	virtual std::string& returns_ref_2_string() = 0;
+    virtual std::string const& returns_const_ref_2_string() = 0;
 };
 
 	class MockStringInteragal : public StringInteragal
@@ -24,6 +25,7 @@ public:
 		MOCK_METHOD1(param_ref_2_string,void(std::string&));
 		MOCK_METHOD1(param_ref_2_constString,void (std::string const&));
 		MOCK_METHOD0(returns_ref_2_string,std::string& ());
+        MOCK_METHOD0(returns_const_ref_2_string,std::string const& ());
 	};
 
 	OOLUA_CLASS_NO_BASES(StringInteragal)
@@ -33,7 +35,8 @@ public:
         OOLUA_MEM_FUNC_1(void,param_ref_2_constString,OOLUA::in_p<std::string const&>)
         OOLUA_MEM_FUNC_1(std::string,param_string_returnsString,std::string)
 		OOLUA_MEM_FUNC_0(std::string&,returns_ref_2_string)
-	OOLUA_MEM_FUNC_RENAME(string_ref_out_param,void,param_ref_2_string,out_p<std::string&>)
+        OOLUA_MEM_FUNC_RENAME(string_ref_out_param,void,param_ref_2_string,out_p<std::string&>)
+        OOLUA_MEM_FUNC(std::string const&, returns_const_ref_2_string)
 	OOLUA_CLASS_END
 
 EXPORT_OOLUA_FUNCTIONS_NON_CONST(StringInteragal
@@ -43,6 +46,7 @@ EXPORT_OOLUA_FUNCTIONS_NON_CONST(StringInteragal
 								   ,param_string_returnsString
 								   ,returns_ref_2_string
 								   ,string_ref_out_param
+                                    ,returns_const_ref_2_string
 								   )
 EXPORT_OOLUA_FUNCTIONS_0_CONST(StringInteragal)
 
@@ -62,7 +66,7 @@ class StringAsInteragal : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(LuaCallsCppFunction_paramIsRef2ConstString_callsMethodPassingString);
 		CPPUNIT_TEST(LuaClassCppFunction_returnsReferenceToString_returnValueIsEqualToConstantString);
 		CPPUNIT_TEST(outParam_stringReference_returnValueIsEqualToConstantString);
-
+        CPPUNIT_TEST(LuaClassCppFunction_returnsReferenceToConstString_returnValueIsEqualToConstantString);
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -192,7 +196,24 @@ public:
 		OOLUA::pull2cpp(*m_lua,return_value);
 		CPPUNIT_ASSERT_EQUAL(constant_string_global(),return_value);
 	}
-
+    void LuaClassCppFunction_returnsReferenceToConstString_returnValueIsEqualToConstantString()
+    {
+        m_lua->run_chunk("foo = function(obj) return obj:returns_const_ref_2_string() end");
+		
+		std::string  const_str_(constant_string());
+		std::string const &const_str( const_str_);
+		MockStringInteragal mock;
+        
+		EXPECT_CALL(mock,returns_const_ref_2_string() )
+            .Times(1)
+            .WillOnce(::testing::ReturnRef(const_str));
+		
+		m_lua->call("foo",(StringInteragal*)&mock);
+		std::string return_value;
+		OOLUA::pull2cpp(*m_lua,return_value);
+		CPPUNIT_ASSERT_EQUAL(const_str,return_value);
+    }
+    
 
 };
 

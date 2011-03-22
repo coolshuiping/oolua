@@ -28,8 +28,19 @@ namespace OOLUA
 	///  Any value can be retrieved or set from the table via the use of the template
 	///  member function. If the value asked for is not the correct type located
 	///  in the position then the functions used throw an error.
+    ///  at: 
+    ///  runs no checks on the table. Undefined if Lua instance is null or 
+    ///  (table or key is invalid) or value is not correct type.
+    ///  safe_at:
+    ///  returns a bool to indicate for success.
+    ///  try_at:
+    ///  Function is only defined when exceptions are enabled.
+    ///  throws Runtime_error when the key is not in the table
+    ///
 	///  The functions guarantee that the Lua stack after operations is restored
 	///  to the state when entered.
+    ///
+    ///  See Unit Tests or CheatSheet for usage of constructor.
 	///////////////////////////////////////////////////////////////////////////////
 	class Lua_table
 	{
@@ -238,32 +249,5 @@ namespace OOLUA
 }
 
 #endif
-
-//==============================
-//traversal
-//==============================
-//int lua_next (lua_State *L, int index);
-//
-//Pops a key from the stack, and pushes a key-value pair from the table at the given 
-//index (the "next" pair after the given key). If there are no more elements in the 
-//table, then lua_next returns 0 (and pushes nothing).
-//
-//A typical traversal looks like this:
-//
-//     /* table is in the stack at index 't' */
-//     lua_pushnil(L);  /* first key */
-//     while (lua_next(L, t) != 0) {
-//       /* uses 'key' (at index -2) and 'value' (at index -1) */
-//       printf("%s - %s\n",
-//              lua_typename(L, lua_type(L, -2)),
-//              lua_typename(L, lua_type(L, -1)));
-//       /* removes 'value'; keeps 'key' for next iteration */
-//       lua_pop(L, 1);
-//     }
-//
-//While traversing a table, do not call lua_tolstring directly on a key, unless you 
-//know that the key is actually a string. Recall that lua_tolstring changes the 
-//value at the given index; this confuses the next call to lua_next. 
-//*/
 
 

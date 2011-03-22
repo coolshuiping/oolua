@@ -87,8 +87,8 @@ namespace LVD
 				int,unsigned int, signed int,
 				long, unsigned long, signed long, int64, uint64,
 				float,
-				double, long double>::type Intergal;
-		enum {value = TYPELIST::IndexOf<Intergal,T>::value == -1 ? 0 : 1};
+				double, long double>::type Integral;
+		enum {value = TYPELIST::IndexOf<Integral,T>::value == -1 ? 0 : 1};
 	};
 
 

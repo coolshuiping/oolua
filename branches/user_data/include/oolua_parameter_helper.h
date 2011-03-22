@@ -23,7 +23,7 @@ namespace OOLUA
 		{
 			static int valid(lua_State* l,int index)
 			{
-MSC_PUSH_DISABLE_CONDTIONAL_CONSTANT_OOLUA
+MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA
 				if( !TypeWithTraits::is_constant
 				   && INTERNAL::userdata_is_constant(static_cast<INTERNAL::Lua_ud *>( lua_touserdata(l, index) ) )  )
 				{

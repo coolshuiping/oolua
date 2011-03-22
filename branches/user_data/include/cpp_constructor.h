@@ -27,8 +27,6 @@ namespace INTERNAL
 	{
 		Lua_ud* ud = add_ptr(l,obj,false);
 		userdata_gc_value(ud,true);
-		
-		//userdata_gc_value(add_ptr(l,obj,false),true);
 	}
 	
 	
