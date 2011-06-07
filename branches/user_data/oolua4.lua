@@ -13,9 +13,4 @@ includedirs
 						"/usr/local/include",
 						"/usr/include"
 					} 
-					
---defines {"OOLUA_STORE_ERROR"}
-
--- configuration  {"xcode3" }
---	flags{ "NoExceptions", "NoRTTI"}
 	

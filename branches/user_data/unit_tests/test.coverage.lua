@@ -2,26 +2,11 @@
 local root = "../"
 local name = "test.coverage"
 
---create_package("test.coverage","./","exe")
 create_package(name,root,"ConsoleApp")
---[[
-package.files =
-{
-    matchrecursive
-    (
-    	"include/*.h", 
-    	"src/*.cpp",
-    	"unit_tests/scripts/*.lua",
-    	"unit_tests/*.h",
-    	"unit_tests/*.cpp"
-    )
-}
---]]
 
 configuration {}
-
-files 
-{ 
+	files 
+	{ 
     	root .. "include/*.h", 
     	root .. "src/*.cpp",
     	root .. "unit_tests/main.cpp",
@@ -32,23 +17,20 @@ files
 		root .. "unit_tests/test_classes/*h",
 		root .. "unit_tests/test_classes/*.cpp",
 		root .. "unit_tests/string_is_integral/string_as_integral.cpp",
-}
-includedirs 
-{
-	"include/cppunit",
-	"include/gmock",
-	"include/lua",
-	"include/",
-	"/usr/local/include",
-	"/usr/include",
-	root .. "include",
-	root .. "unit_tests/bind_classes",
-	root .. "unit_tests/cpp_classes",
-	root .. "unit_tests/test_classes"
-} 
-		
-		
---tinsert(package.links, "oolua")
+	}
+	includedirs 
+	{
+		"include/cppunit",
+		"include/gmock",
+		"include/lua",
+		"include/",
+		"/usr/local/include",
+		"/usr/include",
+		root .. "include",
+		root .. "unit_tests/bind_classes",
+		root .. "unit_tests/cpp_classes",
+		root .. "unit_tests/test_classes"
+	} 
 	 
 unit_test_config(root,name)
 coverage()

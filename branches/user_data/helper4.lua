@@ -1,14 +1,6 @@
 
 --sets options for the different os's
 function configure_for_os()
-
-	configuration("Debug")
-		defines { "DEBUG", "_DEBUG" }
-		flags {"Symbols", "ExtraWarnings"}
-		
-	configuration("Release")
-		defines{ "NDEBUG", "RELEASE"}
-		flags {"Optimize", "ExtraWarnings"}
 				
 	configuration { "windows" }
 		defines{ "PLATFORM_CHECKED", "WINDOWS_BUILD" }
@@ -28,9 +20,6 @@ function configure_for_os()
 		buildoptions {"/analyze"}
 
 --]]
-			
-	--configuration{"vs*","Release"}
-	--	buildoptions {"/GL"}
 
 	configuration { "windows","codeblocks" }
 		buildoptions{ "-W -Wall -pedantic"}
@@ -47,36 +36,36 @@ function configure_for_os()
 	configuration("xcode3 or xcode4 or gmake")
 		buildoptions { "-W -Wall -ansi -pedantic -std=c++98" }
 
-	--configuration("xcode3 or gmake or codeblocks","Release")
-	--	buildoptions { "-O3" }
 end
 
-function create_package(name,path_to_root,kind_)
+function create_package(name,path_to_root,prj_kind)
 	local root = path_to_root or "./"
 	local proj = project(name)
-	proj.language ="C++"
-  proj.kind = kind_ or "SharedLib"
+	
+	project (name)
+		language 'C++'
+		kind( prj_kind or 'SharedLib')
+		includepaths = { root.."include" }
+		objdir(root.. "obj/")
+		
+	configuration("Debug")
+		defines { "DEBUG", "_DEBUG" }
+		flags {"Symbols", "ExtraWarnings"}
+		targetdir(root.. "bin/Debug")
+		
+	configuration("Release")
+		defines{ "NDEBUG", "RELEASE"}
+		flags {"Optimize", "ExtraWarnings"}
+		targetdir(root.. "bin/Release")
 
-	if(kind_ == "StaticLib" or kind_ =="SharedLib" )then
-		configuration { "Debug" }
-		targetname(proj.name.."_d")
-	end
+	configuration { 'Debug','StaticLib or SharedLib' }
+		targetsuffix '_d'
 
-  configuration{"Debug"}
-    targetdir(root.. "bin/Debug")
- 		objdir(root.. "obj/")
-
-  configuration{"Release"}
-    targetdir(root.. "bin/Release")
-    objdir(root.. "obj/")
-    
 	configure_for_os()
-
-	includepaths = { root.."include" }
 end
 
 
-unit_test_config = function(root,name)
+unit_test_config = function()
 
 	configuration { "vs*"}
 		postbuildcommands { "\"$(TargetPath)\"" }
@@ -109,11 +98,8 @@ unit_test_config = function(root,name)
 	configuration {"windows","codeblocks","Release" }	
 		links{ "lua", "cppunit" , "gmock" }
 		
-	configuration {"gmake","Debug"}	
-		postbuildcommands  { root .. "bin/Debug/" .. name }
-		
-	configuration {"gmake","Release"}	
-		postbuildcommands { root .. "bin/Release/" .. name }
+	configuration {"gmake"}
+		postbuildcommands  { "$(TARGET)" }
 
 	configuration {"linux" }
 		links{ "dl" }
