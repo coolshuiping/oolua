@@ -42,6 +42,8 @@ luabind comparing updated to version 0.9.1
 member functions and constructors can take the calling lua_state as a parameter - initial
 friendlier registering of class enums - initial
 added function return traits for a reference to constant std::string
+Bug fix Issue 28: http://code.google.com/p/oolua/issues/detail?id=28
+	Proxy checker typedefs in the default scope instead of public. (Sakamoto)
 
 1.3.2
 Fixed bug when using va args to rename a function
