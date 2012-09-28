@@ -92,6 +92,12 @@ unit_test_config = function()
 		links{ "gmock","gtest","cppunit", "lua" }
 		postbuildcommands {"$TARGET_BUILD_DIR/$TARGET_NAME"}
 
+--[[
+	--64bit luaJIT rebasing
+	configuration{'xcode*'}
+		linkoptions{'-pagezero_size 10000 -image_base 100000000'}
+--]]
+
 	configuration {"windows","codeblocks","Debug" }
 		links{ "lua", "cppunitd" , "gmockd" }
 		

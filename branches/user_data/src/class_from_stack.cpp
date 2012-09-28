@@ -78,13 +78,13 @@ namespace OOLUA
 #	if OOLUA_USERDATA_OPTIMISATION == 1
 		bool index_is_userdata(lua_State* l,int index,Lua_ud*& ud)
 		{
-#ifdef LUA_VERSION_NUM && LUA_VERSION_NUM == 502
+#if defined LUA_VERSION_NUM && LUA_VERSION_NUM == 502
 /*lua_objlen may or may not be a macro for lua_rawlen in luaconfig.h;
- so lets just work reguardless of the configuration used*/
+ so lets just work regardless of the configuration used*/
 #	define _oolua_len_ lua_rawlen 
 #else 
 #	define _oolua_len_ lua_objlen
-#endif		
+#endif
 			ud = static_cast<Lua_ud *>(lua_touserdata(l,index));
 			return ud && _oolua_len_(l,index) == sizeof(Lua_ud) && ud->created_by_state == l;
 #undef _oolua_len_

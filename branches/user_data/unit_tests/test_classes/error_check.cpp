@@ -7,6 +7,14 @@
 #	include "expose_member_function_calls.h"
 #	include <csetjmp>
 
+#if OOLUA_DEBUG_CHECKS == 1
+	/*This seems to be the only way of using the preprocesser and detecting luajit,
+	 even when the path is pointing to luajit header directory.
+	 If we include the luajit header directly it will fail to compile for Rio Lua
+	 */
+#	include "lua/lua.hpp"
+#endif
+
 namespace  
 {
 	jmp_buf mark; 
@@ -558,21 +566,27 @@ public:
 	
 	
 #if OOLUA_DEBUG_CHECKS == 1
-	void push_unregisteredClass_callsLuaPanic()
-	{
-		Stub1 stubtmp;
-		Stub1* stubptr(&stubtmp);
-		
-		lua_atpanic(*m_lua,&OOLua_panic);
-		
-		if (setjmp(mark) == 0)
+#	if LUAJIT_VERSION_NUM >= 20000
+		/*luajit2 will throw on some platforms */
+		void push_unregisteredClass_callsLuaPanic(){}
+#	else
+		/*if you are using luajit2 with lua51 headers this may still fail on some platforns*/
+		void push_unregisteredClass_callsLuaPanic()
 		{
-			OOLUA::push2lua(*m_lua,stubptr);
-			CPPUNIT_ASSERT_EQUAL(false,true );//never jumped back
+			Stub1 stubtmp;
+			Stub1* stubptr(&stubtmp);
+		
+			lua_atpanic(*m_lua,&OOLua_panic);
+		
+			if (setjmp(mark) == 0)
+			{
+				OOLUA::push2lua(*m_lua,stubptr);
+				CPPUNIT_ASSERT_EQUAL(false,true );//never jumped back
+			}
+			else
+				CPPUNIT_ASSERT_EQUAL(true,true );//we hit the at panic
 		}
-		else
-			CPPUNIT_ASSERT_EQUAL(true,true );//we hit the at panic
-	}
+#	endif
 #endif
 	
 	

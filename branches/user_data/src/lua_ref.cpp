@@ -41,7 +41,7 @@ namespace OOLUA
 			lua_pushfstring(lua,
 							"pulling incorrect type from stack. This is a Lua registry reference to id%d, stack contains %s"
 							,id
-							,lua_typename(lua,lua_type(lua, -1)));	
+							,lua_gettop(lua) ? lua_typename(lua,lua_type(lua, -1)): "empty stack");	
 #	if OOLUA_USE_EXCEPTIONS ==1
 			throw OOLUA::Runtime_error(lua,(OOLUA::ERROR::PopTheStack*)0);
 #	else // OOLUA_STORE_LAST_ERROR ==1								

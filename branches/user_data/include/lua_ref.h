@@ -165,12 +165,14 @@ namespace OOLUA
 	template<int ID>
 	bool Lua_ref<ID>::pull_if_valid(lua_State* const l)
 	{
-		if( lua_type(l, -1) == ID )
+		if (lua_gettop(l) == 0)  return false;
+		const int type = lua_type(l,-1);
+		if( type == ID )
 		{
 			set_ref( l, luaL_ref(l, LUA_REGISTRYINDEX) );
 			return true;
 		}
-		else if( lua_type(l,-1) ==LUA_TNIL && lua_gettop(l) >=1)
+		else if( type == LUA_TNIL )
 		{
 			release();
 			return true;
