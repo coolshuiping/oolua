@@ -94,39 +94,19 @@ namespace OOLUA
 			userdata_const_value(ud,false);
 			return 0;
 		}
-		
+
 		template<typename T>
 		struct garbage_collect 
 		{
 			static int gc(lua_State *  l)
 			{
 				Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
-				lua_pop(l,1);
-				if( ud->flags & GC_FLAG  )
-				{
-					delete static_cast<T*>(ud->void_class_ptr);
-				}
-				//ud will be cleaned up by the Lua API
+				/*see http://code.google.com/p/oolua/issues/detail?id=29 for the Lua 5.2.* reason there is a userdata check here*/
+				if( ud && ud->flags & GC_FLAG )delete static_cast<T*>(ud->void_class_ptr);
 				return 0;
 			}
 		};
-		/*	
-		template<typename T>
-		struct garbage_collect<OOLUA_SHARED_PTR_TYPE<T> >
-		{
-			static int gc(lua_State *  l)
-			{
-				//get the userdata
-				Lua_ud *ud = static_cast<Lua_ud*>(lua_touserdata(l, 1));
-				lua_pop(l,1);
-				//cast to correct type
-				//always responsible for cleaning up
-				delete static_cast<OOLUA_SHARED_PTR_TYPE<T> *>(ud->void_shared_ptr);
-				//ud will be cleaned up by the Lua API
-				return 0;
-			}
-		};
-		*/
+
 		template<typename T,int HasRegisterEnumsTag>
 		struct set_class_enums
 		{

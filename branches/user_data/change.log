@@ -44,7 +44,11 @@ friendlier registering of class enums - initial
 added function return traits for a reference to constant std::string
 Bug fix Issue 28: http://code.google.com/p/oolua/issues/detail?id=28
 	Proxy checker typedefs in the default scope instead of public. (Sakamoto)
-
+	
+Bug fix Issue 29: http://code.google.com/p/oolua/issues/detail?id=29
+		Lua 5.2 calls __gc method with a table. (Ilia Pavlovets)
+Compiles cleanly with Lua 5.2.1
+		
 1.3.2
 Fixed bug when using va args to rename a function
 platforms fixed: gcc > 3.0

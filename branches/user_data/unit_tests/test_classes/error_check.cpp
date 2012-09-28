@@ -187,10 +187,7 @@ public:
 	//if runtime checks turned off it will never effect the stack size
 	void userDataCheck_UserdataOnTopOfStackWhichOoluaDidNotCreate_stackIsTheSameSizeAfterCheck()
 	{
-		m_lua->run_chunk("foo = function() "
-						 "return newproxy(true) "
-						 "end");
-		m_lua->call("foo");
+		lua_newuserdata(*m_lua,sizeof(int));
 		int before = lua_gettop(*m_lua);
 		OOLUA::INTERNAL::Lua_ud* dontCare;
 		OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
@@ -251,10 +248,7 @@ public:
 	
 	void userDataCheck_UserdataOnTopOfStackWhichOoluaDidNotCreate_resultIsFalse()
 	{
-		m_lua->run_chunk("foo = function() "
-						 "return newproxy(true) "
-						 "end");
-		m_lua->call("foo");
+		lua_newuserdata(*m_lua,sizeof(int));
 		OOLUA::INTERNAL::Lua_ud* dontCare;
 		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(false,result );
@@ -267,8 +261,7 @@ public:
 	
 	void pull_ptrToconstUserDataTypeWhenStackIsNoneOoluaUserData_pullResultIsFalse()
 	{
-		m_lua->run_chunk("foo = function() return newproxy() end");
-		m_lua->call("foo");
+		lua_newuserdata(*m_lua,sizeof(int));
 		Stub1 const*  cpp_type =  0;
 		bool result = OOLUA::pull2cpp(*m_lua,cpp_type);
 		CPPUNIT_ASSERT_EQUAL( false,result);	
@@ -415,8 +408,7 @@ public:
 	
 	void pull_ptrToconstUserDataTypeWhenStackIsNoneOoluaUserData_throwsTypeError()
 	{
-		m_lua->run_chunk("foo = function() return newproxy() end");
-		m_lua->call("foo");
+		lua_newuserdata(*m_lua,sizeof(int));
 		Stub1 const*  cpp_type =  0;
 		CPPUNIT_ASSERT_THROW( (OOLUA::pull2cpp(*m_lua,cpp_type)),OOLUA::Type_error);	
 	}
