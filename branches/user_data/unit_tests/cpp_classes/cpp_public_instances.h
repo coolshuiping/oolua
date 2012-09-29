@@ -17,7 +17,7 @@ public:
 
 	
 	static const int set_value = 1;
-	static const int initail_value = 0;
+	static const int initial_value = 0;
 	
 	
 	Public_variables(Public_variables const&);

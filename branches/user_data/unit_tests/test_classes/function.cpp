@@ -50,8 +50,8 @@ public:
 	{
 		m_lua->run_chunk("foo = function (obj) "
 							"local str = \"Some string to return\" "
-							"local initail = function() return str end "
-							"local returned = obj:takes_and_returns_ref(initail) "
+							"local initial = function() return str end "
+							"local returned = obj:takes_and_returns_ref(initial) "
 							"assert(returned() == str) "
 						 "end");
 		bool result = m_lua->call("foo",m_class);

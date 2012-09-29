@@ -56,7 +56,7 @@ namespace OOLUA
 	}
 	bool Lua_table::valid()const
 	{ 
-		int const init_stack_top = initail_stack_size();
+		int const init_stack_top = initial_stack_size();
 		bool result = get_table();
 		restore_stack(init_stack_top);
 		return result;
@@ -98,7 +98,7 @@ namespace OOLUA
 			lua_pop(m_table_ref.m_lua,end_stack_size - init_stack_size);
 		}
 	}
-	int Lua_table::initail_stack_size()const
+	int Lua_table::initial_stack_size()const
 	{
 		return (!m_table_ref.m_lua)? 0 : lua_gettop(m_table_ref.m_lua);
 	}

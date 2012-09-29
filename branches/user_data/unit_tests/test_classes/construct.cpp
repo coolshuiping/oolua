@@ -21,14 +21,14 @@ class Construct : public CPPUNIT_NS::TestFixture
 	
 	
 	CPPUNIT_TEST(new_CallingIntParamConstructor_runChunkReturnsTrue);
-	CPPUNIT_TEST(new_CallingIntParamConstructorPassingInitailisedValue_InstanceHasIntSetToInitailisedValue);
+	CPPUNIT_TEST(new_CallingIntParamConstructorPassingInitialisedValue_InstanceHasIntSetToInitialisedValue);
 	CPPUNIT_TEST(new_CallingBoolParamConstructor_runChunkReturnsTrue);
 	//To OOLUA there is no difference between a function that takes an int, int*, int& or any variation
 	//the first registered constructor which matches will be called.
 	//CPPUNIT_TEST(new_CallingIntPtrParamConstructor_runChunkReturnsTrue);
-	//CPPUNIT_TEST(new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasIntPtrSetToInitailisedValue);
+	//CPPUNIT_TEST(new_CallingIntPtrParamConstructorPassingInitialisedValue_InstanceHasIntPtrSetToInitialisedValue);
 	CPPUNIT_TEST(new_CallingCharConstPtrParamConstructor_runChunkReturnsTrue);
-	CPPUNIT_TEST(new_CallingCharConstPtrParamConstructorPassingInitailisedValue_InstanceHasStringSetToInitailisedValue);
+	CPPUNIT_TEST(new_CallingCharConstPtrParamConstructorPassingInitialisedValue_InstanceHasStringSetToInitialisedValue);
 	
 	
 	CPPUNIT_TEST(new_twoParamConstructorIntAndBool_runChunkReturnsTrue);
@@ -163,7 +163,7 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true,result);
 
 	}
-	void new_CallingIntParamConstructorPassingInitailisedValue_InstanceHasIntSetToInitailisedValue()
+	void new_CallingIntParamConstructorPassingInitialisedValue_InstanceHasIntSetToInitialisedValue()
 	{
 		m_lua->call(register_and_create_one_param_constructor(),ParamValues::int_set);
 		ParamConstructorWrapper wrap;
@@ -178,7 +178,7 @@ public:
 		
 	}
 	
-	void new_CallingBoolParamConstructorPassingInitailisedValue_InstanceHasBoolSetToInitailisedValue()
+	void new_CallingBoolParamConstructorPassingInitialisedValue_InstanceHasBoolSetToInitialisedValue()
 	{
 		m_lua->call(register_and_create_one_param_constructor(),ParamValues::bool_set);
 		ParamConstructorWrapper wrap;
@@ -193,7 +193,7 @@ public:
 		CPPUNIT_ASSERT_EQUAL(true,result);
 		
 	}
-	void new_CallingIntPtrParamConstructorPassingInitailisedValue_InstanceHasIntPtrSetToInitailisedValue()
+	void new_CallingIntPtrParamConstructorPassingInitialisedValue_InstanceHasIntPtrSetToInitialisedValue()
 	{
 		m_lua->call(register_and_create_one_param_constructor(),ParamValues::int_set);
 		ParamConstructorWrapper wrap;
@@ -210,7 +210,7 @@ public:
 		bool result = m_lua->run_chunk("ParamConstructor:new(\"do not care\")");
 		CPPUNIT_ASSERT_EQUAL(true,result);
 	}
-	void new_CallingCharConstPtrParamConstructorPassingInitailisedValue_InstanceHasStringSetToInitailisedValue()
+	void new_CallingCharConstPtrParamConstructorPassingInitialisedValue_InstanceHasStringSetToInitialisedValue()
 	{
 		m_lua->call(register_and_create_one_param_constructor(),ParamValues::c_string_set);
 		ParamConstructorWrapper wrap;

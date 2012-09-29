@@ -75,7 +75,7 @@ namespace OOLUA
 	private:
 		bool get_table()const;
 		void restore_stack(int const & init_stack_size)const;
-		int initail_stack_size()const;
+		int initial_stack_size()const;
 		Lua_table_ref m_table_ref;
 	};
 
@@ -87,7 +87,6 @@ namespace OOLUA
 	template<typename T,typename T1>
 	inline T1& Lua_table::at(T const& key,T1& value)
 	{
-		//int const init_stack_size = initail_stack_size();
 		get_table();//table
 		push2lua(m_table_ref.m_lua,key);//table key
 		lua_gettable(m_table_ref.m_lua, -2);//table value
@@ -102,7 +101,7 @@ namespace OOLUA
 		//record the stack size as we want to put the stack into the 
 		//same state that it was before entering here
 		//int init_stack_size = lua_gettop(m_lua);
-		int const init_stack_size = initail_stack_size();
+		int const init_stack_size = initial_stack_size();
 		if(!get_table())return;
 		push2lua(m_table_ref.m_lua,key);
 		//table is now at -2 (key is at -1). 
@@ -120,7 +119,7 @@ namespace OOLUA
 		//record the stack size as we want to put the stack into the 
 		//same state that it was before entering here
 		//int init_stack_size = lua_gettop(m_lua);
-		int const init_stack_size = initail_stack_size();
+		int const init_stack_size = initial_stack_size();
 		if(!get_table())return;
 		push2lua(m_table_ref.m_lua,key);
 		//table is now at -2 (key is at -1). 
@@ -137,7 +136,7 @@ namespace OOLUA
 	template<typename T,typename T1>
 	inline void Lua_table::try_at(T const& key,T1& value)
 	{
-		int const init_stack_size = initail_stack_size();
+		int const init_stack_size = initial_stack_size();
 		try 
 		{
 			if(!get_table())throw OOLUA::Runtime_error("Table is invalid");
@@ -180,7 +179,7 @@ namespace OOLUA
 		//record the stack size as we want to put the stack into the 
 		//same state that it was before entering here
 		//int init_stack_size = lua_gettop(m_lua);
-		int const init_stack_size = initail_stack_size();
+		int const init_stack_size = initial_stack_size();
 		if(!get_table())return false;
 		if(! push2lua(m_table_ref.m_lua,key) )
 		{
