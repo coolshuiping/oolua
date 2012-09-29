@@ -34,8 +34,24 @@ namespace
 		lua_getfield(*s, LUA_REGISTRYINDEX,OOLUA::Proxy_class<Stub1>::class_name);
 		OOLUA::pull2cpp(*s,t);
 	}
-
-}
+	
+	int stackNotEmptyCalled = 0;
+	void callBackFunc_stackNotEmpty(lua_State*)
+	{
+		stackNotEmptyCalled = 1;
+	}
+	
+	struct MemberCallBack
+	{
+		int called;
+		MemberCallBack():called(0){}
+		void call_back(lua_State* l)
+		{
+			called += 1;
+			lua_pop(l,1);
+		}
+	};
+	}
 
 	
 class Table : public CPPUNIT_NS::TestFixture
@@ -99,6 +115,10 @@ class Table : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(bindScript_tableReferenceIsAlreadyValid_validReturnsFalse);
 	
 	CPPUNIT_TEST(bindScript_tableReferenceIsAlreadyBoundWithThisState_validReturnsTrue);
+	
+	CPPUNIT_TEST(traverse_stackIsNotEmpty_callBackIsCalled);
+	CPPUNIT_TEST(forEachKeyValue_stackIsNotEmpty_callBackIsCalled);
+
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -418,6 +438,30 @@ public:
 		OOLUA::new_table(*m_lua,table_);
 		table_.bind_script(*m_lua);
 		CPPUNIT_ASSERT_EQUAL(true,table_.valid());
+	}
+	
+	void traverse_stackIsNotEmpty_callBackIsCalled()
+	{
+		OOLUA::push2lua(*m_lua,1);
+		
+		OOLUA::Lua_table table_;
+		OOLUA::new_table(*m_lua,table_);
+		table_.set_value(1, 1);
+		stackNotEmptyCalled = 0;
+		table_.traverse(callBackFunc_stackNotEmpty);
+		CPPUNIT_ASSERT_EQUAL(int(1),stackNotEmptyCalled);
+	}
+	
+	void forEachKeyValue_stackIsNotEmpty_callBackIsCalled()
+	{
+		OOLUA::push2lua(*m_lua,1);
+		OOLUA::Lua_table table_;
+		OOLUA::new_table(*m_lua,table_);
+		table_.set_value(1, 1);
+		
+		MemberCallBack l;
+		OOLUA::for_each_key_value(*m_lua, table_, &l, &MemberCallBack::call_back );
+		CPPUNIT_ASSERT_EQUAL(int(1),l.called);
 	}
 
 };

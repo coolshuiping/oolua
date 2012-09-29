@@ -51,7 +51,11 @@ Compiles cleanly with Lua 5.2.1
 Prevent invalid Lua stack indexes when pulling a Lua_ref or Proxy_class. Indexes Zero (lua_gettop result)  or -1 with an empty stack. 
 Tests compile cleanly with LUA_USE_APICHECK
 Tests compile cleanly with LuaJIT2 head
-	
+
+Bug fix Issue 30: http://code.google.com/p/oolua/issues/detail?id=30
+	Table traverse function incorrectly assumes the stack is empty (Steve Nichols)
+Also effect for_each_key_value
+
 1.3.2
 Fixed bug when using va args to rename a function
 platforms fixed: gcc > 3.0

@@ -237,8 +237,9 @@ namespace OOLUA
 		if( table.valid() )
 		{
 			OOLUA::push2lua(lua,table);
+			const int t = lua_gettop(lua);
 			lua_pushnil(lua);
-			while (lua_next(lua, 1) != 0) 
+			while (lua_next(lua, t) != 0) 
 			{
 				(instance->*(func))(lua);
 			}
