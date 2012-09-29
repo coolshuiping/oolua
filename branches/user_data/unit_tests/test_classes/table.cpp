@@ -119,6 +119,11 @@ class Table : public CPPUNIT_NS::TestFixture
 	CPPUNIT_TEST(traverse_stackIsNotEmpty_callBackIsCalled);
 	CPPUNIT_TEST(forEachKeyValue_stackIsNotEmpty_callBackIsCalled);
 
+	
+	CPPUNIT_TEST(ipairs_stackIsNotEmptyTableHasOneEntry_IterationCountIsOne);
+	CPPUNIT_TEST(ipairs_stackIsNotEmptyTableHasFiveEntry_IterationCountIsFive);
+	CPPUNIT_TEST(ipairs_stackHasOneEntryTableHasFiveEntry_afterIterationsStackCountIsOne);
+	
 	CPPUNIT_TEST_SUITE_END();
 
 	OOLUA::Script * m_lua;
@@ -463,7 +468,55 @@ public:
 		OOLUA::for_each_key_value(*m_lua, table_, &l, &MemberCallBack::call_back );
 		CPPUNIT_ASSERT_EQUAL(int(1),l.called);
 	}
-
+	
+	void ipairs_stackIsNotEmptyTableHasOneEntry_IterationCountIsOne()
+	{
+		OOLUA::push2lua(*m_lua,1);
+		OOLUA::Lua_table table_;
+		OOLUA::new_table(*m_lua,table_);
+		table_.set_value(1, 1);
+		
+		int count = 0;
+		oolua_ipairs(table_)
+		{
+			count += 1;
+		}
+		oolua_ipairs_end()
+		CPPUNIT_ASSERT_EQUAL(int(1),count);
+	}
+	
+	void ipairs_stackIsNotEmptyTableHasFiveEntry_IterationCountIsFive()
+	{
+		OOLUA::push2lua(*m_lua,1);
+		OOLUA::Lua_table table_;
+		OOLUA::new_table(*m_lua,table_);
+		
+		for(int i=1;i<6;++i) table_.set_value(i, i);
+		
+		int count = 0;
+		oolua_ipairs(table_)
+		{
+			count += 1;
+		}
+		oolua_ipairs_end()
+		CPPUNIT_ASSERT_EQUAL(int(5),count);
+	}
+	
+	void ipairs_stackHasOneEntryTableHasFiveEntry_afterIterationsStackCountIsOne()
+	{
+		OOLUA::push2lua(*m_lua,1);
+		OOLUA::Lua_table table_;
+		OOLUA::new_table(*m_lua,table_);
+		
+		for(int i=1;i<6;++i) table_.set_value(i, i);
+		
+		oolua_ipairs(table_)
+		{
+			//nop
+		}
+		oolua_ipairs_end()
+		CPPUNIT_ASSERT_EQUAL(int(1),lua_gettop(*m_lua));
+	}
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( Table );

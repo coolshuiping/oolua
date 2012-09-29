@@ -72,6 +72,7 @@ namespace OOLUA
 		void swap(Lua_table & rhs);
 		bool pull_from_stack(lua_State* l);
 		void lua_pull_from_stack(lua_State* l);
+		lua_State* state() const { return m_table_ref.m_lua; }
 	private:
 		bool get_table()const;
 		void restore_stack(int const & init_stack_size)const;
@@ -244,6 +245,46 @@ namespace OOLUA
 			}
 			lua_pop(lua, 1);
 		}
+	}
+	
+	/*
+	 oolua_ipairs
+	 Helper for iterating over the array part of a table
+	 declares 
+	 _i_index_			: current index into the array
+	 _oolua_array_index_ : stack index at which table is located
+	 lvm					: the table's lua_State
+	 
+	 NOTE: Returning from inside of the loop will not leave the stack clean
+	 unless you reset it.
+	 usage:
+	 oolua_ipairs(table)
+	 {
+		if(_i_index_ == 99) 
+		{
+			lua_settop(lvm,_oolua_array_index-1);
+			return red_ballons;
+		}
+	 }
+	 oolua_ipairs_end()
+	 */
+#	define oolua_ipairs(table) \
+	if( table.valid() ) \
+	{ \
+		lua_State* lvm = table.state(); \
+		lua_checkstack(lvm, 2);\
+		OOLUA::push2lua(lvm,table); \
+		int const _oolua_array_index_ = lua_gettop(lvm); \
+		int _i_index_ = 1; \
+		lua_rawgeti(lvm, _oolua_array_index_,_i_index_); \
+		while (lua_type(lvm, -1)  != LUA_TNIL) \
+		{ \
+
+#	define oolua_ipairs_end()\
+			lua_settop(lvm, _oolua_array_index_); \
+			lua_rawgeti(lvm, _oolua_array_index_,++_i_index_); \
+		} \
+		lua_settop(lvm,_oolua_array_index_-1); \
 	}
 	
 }
