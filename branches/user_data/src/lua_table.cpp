@@ -104,16 +104,13 @@ namespace OOLUA
 	}
 	void Lua_table::traverse(Lua_table::traverse_do_function do_)
 	{
-		if(! get_table() )return;
-		lua_State * const vm = m_table_ref.m_lua;
-		int const t(lua_gettop(vm));
-		lua_pushnil(vm);  /* first key */
-		while (lua_next(vm, t) != 0) 
+		Lua_table& t = *this;
+		oolua_pairs(t)
 		{
-			(*do_)(vm);
-			lua_pop(vm, 1);
+			(*do_)(lvm);
+			lua_pop(lvm, 1);
 		}
-		lua_pop(vm, 1);
+		oolua_pairs_end()
 	}
 	void Lua_table::swap(Lua_table & rhs)
 	{

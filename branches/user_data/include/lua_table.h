@@ -225,34 +225,13 @@ namespace OOLUA
 	void new_table(lua_State* l,OOLUA::Lua_table& t);
 	OOLUA::Lua_table new_table(lua_State* l);
 	
-	/*
-	 you must remove the value from the stack and leave the key
-	 do not call anything which may call tostring on the actual key
-	 duplicate it instead with lua_pushvalue then call the operation on the copy
-	 */
-	template<typename ClassType>
-	inline void for_each_key_value(lua_State* lua,OOLUA::Lua_table& table
-								   , ClassType* instance, void(ClassType::*func)(lua_State*) )
-	{
-		if( table.valid() )
-		{
-			OOLUA::push2lua(lua,table);
-			const int t = lua_gettop(lua);
-			lua_pushnil(lua);
-			while (lua_next(lua, t) != 0) 
-			{
-				(instance->*(func))(lua);
-			}
-			lua_pop(lua, 1);
-		}
-	}
 	
 	/*
 	 oolua_ipairs
 	 Helper for iterating over the array part of a table
 	 declares 
-	 _i_index_			: current index into the array
-	 _oolua_array_index_ : stack index at which table is located
+	 _i_index_				: current index into the array
+	 _oolua_array_index_	: stack index at which table is located
 	 lvm					: the table's lua_State
 	 
 	 NOTE: Returning from inside of the loop will not leave the stack clean
@@ -263,7 +242,7 @@ namespace OOLUA
 		if(_i_index_ == 99) 
 		{
 			lua_settop(lvm,_oolua_array_index-1);
-			return red_ballons;
+			return red_balloons;
 		}
 	 }
 	 oolua_ipairs_end()
@@ -286,7 +265,53 @@ namespace OOLUA
 		} \
 		lua_settop(lvm,_oolua_array_index_-1); \
 	}
+
 	
+	
+	/*
+	 oolua_pairs
+	 Helper for iterating over a table.
+	 declares
+	 _oolua_table_index_	: stack index at which table is located
+	 lvm					: the table's lua_State
+	 
+	 usage
+	 oolua_pairs(table)
+	 {
+		do what ever
+		lua_pop(value);leaving key at the top of stack
+	 }
+	 oolua_pairs_end()
+	 */
+	
+#	define oolua_pairs(table) \
+	if( table.valid() ) \
+	{ \
+		lua_State* lvm = table.state(); \
+		OOLUA::push2lua(lvm,table); \
+		int	const _oolua_table_index_ = lua_gettop(lvm); \
+		lua_pushnil(lvm); \
+		while (lua_next(lvm, _oolua_table_index_) != 0) 
+	
+#	define oolua_pairs_end() \
+		lua_pop(lvm, 1); \
+	}
+	
+	
+	/*
+	 you must remove the value from the stack and leave the key
+	 do not call anything which may call tostring on the actual key
+	 duplicate it instead with lua_pushvalue then call the operation on the copy
+	 */
+	template<typename ClassType>
+	inline void for_each_key_value(OOLUA::Lua_table& table, ClassType* instance, void(ClassType::*func)(lua_State*) )
+	{
+		oolua_pairs(table)
+		{
+			(instance->*(func))(lvm);
+		}
+		oolua_pairs_end()
+	}
 }
 
 #endif

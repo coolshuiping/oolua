@@ -465,7 +465,7 @@ public:
 		table_.set_value(1, 1);
 		
 		MemberCallBack l;
-		OOLUA::for_each_key_value(*m_lua, table_, &l, &MemberCallBack::call_back );
+		OOLUA::for_each_key_value(table_, &l, &MemberCallBack::call_back );
 		CPPUNIT_ASSERT_EQUAL(int(1),l.called);
 	}
 	
