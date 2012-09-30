@@ -111,6 +111,32 @@ namespace OOLUA
 		lua_pushnil(l);
 		lua_setglobal(l, name);
 	}
+	
+	/*
+	This function uses the Lua public API to indicated if it is defined as 
+	per the manual, that a call to lua_xmove is valid. 
+	
+	lua_xmove returns without doing anywork if the two pointers are the same
+	and fails when using LUA_USE_APICHECK and the states do not share the same 
+	global_State.
+	
+	It may be fine to move numbers between different unrelated states when Lua
+	was not compiled with LUA_USE_APICHECK but this function would still return
+	false for that scenario.
+	*/
+	bool can_xmove(lua_State* vm0,lua_State* vm1)
+	{
+		if(!vm0 || !vm1 || vm0 == vm1) return false;		
+
+		/*
+		Threads that are related share the same registry
+		G(vm0)->l_registry == G(vm1)->l_registry
+		*/
+		bool result = lua_topointer(vm0, LUA_REGISTRYINDEX) == lua_topointer(vm1, LUA_REGISTRYINDEX);
+		lua_pop(vm0,1);
+		lua_pop(vm1,1);
+		return result;
+	}
 
 }
 

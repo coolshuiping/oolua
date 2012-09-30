@@ -141,6 +141,11 @@ class Error_test : public CPPUNIT_NS::TestFixture
 #endif
 	
 
+		CPPUNIT_TEST(canXmove_vm0IsNULL_returnsFalse);
+		CPPUNIT_TEST(canXmove_vm1IsNULL_returnsFalse);
+		CPPUNIT_TEST(canXmove_samePointers_returnsFalse);
+		CPPUNIT_TEST(canXmove_ParentAndChild_returnsTrue);
+		CPPUNIT_TEST(canXmove_unrelatedStates_returnsFalse);
 
 	CPPUNIT_TEST_SUITE_END();
 	OOLUA::Script * m_lua;
@@ -588,6 +593,32 @@ public:
 		}
 #	endif
 #endif
+	
+	
+	void canXmove_vm0IsNULL_returnsFalse()
+	{
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::can_xmove(0, *m_lua));
+	}
+	void canXmove_vm1IsNULL_returnsFalse()
+	{
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::can_xmove(*m_lua,0));
+	}
+	void canXmove_samePointers_returnsFalse()
+	{
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::can_xmove(*m_lua,*m_lua));
+	}
+	
+	void canXmove_ParentAndChild_returnsTrue()
+	{
+		lua_State * child = lua_newthread(*m_lua);
+		CPPUNIT_ASSERT_EQUAL(true,OOLUA::can_xmove(*m_lua,child));
+	}
+	void canXmove_unrelatedStates_returnsFalse()
+	{
+		lua_State * other = luaL_newstate();
+		CPPUNIT_ASSERT_EQUAL(false,OOLUA::can_xmove(*m_lua,other));
+		lua_close(other);
+	}
 	
 	
 };

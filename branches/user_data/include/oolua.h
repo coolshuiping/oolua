@@ -145,6 +145,8 @@ namespace OOLUA
 		return OOLUA::pull2cpp(l, instance);
 	}
 	
+	bool can_xmove(lua_State* vm0,lua_State* vm1);
+	
 }//endof namepsace OOLUA
 
 

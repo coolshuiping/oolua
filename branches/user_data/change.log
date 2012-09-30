@@ -59,6 +59,7 @@ Also effect for_each_key_value
 added oolua_ipairs and oolua_ipairs_end macros for iterating over arrays
 added oolua_pairs and oolua_pairs_end macros for iterating over tables
 removed the lua_State parameter from for_each_key_value function
+added bool OOLUA::can_xmove(lua_State*vm0,lua_State*vm1)
 
 
 
