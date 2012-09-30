@@ -12,7 +12,7 @@
 	 even when the path is pointing to luajit header directory.
 	 If we include the luajit header directly it will fail to compile for Rio Lua
 	 */
-#	include "lua/lua.hpp"
+//#	include "lua/lua.hpp"
 #endif
 
 namespace  
