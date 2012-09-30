@@ -125,10 +125,7 @@ namespace OOLUA
 		Threads that are related share the same registry
 		G(vm0)->l_registry == G(vm1)->l_registry
 		*/
-		bool result = lua_topointer(vm0, LUA_REGISTRYINDEX) == lua_topointer(vm1, LUA_REGISTRYINDEX);
-		lua_pop(vm0,1);
-		lua_pop(vm1,1);
-		return result;
+		return lua_topointer(vm0, LUA_REGISTRYINDEX) == lua_topointer(vm1, LUA_REGISTRYINDEX);
 	}
 
 	

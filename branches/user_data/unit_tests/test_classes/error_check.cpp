@@ -146,7 +146,7 @@ class Error_test : public CPPUNIT_NS::TestFixture
 		CPPUNIT_TEST(canXmove_samePointers_returnsFalse);
 		CPPUNIT_TEST(canXmove_ParentAndChild_returnsTrue);
 		CPPUNIT_TEST(canXmove_unrelatedStates_returnsFalse);
-
+		CPPUNIT_TEST(canXmove_ValidParentChildBothWithAStackCountOfOne_bothHaveStackCountIsOneAfterCall);
 	CPPUNIT_TEST_SUITE_END();
 	OOLUA::Script * m_lua;
 public:
@@ -620,6 +620,14 @@ public:
 		lua_close(other);
 	}
 	
+	void canXmove_ValidParentChildBothWithAStackCountOfOne_bothHaveStackCountIsOneAfterCall()
+	{
+		lua_State * child = lua_newthread(*m_lua);//thread on m_lua stack
+		lua_pushnil(child);
+		
+		OOLUA::can_xmove(*m_lua,child);
+		CPPUNIT_ASSERT( ( lua_gettop(*m_lua) ==1 && lua_gettop(child) == 1) );
+	}
 	
 };
 
