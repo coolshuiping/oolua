@@ -147,6 +147,12 @@ namespace OOLUA
 	
 	bool can_xmove(lua_State* vm0,lua_State* vm1);
 	
+	
+	bool load_chunk(lua_State* lua, std::string const& chunk);
+	bool run_chunk(lua_State* lua, std::string const& chunk);
+	bool run_file(lua_State* lua, std::string const & filename);
+	bool load_file(lua_State* lua, std::string const & filename);
+	
 }//endof namepsace OOLUA
 
 

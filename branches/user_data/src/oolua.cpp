@@ -81,29 +81,22 @@ namespace OOLUA
 
 	bool Script::load_chunk(std::string const& chunk)
 	{
-		int res = luaL_loadbuffer(m_lua,chunk.c_str(),chunk.size(),"userChunk");
-		return INTERNAL::load_buffer_check_result(m_lua,res);
+		return OOLUA::load_chunk(m_lua,chunk);
 	}
-
+	
 	bool Script::run_chunk(std::string const& chunk)
 	{
-		if(! load_chunk(chunk ) ) return false;
-		int result = lua_pcall(m_lua,0,LUA_MULTRET,0);
-		return INTERNAL::protected_call_check_result(m_lua,result);
+		return OOLUA::run_chunk(m_lua,chunk);
 	}
-
+	
 	bool Script::run_file(std::string const & filename)
 	{
-		bool status = load_file(filename);
-		if( !status )return false;
-		int result = lua_pcall(m_lua,0,LUA_MULTRET,0);
-		return INTERNAL::protected_call_check_result(m_lua,result);
+		return OOLUA::run_file(m_lua,filename);
 	}
-
+	
 	bool Script::load_file(std::string const & filename)
 	{
-		int result = luaL_loadfile(m_lua, filename.c_str() );
-		return INTERNAL::load_buffer_check_result(m_lua,result);;
+		return OOLUA::load_file(m_lua,filename);
 	}
 	
 	void set_global_to_nil(lua_State*l, char const * name)
@@ -138,5 +131,34 @@ namespace OOLUA
 		return result;
 	}
 
+	
+	
+	bool load_chunk(lua_State* lua, std::string const& chunk)
+	{
+		int res = luaL_loadbuffer(lua,chunk.c_str(),chunk.size(),"userChunk");
+		return INTERNAL::load_buffer_check_result(lua,res);
+	}
+	
+	bool run_chunk(lua_State* lua, std::string const& chunk)
+	{
+		if(! load_chunk(lua, chunk ) ) return false;
+		int result = lua_pcall(lua,0,LUA_MULTRET,0);
+		return INTERNAL::protected_call_check_result(lua,result);
+	}
+	
+	bool run_file(lua_State* lua, std::string const & filename)
+	{
+		bool status = load_file(lua,filename);
+		if( !status )return false;
+		int result = lua_pcall(lua,0,LUA_MULTRET,0);
+		return INTERNAL::protected_call_check_result(lua,result);
+	}
+	
+	bool load_file(lua_State* lua, std::string const & filename)
+	{
+		int result = luaL_loadfile(lua, filename.c_str() );
+		return INTERNAL::load_buffer_check_result(lua,result);;
+	}
+	
 }
 

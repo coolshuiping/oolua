@@ -60,8 +60,8 @@ added oolua_ipairs and oolua_ipairs_end macros for iterating over arrays
 added oolua_pairs and oolua_pairs_end macros for iterating over tables
 removed the lua_State parameter from for_each_key_value function
 added bool OOLUA::can_xmove(lua_State*vm0,lua_State*vm1)
-
-
+added OOLUA::load_chunk, OOLUA::run_chunk, OOLUA::run_file and OOLUA::load_file
+	which the respective OOLUA::Script function just calls.
 
 1.3.2
 Fixed bug when using va args to rename a function
