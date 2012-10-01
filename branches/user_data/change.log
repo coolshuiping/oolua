@@ -92,6 +92,9 @@ updated xcode coverage script to print a success message for unit tests yet not 
 Unit tests for lua_acquire_ptr, lua_out_p and out_p to check pull types are correct
 Unit tests for traits which change ownership
 Compile time tests to traits for valid parameters
+Removed the restriction of using classes only in the thread they were created, this 
+	previously added restriction was active when using runtime checks and checking that a 
+	userdata was an OOLua userdata.
 
  
 

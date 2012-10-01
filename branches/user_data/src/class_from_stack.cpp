@@ -86,7 +86,7 @@ namespace OOLUA
 #	define _oolua_len_ lua_objlen
 #endif
 			ud = static_cast<Lua_ud *>(lua_touserdata(l,index));
-			return ud && _oolua_len_(l,index) == sizeof(Lua_ud) && ud->created_by_state == l;
+			return ud && _oolua_len_(l,index) == sizeof(Lua_ud) && OOLUA_CHECK_COOKIE(ud->flags) ;
 #undef _oolua_len_
 		}
 #	else
@@ -96,7 +96,7 @@ namespace OOLUA
 			ud = static_cast<Lua_ud *>(lua_touserdata(l,index));
 			if(!ud)return false;
 			if(!lua_getmetatable(l, index)) return false;
-			lua_pushlightuserdata(l, l);
+			lua_pushlightuserdata(l,lua_topointer(l, LUA_REGISTRYINDEX));
 			lua_rawget(l,-2);
 			bool result = lua_isnil(l,-1) == 0;
 			lua_pop(l,2);

@@ -23,6 +23,7 @@ class LuaCallsCppFunctions : public CPPUNIT_NS::TestFixture
 {
 	CPPUNIT_TEST_SUITE(LuaCallsCppFunctions);
 	CPPUNIT_TEST(cppMethodCall_callsMemberFunctionNoParams_calledOnce);
+	CPPUNIT_TEST(cppMethodCall_callsMemberFunctionNoParamsViaADifferentThread_calledOnce);
 	CPPUNIT_TEST(cppMethodCall_callsAbstractMemberFunctionNoParams_calledOnce);
 	CPPUNIT_TEST(cppMethodCall_callsAbstractMemberFunctionOneParam_calledOnceWithCorrectParam);
 	CPPUNIT_TEST(cppMethodCall_callsAbstractMemberFunctionThreeParam_calledOnceWithCorrectParams);
@@ -69,6 +70,22 @@ public:
 		m_lua->call("foo",helper.abs_class);
 
 	}
+	
+	void cppMethodCall_callsMemberFunctionNoParamsViaADifferentThread_calledOnce()
+	{
+		m_lua->run_chunk(
+						 "foo = function(object)\n"
+						 "local c = coroutine.create( function() object:func() end )\n"
+						 "local res, err = coroutine.resume(c)\n"						 
+						 "if res == false then error(err) end\n"
+						 "end");
+		
+		Abstract_helper helper(m_lua);
+		EXPECT_CALL(helper.mock,func() )
+		.Times(1);
+		m_lua->call("foo",helper.abs_class);
+	}
+	
 	void cppMethodCall_callsAbstractMemberFunctionNoParams_calledOnce()
 	{
 		m_lua->run_chunk(

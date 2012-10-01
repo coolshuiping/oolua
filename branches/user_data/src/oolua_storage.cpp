@@ -110,9 +110,7 @@ namespace OOLUA
 			userdata_const_value(ud,is_const);
 
 #if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && OOLUA_USERDATA_OPTIMISATION == 1
-			ud->created_by_state = l;
-#else
-			(void)l;
+			OOLUA_SET_COOKIE(ud->flags);
 #endif		
 			return ud;
 		}

@@ -31,8 +31,8 @@ namespace OOLUA
 		
 		void set_oolua_userdata_creation_key_value_in_table(lua_State* l ,int tableIndex)
 		{
-#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1
-			lua_pushlightuserdata(l,l);
+#if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && OOLUA_USERDATA_OPTIMISATION == 0
+			lua_pushlightuserdata(l,lua_topointer(l, LUA_REGISTRYINDEX));
 			lua_pushboolean(l, 1);
 			lua_settable(l, tableIndex);
 #else
