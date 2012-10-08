@@ -741,8 +741,8 @@ SWIG_UnpackDataName(const char *c, void *ptr, size_t sz, const char *name) {
 extern "C" {
 #endif
 
-#include "lua.h"
-#include "lauxlib.h"
+#include "lua/lua.h"
+#include "lua/lauxlib.h"
 #include <stdlib.h>  /* for malloc */
 #include <assert.h>  /* for a few sanity tests */
 
@@ -1858,7 +1858,9 @@ static swig_lua_class _wrap_class_ProfileMultiBases = { "ProfileMultiBases", &SW
 #ifdef __cplusplus
 }
 #endif
-
+#ifndef luaL_reg
+#	define luaL_reg luaL_Reg
+#endif
 static const struct luaL_reg swig_commands[] = {
     {0,0}
 };
@@ -2169,7 +2171,8 @@ SWIGEXPORT int SWIG_init(lua_State* L)
 {
   int i;
   /* start with global table */
-  lua_pushvalue(L,LUA_GLOBALSINDEX);
+//  lua_pushvalue(L,LUA_GLOBALSINDEX);
+	lua_getglobal(L,"_G");
   /* SWIG's internal initalisation */
   SWIG_InitializeModule((void*)L);
   SWIG_PropagateClientData();

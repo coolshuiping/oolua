@@ -33,5 +33,6 @@ OOLUA_CLASS_END
 
 void open_Luabind_hierarchy(lua_State* l);
 
+void open_LuaBridge_hierarchy(lua_State* l);
 
 #endif

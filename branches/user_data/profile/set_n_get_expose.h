@@ -13,5 +13,7 @@ OOLUA_CLASS_END
 
 void open_Luabind_set_n_get(lua_State* l);
 
+void open_LuaBridge_set_n_get(lua_State* l);
+
 #endif
 

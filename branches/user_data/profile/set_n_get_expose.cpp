@@ -27,3 +27,25 @@ void open_Luabind_set_n_get(lua_State *l)
 #endif
 }
 
+
+#ifdef OOLUA_LUABRIDGE_COMPARE
+#	include "LuaBridge.h"
+#endif
+
+void open_LuaBridge_set_n_get(lua_State* l)
+{
+#ifdef OOLUA_LUABRIDGE_COMPARE
+	typedef void (*default_constructor) (void);
+	//.addConstructor<default_constructor>()
+	using namespace luabridge;
+	getGlobalNamespace(l)
+		.beginClass <Set_get>("Set_get")
+			.addConstructor<void(*)(void)>()
+			.addFunction("set",&Set_get::set)
+			.addFunction("get",&Set_get::get)
+		.endClass ();
+#else
+	(void)l;
+#endif
+}
+
