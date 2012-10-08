@@ -96,7 +96,7 @@ Removed the restriction of using classes only in the thread they were created, t
 	previously added restriction was active when using runtime checks and checking that a 
 	userdata was an OOLua userdata.
 
- 
+Lua_ref can safely be moved between related Lua states.
 
 1.3.1
 Work around for Visual Studio as reported by Tom on the mailing list added

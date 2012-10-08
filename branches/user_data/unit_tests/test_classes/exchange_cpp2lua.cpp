@@ -55,6 +55,10 @@ class Exchange_cpp2lua : public CPPUNIT_NS::TestFixture
 	
 	CPPUNIT_TEST(push_FunctionReferenceFromDifferentLuaState_throwRuntimeError);
 	CPPUNIT_TEST(push_tableFromDifferentState_throwRuntimeError);
+
+	CPPUNIT_TEST(push_FunctionReferenceFromDifferentYetRelatedLuaState_returnsTrue);
+	CPPUNIT_TEST(push_tableFromDifferentYetRelatedLuaState_returnsTrue);
+
 #endif
 	
 	CPPUNIT_TEST_SUITE_END();
@@ -185,11 +189,7 @@ public:
 
 	void pullFunctionReference(OOLUA::Lua_func_ref& f)
 	{
-		m_lua->run_chunk("f = function() end "
-						 "return_func_ref = function() "
-						 "return f "
-						 "end ");
-		m_lua->call("return_func_ref");
+		m_lua->run_chunk("return function() end");
 		OOLUA::pull2cpp(*m_lua,f);
 	}
 
@@ -216,11 +216,7 @@ public:
 	}
 	void pullValidTable(OOLUA::Lua_table& t)
 	{
-		m_lua->run_chunk("table_ref = function() "
-							"local t={} "
-							"return  t "
-						 "end ");
-		m_lua->call("table_ref");
+		m_lua->run_chunk("return {}");
 		OOLUA::pull2cpp(*m_lua,t);
 	}
 	void push_invalidTable_pushReturnsTrue()
@@ -304,6 +300,14 @@ public:
 		CPPUNIT_ASSERT_THROW(OOLUA::push2lua(s,t),OOLUA::Runtime_error );
 
 	}
+	void push_tableFromDifferentYetRelatedLuaState_returnsTrue()
+	{
+		lua_State* child = lua_newthread(*m_lua);
+		OOLUA::Lua_table t;
+		pullValidTable(t);
+
+		CPPUNIT_ASSERT_EQUAL(true,OOLUA::push2lua(child,t) );
+	}
 	void push_FunctionReferenceFromDifferentLuaState_throwRuntimeError()
 	{
 		OOLUA::Lua_func_ref f;
@@ -311,6 +315,16 @@ public:
 		
 		OOLUA::Script s;
 		CPPUNIT_ASSERT_THROW(OOLUA::push2lua(s,f),OOLUA::Runtime_error );
+	}
+	
+	void push_FunctionReferenceFromDifferentYetRelatedLuaState_returnsTrue()
+	{
+		lua_State* child = lua_newthread(*m_lua);
+		
+		OOLUA::Lua_func_ref f;
+		pullFunctionReference(f);
+		
+		CPPUNIT_ASSERT_EQUAL(true,OOLUA::push2lua(child,f));
 	}
 	
 #endif

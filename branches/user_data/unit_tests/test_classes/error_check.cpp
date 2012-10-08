@@ -57,6 +57,9 @@ class Error_test : public CPPUNIT_NS::TestFixture
 
 		CPPUNIT_TEST(userDataCheck_constUserdataOnTopOfStackWhichOoluaDidCreate_resultIsTrue);
 		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidCreate_resultIsTrue);
+		
+		CPPUNIT_TEST(userDataCheck_userdataOnTopOfStackWhichARelatedThreadCreated_resultIsTrue);
+		
 		CPPUNIT_TEST(userDataCheck_UserdataOnTopOfStackWhichOoluaDidNotCreate_stackIsTheSameSizeAfterCheck);
 		CPPUNIT_TEST(registerClass_checkStackSize_stackIsEmpty);
 		CPPUNIT_TEST(scriptConstructor_checkStackSize_stackIsEmpty);
@@ -183,7 +186,20 @@ public:
 		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
 		CPPUNIT_ASSERT_EQUAL(true,result );
 	}
-	
+	void userDataCheck_userdataOnTopOfStackWhichARelatedThreadCreated_resultIsTrue()
+	{
+		m_lua->run_chunk("foo = function() "
+						 "local c = coroutine.create(function() return Stub1:new() end) "
+						 "local err, result = coroutine.resume(c) "
+						 "if err == false then error(result) end "
+						 "return result "
+						 "end");
+		m_lua->register_class<Stub1>();
+		CPPUNIT_ASSERT(m_lua->call("foo"));
+		OOLUA::INTERNAL::Lua_ud* dontCare;
+		bool result = OOLUA::INTERNAL::index_is_userdata(*m_lua,-1,dontCare);
+		CPPUNIT_ASSERT_EQUAL(true,result );
+	}
 	void userDataCheck_constUserdataOnTopOfStackWhichOoluaDidCreate_resultIsTrue()
 	{
 		m_lua->run_chunk("foo = function(obj) "
