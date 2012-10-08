@@ -41,6 +41,46 @@ namespace
 		
 		lua_pushinteger(l,OOLUA::Lua);//int
 		lua_setglobal(l,OOLUA::INTERNAL::lua_owns_str);//globals[string]=int
+
+		OOLUA::INTERNAL::get_oolua_module(l);
+		lua_pushinteger(l,OOLUA::Cpp);//int
+		push_char_carray(l,OOLUA::INTERNAL::cpp_owns_str);
+		lua_rawset(l, -3);
+		
+		lua_pushinteger(l,OOLUA::Lua);//int
+		push_char_carray(l,OOLUA::INTERNAL::lua_owns_str);
+		lua_rawset(l, -3);
+
+		lua_pop(l,1);
+	}
+
+	void get_preload_table(lua_State* L)
+	{
+#if LUA_VERSION_NUM < 502
+		lua_getglobal(L,"package");
+		lua_getfield(L, -1, "preload");
+#else
+		lua_getfield(L, LUA_REGISTRYINDEX, "_PRELOAD");
+#endif
+		if (lua_type(L,-1) != LUA_TTABLE )
+			luaL_error(L, "Lua %d get_preload_table failed to retrieve the preload table. Stack top is %s\n"
+					   ,LUA_VERSION_NUM,lua_typename(L,-1));
+	}
+	
+	void register_oolua_module(lua_State *L)
+	{
+		int const top = lua_gettop(L);
+		get_preload_table(L);
+
+		push_char_carray(L,OOLUA::INTERNAL::oolua_str);
+		lua_pushcclosure(L, OOLUA::INTERNAL::get_oolua_module, 0);
+		lua_settable(L, -3);
+
+		push_char_carray(L,OOLUA::INTERNAL::oolua_str);
+		lua_createtable(L, 0, 2);//starts with two entries cpp_own and lua_owns
+		lua_rawset(L, LUA_REGISTRYINDEX);
+		
+		lua_settop(L, top);
 	}
 }
 
@@ -49,6 +89,7 @@ namespace OOLUA
 	void setup_user_lua_state(lua_State* l)
 	{
 		add_weaklookup_table(l);
+		register_oolua_module(l);
 		add_ownership_globals(l);
 	}
 
