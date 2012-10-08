@@ -7,14 +7,14 @@ namespace
 }
 void operator_create(std::ofstream &f,int params)
 {
-	f<<tab<<"template<typename FUNC";
+	f<<tab<<"template<typename FUNC_TYPE";
 	for(int i = 1; i<=params;++i)
 	{
 		f<<",typename P"<<i;
 	}
 	f<<">\n";
 
-	f<<tab<<"bool operator()(FUNC const&  func_name";
+	f<<tab<<"bool operator()(FUNC_TYPE const& func";
 	for(int j = 1;j<=params;++j)
 	{
 		f<<",P"<<j<<" p"<<j;
@@ -22,25 +22,40 @@ void operator_create(std::ofstream &f,int params)
 	f<<")\n";
 
 	f<<tab<<"{\n" 
-	<<tab<<tab<<"set_function(func_name);\n";
-	for(int k=1;k<=params;++k)
+	<<tab<<tab<<"int error_index(0);\n"
+	<<tab<<tab<<"const int top = get_top();\n"
+	<<tab<<tab<<"OOLUA_CALLER_TRY\n";
+
+	f<<tab<<tab<<"if( prep_function(func,"<<params<<",error_index) ";
+	if(params == 0)
 	{
-		if(k==1)f<<tab<<tab;
-		f<<"push2lua(m_lua,p"<<k<<"); ";
+		f<<") return call(0,error_index);\n";
 	}
-	f<<"\n"
-	<<tab<<tab<<"return call("<<params<<");\n"
+	else
+	{
+		f<<"\n";
+		for(int k=1;k<=params;++k)
+		{
+			f<<tab<<tab<<tab<<"&& push2lua(m_lua,p"<<k<<")\n";
+		}
+		f<<tab<<tab<<")\n"
+		<<tab<<tab<<tab<<"return call("<<params<<",error_index);\n";
+
+	}
+
+	f<<tab<<tab<<"OOLUA_CALLER_HANDLE_FAIL\n"
 	<<tab<<"}\n";
 }
 void rest_of_struct_body(std::ofstream&f)
 {
 	f<<tab<<"void bind_script(lua_State* const lua);\n"
 	<<"private:\n"
-	<<tab<<"bool call(int const& count);\n"
-	<<tab<<"void set_function(std::string const& func);\n"
-	<<tab<<"void set_function(Lua_func_ref const& func);\n"
-	<<tab<<"lua_State* m_lua;\n"
-	<<tab<<"int m_error_func_index;\n";
+	<<tab<<"int get_top();\n"
+	<<tab<<"bool call(int const nparams, int const error_index);\n"
+	<<tab<<"bool prep_function(Lua_func_ref const& func,int const nparams, int& error_index);\n"
+	<<tab<<"bool prep_function(std::string const& func,int const nparams, int& error_index);\n"
+	<<tab<<"bool prep_function(int const func,int const nparams, int& error_index);\n"
+	<<tab<<"lua_State* m_lua;\n";
 }
 void lua_function_header(std::string & save_directory,int maxParams)
 {
@@ -66,9 +81,32 @@ void lua_function_header(std::string & save_directory,int maxParams)
 ///  The Lua function can either be called by name(std::string) or with the\n\
 ///  use a Lua reference which is stored in a Lua_func.\n\
 ///////////////////////////////////////////////////////////////////////////////\n";
+	
+f <<"#if OOLUA_USE_EXCEPTIONS ==1 \n"
+  <<"#"<<tab<<"define OOLUA_CALLER_TRY \\\n"
+		<<tab<<"try \\\n"
+		<<tab<<"{\n"
+	
+	<<"#"<<tab<<"define OOLUA_CALLER_HANDLE_FAIL \\\n"
+	<<tab<<"} \\\n"
+	<<tab<<"catch (...) \\\n"
+	<<tab<<"{ \\\n"
+	<<tab<<tab<<"lua_settop(m_lua, top); \\\n"
+	<<tab<<tab<<"throw; \\\n"
+	<<tab<<"} \\\n"
+	<<tab<<"return false; /*Shhhhhhhhhh*/\n"
+	
+<<"#else\n"
+	<<"#"<<tab<<"define OOLUA_CALLER_TRY \n"
+	<<"#"<<tab<<"define OOLUA_CALLER_HANDLE_FAIL \\\n"
+	<<tab<<"lua_settop(m_lua, top); \\\n"
+	<<tab<<"return false; \n"
+<<"#endif\n";
+	
 	f<<"struct Lua_function\n"
 	<<"{\n"
-	<<"\tLua_function();\n";
+	<<"\tLua_function();\n"
+	<<"\tLua_function(lua_State* l);\n";
 
 	for(int i = 0; i<=maxParams; ++i)
 	{
@@ -78,7 +116,9 @@ void lua_function_header(std::string & save_directory,int maxParams)
 
 	f<<"\n};";//end struct
 	f<<"\n}\n";//end namespace
-
+	
+	f<<"#undef OOLUA_CALLER_TRY\n"
+	<<"#undef OOLUA_CALLER_HANDLE_FAIL\n";
 
 	include_guard_bottom(f);
 }
