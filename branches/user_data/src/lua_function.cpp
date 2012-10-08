@@ -2,14 +2,7 @@
 #	include "lua_function.h"
 #   include "oolua_check_result.h"
 #	include "oolua_config.h"
-//#error lua_function change
-//#if OOLUA_DEBUG_CHECKS == 1
-//#   include <cassert>
-//#	define OOLUA_DEBUG_CHECK assert
-//#else
-//#	define OOLUA_DEBUG_CHECK(X)(void)0
-//#endif
-#include "oolua_error.h"
+#	include "oolua_error.h"
 
 namespace 
 {
