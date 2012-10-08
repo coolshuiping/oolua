@@ -17,11 +17,11 @@ namespace OOLUA
 			oolua_function_check_base base_checker;
 			oolua_type_check_function type_check;
 			LVD::uint32 flags;
-      };
-		
+		};
+	
 #if OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1 && OOLUA_USERDATA_OPTIMISATION == 1
-	/*lowest byte is left for flags*/
-#	define OOLUA_MAGIC_COOKIE	0xfc0041e0
+	/*lowest nibble is reserved for flags*/
+#	define OOLUA_MAGIC_COOKIE	0xfC105Ef0
 #	define OOLUA_CHECK_COOKIE(flags)(((flags) & 0xfffffff0) == OOLUA_MAGIC_COOKIE)
 #	define OOLUA_SET_COOKIE(flags)	( (flags) = (OOLUA_MAGIC_COOKIE | ((flags) & 0xf)) )
 #endif
