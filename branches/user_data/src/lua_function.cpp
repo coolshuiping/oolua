@@ -112,15 +112,6 @@ namespace OOLUA
 		remove_callback(m_lua,error_index);
 		return INTERNAL::protected_call_check_result(m_lua,result);
 	}
-/*
-#if OOLUA_RUNTIME_CHECKS_ENABLED == 1 || OOLUA_DEBUG_CHECKS == 1
-#	define OOLUA_CHECK_STACK_IF_ENABLED(lvm,count) \
-		if( ! lua_checkstack(lvm, (count)) ) return false
-#	else
-#	define OOLUA_CHECK_STACK_IF_ENABLED(lvm,count)(void*)lvm
-#endif	
-*/
-	
 	
 	
 #if OOLUA_RUNTIME_CHECKS_ENABLED == 1 
@@ -129,7 +120,17 @@ namespace OOLUA
 		if( ! lua_checkstack(lvm, (count)) )throw OOLUA::Runtime_error("unable to grow the stack")
 #	elif OOLUA_STORE_LAST_ERROR == 1
 #		define OOLUA_CHECK_STACK_IF_ENABLED(lvm,count) \
-		if( ! lua_checkstack(lvm, (count)) ) do{OOLUA::set_last_error(lvm,"unable to grow the stack"); return false;}while(0)
+		if( ! lua_checkstack(lvm, (count)) ) \
+		do \
+		{ \
+			if( lua_checkstack(lvm, 3) ) \
+			{ \
+				lua_pushliteral(lvm,"unable to grow the stack"); \
+				OOLUA::INTERNAL::set_error_from_top_of_stack_and_pop_the_error(lvm); \
+			} \
+			/*else cant even grow the stack to add the error*/ \
+			return false; \
+		}while(0)
 #	endif
 #elif OOLUA_DEBUG_CHECKS == 1
 #	define OOLUA_CHECK_STACK_IF_ENABLED(lvm,count) \
