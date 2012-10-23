@@ -71,11 +71,7 @@ namespace
 		lua_concat(L, lua_gettop(L) - arg);
 		return 1;
 	}
-
-}
-
-namespace OOLUA
-{
+	
 	int set_error_callback(lua_State* l, lua_CFunction func)
 	{
 #if OOLUA_DEBUG_CHECKS == 1
@@ -87,10 +83,11 @@ namespace OOLUA
 		return 0;
 #endif
 	}
-	void remove_callback(lua_State* l, int index)
-	{
-		if (index != 0)lua_remove(l, index);
-	}
+	
+}
+
+namespace OOLUA
+{
 	void Lua_function::bind_script(lua_State* const lua)
 	{
 #if OOLUA_DEBUG_CHECKS == 1
@@ -109,7 +106,7 @@ namespace OOLUA
 	bool Lua_function::call(int const nparams,int const error_index)
 	{
 		int result = lua_pcall(m_lua,nparams,LUA_MULTRET,error_index);
-		remove_callback(m_lua,error_index);
+		if (error_index != 0)lua_remove(m_lua, error_index);
 		return INTERNAL::protected_call_check_result(m_lua,result);
 	}
 	

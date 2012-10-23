@@ -11,23 +11,20 @@ namespace OOLUA
 		bool handle_unrelated_states(lua_State* const from,lua_State* const to)
 		{
 #if OOLUA_RUNTIME_CHECKS_ENABLED == 1
-	//		if( lua != other )
-			{
 #	if OOLUA_USE_EXCEPTIONS ==1
-				lua_pushfstring(to,"Can not push a valid Lua reference from lua_State(%p) to an unrelated lua_State(%p)",from,to);
-				throw OOLUA::Runtime_error(to,(OOLUA::ERROR::PopTheStack*)0);
+			lua_pushfstring(to,"Can not push a valid Lua reference from lua_State(%p) to an unrelated lua_State(%p)",from,to);
+			throw OOLUA::Runtime_error(to,(OOLUA::ERROR::PopTheStack*)0);
 #	endif
 #	if OOLUA_STORE_LAST_ERROR ==1
-				lua_pushfstring(to,"Can not push a valid Lua reference from lua_State(%p) to an unrelated lua_State(%p)",from,to); 
-				OOLUA::INTERNAL::set_error_from_top_of_stack_and_pop_the_error(to);
+			lua_pushfstring(to,"Can not push a valid Lua reference from lua_State(%p) to an unrelated lua_State(%p)",from,to); 
+			OOLUA::INTERNAL::set_error_from_top_of_stack_and_pop_the_error(to);
 #	endif
 #	if OOLUA_DEBUG_CHECKS == 1
-				//	assert(0 && "Can not push a valid Lua reference from one lua_State to a different state");
+			//assert(0 && "Can not push a valid Lua reference from one lua_State to a different state");
 #	endif
 #	if OOLUA_USE_EXCEPTIONS == 0
-				return false;
+			return false;
 #	endif
-			}
 #else
 			(void)from;
 			(void)to;
