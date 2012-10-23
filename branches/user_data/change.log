@@ -70,6 +70,7 @@ Lua_function
 	Correctly throws or returns false and sets an error when a reference push error occurs.
 	On error now resets the stack to the same as before entry.
 Added OOLua module
+Updated __VA_ARGS__ macro for VS11
 
 1.3.2
 Fixed bug when using va args to rename a function
