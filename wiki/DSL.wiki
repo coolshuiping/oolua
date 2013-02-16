@@ -20,6 +20,9 @@
 ||OOLUA_MEM_FUNC_X_CONST_RENAME ||Yes||Generates a constant function with X parameters which is to be renamed||
 ||OOLUA_DEDUCE_FUNC ||Yes||Generates a function which deduces the function signature if there is no ambiguity||
 ||OOLUA_DEDUCE_CONST_FUNC ||Yes||Generates a constant function which deduces the constant function signature if there is no ambiguity||
+||OOLUA_PUBLIC_MEMBER_GET ||Yes||Generates a constant function which returns a public data member||
+||OOLUA_PUBLIC_MEMBER_SET ||Yes||Generates a function which returns a public data member||
+||OOLUA_PUBLIC_MEMBER_GET_SET ||Yes||Generates both a get and set functions for a public data member||
 ||EXPORT_OOLUA_FUNCTIONS_X_CONST||Yes||Exports X functions for the class ||
 ||EXPORT_OOLUA_FUNCTIONS_X_NON_CONST||Yes||Exports X constant functions for the class||
 ||EXPORT_OOLUA_FUNCTIONS_CONST||No||Varadic macro which exports constant functions for the class||
