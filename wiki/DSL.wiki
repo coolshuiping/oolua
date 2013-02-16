@@ -24,6 +24,9 @@
 ||OOLUA_DEDUCE_FUNC ||Yes||Generates a function which deduces the function signature if there is no ambiguity||
 ||OOLUA_DEDUCE_FUNC_CONST ||Yes||Generates a constant function which deduces the constant function signature if there is no ambiguity||
 || || ||
+||OOLUA_C_FUNCTION||No|| Varadic macro for generating a C function's body||
+||OOLUA_C_FUNCTION_X||Yes || Generates a C function's body which has X parameters||
+|| || ||
 ||OOLUA_PUBLIC_MEMBER_GET ||Yes||Generates a constant function which returns a public data member||
 ||OOLUA_PUBLIC_MEMBER_SET ||Yes||Generates a function which returns a public data member||
 ||OOLUA_PUBLIC_MEMBER_GET_SET ||Yes||Generates both a get and set functions for a public data member||
