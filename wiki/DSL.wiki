@@ -7,10 +7,12 @@
 ||OOLUA_BASIC||Yes||Required when using portable code for a class which has bases exposed.||
 ||OOLUA_BASES_START||Yes||List start of base classes||
 ||OOLUA_BASES_END||Yes||Ends the list of base classes||
+|| || ||
 ||OOLUA_TYPEDEFS||Yes||Starts the list of additional information||
 ||OOLUA_END_TYPES||Yes||Ends the list of additional information||
 ||OOLUA_TYPEDEFS_END||Yes||Alias for OOLUA_END_TYPES so that it matches the format of other names||
 ||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
+|| || ||
 ||OOLUA_MEM_FUNC||No||Varadic macro for generating a member function||
 ||OOLUA_MEM_FUNC_CONST||No||Varadic macro for generating a constant member function ||
 ||OOLUA_MEM_FUNC_RENAME||No||Varadic macro for generating a member function which is to be renamed||
@@ -21,14 +23,17 @@
 ||OOLUA_MEM_FUNC_X_CONST_RENAME ||Yes||Generates a constant function with X parameters which is to be renamed||
 ||OOLUA_DEDUCE_FUNC ||Yes||Generates a function which deduces the function signature if there is no ambiguity||
 ||OOLUA_DEDUCE_CONST_FUNC ||Yes||Generates a constant function which deduces the constant function signature if there is no ambiguity||
+|| || ||
 ||OOLUA_PUBLIC_MEMBER_GET ||Yes||Generates a constant function which returns a public data member||
 ||OOLUA_PUBLIC_MEMBER_SET ||Yes||Generates a function which returns a public data member||
 ||OOLUA_PUBLIC_MEMBER_GET_SET ||Yes||Generates both a get and set functions for a public data member||
+|| || ||
 ||EXPORT_OOLUA_FUNCTIONS_X_CONST||Yes||Exports X functions for the class ||
 ||EXPORT_OOLUA_FUNCTIONS_X_NON_CONST||Yes||Exports X constant functions for the class||
 ||EXPORT_OOLUA_FUNCTIONS_CONST||No||Varadic macro which exports constant functions for the class||
 ||EXPORT_OOLUA_FUNCTIONS_NON_CONST||No||Varadic macro which exports functions for the class||
 ||EXPORT_OOLUA_NO_FUNCTIONS||Yes||Helper macro which defines the class has not functions to export ||
+|| || ||
 ||OOLUA_CONSTRUCTORS_BEGIN||Yes||Starts the generation of constructors to make available ||
 ||OOLUA_CONSTRUCTORS_END||Yes||Ends the generation of constructors ||
 ||OOLUA_ONLY_DEFAULT_CONSTRUCTOR||Yes||Helper macro which only makes available a public default constructor ||
