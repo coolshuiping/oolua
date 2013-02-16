@@ -9,6 +9,7 @@
 ||OOLUA_BASES_END||Yes||Ends the list of base classes||
 ||OOLUA_TYPEDEFS||Yes||Starts the list of additional information||
 ||OOLUA_END_TYPES||Yes||Ends the list of additional information||
+||OOLUA_TYPEDEFS_END||Yes||Alias for OOLUA_END_TYPES so that it matches the format of other names||
 ||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
 ||OOLUA_MEM_FUNC||No||Varadic macro for generating a member function||
 ||OOLUA_MEM_FUNC_CONST||No||Varadic macro for generating a constant member function ||
