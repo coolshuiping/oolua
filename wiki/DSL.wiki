@@ -33,7 +33,7 @@
 ||OOLUA_PUBLIC_MEMBER_GET_SET ||Yes||Generates both a get and set functions for a public data member||
 || || ||
 ||OOLUA_ENUMS||Yes ||Starts the set of class enums which will be bound using OOLUA_ENUM_ENTRY||
-||OOLUA_ENUM_ENTRY||Yes ||Informs the library of an enum to be exposed to Lua||
+||OOLUA_ENUM_ENTRY||Yes ||Informs the library of a class enum to be exposed to Lua||
 ||OOLUA_ENUMS_END||Yes ||Ends the set of class enums that were started with OOLUA_ENUMS||
 || || ||
 ||EXPORT_OOLUA_FUNCTIONS_X_CONST||Yes||Exports X functions for the class ||
