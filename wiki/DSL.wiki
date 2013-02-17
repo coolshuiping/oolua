@@ -10,7 +10,7 @@
 ||OOLUA_CLASS_END||Yes||Ends the generation of a proxy class.||
 || || ||
 ||OOLUA_TYPEDEFS||Yes||Starts the list of additional information||
-||OOLUA_END_TYPES||Yes||Ends the list of additional information||
+||OOLUA_END_TYPES||Yes||Ends the list of additional information (Deprecated)||
 ||OOLUA_TYPEDEFS_END||Yes||Alias for OOLUA_END_TYPES so that it matches the format of other names||
 ||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
 || || ||
