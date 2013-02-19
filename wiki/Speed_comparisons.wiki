@@ -5,7 +5,7 @@ OOLua Binding Framework speed compared to other bindings.
 = Introduction =
 For these profile tests the following libraries were used:
  * Luabind 0.9.1 *Note*: There is no official version which supports Lua 5.2 so instead the following version was used: [http://github.com/ThomasNelson/luabind/tree/TomN-Lua52%2Bfactories%2Bstl Thomas Nelson's fork]  <br />Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS and Boost 1.4.0
- * OOLua 1.4 Using defines Building#Config#OOLUA_RUNTIME_CHECKS_ENABLED == 1 OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1, OOLUA_USERDATA_OPTIMISATION ==1
+ * OOLua 1.4 Using defines [Building#Config OOLUA_RUNTIME_CHECKS_ENABLED] == 1 [Building#Config OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA] == 1, [Building#Config OOLUA_USERDATA_OPTIMISATION] ==1
   Times also shown when using OOLUA_RUNTIME_CHECKS_ENABLED ==  0 
  * Swig 2.0.1
 
