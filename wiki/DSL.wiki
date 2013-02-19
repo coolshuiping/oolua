@@ -33,7 +33,7 @@
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_public_instances.h#13 OOLUA_PUBLIC_MEMBER_GET_SET] ||Yes||Generates both a get and set functions for a public data member||
 || || ||
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#12 OOLUA_ENUMS]||Yes ||Starts the set of class enums which will be bound using OOLUA_ENUM_ENTRY||
-||[ http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#13OOLUA_ENUM_ENTRY]||Yes ||Informs the library of a class enum to be exposed to Lua||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#13 OOLUA_ENUM_ENTRY]||Yes ||Informs the library of a class enum to be exposed to Lua||
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#15 OOLUA_ENUMS_END]||Yes ||Ends the set of class enums that were started with OOLUA_ENUMS||
 || || ||
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_class_constructors.h#10 OOLUA_CONSTRUCTORS_BEGIN]||Yes||Starts the generation of constructors to make available ||
