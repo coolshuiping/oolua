@@ -4,10 +4,15 @@ OOLua Binding Framework speed compared to other bindings.
 
 = Introduction =
 For these profile tests the following libraries were used:
- * Luabind 0.9.0 (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS) and Boost 1.4.0
- * OOLua 1.3 Using defines OOLUA_RUNTIME_CHECKS_ENABLED == 1 OOLUA_SAFE_ID_COMPARE == 1
+ * Luabind 0.9.1 Note: There is no official version which supports Lua 5.2 so instead the following version was used Thomas Nelson's fork https://github.com/ThomasNelson/luabind/tree/TomN-Lua52%2Bfactories%2Bstl (Using the defines LUABIND_NO_ERROR_CHECKING and LUABIND_DONT_COPY_STRINGS) and Boost 1.4.0
+ * OOLua 1.4 Using defines OOLUA_RUNTIME_CHECKS_ENABLED == 1 OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA == 1, OOLUA_USERDATA_OPTIMISATION ==1
   Times also shown when using OOLUA_RUNTIME_CHECKS_ENABLED ==  0 
- * Swig 1.3.40
+ * Swig 2.0.1
+
+Using a machine with the following CPU
+{{{
+Intel(R) Core(TM)2 Duo CPU     P7550  @ 2.26GHz
+}}}
 
 ==Setting and getting ==
 Getting and setting a member variable via a member function.
@@ -55,10 +60,13 @@ end
 print('OOLua access (average elapsed time):',ave/N)
 }}}
 ===Access results===
-|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
-||OOLua||0.3588456||0.3289822||
-||Luabind||0.6606246||
-||Swig||0.8161317||
+|| *Library* || *Time(sec)*  ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.3590224||0.3359856||0.2700227||
+||Luabind||0.5077312||0.5134535||0.3928163||
+||SWIG||0.7512369||0.7709426||0.5926358||
+||OOLua no runtime checks||0.3018826||0.3009695||0.2411604||
+
 
 
 ==Class exchanging==
@@ -137,11 +145,12 @@ print('OOLua passing derived to a function that wants a base  (average elapsed t
 }}}
 
 ====Wants base results====
-|| *Library* || *Time(sec)* ||OOLua no runtime checks||
-||OOLua||0.3751027||0.2739998||
-||Swig||0.3823656||
-||Luabind||0.4523089||
-
+|| *Library* || *Time(sec)* || ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.1925849||0.196252||0.1694646||
+||Luabind||0.3344658||0.3699374||0.3107969||
+||SWIG||0.347758||0.3456323||0.2810876||
+||OOLua no runtime checks||0.1772717||0.1947286||0.1425415||
 
 ===Passing a derived class which uses multiple inheritance in Lua to a C++ member class that wants a base ===
 Lua code <br />
@@ -168,11 +177,12 @@ print('OOLua passing derived with multiple bases to a function that wants a base
 }}}
 
 ====Multiple inheritance wants base results====
-|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
-||OOLua||0.3928864||0.3188173||
-||Swig||0.4145844||
-||Luabind||0.4654789||
-
+|| *Library* || *Time(sec)*  || ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.2057114||0.2099513||0.1807507||
+||Luabind||0.3404258||0.3745065||0.3139187||
+||SWIG||0.3550647||0.3597586||0.3155249||
+||OOLua no runtime checks||0.1852408||0.2143713||0.1622692||
 
 The following test should give the same results per library, yet I wanted to check this.
 ===Calling a virtual function===
@@ -200,11 +210,12 @@ print('OOLua virtual function  (average elapsed time):',ave/N)
 
 
 ====Calling a virtual function results====
-|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
-||OOLua||0.1606761||0.1412019||
-||Swig||0.3456166||
-||Luabind||0.3162266||
-
+|| *Library* || *Time(sec)*  || ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.1298764||0.1328911||0.1081259||
+||Luabind||0.2508799||0.2763377||0.2238482||
+||SWIG||0.3185289||0.3184858||0.2458188||
+||OOLua no runtime checks||0.1226391||0.1297259||0.0939919||
 
 ===Calling a pure virtual function===
 Lua code <br />
@@ -230,11 +241,12 @@ print('OOLua pure virtual function  (average elapsed time):',ave/N)
 }}}
 
 ====Calling a pure virtual function results====
-|| *Library* || *Time(sec)*  ||OOLua no runtime checks||
-||OOLua||0.1636298||0.1382053||
-||Swig||0.3572994||
-||Luabind||0.3188037||
-
+|| *Library* || *Time(sec)*  || ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.1318034||0.1328911||0.1088815||
+||Luabind||0.2514496||0.2763377||0.2238482||
+||SWIG||0.3195146||0.3221236||0.2461681||
+||OOLua no runtime checks||0.1215891||0.1281504||0.0961552||
 
 ===Calling a pure virtual function on an instance passed to Lua===
 Lua code <br />
@@ -258,7 +270,9 @@ local times = 1000000
 end
 }}}
 ====Calling a virtual function in a function results====
-|| *Library* || *Time(sec)* ||OOLua no runtime checks||
-||OOLua||0.153329||0.137955||
-||Luabind||0.303186||
-||Swig||0.40603||
+|| *Library* || *Time(sec)* || ||
+|| || Lua 5.1 || Lua 5.2 || LuaJIT2 ||
+||OOLua||0.138073||0.129919||0.107684||
+||Luabind||0.214728||0.228361||0.190358||
+||SWIG||0.321698||0.319418||0.246192||
+||OOLua no runtime checks||0.116942||0.130224||0.09406||
