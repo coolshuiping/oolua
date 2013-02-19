@@ -1,49 +1,49 @@
 #labels Featured
 ||Name||Portable||Description||
-||OOLUA_CLASS||Yes||Used for portable code which is to have bases exposed||
-||OOLUA_BASIC||Yes||Required when using OOLUA_CLASS to expose a class||
-||OOLUA_BASES_START||Yes||Starts the list of base classes, required when using OOLUA_CLASS||
-||OOLUA_BASES_END||Yes||Ends the list of base classes, required when using OOLUA_CLASS||
-||OOLUA_CLASS_NO_BASES||Yes||Helper macro which informs the library there are no base classes for this class to be exposed. ||
-||OOLUA_CLASS_WITH_BASES||Yes||Helper macro which informs the library there is at least one base class|| 
-||OOLUA_PROXY_CLASS||No||Varadic macro which can be used to start the generating of a proxy class. If supported can be used with and without bases.||
-||OOLUA_CLASS_END||Yes||Ends the generation of a proxy class.||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#62 OOLUA_CLASS]||Yes||Used for portable code which is to have bases exposed||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#63 OOLUA_BASIC]||Yes||Required when using OOLUA_CLASS to expose a class||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#65 OOLUA_BASES_START]||Yes||Starts the list of base classes, required when using OOLUA_CLASS||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#65 OOLUA_BASES_END]||Yes||Ends the list of base classes, required when using OOLUA_CLASS||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#16 OOLUA_CLASS_NO_BASES]||Yes||Helper macro which informs the library there are no base classes for this class to be exposed. ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#71 OOLUA_CLASS_WITH_BASES]||Yes||Helper macro which informs the library there is at least one base class|| 
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#87 OOLUA_PROXY_CLASS]||No||Varadic macro which can be used to start the generating of a proxy class. If supported can be used with and without bases.||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#90 OOLUA_CLASS_END]||Yes||Ends the generation of a proxy class.||
 || || ||
-||OOLUA_TYPEDEFS||Yes||Starts the list of additional information||
-||OOLUA_END_TYPES||Yes||Ends the list of additional information (Deprecated)||
-||OOLUA_TYPEDEFS_END||Yes||Alias for OOLUA_END_TYPES so that it matches the format of other names||
-||OOLUA_NO_TYPEDEFS||Yes||Defines that there is no additional information needed for the class||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#13 OOLUA_TYPEDEFS]||Yes||Starts the list of additional information||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#13 OOLUA_END_TYPES]||Yes||Ends the list of additional information (Deprecated)||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/include/proxy_class.h#290 OOLUA_TYPEDEFS_END]||Yes||Alias for OOLUA_END_TYPES so that it matches the format of other names||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#56 OOLUA_NO_TYPEDEFS]||Yes||Defines that there is no additional information needed for the class||
 || || ||
-||OOLUA_MEM_FUNC||No||Varadic macro for generating a member function||
-||OOLUA_MEM_FUNC_CONST||No||Varadic macro for generating a constant member function ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#11 OOLUA_MEM_FUNC]||No||Varadic macro for generating a member function||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#74 OOLUA_MEM_FUNC_CONST]||No||Varadic macro for generating a constant member function ||
 ||OOLUA_MEM_FUNC_RENAME||No||Varadic macro for generating a member function which is to be renamed||
-||OOLUA_MEM_FUNC_CONST_RENAME||No||Varadic macro for generating a constant member function which is to be renamed ||
-||OOLUA_MEM_FUNC_X||Yes||Generates a function which has X parameters||
-||OOLUA_MEM_FUNC_X_CONST ||Yes||Generates a constant function which has X parameters||
-||OOLUA_MEM_FUNC_X_RENAME ||Yes||Generates a function with X parameters which is to be renamed||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_member_function_calls.h#17 OOLUA_MEM_FUNC_CONST_RENAME]||No||Varadic macro for generating a constant member function which is to be renamed ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_const_func.h#10 OOLUA_MEM_FUNC_X]||Yes||Generates a function which has X parameters||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_const_func.h#9 OOLUA_MEM_FUNC_X_CONST]||Yes||Generates a constant function which has X parameters||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_out_params.h#15 OOLUA_MEM_FUNC_X_RENAME]||Yes||Generates a function with X parameters which is to be renamed||
 ||OOLUA_MEM_FUNC_X_CONST_RENAME ||Yes||Generates a constant function with X parameters which is to be renamed||
-||OOLUA_DEDUCE_FUNC ||Yes||Generates a function which deduces the function signature if there is no ambiguity||
-||OOLUA_DEDUCE_FUNC_CONST ||Yes||Generates a constant function which deduces the constant function signature if there is no ambiguity||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_max_params.h#18 OOLUA_DEDUCE_FUNC] ||Yes||Generates a function which deduces the function signature if there is no ambiguity||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#29 OOLUA_DEDUCE_FUNC_CONST] ||Yes||Generates a constant function which deduces the constant function signature if there is no ambiguity||
 || || ||
-||OOLUA_C_FUNCTION||No|| Varadic macro for generating a C function's body||
-||OOLUA_C_FUNCTION_X||Yes || Generates a C function's body which has X parameters||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_static_and_c_functions.cpp#9 OOLUA_C_FUNCTION]||No|| Varadic macro for generating a C function's body||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_static_and_c_functions.cpp#8 OOLUA_C_FUNCTION_X]||Yes || Generates a C function's body which has X parameters||
 || || ||
-||OOLUA_PUBLIC_MEMBER_GET ||Yes||Generates a constant function which returns a public data member||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_public_instances.h#14 OOLUA_PUBLIC_MEMBER_GET ]||Yes||Generates a constant function which returns a public data member||
 ||OOLUA_PUBLIC_MEMBER_SET ||Yes||Generates a function which returns a public data member||
-||OOLUA_PUBLIC_MEMBER_GET_SET ||Yes||Generates both a get and set functions for a public data member||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_public_instances.h#13 OOLUA_PUBLIC_MEMBER_GET_SET] ||Yes||Generates both a get and set functions for a public data member||
 || || ||
-||OOLUA_ENUMS||Yes ||Starts the set of class enums which will be bound using OOLUA_ENUM_ENTRY||
-||OOLUA_ENUM_ENTRY||Yes ||Informs the library of a class enum to be exposed to Lua||
-||OOLUA_ENUMS_END||Yes ||Ends the set of class enums that were started with OOLUA_ENUMS||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#12 OOLUA_ENUMS]||Yes ||Starts the set of class enums which will be bound using OOLUA_ENUM_ENTRY||
+||[ http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#13OOLUA_ENUM_ENTRY]||Yes ||Informs the library of a class enum to be exposed to Lua||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_enum.h#15 OOLUA_ENUMS_END]||Yes ||Ends the set of class enums that were started with OOLUA_ENUMS||
 || || ||
-||EXPORT_OOLUA_FUNCTIONS_X_CONST||Yes||Exports X functions for the class ||
-||EXPORT_OOLUA_FUNCTIONS_X_NON_CONST||Yes||Exports X constant functions for the class||
-||EXPORT_OOLUA_FUNCTIONS_CONST||No||Varadic macro which exports constant functions for the class||
-||EXPORT_OOLUA_FUNCTIONS_NON_CONST||No||Varadic macro which exports functions for the class||
-||EXPORT_OOLUA_NO_FUNCTIONS||Yes||Helper macro which defines the class has not functions to export ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_class_constructors.h#10 OOLUA_CONSTRUCTORS_BEGIN]||Yes||Starts the generation of constructors to make available ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_class_constructors.h#22 OOLUA_CONSTRUCTORS_END]||Yes||Ends the generation of constructors ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#57 OOLUA_ONLY_DEFAULT_CONSTRUCTOR]||Yes||Helper macro which only makes available a public default constructor ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_class_constructors.h#20 OOLUA_CONSTRUCTOR_X]||Yes||Generates a constructor which takes X parameters ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_class_constructors.h#21 OOLUA_CONSTRUCTOR]||No||Varadic macro which generates a constructor ||
 || || ||
-||OOLUA_CONSTRUCTORS_BEGIN||Yes||Starts the generation of constructors to make available ||
-||OOLUA_CONSTRUCTORS_END||Yes||Ends the generation of constructors ||
-||OOLUA_ONLY_DEFAULT_CONSTRUCTOR||Yes||Helper macro which only makes available a public default constructor ||
-||OOLUA_CONSTRUCTOR_X||Yes||Generates a constructor which takes X parameters ||
-||OOLUA_CONSTRUCTOR||No||Varadic macro which generates a constructor ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.cpp#9 EXPORT_OOLUA_FUNCTIONS_X_CONST]||Yes||Exports X functions for the class ||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.cpp#8 EXPORT_OOLUA_FUNCTIONS_X_NON_CONST]||Yes||Exports X constant functions for the class||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.cpp#6 EXPORT_OOLUA_FUNCTIONS_CONST]||No||Varadic macro which exports constant functions for the class||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.cpp#5 EXPORT_OOLUA_FUNCTIONS_NON_CONST]||No||Varadic macro which exports functions for the class||
+||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.cpp#42 EXPORT_OOLUA_NO_FUNCTIONS]||Yes||Helper macro which defines the class has no functions to export ||
