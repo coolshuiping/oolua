@@ -81,9 +81,9 @@ A configuration header is now included to control what features are present in t
 ||OOLUA_RUNTIME_CHECKS_ENABLED || 1 ||Checks that a type being pulled off the stack is of the correct type. If this is a proxy type, it also checks the userdata on the stack was created by OOLua||
 ||OOLUA_STD_STRING_IS_INTEGRAL||1||If 1 Allows std::string to be a parameter or a return type for a function. <br />*NOTE: This is always by value*.||
 ||OOLUA_CHECK_EVERY_USERDATA_IS_CREATED_BY_OOLUA||1||When set to one, everytime a userdata is encountered and it is expected to  have been created by OOLua it is checked and an error occurs if it was not.||
-||OOLUA_USERDATA_OPTIMISATION||1|Userdata optimisation which checks for a magic cookie to try and ensure it was created by OOLua, by default this is on when userdata checking is on.  Turning this off by setting it to zero will use a slower yet fully correct method.||
-||OOLUA_USE_EXCEPTIONS||0||If 1 Throws exceptions from C++ code. This could be the return of a pcall when pulling an incorrect type of the stack if. <br />*See* [Building_1_3#Error_Note]||
-||OOLUA_STORE_LAST_ERROR||1||When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); <br />*See* [Building_1_3#Error_Note]||
+||OOLUA_USERDATA_OPTIMISATION||1||Userdata optimisation which checks for a magic cookie to try and ensure it was created by OOLua, by default this is on when userdata checking is on.  Turning this off by setting it to zero will use a slower yet fully correct method.||
+||OOLUA_USE_EXCEPTIONS||0||If 1 Throws exceptions from C++ code. This could be the return of a pcall when pulling an incorrect type of the stack if. <br />*See* [Building#Error_Note]||
+||OOLUA_STORE_LAST_ERROR||1||When an error occurs, the error is stored in the Lua registry and is retrievable via OOLUA::get_last_error(lua); <br />*See* [Building#Error_Note]||
 ||OOLUA_DEBUG_CHECKS||1||Checks for null pointers adds a stack trace to messages called within pcall. <br />*Note: Default value is when complied as a debug version of the library*.||
 
 == Error Note ==
