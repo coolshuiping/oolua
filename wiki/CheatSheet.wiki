@@ -1,5 +1,5 @@
 #labels Featured
-OOLua Binding Framework Cheat Sheet for version 1.3
+OOLua Binding Framework Cheat Sheet for version 1.4
 <wiki:toc max_depth="5" />
 
 = Portable =
@@ -149,7 +149,7 @@ s.call(f);
 
 === Typedefs ===
 Typedefs allow for more information to be expressed about a class which is having a proxy class created for it, this extra information is placed between the following macros in a comma separated list. For all types which can be inserted into this list see [http://code.google.com/p/oolua/source/browse/trunk/include/oolua_typedefs.h oolua_typedefs.h]
- * OOLUA_TYPEDEFS_START <br />
+ * OOLUA_TYPEDEFS <br />
  * OOLUA_TYPEDEFS_END <br />
 
 For convenience OOLUA_NO_TYPEDEFS is available when no further information need be expressed. 
