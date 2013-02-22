@@ -281,7 +281,7 @@ end
 
 = Comparison Criticism  =
 
-The comparison of bindings intend to give you some ball park costs and were orginally based on a Gem[GPG6]. In the past it was considered difficult to read the number and really understand the differences between libraries; additionly that the cost of the method look up should not be part of the comparison. A Lua self call {{{self:func()}}} is functionally the same as {{{self.func(self)}}} and it would be normal Lua usage to look up the method once, cache the value and to repeatively use this value in a loop or where frequent look up would otherwise occur.
+The comparison of bindings intend to give you some ball park costs and were orginally based on a Gem [ GPG6 ]. In the past it was considered difficult to read the number and really understand the differences between libraries; additionly that the cost of the method look up should not be part of the comparison. A Lua self call {{{self:func()}}} is functionally the same as {{{self.func(self)}}} and it would be normal Lua usage to look up the method once, cache the value and to repeatively use this value in a loop or where frequent look up would otherwise occur.
 
 The following module is used to compare a method call via look up and a call using a cached function.
 {{{
@@ -385,4 +385,5 @@ To compile OOLua and LuaBind to use the same behaviour as SWIG
 ||LuaBind 					||1.789653e-07 	||2.570887e-07	||1.612678e-07 	||2.592235e-07	||1.374707e-07	||2.243405e-07	||
 
 
-[GPG6] Celes, W., Figueiredo, L.H. and Ierusalimschy, R., "Binding C/C++ Objects to Lua."  Game Programming Gems 6,  Charles River Media, 2006. 
+=== GPG6 === 
+Celes, W., Figueiredo, L.H. and Ierusalimschy, R., "Binding C/C++ Objects to Lua."  Game Programming Gems 6,  Charles River Media, 2006. 
