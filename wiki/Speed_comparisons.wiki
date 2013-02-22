@@ -281,7 +281,7 @@ end
 
 = Comparison Criticism  =
 
-The comparison of bindings intend to give you some ball park costs and were orginally based on a Gem Speed_comparisons#GPG6 . In the past it was considered difficult to read the number and really understand the differences between libraries; additionly that the cost of the method look up should not be part of the comparison. A Lua self call {{{self:func()}}} is functionally the same as {{{self.func(self)}}} and it would be normal Lua usage to look up the method once, cache the value and to repeatively use this value in a loop or where frequent look up would otherwise occur.
+The comparison of bindings intend to give you some ball park costs and were orginally based on a Gem GPG6 . In the past it was considered difficult to read the number and really understand the differences between libraries; additionly that the cost of the method look up should not be part of the comparison. A Lua self call {{{self:func()}}} is functionally the same as {{{self.func(self)}}} and it would be normal Lua usage to look up the method once, cache the value and to repeatively use this value in a loop or where frequent look up would otherwise occur.
 
 The following module is used to compare a method call via look up and a call using a cached function.
 {{{
