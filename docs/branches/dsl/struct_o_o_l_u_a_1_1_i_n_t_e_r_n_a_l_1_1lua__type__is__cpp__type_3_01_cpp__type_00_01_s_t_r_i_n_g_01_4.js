@@ -1,0 +1,5 @@
+var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1lua__type__is__cpp__type_3_01_cpp__type_00_01_s_t_r_i_n_g_01_4 =
+[
+    [ "Lua_string", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1lua__type__is__cpp__type_3_01_cpp__type_00_01_s_t_r_i_n_g_01_4.html#ab27930ce05026079f00069c853223165", null ],
+    [ "value", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1lua__type__is__cpp__type_3_01_cpp__type_00_01_s_t_r_i_n_g_01_4.html#ae675aca249811caf689980f8f02fcf67a31264f9733cc59382a3f1bdc7c061c92", null ]
+];

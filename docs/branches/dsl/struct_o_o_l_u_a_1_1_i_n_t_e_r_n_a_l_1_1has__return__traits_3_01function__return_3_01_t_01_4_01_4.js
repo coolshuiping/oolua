@@ -1,0 +1,4 @@
+var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1has__return__traits_3_01function__return_3_01_t_01_4_01_4 =
+[
+    [ "value", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1has__return__traits_3_01function__return_3_01_t_01_4_01_4.html#a2c00bb222604c4d62294ec4ac83fc7b6ae866696b4ce184c0d8a747d280a49272", null ]
+];

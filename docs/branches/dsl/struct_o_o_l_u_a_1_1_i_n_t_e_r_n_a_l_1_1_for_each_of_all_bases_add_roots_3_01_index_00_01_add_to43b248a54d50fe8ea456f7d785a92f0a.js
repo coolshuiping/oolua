@@ -1,0 +1,4 @@
+var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1_for_each_of_all_bases_add_roots_3_01_index_00_01_add_to43b248a54d50fe8ea456f7d785a92f0a =
+[
+    [ "Result", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1_for_each_of_all_bases_add_roots_3_01_index_00_01_add_to43b248a54d50fe8ea456f7d785a92f0a.html#add39c9b5eb494596fba59b3e7f5b5c70", null ]
+];
