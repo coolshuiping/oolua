@@ -1,4 +1,6 @@
 DSL for OOLua version 2.0
+For the new documentation for this version see http://oolua.googlecode.com/svn/docs/branches/dsl/html/index.html
+
 ||Name||Description||
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#87 OOLUA_PROXY]||Starts the generating of a proxy class and defines base classes if there are any.||
 ||[http://code.google.com/p/oolua/source/browse/tags/1.4.0/unit_tests/bind_classes/expose_hierarchy.h#90 OOLUA_PROXY_END]||Ends the generation of a proxy class.||
