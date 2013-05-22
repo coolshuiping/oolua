@@ -1,4 +1,0 @@
-var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1has__return__traits_3_01lua__out__p_3_01_t_01_4_01_4 =
-[
-    [ "value", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1has__return__traits_3_01lua__out__p_3_01_t_01_4_01_4.html#a735af79c0b94e56a207a64b4bc3ea65daeafa480715c7e477dc7dd2ccbdbe3099", null ]
-];

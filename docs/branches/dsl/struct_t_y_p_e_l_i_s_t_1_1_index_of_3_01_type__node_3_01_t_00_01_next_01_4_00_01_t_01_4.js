@@ -1,4 +1,0 @@
-var struct_t_y_p_e_l_i_s_t_1_1_index_of_3_01_type__node_3_01_t_00_01_next_01_4_00_01_t_01_4 =
-[
-    [ "value", "struct_t_y_p_e_l_i_s_t_1_1_index_of_3_01_type__node_3_01_t_00_01_next_01_4_00_01_t_01_4.html#a6d35e2819bcea5e603b3ff82667ce6a8a0b6d00d86ddedd7875c6d01d041f0aa6", null ]
-];

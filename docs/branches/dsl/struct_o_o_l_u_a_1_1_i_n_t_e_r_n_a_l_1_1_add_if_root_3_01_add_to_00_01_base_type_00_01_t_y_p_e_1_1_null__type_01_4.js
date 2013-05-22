@@ -1,4 +1,0 @@
-var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1_add_if_root_3_01_add_to_00_01_base_type_00_01_t_y_p_e_1_1_null__type_01_4 =
-[
-    [ "Result", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1_add_if_root_3_01_add_to_00_01_base_type_00_01_t_y_p_e_1_1_null__type_01_4.html#af979298a1d7babd0a35749f804be4651", null ]
-];

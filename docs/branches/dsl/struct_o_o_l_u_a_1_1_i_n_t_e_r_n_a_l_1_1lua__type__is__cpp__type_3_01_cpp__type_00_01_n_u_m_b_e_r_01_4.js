@@ -1,4 +1,0 @@
-var struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1lua__type__is__cpp__type_3_01_cpp__type_00_01_n_u_m_b_e_r_01_4 =
-[
-    [ "value", "struct_o_o_l_u_a_1_1_i_n_t_e_r_n_a_l_1_1lua__type__is__cpp__type_3_01_cpp__type_00_01_n_u_m_b_e_r_01_4.html#ab8031a5860c1fe21fd17748096cdb334a7b2eb5c590600613d117a081ca1cc6a4", null ]
-];
