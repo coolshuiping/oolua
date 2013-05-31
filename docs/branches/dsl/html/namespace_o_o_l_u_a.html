@@ -168,7 +168,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition operator is defined for the type.  <a href="struct_o_o_l_u_a_1_1_add__op.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_o_l_u_a_1_1_no__default__constructor.html">No_default_constructor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">There is not a default constructor in the public interfaceyet there are other constructors.  <a href="struct_o_o_l_u_a_1_1_no__default__constructor.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">There is not a default constructor in the public interface yet there are other constructors.  <a href="struct_o_o_l_u_a_1_1_no__default__constructor.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_o_l_u_a_1_1_no__public__constructors.html">No_public_constructors</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">There are no constructors in the public interface.  <a href="struct_o_o_l_u_a_1_1_no__public__constructors.html#details">More...</a><br/></td></tr>
@@ -287,7 +287,7 @@ template&lt;typename T , typename T1 &gt; </td></tr>
 <tr class="separator:gaec9ba2232a21bf9ac42b9336a88720c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a889336ee34b6edc3eb37dd109cf28a18"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a889336ee34b6edc3eb37dd109cf28a18"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_o_l_u_a.html#a889336ee34b6edc3eb37dd109cf28a18">register_class</a> (<a class="el" href="structlua___state.html">lua_State</a> *l)</td></tr>
-<tr class="memdesc:a889336ee34b6edc3eb37dd109cf28a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the class type.  <a href="#a889336ee34b6edc3eb37dd109cf28a18">More...</a><br/></td></tr>
+<tr class="memdesc:a889336ee34b6edc3eb37dd109cf28a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the class type T with an instance of <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>.  <a href="#a889336ee34b6edc3eb37dd109cf28a18">More...</a><br/></td></tr>
 <tr class="separator:a889336ee34b6edc3eb37dd109cf28a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8977640ae6460548d8ffdb2ef1996c70"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a8977640ae6460548d8ffdb2ef1996c70"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_o_o_l_u_a.html#a8977640ae6460548d8ffdb2ef1996c70">register_class_and_bases</a> (<a class="el" href="structlua___state.html">lua_State</a> *l)</td></tr>
@@ -1407,17 +1407,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Registers the class type. </p>
-<ul>
-<li>T which has a Proxy_class with the <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> <dl class="tparams"><dt>Template Parameters</dt><dd>
+<p>Registers the class type T with an instance of <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Class type to register with OOLua </td></tr>
+    <tr><td class="paramname">T</td><td>Class type to register with OOLua</td></tr>
   </table>
   </dd>
 </dl>
+<p>Registers a class type T with OOLua if there is a Proxy for the type and the type has not already been registered with the instance. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>this should also register base classes is this not happending? </dd></dl>
-</li>
-</ul>
 
 </div>
 </div>
@@ -1712,7 +1710,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_o_l_u_a.html">OOLUA</a></li>
-    <li class="footer">Generated on Wed May 22 2013 23:54:12 for OOLua by
+    <li class="footer">Generated on Fri May 31 2013 16:42:00 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

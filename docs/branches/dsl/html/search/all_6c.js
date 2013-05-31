@@ -22,5 +22,6 @@ var searchData=
   ['lua_5ftable_5fref',['Lua_table_ref',['../namespace_o_o_l_u_a.html#acb779ad0b57f8ce1605c323837408a9e',1,'OOLUA']]],
   ['lua_20types_20in_20oolua',['Lua types in OOLua',['../_lua_types_in_o_o_lua.html',1,'OOLuaUseage']]],
   ['lvd_5ftypes_2eh',['lvd_types.h',['../lvd__types_8h.html',1,'']]],
+  ['library_20comparisons',['Library Comparisons',['../_o_o_lua_comparison.html',1,'']]],
   ['library_20configuration',['Library Configuration',['../group___o_o_lua_config.html',1,'']]]
 ];

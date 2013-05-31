@@ -121,84 +121,80 @@ $(document).ready(function(){initNavTree('cpp__member__func_8h_source.html','');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#   include &lt;cassert&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#   include &quot;oolua_config.h&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#if GCC_VA_ARGS_SYSTEM_HEADER_OOLUA == 1</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#if defined __GNUC__</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#   pragma GCC system_header</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span>    GCC_PUSH_DISABLE_VA_WARNINGS_OOLUA</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/*OOLUA_MEMBER_BODY_N generates a member function with at least one parameter*/</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define OOLUA_MEMBER_BODY_N(mod,func_name,return_value,func , ... ) \</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">int func_name(lua_State* const l) mod \</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">{ \</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">    assert(m_this); \</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">    OOLUA_PARAMS_CONCAT(__VA_ARGS__) \</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">    typedef INTERNAL::return_type_traits&lt;return_value &gt; R; \</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">    typedef R::type (class_::*funcType )( OOLUA_PARAM_TYPE_CONCAT(__VA_ARGS__) ) mod ; \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    OOLUA::INTERNAL::Proxy_caller&lt;R,class_,LVD::is_void&lt; R::type &gt;::value &gt;::call&lt;OOLUA_TPARAMS_CONCAT(__VA_ARGS__) funcType&gt;(l,m_this,&amp;class_::func OOLUA_PPARAMS_CONCAT(__VA_ARGS__)); \</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">    OOLUA_BACK_CONCAT(__VA_ARGS__) \</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">    return INTERNAL::lua_return_count&lt; Type_list&lt;R OOLUA_RETURNS_CONCAT(__VA_ARGS__) &gt;::type&gt; ::out; \</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/*OOLUA_MEMBER_BODY_0 generates a member function with no parameters*/</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define OOLUA_MEMBER_BODY_0(mod,func_name,return_value,func) \</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">int func_name(lua_State* const l) mod\</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">{ \</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">    assert(m_this); \</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">    typedef INTERNAL::return_type_traits&lt;return_value &gt; R; \</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">    typedef R::type (class_::*funcType )() mod ; \</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">    OOLUA::INTERNAL::Proxy_caller&lt;R,class_,LVD::is_void&lt; R::type &gt;::value &gt;::call&lt; funcType&gt;(l,m_this,&amp;class_::func ); \</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">    return INTERNAL::lua_return_count&lt; Type_list&lt;R  &gt;::type&gt; ::out; \</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> OOLUA_MEM_FUNC_N and OOLUA_MEM_FUNC_0</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> A member function defined using OOLUA_MEM_FUNC*  (*=  |_CONST | _RENAME | _CONST_RENAME )</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> will translate into a corresponding macro below using either a suffix of _N if there are </span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> function parameters else _0</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#define OOLUA_MEM_FUNC_N(return_value,func , ...)                   OOLUA_MEMBER_BODY_N(      ,func,return_value,func , __VA_ARGS__ )</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_N(return_value,func , ...)             OOLUA_MEMBER_BODY_N(const ,func,return_value,func , __VA_ARGS__ )</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_RENAME_N(name,return_value,func , ...)       OOLUA_MEMBER_BODY_N(      ,name,return_value,func , __VA_ARGS__ )</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_RENAME_N(name,return_value,func , ...) OOLUA_MEMBER_BODY_N(const ,name,return_value,func , __VA_ARGS__ )</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#define OOLUA_MEM_FUNC_0(return_value,func)                         OOLUA_MEMBER_BODY_0(      ,func,return_value,func)</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_0(return_value,func)                   OOLUA_MEMBER_BODY_0(const ,func,return_value,func)</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_RENAME_0(name,return_value,func)             OOLUA_MEMBER_BODY_0(      ,name,return_value,func)</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_RENAME_0(name,return_value,func)       OOLUA_MEMBER_BODY_0(const ,name,return_value,func)</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_GENERIC(mod,ProxyName,FunctionName) \</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">int ProxyName(lua_State* l) mod \</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">{ \</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">    return OOLUA::INTERNAL::mod##proxy_member_function_with_default_traits(l, m_this, &amp;class_::FunctionName); \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> OOLUA_MFUNC_INTERNAL(_CONST)_2 and OOLUA_MFUNC(_CONST)_INTERNAL_1</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> A member function defined using OOLUA_MFUNC*  (*=  |_CONST )</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"> will translate into a corresponding macro below using and then to OOLUA_MFUNC_GENERIC</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_INTERNAL_2(FunctionName,ProxyName)      OOLUA_MFUNC_GENERIC(    ,ProxyName,FunctionName)</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MFUNC_INTERNAL_1(FunctionName)                OOLUA_MFUNC_INTERNAL_2(FunctionName,FunctionName) </span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_CONST_INTERNAL_2(FunctionName,ProxyName)OOLUA_MFUNC_GENERIC(const,ProxyName,FunctionName)</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MFUNC_CONST_INTERNAL_1(FunctionName)          OOLUA_MFUNC_CONST_INTERNAL_2(FunctionName,FunctionName) </span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;GCC_POP_VA_WARNINGS_OOLUA</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif </span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">/*OOLUA_MEMBER_BODY_N generates a member function with at least one parameter*/</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define OOLUA_MEMBER_BODY_N(mod,func_name,return_value,func , ... ) \</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">int func_name(lua_State* const l) mod \</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">{ \</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">    assert(m_this); \</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">    OOLUA_PARAMS_CONCAT(__VA_ARGS__) \</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">    typedef INTERNAL::return_type_traits&lt;return_value &gt; R; \</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">    typedef R::type (class_::*funcType )( OOLUA_PARAM_TYPE_CONCAT(__VA_ARGS__) ) mod ; \</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">    OOLUA::INTERNAL::Proxy_caller&lt;R,class_,LVD::is_void&lt; R::type &gt;::value &gt;::call&lt;OOLUA_TPARAMS_CONCAT(__VA_ARGS__) funcType&gt;(l,m_this,&amp;class_::func OOLUA_PPARAMS_CONCAT(__VA_ARGS__)); \</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">    OOLUA_BACK_CONCAT(__VA_ARGS__) \</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    return INTERNAL::lua_return_count&lt; Type_list&lt;R OOLUA_RETURNS_CONCAT(__VA_ARGS__) &gt;::type&gt; ::out; \</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">}</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">/*OOLUA_MEMBER_BODY_0 generates a member function with no parameters*/</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#define OOLUA_MEMBER_BODY_0(mod,func_name,return_value,func) \</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">int func_name(lua_State* const l) mod\</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">{ \</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">    assert(m_this); \</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">    typedef INTERNAL::return_type_traits&lt;return_value &gt; R; \</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">    typedef R::type (class_::*funcType )() mod ; \</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">    OOLUA::INTERNAL::Proxy_caller&lt;R,class_,LVD::is_void&lt; R::type &gt;::value &gt;::call&lt; funcType&gt;(l,m_this,&amp;class_::func ); \</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">    return INTERNAL::lua_return_count&lt; Type_list&lt;R  &gt;::type&gt; ::out; \</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">}</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> OOLUA_MEM_FUNC_N and OOLUA_MEM_FUNC_0</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> A member function defined using OOLUA_MEM_FUNC*  (*=  |_CONST | _RENAME | _CONST_RENAME )</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> will translate into a corresponding macro below using either a suffix of _N if there are </span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> function parameters else _0</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define OOLUA_MEM_FUNC_N(return_value,func , ...)                   OOLUA_MEMBER_BODY_N(      ,func,return_value,func , __VA_ARGS__ )</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_N(return_value,func , ...)             OOLUA_MEMBER_BODY_N(const ,func,return_value,func , __VA_ARGS__ )</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_RENAME_N(name,return_value,func , ...)       OOLUA_MEMBER_BODY_N(      ,name,return_value,func , __VA_ARGS__ )</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_RENAME_N(name,return_value,func , ...) OOLUA_MEMBER_BODY_N(const ,name,return_value,func , __VA_ARGS__ )</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define OOLUA_MEM_FUNC_0(return_value,func)                         OOLUA_MEMBER_BODY_0(      ,func,return_value,func)</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_0(return_value,func)                   OOLUA_MEMBER_BODY_0(const ,func,return_value,func)</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_RENAME_0(name,return_value,func)             OOLUA_MEMBER_BODY_0(      ,name,return_value,func)</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MEM_FUNC_CONST_RENAME_0(name,return_value,func)       OOLUA_MEMBER_BODY_0(const ,name,return_value,func)</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_GENERIC(mod,ProxyName,FunctionName) \</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">int ProxyName(lua_State* l) mod \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">{ \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    return OOLUA::INTERNAL::mod##proxy_member_function_with_default_traits(l, m_this, &amp;class_::FunctionName); \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">}</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> OOLUA_MFUNC_INTERNAL(_CONST)_2 and OOLUA_MFUNC(_CONST)_INTERNAL_1</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> A member function defined using OOLUA_MFUNC*  (*=  |_CONST )</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> will translate into a corresponding macro below using and then to OOLUA_MFUNC_GENERIC</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_INTERNAL_2(FunctionName,ProxyName)      OOLUA_MFUNC_GENERIC(    ,ProxyName,FunctionName)</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MFUNC_INTERNAL_1(FunctionName)                OOLUA_MFUNC_INTERNAL_2(FunctionName,FunctionName) </span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#define OOLUA_MFUNC_CONST_INTERNAL_2(FunctionName,ProxyName)OOLUA_MFUNC_GENERIC(const,ProxyName,FunctionName)</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_MFUNC_CONST_INTERNAL_1(FunctionName)          OOLUA_MFUNC_CONST_INTERNAL_2(FunctionName,FunctionName) </span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif </span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_109956d109ca819fc728e173ca948b07.html">oolua_moore_1.4</a></li><li class="navelem"><a class="el" href="dir_c60251056766aa954d98c6c113df887d.html">branches</a></li><li class="navelem"><a class="el" href="dir_8e131148354ec07750cb4262e3ef0025.html">dsl</a></li><li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><a class="el" href="cpp__member__func_8h.html">cpp_member_func.h</a></li>
-    <li class="footer">Generated on Wed May 22 2013 23:54:12 for OOLua by
+    <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><a class="el" href="cpp__member__func_8h.html">cpp_member_func.h</a></li>
+    <li class="footer">Generated on Fri May 31 2013 16:41:59 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

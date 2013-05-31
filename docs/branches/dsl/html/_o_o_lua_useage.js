@@ -1,6 +1,6 @@
 var _o_o_lua_useage =
 [
-    [ "First Look", "_o_o_lua_first_look.html", [
+    [ "First look", "_o_o_lua_first_look.html", [
       [ "Hello Moon", "_o_o_lua_first_look.html#HelloMoon", null ],
       [ "Conventions", "_o_o_lua_first_look.html#OOLuaConventions", null ],
       [ "lua_State and Script", "_o_o_lua_first_look.html#OOLuaLuaStateAndScript", null ],

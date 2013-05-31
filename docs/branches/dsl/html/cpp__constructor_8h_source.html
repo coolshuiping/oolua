@@ -362,22 +362,41 @@ $(document).ready(function(){initNavTree('cpp__constructor_8h_source.html','');}
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor">    } \</span></div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="preprocessor">    luaL_error(l,&quot;%s %d %s %s&quot;,&quot;Could not match&quot;,stack_count,&quot;parameter constructor for type&quot;,class_name); \</span></div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="preprocessor">    return 0;</span><span class="comment">/*required by function sig yet luaL_error never returns*/</span><span class="preprocessor">  \</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="preprocessor">#define OOLUA_ONLY_DEFAULT_CONSTRUCTOR \</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_BEGIN \</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_END</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">} \</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="preprocessor">    typedef class_ ctor_block_check;</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">#define OOLUA_ONLY_DEFAULT_CONSTRUCTOR \</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_BEGIN \</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_END</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="preprocessor">#endif </span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">namespace </span>OOLUA</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keyword">namespace </span>INTERNAL</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">int</span> oolua_generic_default_constructor(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* l)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            lua_remove(l, 1);<span class="comment">/*remove class type*/</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            <span class="keywordtype">int</span> <span class="keyword">const</span> stack_count = lua_gettop(l);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            <span class="keywordflow">if</span>(stack_count == 0 )</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                <span class="keywordflow">return</span> Constructor&lt;T,has_typedef&lt;OOLUA::Proxy_class&lt;T&gt;, <a class="code" href="struct_o_o_l_u_a_1_1_no__default__constructor.html" title="There is not a default constructor in the public interface yet there are other constructors. ">OOLUA::No_default_constructor</a>&gt;::Result&gt;::construct(l);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            } </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            luaL_error(l,<span class="stringliteral">&quot;%s %d %s %s&quot;</span>,<span class="stringliteral">&quot;Could not match&quot;</span>,stack_count,<span class="stringliteral">&quot;parameter constructor for type&quot;</span>,OOLUA::Proxy_class&lt;T&gt;::class_name);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            <span class="keywordflow">return</span> 0;<span class="comment">/*required by function sig yet luaL_error never returns*/</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        }</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;}</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#endif </span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_109956d109ca819fc728e173ca948b07.html">oolua_moore_1.4</a></li><li class="navelem"><a class="el" href="dir_c60251056766aa954d98c6c113df887d.html">branches</a></li><li class="navelem"><a class="el" href="dir_8e131148354ec07750cb4262e3ef0025.html">dsl</a></li><li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><a class="el" href="cpp__constructor_8h.html">cpp_constructor.h</a></li>
-    <li class="footer">Generated on Wed May 22 2013 23:54:12 for OOLua by
+    <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><a class="el" href="cpp__constructor_8h.html">cpp_constructor.h</a></li>
+    <li class="footer">Generated on Fri May 31 2013 16:41:59 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>
