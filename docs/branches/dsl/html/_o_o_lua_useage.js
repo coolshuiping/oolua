@@ -18,10 +18,13 @@ var _o_o_lua_useage =
       [ "Traits", "_o_o_lua_proxying.html#OOLuaProxyTraits", null ],
       [ "Class Proxy", "_o_o_lua_proxying.html#ClassProxy", [
         [ "Minimal Class Proxy", "_o_o_lua_proxying.html#MinimalClassProxy", [
-          [ "Constructors", "_o_o_lua_proxying.html#ClassConstructors", null ],
-          [ "Tags", "_o_o_lua_proxying.html#ClassTags", null ],
-          [ "Exporting", "_o_o_lua_proxying.html#ClassExporting", null ]
+          [ "Proxy block", "_o_o_lua_proxying.html#ProxyBlock", null ],
+          [ "Exporting", "_o_o_lua_proxying.html#ClassExporting", null ],
+          [ "Registering", "_o_o_lua_proxying.html#ClassRegistering", null ]
         ] ],
+        [ "Tags", "_o_o_lua_proxying.html#ProxyTags", null ],
+        [ "Default Constructor", "_o_o_lua_proxying.html#DefaultConstructor", null ],
+        [ "Constructors", "_o_o_lua_proxying.html#ClassConstructors", null ],
         [ "Exposing member functions", "_o_o_lua_proxying.html#ExposingMemberFunctions", null ],
         [ "Abstract Class", "_o_o_lua_proxying.html#AbstractClass", null ],
         [ "Base Classes", "_o_o_lua_proxying.html#BaseClass", null ],

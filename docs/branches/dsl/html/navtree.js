@@ -46,7 +46,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_lua_types_in_o_o_lua.html",
-"lua__table_8h.html#afd465a0caf8b87492585c8d65561ab87"
+"lua__table_8h.html#a7b77604de6a0c15f040f1fb0f1c7181d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
