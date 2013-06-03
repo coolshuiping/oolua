@@ -23,5 +23,6 @@ var searchData=
   ['lua_20types_20in_20oolua',['Lua types in OOLua',['../_lua_types_in_o_o_lua.html',1,'OOLuaUseage']]],
   ['lvd_5ftypes_2eh',['lvd_types.h',['../lvd__types_8h.html',1,'']]],
   ['library_20comparisons',['Library Comparisons',['../_o_o_lua_comparison.html',1,'']]],
-  ['library_20configuration',['Library Configuration',['../group___o_o_lua_config.html',1,'']]]
+  ['library_20configuration',['Library Configuration',['../group___o_o_lua_config.html',1,'']]],
+  ['library_20tests',['Library tests',['../_o_o_lua_unit_tests.html',1,'']]]
 ];

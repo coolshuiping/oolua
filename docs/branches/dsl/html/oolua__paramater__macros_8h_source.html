@@ -183,10 +183,10 @@ $(document).ready(function(){initNavTree('oolua__paramater__macros_8h_source.htm
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#define OOLUA_INTERNAL_PARAM_T(NUM) \</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">    typedef OOLUA::INTERNAL::param_type&lt;P ## NUM &gt; P ## NUM ##_; \</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">    typename P ## NUM ##_::pull_type p ## NUM; \</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">    MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA \</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">    if( P ## NUM ##_::in ) \</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">    </span><span class="comment">/*MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA*/</span><span class="preprocessor"> \</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">    </span><span class="comment">/*if( P ## NUM ##_::in )*/</span><span class="preprocessor"> \</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">        OOLUA::INTERNAL::Member_func_helper&lt;P ## NUM ##_,P ## NUM ##_::owner&gt;::pull2cpp(l,p ## NUM); \</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">    MSC_POP_COMPILER_WARNING_OOLUA</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">    </span><span class="comment">/*MSC_POP_COMPILER_WARNING_OOLUA */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">//we need to generate a 0 entry so that a function with no parameters will compile</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#define OOLUA_PARAMS_T_INTERNAL_0</span></div>
@@ -276,7 +276,7 @@ $(document).ready(function(){initNavTree('oolua__paramater__macros_8h_source.htm
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><a class="el" href="oolua__paramater__macros_8h.html">oolua_paramater_macros.h</a></li>
-    <li class="footer">Generated on Sat Jun 1 2013 01:16:47 for OOLua by
+    <li class="footer">Generated on Mon Jun 3 2013 15:04:46 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

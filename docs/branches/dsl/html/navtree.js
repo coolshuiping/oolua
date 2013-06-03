@@ -9,6 +9,10 @@ var NAVTREE =
     [ "Links", "index.html#OOLuaLinks", null ],
     [ "Licence", "index.html#OOLuaLicence", null ],
     [ "Usage", "_o_o_lua_useage.html", "_o_o_lua_useage" ],
+    [ "Building", "_o_o_lua_building.html", null ],
+    [ "Library tests", "_o_o_lua_unit_tests.html", [
+      [ "Directory layout", "_o_o_lua_unit_tests.html#OOLuaTestFiles", null ]
+    ] ],
     [ "Library Comparisons", "_o_o_lua_comparison.html", "_o_o_lua_comparison" ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
@@ -45,8 +49,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_lua_types_in_o_o_lua.html",
-"lua__table_8h.html#a7b77604de6a0c15f040f1fb0f1c7181d"
+"_library_comparison_overview.html",
+"lua__ref_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

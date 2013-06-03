@@ -33,6 +33,7 @@ var files =
     [ "expose_class_constructors.h", "expose__class__constructors_8h_source.html", null ],
     [ "expose_class_enums.h", "expose__class__enums_8h_source.html", null ],
     [ "expose_const_func.h", "expose__const__func_8h_source.html", null ],
+    [ "expose_deque_int.h", "expose__deque__int_8h_source.html", null ],
     [ "expose_enum.h", "expose__enum_8h_source.html", null ],
     [ "expose_functions_with_ref_params.h", "expose__functions__with__ref__params_8h_source.html", null ],
     [ "expose_hierarchy.h", "expose__hierarchy_8h_source.html", null ],

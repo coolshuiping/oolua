@@ -17,5 +17,9 @@ var _o_o_lua_comparison =
       [ "LuaJIT 5.1.1.1.8 : No userdata checks", "_o_o_lua_library_comparison_results.html#luaJIT1NoChecks", null ],
       [ "LuaJIT 5.1.2.0.1 : Userdata checks", "_o_o_lua_library_comparison_results.html#luaJIT2Checks", null ],
       [ "LuaJIT 5.1.2.0.1 : No userdata checks", "_o_o_lua_library_comparison_results.html#luaJIT2NoChecks", null ]
+    ] ],
+    [ "Comparison overview", "_library_comparison_overview.html", [
+      [ "Userdata checks", "_library_comparison_overview.html#LuaBestChecks", null ],
+      [ "No userdata checks", "_library_comparison_overview.html#LuaBestNoChecks", null ]
     ] ]
 ];
