@@ -9,7 +9,18 @@ var NAVTREE =
     [ "Links", "index.html#OOLuaLinks", null ],
     [ "Licence", "index.html#OOLuaLicence", null ],
     [ "Usage", "_o_o_lua_useage.html", "_o_o_lua_useage" ],
-    [ "Building", "_o_o_lua_building.html", null ],
+    [ "Building", "_o_o_lua_building.html", [
+      [ "Makefiles and IDE projects", "_o_o_lua_building.html#OOLuaPremake", [
+        [ "Premake format", "_o_o_lua_building.html#OOLuaPremakeFormat", [
+          [ "Makefile", "_o_o_lua_building.html#OOLuaPremakeMakefile", null ],
+          [ "Xcode", "_o_o_lua_building.html#OOLuaPremakeXcode", null ],
+          [ "Visual Studio", "_o_o_lua_building.html#OOLuaPremakeVisualStudio", null ],
+          [ "CodeBlocks", "_o_o_lua_building.html#OOLuaPremakeCodeBlocks", null ]
+        ] ]
+      ] ],
+      [ "Local install", "_o_o_lua_building.html#OOLuaPremakeLocalInstall", null ],
+      [ "Build Scripts", "_o_o_lua_building.html#OOLuaBuildScripts", null ]
+    ] ],
     [ "Library tests", "_o_o_lua_unit_tests.html", [
       [ "Directory layout", "_o_o_lua_unit_tests.html#OOLuaTestFiles", null ]
     ] ],
@@ -50,7 +61,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_library_comparison_overview.html",
-"lua__ref_8h_source.html"
+"lua__class__ops_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

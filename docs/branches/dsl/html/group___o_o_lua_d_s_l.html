@@ -151,7 +151,7 @@ Macros</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>The Domain specific language used for generating C++ bindings for Lua. </p>
 <p>OOLua provides a DSL for defining C++ types which are to be made available to a Lua script. The intention of this DSL is to hide the details whilst providing a simple and rememberable interface for performing the actions required. </p>
-<dl class="section note"><dt>Note</dt><dd>"Optional" here means tha extra macro parameters are optional, up to the configuration max for a specific operation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>"Optional" here means that extra macro parameters are optional, up to the configuration <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">max</a> for a specific operation. </dd></dl>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ga437d72d20968100efe9fb362247176cc"></a>
 <div class="memitem">
@@ -176,7 +176,8 @@ Macros</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>Size of ConstructorParameterList &gt;0 and &lt;= configuration max </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Size of ConstructorParameterList &gt;0 and &lt;= <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigConstructorParams">"constructor_params"</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigConstructorParams">constructor_params</a> </dd></dl>
 
 </div>
 </div>
@@ -203,7 +204,7 @@ Macros</h2></td></tr>
   </dd>
 </dl>
 <p>To enable the construction of an instance which is a specific type, there must be constructor(s) for that type registered with OOLua. <a class="el" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb">OOLUA_CTORS</a> is the block into which you can define none default constructor entries using <a class="el" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc">OOLUA_CTOR</a>. </p>
-<p>Constructors are the only real type of overloading which is permitted by OOLua and there is an important point which should be noted. OOLua will try and match the number of parameters on the stack with the amount required by each OOLUA_CTOR entry and will look in the order they were defined. When interacting with the Lua stack certain types can not be differentiated between, these include some integral types such as float, int, double etc and types which are of a proxy class type or derived from that type. OOLua implicitly converts between classes in a hierarchy even if a reference is required. This means for example that if there are constructors such as Foo::Foo(int) and Foo::Foo(float) it will depend on which was defined first in the OOLUA_CTORS block as to which will be invoked for a call such as Foo:new(1).</p>
+<p>Constructors are the only real type of overloading which is permitted by OOLua and there is an important point which should be noted. OOLua will try and match the number of parameters on the stack with the amount required by each OOLUA_CTOR entry and will look in the order they were defined. When interacting with the Lua stack certain types can not be differentiated between, these include some integral types such as float, int, double etc and types which are of a proxy class type or derived from that type. OOLua implicitly converts between classes in a hierarchy even if a reference is required. This means for example that if there are constructors such as Foo::Foo(int) and Foo::Foo(float) it will depend on which was defined first in the OOLUA_CTORS block as to which will be invoked for a call such as Foo.new(1).</p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="struct_o_o_l_u_a_1_1_no__default__constructor.html">No_default_constructor</a> </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>An OOLUA_CTORS block without any <a class="el" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc">OOLUA_CTOR</a> entries is invalid. </dd></dl>
 
@@ -320,7 +321,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:47 for OOLua by
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

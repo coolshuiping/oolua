@@ -153,7 +153,7 @@ Lua_ref</h1>
 </ul>
 <h1><a class="anchor" id="OOLuaTypesFunction"></a>
 Lua_function</h1>
-<p><a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">Lua_function</a> is a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> function caller object, the state in which it calls a function is specified in either the <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a08106f50ad26e534a97eed97917d5917">constructor</a> or via <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a96d47c13d801de4ee0ff15612c445212">bind_script</a>. This object provides function call operator overloads upto OOLuaConfigLuaFunctionParams count + 1 parameters the first of which being the function which is to be called and it's type maybe one of: </p>
+<p><a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">Lua_function</a> is a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> function caller object, the state in which it calls a function is specified in either the <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a08106f50ad26e534a97eed97917d5917">constructor</a> or via <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a96d47c13d801de4ee0ff15612c445212">bind_script</a>. This object provides function call operator overloads upto <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigLuaParams">"lua_params"</a> count + 1 parameters the first of which being the function which is to be called and it's type maybe one of: </p>
 <ul>
 <li>std::string A function in Lua's global table </li>
 <li><a class="el" href="namespace_o_o_l_u_a.html#a4799d6fa6b94c3eb857e0bcbb1ea381f">OOLUA::Lua_func_ref</a> A reference to a function </li>
@@ -161,9 +161,9 @@ Lua_function</h1>
 </ul>
 <h2><a class="anchor" id="CallingALuaFunction"></a>
 Calling a Lua function</h2>
-<p>A Lua function can be called using the function object <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">OOLUA::Lua_function</a> of which there is an instance bound in the constructor for Script <a class="el" href="class_o_o_l_u_a_1_1_script.html#aeb72eac1a7a2ca5f9d4292e5a7fe7623">OOLUA::Script::call</a>. Lua_function has overloaded function call operators which take upto the maximum defined (OOLuaConfigLuaParams).<br/>
+<p>A Lua function can be called using the function object <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">OOLUA::Lua_function</a> of which there is an instance bound in the constructor for Script <a class="el" href="class_o_o_l_u_a_1_1_script.html#aeb72eac1a7a2ca5f9d4292e5a7fe7623">OOLUA::Script::call</a>. Lua_function has overloaded function call operators which take upto the maximum defined OOLuaConfigLuaParams "\"lua_params"".<br/>
 </p>
-<p>Following examples are taken from lua_caller.cpp <br/>
+<p>Following examples are taken from /unit_tests/test_classes/lua_caller.cpp <br/>
  Name: </p>
 <div class="fragment"><div class="line">    <span class="keywordtype">void</span> stringFunc_callsFunctionInGlobalScope_returnsTrue()</div>
 <div class="line">    {</div>
@@ -188,7 +188,7 @@ Calling a Lua function</h2>
 <div class="line">    }</div>
 </div><!-- fragment --> <h1><a class="anchor" id="OOLuaTypesTable"></a>
 Table</h1>
-<p>Any value can be retrieved or set from the table via the use of the template member function. If the value asked for is not the correct type located in the position an error can be reported, the type of which depends on <a class="el" href="group___o_o_lua_config.html">Library Configuration</a> <br/>
+<p>Any value can be retrieved or set from the table via the use of the template member function. If the value asked for is not the correct type located in the position an error can be reported, the type of which depends on <a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> <br/>
  at: runs no checks on the table. Undefined if Lua instance is null or (table or key is invalid) or value is not correct type. safe_at: returns a bool to indicate for success. try_at: Function is only defined when exceptions are enabled. throws <a class="el" href="struct_o_o_l_u_a_1_1_runtime__error.html" title="Reports LUA_ERRRUN. ">Runtime_error</a> when the key is not in the table</p>
 <p>The functions guarantee that the Lua stack after operations is restored to the state when entered.</p>
 <p>See Unit Tests or CheatSheet for usage of constructor. </p>
@@ -211,7 +211,7 @@ Table</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_o_o_lua_useage.html">Usage</a></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:47 for OOLua by
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

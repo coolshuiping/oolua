@@ -135,23 +135,22 @@ $(document).ready(function(){initNavTree('push__pointer__internal_8h_source.html
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            if_check_enabled_check_type_is_registered(l,Proxy_class&lt;Raw&gt;::class_name);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            Lua_ud* ud( find_ud(l,(Raw*)ptr,(<span class="keywordtype">bool</span>)LVD::is_const&lt;TypeMaybeConst&gt;::value) );</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">if</span>(! ud ) ud = add_ptr(l,(Raw*)ptr,(<span class="keywordtype">bool</span>)LVD::is_const&lt;TypeMaybeConst&gt;::value);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            set_owner_if_change(owner,ud);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">if</span>(! ud ) ud = add_ptr(l,(Raw*)ptr,(<span class="keywordtype">bool</span>)LVD::is_const&lt;TypeMaybeConst&gt;::value,owner);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">else</span> set_owner_if_change(owner,ud);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><b>push_pointer_internal.h</b></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:46 for OOLua by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>push_pointer_internal.h</b></li>
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

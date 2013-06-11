@@ -2,6 +2,7 @@ var searchData=
 [
   ['oolua',['OOLUA',['../namespace_o_o_l_u_a.html',1,'']]],
   ['oolua_2eh',['oolua.h',['../oolua_8h.html',1,'']]],
+  ['oolua_5fboilerplate_2eh',['oolua_boilerplate.h',['../oolua__boilerplate_8h.html',1,'']]],
   ['oolua_5fc_5ffunc_2eh',['oolua_c_func.h',['../oolua__c__func_8h.html',1,'']]],
   ['oolua_5fc_5ffunction',['OOLUA_C_FUNCTION',['../group___o_o_lua_expressive.html#ga6106a47cfaeb591d83d9b444a3f95918',1,'oolua_va_args.h']]],
   ['oolua_5fcfunc',['OOLUA_CFUNC',['../group___o_o_lua_minimalist.html#gadb95e992a32ab9c2a76683c3c628ea6c',1,'oolua_va_args.h']]],
@@ -30,7 +31,6 @@ var searchData=
   ['oolua_5fmset',['OOLUA_MSET',['../group___o_o_lua_minimalist.html#ga0aa2befefe52e8be2eacbe9bc8f083ef',1,'class_public_member.h']]],
   ['oolua_5fpairs',['oolua_pairs',['../lua__table_8h.html#a46eb69d4c993d155b31c0fe4b716e4f9',1,'lua_table.h']]],
   ['oolua_5fpairs_5fend',['oolua_pairs_end',['../lua__table_8h.html#a820b30536cc8feae9357abfb9b7727ab',1,'lua_table.h']]],
-  ['oolua_5fparamater_5fmacros_2eh',['oolua_paramater_macros.h',['../oolua__paramater__macros_8h.html',1,'']]],
   ['oolua_5fproxy',['OOLUA_PROXY',['../group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd',1,'oolua_va_args.h']]],
   ['oolua_5fproxy_5fend',['OOLUA_PROXY_END',['../group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e',1,'work_dsl.h']]],
   ['oolua_5fregistration_2eh',['oolua_registration.h',['../oolua__registration_8h.html',1,'']]],

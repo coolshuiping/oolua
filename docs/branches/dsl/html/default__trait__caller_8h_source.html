@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('default__trait__caller_8h_source.html'
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef DEFAULT_TRAIT_CALLER_H_</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#   define DEFAULT_TRAIT_CALLER_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//* \cond INTERNAL*/</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">struct </span><a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
@@ -162,67 +162,53 @@ $(document).ready(function(){initNavTree('default__trait__caller_8h_source.html'
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">{ \</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    namespace INTERNAL \</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    { \</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">        template &lt;class class_type, typename return_type, OOLUA_USES_PARAMS_##num typename func_type&gt; \</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">        struct default_traits_caller&lt;return_type (class_type::*) (OOLUA_FUNCTION_PARAMS_##num),func_type&gt; \</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">        template &lt;class class_type, typename return_type OOLUA_COMMA_PREFIXED_TYPENAMES_##num ,typename func_type&gt; \</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">        struct default_traits_caller&lt;return_type (class_type::*) (OOLUA_COMMA_SEPERATED_TYPES_##num),func_type&gt; \</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">        { \</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">            typedef OOLUA::INTERNAL::return_type_traits&lt;return_type &gt; R; \</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">            static int call (lua_State* l, class_type* this_, func_type mfptr) \</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">            { \</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">                assert(this_); \</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_T_INTERNAL_##num \</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_caller&lt; R, class_type, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;OOLUA_TPARAMS_##num func_type&gt;(l,this_,mfptr OOLUA_PPARAMS_##num); \</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">                </span><span class="comment">/* OOLUA_BACK_INTERNAL_ ##num */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">                return OOLUA::INTERNAL::lua_return_count&lt;typename Type_list&lt;R OOLUA_RETURNS_##num &gt;::type&gt; ::out; \</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">            } \</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">        }; \</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">        template &lt;class class_type, typename return_type, OOLUA_USES_PARAMS_##num typename func_type&gt; \</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">        struct default_traits_const_caller&lt;return_type (class_type::*) (OOLUA_FUNCTION_PARAMS_##num)const,func_type&gt; \</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">        { \</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">            typedef OOLUA::INTERNAL::return_type_traits&lt;return_type &gt; R; \</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">            static int call (lua_State* l, class_type* this_, func_type mfptr) \</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">            { \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">                assert(this_); \</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_T_INTERNAL_##num \</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_caller&lt; R, class_type, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;OOLUA_TPARAMS_##num func_type&gt;(l,this_,mfptr OOLUA_PPARAMS_##num); \</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">                </span><span class="comment">/*OOLUA_BACK_INTERNAL_ ##num */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">                return OOLUA::INTERNAL::lua_return_count&lt;typename Type_list&lt;R OOLUA_RETURNS_##num &gt;::type&gt; ::out; \</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">            } \</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">        }; \</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">        template &lt;typename return_type, OOLUA_USES_PARAMS_##num typename func_type&gt; \</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">        struct default_c_traits_caller&lt;return_type (*) (OOLUA_FUNCTION_PARAMS_##num),func_type&gt; \</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">        { \</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">            typedef OOLUA::INTERNAL::return_type_traits&lt;return_type &gt; R; \</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">            static int call (lua_State* l, func_type fptr) \</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">            { \</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_T_INTERNAL_##num \</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_none_member_caller&lt; R, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;OOLUA_TPARAMS_##num func_type&gt;(l,fptr OOLUA_PPARAMS_##num); \</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">                </span><span class="comment">/*OOLUA_BACK_INTERNAL_ ##num*/</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">                return OOLUA::INTERNAL::lua_return_count&lt;typename Type_list&lt;R &gt;::type&gt; ::out; \</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">            } \</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">        };\</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">    } \</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(0)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(1)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(2)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(3)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(4)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(5)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(6)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(7)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLER(8)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_DEFAULT_INTERNAL_##num(1) \</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_caller&lt; R, class_type, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;func_type OOLUA_COMMA_PREFIXED_PARAM_TYPES_##num &gt;(l,this_,mfptr OOLUA_CALL_PARAMS_##num); \</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">                return R::out; \</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">            } \</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">        }; \</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">        template &lt;class class_type, typename return_type OOLUA_COMMA_PREFIXED_TYPENAMES_##num , typename func_type&gt; \</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">        struct default_traits_const_caller&lt;return_type (class_type::*) (OOLUA_COMMA_SEPERATED_TYPES_##num)const,func_type&gt; \</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">        { \</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">            typedef OOLUA::INTERNAL::return_type_traits&lt;return_type &gt; R; \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">            static int call (lua_State* l, class_type* this_, func_type mfptr) \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">            { \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_DEFAULT_INTERNAL_##num(1) \</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_caller&lt; R, class_type, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;func_type OOLUA_COMMA_PREFIXED_PARAM_TYPES_##num &gt;(l,this_,mfptr OOLUA_CALL_PARAMS_##num); \</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">                return R::out; \</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">            } \</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">        }; \</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">        template &lt;typename return_type OOLUA_COMMA_PREFIXED_TYPENAMES_##num ,typename func_type&gt; \</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">        struct default_c_traits_caller&lt;return_type (*) (OOLUA_COMMA_SEPERATED_TYPES_##num),func_type&gt; \</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">        { \</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">            typedef OOLUA::INTERNAL::return_type_traits&lt;return_type &gt; R; \</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">            static int call (lua_State* l, func_type fptr) \</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">            { \</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                OOLUA_PARAMS_DEFAULT_INTERNAL_##num(0) \</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">                OOLUA::INTERNAL::Proxy_none_member_caller&lt; R, LVD::is_void&lt;return_type &gt;::value &gt;:: template call&lt;func_type OOLUA_COMMA_PREFIXED_PARAM_TYPES_##num &gt;(l,fptr OOLUA_CALL_PARAMS_##num); \</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">                return R::out; \</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">            } \</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">        };\</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    } \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">}</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;OOLUA_GENERATE_DEFAULT_TRAIT_CALLERS</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><b>default_trait_caller.h</b></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:46 for OOLua by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>default_trait_caller.h</b></li>
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

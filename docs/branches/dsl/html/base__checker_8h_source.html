@@ -128,9 +128,9 @@ $(document).ready(function(){initNavTree('base__checker_8h_source.html','');});
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">bool</span> stack_top_type_is_base(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">void</span> stack_top_type_is_base(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                   ,Lua_ud* requested_ud</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                   ,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> userdata_index);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                   ,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; userdata_index);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">bool</span> ud_is_type(Lua_ud <span class="keyword">const</span>* ud);</div>
@@ -147,94 +147,87 @@ $(document).ready(function(){initNavTree('base__checker_8h_source.html','');});
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ProxyStackType,<span class="keyword">typename</span> BaseType,<span class="keywordtype">int</span> DoWork = 1&gt;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">struct </span>CastToRequestedProxyType</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> cast(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> userdata_index)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span>* cast(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; userdata_index)</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="comment">//get the userdata</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                Lua_ud* ud = <span class="keyword">static_cast&lt;</span>Lua_ud*<span class="keyword">&gt;</span>( lua_touserdata(l, userdata_index) );</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="comment">//cast the class void ptr from the stack to the stacktype</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                <span class="comment">//then to base type to get correct offset</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                BaseType* baseptr = <span class="keyword">static_cast&lt;</span>typename ProxyStackType::class_* <span class="keyword">&gt;</span> ( ud-&gt;void_class_ptr );</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="comment">//push class pointer of requested type onto stack</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                lua_pushlightuserdata(l,baseptr);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="comment">//lua_pushlightuserdata(l, (BaseType*) ((typename ProxyStackType::class_* )( ud-&gt;void_class_ptr )));</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                <span class="comment">//cast the class void ptr from the stack to the stacktype</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="comment">//then to base type to get correct offset</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>BaseType*<span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            <span class="keyword">static_cast&lt;</span>typename ProxyStackType::class_* <span class="keyword">&gt;</span> ( </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                        ( <span class="keyword">static_cast&lt;</span>Lua_ud*<span class="keyword">&gt;</span>( lua_touserdata(l, userdata_index) ) )-&gt;void_class_ptr</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                                            )</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                              );</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        };</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ProxyStackType,<span class="keyword">typename</span> BaseType&gt;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">struct </span>CastToRequestedProxyType&lt;ProxyStackType,BaseType,0&gt;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> cast(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> <span class="comment">/*l*/</span>,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> <span class="comment">/*userdata_index*/</span>)<span class="comment">//noop</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            {}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span>* cast(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> <span class="comment">/*l*/</span>,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; <span class="comment">/*userdata_index*/</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            {<span class="keywordflow">return</span> (<span class="keywordtype">void</span>*)0;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        };</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ProxyStackType,<span class="keyword">typename</span> Bases, <span class="keywordtype">int</span> BaseIndex,<span class="keyword">typename</span> BaseType&gt;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">struct </span>Is_a_base</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">void</span> operator()(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="keyword">const</span> l,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> userdata_index,Lua_ud* requested_ud,<span class="keywordtype">bool</span> &amp; result)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">void</span> operator()(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="keyword">const</span> l,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; userdata_index,Lua_ud* requested_ud)</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="comment">//if(result) return;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="comment">//is this a base</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <span class="keywordflow">if</span>( ud_is_type&lt;BaseType&gt;(requested_ud) )</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">//              if(requested_ud-&gt;type_check ==  static_cast&lt;oolua_type_check_function&gt;(&amp;OOLUA::register_class&lt;BaseType&gt;))</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    result = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    CastToRequestedProxyType&lt;ProxyStackType,BaseType,1&gt;::cast(l,userdata_index);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="comment">//if(result) return;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="comment">//check the next in the type list</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                Is_a_base&lt;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    ProxyStackType</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    ,Bases</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    ,BaseIndex + 1</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; Bases, BaseIndex + 1, TYPE::Null_type &gt;::Result</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                &gt; nextIsBase;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                nextIsBase(l,userdata_index,requested_ud,result);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        };</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ProxyStackType,<span class="keyword">typename</span> Bases, <span class="keywordtype">int</span> BaseIndex&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">struct </span>Is_a_base&lt;ProxyStackType,Bases,BaseIndex,TYPE::Null_type&gt;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordtype">void</span> operator()(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="keyword">const</span> <span class="comment">/*l*/</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                            ,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> <span class="comment">/*userdata_index*/</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                            ,INTERNAL::Lua_ud* <span class="comment">/*requested_ud*/</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                            ,<span class="keywordtype">bool</span> &amp; <span class="comment">/*result*/</span>)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            {}<span class="comment">//noop</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        };</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> stack_top_type_is_base(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                          ,Lua_ud* requested_ud</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                          ,<span class="keywordtype">int</span> <span class="keyword">const</span><span class="comment">/*&amp;*/</span> userdata_index)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="comment">//ud... </span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            INTERNAL::Is_a_base&lt;OOLUA::Proxy_class&lt;T&gt;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                    ,<span class="keyword">typename</span> OOLUA::Proxy_class&lt;T&gt;::AllBases</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    ,0</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; typename OOLUA::Proxy_class&lt;T&gt;::AllBases,0,TYPE::Null_type &gt;::Result</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                &gt; checkBases;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordtype">bool</span> result(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            checkBases(l,userdata_index,requested_ud,result);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="comment">//is this a base</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">if</span>( ud_is_type&lt;BaseType&gt;(requested_ud) )</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    requested_ud-&gt;void_class_ptr = CastToRequestedProxyType&lt;ProxyStackType,BaseType,1&gt;::cast(l,userdata_index);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="comment">//check the next in the type list</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                Is_a_base&lt;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    ProxyStackType</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    ,Bases</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    ,BaseIndex + 1</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; Bases, BaseIndex + 1, TYPE::Null_type &gt;::Result</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                &gt; nextIsBase;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                nextIsBase(l,userdata_index,requested_ud);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        };</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ProxyStackType,<span class="keyword">typename</span> Bases, <span class="keywordtype">int</span> BaseIndex&gt;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keyword">struct </span>Is_a_base&lt;ProxyStackType,Bases,BaseIndex,TYPE::Null_type&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordtype">void</span> operator()(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="keyword">const</span> <span class="comment">/*l*/</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                            ,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; <span class="comment">/*userdata_index*/</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                            ,INTERNAL::Lua_ud* <span class="comment">/*requested_ud*/</span>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            {}<span class="comment">//noop</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        };</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> stack_top_type_is_base(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                          ,Lua_ud* requested_ud</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                          ,<span class="keywordtype">int</span> <span class="keyword">const</span>&amp; userdata_index)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="comment">//ud... </span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            INTERNAL::Is_a_base&lt;OOLUA::Proxy_class&lt;T&gt;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    ,<span class="keyword">typename</span> OOLUA::Proxy_class&lt;T&gt;::AllBases</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    ,0</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; typename OOLUA::Proxy_class&lt;T&gt;::AllBases,0,TYPE::Null_type &gt;::Result</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                &gt; checkBases;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            checkBases(l,userdata_index,requested_ud);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> ud_is_type(Lua_ud <span class="keyword">const</span>* ud)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="comment">//some compilers need a hand it also enforces that the typedef in oolua_userdata is correct</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">return</span> ud-&gt;type_check ==  <span class="keyword">static_cast&lt;</span>oolua_type_check_function<span class="keyword">&gt;</span>(&amp;OOLUA::register_class&lt;T&gt;);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> ud_is_type(Lua_ud <span class="keyword">const</span>* ud)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="comment">//some compilers need a hand it also enforces that the typedef in oolua_userdata is correct</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">return</span> ud-&gt;type_check ==  <span class="keyword">static_cast&lt;</span>oolua_type_check_function<span class="keyword">&gt;</span>(&amp;OOLUA::register_class&lt;T&gt;);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_81ec92c02aae984decf3b508a2f9750b.html">include</a></li><li class="navelem"><b>base_checker.h</b></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:46 for OOLua by
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>base_checker.h</b></li>
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

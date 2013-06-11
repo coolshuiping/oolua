@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('_o_o_lua_proxying.html','');});
 DSL</h1>
 <p>The Domain specific language used for generating C++ bindings for Lua. </p>
 <p>OOLua provides a DSL for defining C++ types which are to be made available to a Lua script. The intention of this DSL is to hide the details whilst providing a simple and rememberable interface for performing the actions required. </p>
-<dl class="section note"><dt>Note</dt><dd>"Optional" here means tha extra macro parameters are optional, up to the configuration max for a specific operation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>"Optional" here means that extra macro parameters are optional, up to the configuration <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">max</a> for a specific operation. </dd></dl>
 <p><a class="el" href="group___o_o_lua_minimalist.html">Minimalist</a> </p>
 <p>Generates a function using the only the name FunctionName/RealClass::FunctionName to resolve the function which is to be proxied. As with taking the address of any C++ function, if there is any ambiguity it will fail to compile, in which case a user should help the compiler by specifying more information via the <a class="el" href="group___o_o_lua_expressive.html">Expressive</a> macros. i.e. The longer the name the more information. <br/>
  </p>
@@ -159,7 +159,7 @@ Registering</h3>
 <div class="line">    }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">void</span> new_luaCreatesInstance_noException()</div>
 <div class="line">    {</div>
-<div class="line">        CPPUNIT_ASSERT_NO_THROW( m_lua-&gt;run_chunk(<span class="stringliteral">&quot;Stub1:new()&quot;</span>) );</div>
+<div class="line">        CPPUNIT_ASSERT_NO_THROW( m_lua-&gt;run_chunk(<span class="stringliteral">&quot;Stub1.new()&quot;</span>) );</div>
 <div class="line">    }</div>
 </div><!-- fragment --> <h2><a class="anchor" id="ProxyTags"></a>
 Tags</h2>
@@ -193,7 +193,7 @@ Constructors</h2>
   </dd>
 </dl>
 <p>To enable the construction of an instance which is a specific type, there must be constructor(s) for that type registered with OOLua. <a class="el" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb">OOLUA_CTORS</a> is the block into which you can define none default constructor entries using <a class="el" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc">OOLUA_CTOR</a>. </p>
-<p>Constructors are the only real type of overloading which is permitted by OOLua and there is an important point which should be noted. OOLua will try and match the number of parameters on the stack with the amount required by each OOLUA_CTOR entry and will look in the order they were defined. When interacting with the Lua stack certain types can not be differentiated between, these include some integral types such as float, int, double etc and types which are of a proxy class type or derived from that type. OOLua implicitly converts between classes in a hierarchy even if a reference is required. This means for example that if there are constructors such as Foo::Foo(int) and Foo::Foo(float) it will depend on which was defined first in the OOLUA_CTORS block as to which will be invoked for a call such as Foo:new(1).</p>
+<p>Constructors are the only real type of overloading which is permitted by OOLua and there is an important point which should be noted. OOLua will try and match the number of parameters on the stack with the amount required by each OOLUA_CTOR entry and will look in the order they were defined. When interacting with the Lua stack certain types can not be differentiated between, these include some integral types such as float, int, double etc and types which are of a proxy class type or derived from that type. OOLua implicitly converts between classes in a hierarchy even if a reference is required. This means for example that if there are constructors such as Foo::Foo(int) and Foo::Foo(float) it will depend on which was defined first in the OOLUA_CTORS block as to which will be invoked for a call such as Foo.new(1).</p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="struct_o_o_l_u_a_1_1_no__default__constructor.html">No_default_constructor</a> </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>An OOLUA_CTORS block without any <a class="el" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc">OOLUA_CTOR</a> entries is invalid. </dd></dl>
 <div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(ParamConstructor)</div>
@@ -224,6 +224,7 @@ Exposing member functions</h2>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">cpp_params</a> </dd></dl>
 <p><a class="el" href="group___o_o_lua_minimalist.html#gad46e27f9cb000653ce7266fb98c6d062" title="Deduce and generate a proxy for a constant member function. ">OOLUA_MFUNC_CONST(FunctionName,Optional)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -232,6 +233,7 @@ Exposing member functions</h2>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">cpp_params</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="comment">//typedef the type of vector into the global namespace</span></div>
 <div class="line"><span class="comment">//This is required as a vector has more than one template type</span></div>
 <div class="line"><span class="comment">//and the commas in the template confuse a macro.</span></div>
@@ -493,7 +495,7 @@ Enumerations</h2>
 <div class="line">    {</div>
 <div class="line">        m_lua-&gt;register_class&lt;Enums&gt;();</div>
 <div class="line">        m_lua-&gt;run_chunk(<span class="stringliteral">&quot;foo = function() &quot;</span></div>
-<div class="line">                            <span class="stringliteral">&quot;local obj = Enums:new(Enums.GREEN) &quot;</span></div>
+<div class="line">                            <span class="stringliteral">&quot;local obj = Enums.new(Enums.GREEN) &quot;</span></div>
 <div class="line">                            <span class="stringliteral">&quot;return obj:get_enum() &quot;</span></div>
 <div class="line">                         <span class="stringliteral">&quot;end&quot;</span>);</div>
 <div class="line">        Enums::COLOUR result(Enums::INVALID);</div>
@@ -512,6 +514,7 @@ Static functions</h2>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This function will not exported and needs to be registered with OOLua see <a class="el" href="namespace_o_o_l_u_a.html#a4a9fa9782150dbbfeed4b110b8b24ca6" title="Registers a key K and value V entry into class T. ">OOLUA::register_class_static</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">cpp_params</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="keyword">class </span>ClassHasStaticFunction</div>
 <div class="line">{</div>
 <div class="line"><span class="keyword">public</span>:</div>
@@ -538,6 +541,7 @@ Minimalist</h2>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">cpp_params</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> say(<span class="keywordtype">char</span> <span class="keyword">const</span>* input)</div>
 <div class="line">{</div>
 <div class="line">    printf(<span class="stringliteral">&quot;%s from a standalone function\n&quot;</span>,input);</div>
@@ -556,7 +560,7 @@ Minimalist</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_o_o_lua_useage.html">Usage</a></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:47 for OOLua by
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

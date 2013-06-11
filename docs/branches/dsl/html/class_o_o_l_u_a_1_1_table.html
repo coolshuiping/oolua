@@ -185,7 +185,7 @@ template&lt;typename T &gt; </td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Wrapper around a table in Lua which allows quick and easy access. </p>
-<p>Any value can be retrieved or set from the table via the use of the template member function. If the value asked for is not the correct type located in the position an error can be reported, the type of which depends on <a class="el" href="group___o_o_lua_config.html">Library Configuration</a> <br/>
+<p>Any value can be retrieved or set from the table via the use of the template member function. If the value asked for is not the correct type located in the position an error can be reported, the type of which depends on <a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> <br/>
  at: runs no checks on the table. Undefined if Lua instance is null or (table or key is invalid) or value is not correct type. safe_at: returns a bool to indicate for success. try_at: Function is only defined when exceptions are enabled. throws <a class="el" href="struct_o_o_l_u_a_1_1_runtime__error.html" title="Reports LUA_ERRRUN. ">Runtime_error</a> when the key is not in the table</p>
 <p>The functions guarantee that the Lua stack after operations is restored to the state when entered.</p>
 <p>See Unit Tests or CheatSheet for usage of constructor. </p>
@@ -368,7 +368,7 @@ Lua_table::try_at </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_o_l_u_a.html">OOLUA</a></li><li class="navelem"><a class="el" href="class_o_o_l_u_a_1_1_table.html">Table</a></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:47 for OOLua by
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

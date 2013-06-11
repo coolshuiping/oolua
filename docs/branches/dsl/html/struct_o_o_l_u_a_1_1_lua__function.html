@@ -181,7 +181,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Struct which is used to call a Lua function. </p>
-<p><a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">Lua_function</a> is a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> function caller object, the state in which it calls a function is specified in either the <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a08106f50ad26e534a97eed97917d5917">constructor</a> or via <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a96d47c13d801de4ee0ff15612c445212">bind_script</a>. This object provides function call operator overloads upto OOLuaConfigLuaFunctionParams count + 1 parameters the first of which being the function which is to be called and it's type maybe one of: </p>
+<p><a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">Lua_function</a> is a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> function caller object, the state in which it calls a function is specified in either the <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a08106f50ad26e534a97eed97917d5917">constructor</a> or via <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html#a96d47c13d801de4ee0ff15612c445212">bind_script</a>. This object provides function call operator overloads upto <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigLuaParams">"lua_params"</a> count + 1 parameters the first of which being the function which is to be called and it's type maybe one of: </p>
 <ul>
 <li>std::string A function in Lua's global table </li>
 <li><a class="el" href="namespace_o_o_l_u_a.html#a4799d6fa6b94c3eb857e0bcbb1ea381f">OOLUA::Lua_func_ref</a> A reference to a function </li>
@@ -207,270 +207,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a8d54d513d06171508e1982a7d8a9dcf1"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>)</td><td></td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a119c4bee48a3f8d3660e0ced876262e5"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a94952d7263871310edc3a8dfa92006e5"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9ab0b33d2eb6dd6d2f885cf83a35591e"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a80763b1b78c446c303d14e866b8c68ab"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P4&#160;</td>
-          <td class="paramname"><em>p4</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a36646d4e6189c7cf1baa883b6608163e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool OOLUA::Lua_function::operator() </td>
@@ -514,351 +255,6 @@ template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typen
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="adf673abb27bcc2bb9e858c5be9edb333"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P4&#160;</td>
-          <td class="paramname"><em>p4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P5&#160;</td>
-          <td class="paramname"><em>p5</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P6&#160;</td>
-          <td class="paramname"><em>p6</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a789f395942414770d0bf700bf6e6db23"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P4&#160;</td>
-          <td class="paramname"><em>p4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P5&#160;</td>
-          <td class="paramname"><em>p5</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P6&#160;</td>
-          <td class="paramname"><em>p6</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P7&#160;</td>
-          <td class="paramname"><em>p7</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a72ab0b173aeb0f618dc38af76f55d761"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P4&#160;</td>
-          <td class="paramname"><em>p4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P5&#160;</td>
-          <td class="paramname"><em>p5</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P6&#160;</td>
-          <td class="paramname"><em>p6</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P7&#160;</td>
-          <td class="paramname"><em>p7</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P8&#160;</td>
-          <td class="paramname"><em>p8</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function call operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa0eb714a1b3e6425b7015e23de749e48"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8 , typename P9 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OOLUA::Lua_function::operator() </td>
-          <td>(</td>
-          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P1&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P2&#160;</td>
-          <td class="paramname"><em>p2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P3&#160;</td>
-          <td class="paramname"><em>p3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P4&#160;</td>
-          <td class="paramname"><em>p4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P5&#160;</td>
-          <td class="paramname"><em>p5</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P6&#160;</td>
-          <td class="paramname"><em>p6</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P7&#160;</td>
-          <td class="paramname"><em>p7</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P8&#160;</td>
-          <td class="paramname"><em>p8</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">P9&#160;</td>
-          <td class="paramname"><em>p9</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Function call operator. </p>
@@ -878,9 +274,6 @@ template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typen
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8 , typename P9 , typename P10 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool OOLUA::Lua_function::operator() </td>
@@ -954,11 +347,530 @@ template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typen
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa0eb714a1b3e6425b7015e23de749e48"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8 , typename P9 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P4&#160;</td>
+          <td class="paramname"><em>p4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P5&#160;</td>
+          <td class="paramname"><em>p5</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P6&#160;</td>
+          <td class="paramname"><em>p6</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P7&#160;</td>
+          <td class="paramname"><em>p7</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P8&#160;</td>
+          <td class="paramname"><em>p8</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P9&#160;</td>
+          <td class="paramname"><em>p9</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a72ab0b173aeb0f618dc38af76f55d761"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 , typename P8 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P4&#160;</td>
+          <td class="paramname"><em>p4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P5&#160;</td>
+          <td class="paramname"><em>p5</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P6&#160;</td>
+          <td class="paramname"><em>p6</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P7&#160;</td>
+          <td class="paramname"><em>p7</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P8&#160;</td>
+          <td class="paramname"><em>p8</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a789f395942414770d0bf700bf6e6db23"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 , typename P7 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P4&#160;</td>
+          <td class="paramname"><em>p4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P5&#160;</td>
+          <td class="paramname"><em>p5</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P6&#160;</td>
+          <td class="paramname"><em>p6</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P7&#160;</td>
+          <td class="paramname"><em>p7</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adf673abb27bcc2bb9e858c5be9edb333"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 , typename P5 , typename P6 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P4&#160;</td>
+          <td class="paramname"><em>p4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P5&#160;</td>
+          <td class="paramname"><em>p5</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P6&#160;</td>
+          <td class="paramname"><em>p6</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a94952d7263871310edc3a8dfa92006e5"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a80763b1b78c446c303d14e866b8c68ab"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typename P4 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P4&#160;</td>
+          <td class="paramname"><em>p4</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9ab0b33d2eb6dd6d2f885cf83a35591e"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P2&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P3&#160;</td>
+          <td class="paramname"><em>p3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8d54d513d06171508e1982a7d8a9dcf1"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function call operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result indicating success </dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FUNC_TYPE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_error_reporting.html">Error Reporting</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a119c4bee48a3f8d3660e0ced876262e5"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FUNC_TYPE , typename P1 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OOLUA::Lua_function::operator() </td>
+          <td>(</td>
+          <td class="paramtype">FUNC_TYPE const &amp;&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">P1&#160;</td>
+          <td class="paramname"><em>p1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 <p>Function call operator. </p>
@@ -982,7 +894,7 @@ template&lt;typename FUNC_TYPE , typename P1 , typename P2 , typename P3 , typen
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_o_l_u_a.html">OOLUA</a></li><li class="navelem"><a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html">Lua_function</a></li>
-    <li class="footer">Generated on Mon Jun 3 2013 15:04:47 for OOLua by
+    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>
