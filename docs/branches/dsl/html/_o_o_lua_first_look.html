@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -128,31 +128,27 @@ Conventions</h1>
 </ul>
 <h1><a class="anchor" id="OOLuaLuaStateAndScript"></a>
 lua_State and Script</h1>
-<p>OOLua is purposely designed not to be dependent on the <a class="el" href="class_o_o_l_u_a_1_1_script.html" title="OOLua helper class. ">OOLUA::Script</a> class and therefore passes around it's dependency of a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> instance. This class is only a helper and anything you can do with it can be accomplished either via using a <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html" title="Struct which is used to call a Lua function. ">Lua_function</a> struct, calling <a class="el" href="namespace_o_o_l_u_a.html" title="This is the root namespace of the library. ">OOLUA</a> namespaced functions or using the Lua C API.</p>
-<p><a class="el" href="class_o_o_l_u_a_1_1_script.html" title="OOLua helper class. ">Script</a> provides the following : </p>
+<p>OOLua is purposely designed not to be dependent on the <a class="el" href="class_o_o_l_u_a_1_1_script.html" title="OOLua helper class. ">OOLUA::Script</a> class and therefore passes around it's dependency of a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> instance. This class is only a helper and anything you can do with it can be accomplished either via using a Lua_function struct, calling <a class="el" href="namespace_o_o_l_u_a.html" title="This is the root namespace of the library. ">OOLUA</a> namespaced functions or using the Lua C API.</p>
+<p>Script provides the following : </p>
 <ul>
 <li>Scopes a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> pointer </li>
 <li>Provides access to the <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> pointer via a cast operator and function </li>
 <li>Provides methods to register types </li>
-<li>Binds a <a class="el" href="struct_o_o_l_u_a_1_1_lua__function.html" title="Struct which is used to call a Lua function. ">Lua_function</a> instance to call functions via <a class="el" href="class_o_o_l_u_a_1_1_script.html#aeb72eac1a7a2ca5f9d4292e5a7fe7623">Script::call</a> </li>
+<li>Binds a Lua_function instance to call functions via Script::call </li>
 <li>Has member functions for a little state management </li>
 <li>Sets up the state to work with OOLua</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>This class is not copy constructible or assignable. To accomplish this a counted reference to the <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> would need to be maintained. </dd>
 <dd>
-If you do not want to or can not use this class please see <a class="el" href="namespace_o_o_l_u_a.html#a5953f843e361fb6be7674302d715924b">setup_user_lua_state</a> </dd></dl>
+If you do not want to or can not use this class please see <a class="el" href="namespace_o_o_l_u_a.html#a5953f843e361fb6be7674302d715924b">setup_user_lua_state</a></dd></dl>
 <h1><a class="anchor" id="OOLuaAndTheStack"></a>
 OOLua and the Lua stack</h1>
 <p>The Lua C API does not force you to treat the stack as such a data structure with operations on just one end, instead for convenience it uses indices to identify stack slots for a procedure. Given that it is a C API without C++'s name mangling and overloading it also provides a function per type for pushing to the stack. </p>
 <p>OOLua tries to enforce a clean stack after operations as such it provides a simple interface to the Lua stack which consists of two functions : </p>
 <ul>
-<li><a class="el" href="namespace_o_o_l_u_a.html#a2a49538bc26c2b409c3c3c1ca1dbd483">push</a></li>
+<li><a class="el" href="namespace_o_o_l_u_a.html#a2a49538bc26c2b409c3c3c1ca1dbd483">push</a> Pushes an instance onto the top of the Lua stack. </li>
+<li><a class="el" href="namespace_o_o_l_u_a.html#aa63d89ea60ca70c1f32686050c8b89ac">pull</a> Pulls the top element off the stack popping it. </li>
 </ul>
-<p>Pushes an instance onto the top of the Lua stack. </p>
-<ul>
-<li><a class="el" href="namespace_o_o_l_u_a.html#aa63d89ea60ca70c1f32686050c8b89ac">pull</a></li>
-</ul>
-<p>Pulls the top element off the stack popping it. </p>
 <p>Most usage of OOLua will only require these functions to interact with the stack yet you are free to mix Lua C API calls if you take into account <a class="el" href="namespace_o_o_l_u_a.html#aa63d89ea60ca70c1f32686050c8b89ac">pull</a> removes top when it is valid. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
@@ -160,7 +156,7 @@ OOLua and the Lua stack</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_o_o_lua_useage.html">Usage</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

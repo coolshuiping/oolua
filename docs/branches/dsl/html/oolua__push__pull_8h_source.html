@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -486,8 +486,8 @@ $(document).ready(function(){initNavTree('oolua__push__pull_8h_source.html','');
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        {</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="preprocessor">#if OOLUA_RUNTIME_CHECKS_ENABLED  == 1</span></div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="preprocessor"></span>            INTERNAL::handle_cpp_pull_fail(s,OOLUA::cpp_acquire_ptr&lt;T&gt;::is_constant</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                                           ? Proxy_class&lt;<span class="keyword">typename</span> <a class="code" href="struct_o_o_l_u_a_1_1cpp__acquire__ptr.html" title="Change of ownership to C++. ">cpp_acquire_ptr&lt;T&gt;::raw</a>&gt;::class_name_const </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                                           : Proxy_class&lt;<span class="keyword">typename</span> <a class="code" href="struct_o_o_l_u_a_1_1cpp__acquire__ptr.html" title="Change of ownership to C++. ">cpp_acquire_ptr&lt;T&gt;::raw</a>&gt;::class_name);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                                           ? <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class</a>&lt;<span class="keyword">typename</span> <a class="code" href="struct_o_o_l_u_a_1_1cpp__acquire__ptr.html" title="Change of ownership to C++. ">cpp_acquire_ptr&lt;T&gt;::raw</a>&gt;::class_name_const </div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                                           : <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class</a>&lt;<span class="keyword">typename</span> <a class="code" href="struct_o_o_l_u_a_1_1cpp__acquire__ptr.html" title="Change of ownership to C++. ">cpp_acquire_ptr&lt;T&gt;::raw</a>&gt;::class_name);</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="preprocessor">#elif OOLUA_DEBUG_CHECKS == 1</span></div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="preprocessor"></span>            assert(value.m_ptr);</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -790,7 +790,7 @@ $(document).ready(function(){initNavTree('oolua__push__pull_8h_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>oolua_push_pull.h</b></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

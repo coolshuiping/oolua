@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -128,116 +128,114 @@ $(document).ready(function(){initNavTree('cpp__constructor_8h_source.html','');}
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#   pragma GCC system_header</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>OOLUA</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">namespace </span>INTERNAL</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type,<span class="keywordtype">int</span> HasNoDefaultTypedef&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">struct </span>Constructor</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">int</span> construct(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * l)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                Type* obj = <span class="keyword">new</span> Type;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                add_ptr(l,obj,<span class="keyword">false</span>,<a class="code" href="group___o_o_lua_traits.html#gga9ed61e64cfd7c94046082221f524aac1a43ffb484d9a2177fcb67a2c0975cc913">Lua</a>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">struct </span>Constructor&lt;Type,1&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">int</span> construct(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * l)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                luaL_error(l,<span class="stringliteral">&quot;%s %s %s&quot;</span>,<span class="stringliteral">&quot;No parameters passed to the constructor of the type&quot;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                           ,OOLUA::Proxy_class&lt;Type&gt;::class_name</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                           ,<span class="stringliteral">&quot;which does not have a default constructor.&quot;</span>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="keywordflow">return</span> 0;<span class="comment">//required by function sig yet luaL_error never returns</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">int</span> oolua_generic_default_constructor(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* l)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordtype">int</span> <span class="keyword">const</span> stack_count = lua_gettop(l);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span>(stack_count == 0 )</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> Constructor&lt;T,has_typedef&lt;OOLUA::Proxy_class&lt;T&gt;, <a class="code" href="struct_o_o_l_u_a_1_1_no__default__constructor.html" title="There is not a default constructor in the public interface yet there are other constructors. ">OOLUA::No_default_constructor</a>&gt;::Result&gt;::construct(l);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            } </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            luaL_error(l,<span class="stringliteral">&quot;%s %d %s %s&quot;</span>,<span class="stringliteral">&quot;Could not match&quot;</span>,stack_count,<span class="stringliteral">&quot;parameter constructor for type&quot;</span>,OOLUA::Proxy_class&lt;T&gt;::class_name);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">return</span> 0;<span class="comment">/*required by function sig yet luaL_error never returns*/</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTOR_GENERATE_NUM(NUM) \</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">namespace OOLUA \</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">{ \</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    namespace INTERNAL \</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">    { \</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">        template&lt;typename Class OOLUA_COMMA_PREFIXED_TYPENAMES_##NUM &gt; \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">        struct Constructor##NUM \</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">        { \</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">            static int construct(lua_State* l) \</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">            { \</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">                int index(1); \</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">                if( OOLUA_CONSTRUCTOR_PARAM_IS_OF_TYPE_##NUM ) \</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">                { \</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">                    valid_construct(l); \</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">                    return 1; \</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                } \</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">                return 0; \</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">            } \</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">            static void valid_construct(lua_State* l) \</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">            { \</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">                int index(1); \</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">                OOLUA_CONSTRUCTOR_PARAM_##NUM \</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">                Class* obj = new Class( OOLUA_CONVERTER_PARAMS_##NUM ); \</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">                add_ptr(l,obj,false,Lua); \</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">            } \</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">        }; \</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">    } \</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">}</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;OOLUA_INTERNAL_CONSTRUCTORS_GEN</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>OOLUA</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">namespace </span>INTERNAL</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type,<span class="keywordtype">int</span> HasNoDefaultTypedef&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">struct </span>Constructor</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">int</span> construct(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * l)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                Type* obj = <span class="keyword">new</span> Type;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                add_ptr(l,obj,<span class="keyword">false</span>,<a class="code" href="group___o_o_lua_traits.html#gga9ed61e64cfd7c94046082221f524aac1a43ffb484d9a2177fcb67a2c0975cc913">Lua</a>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type&gt;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">struct </span>Constructor&lt;Type,1&gt;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">int</span> construct(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * l)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                luaL_error(l,<span class="stringliteral">&quot;%s %s %s&quot;</span>,<span class="stringliteral">&quot;No parameters passed to the constructor of the type&quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                           ,<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;Type&gt;::class_name</a></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                           ,<span class="stringliteral">&quot;which does not have a default constructor.&quot;</span>);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                <span class="keywordflow">return</span> 0;<span class="comment">//required by function sig yet luaL_error never returns</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        };</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">int</span> oolua_generic_default_constructor(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* l)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordtype">int</span> <span class="keyword">const</span> stack_count = lua_gettop(l);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">if</span>(stack_count == 0 )</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="keywordflow">return</span> Constructor&lt;T,has_typedef&lt;OOLUA::Proxy_class&lt;T&gt;, <a class="code" href="struct_o_o_l_u_a_1_1_no__default__constructor.html" title="There is not a default constructor in the public interface yet there are other constructors. ">OOLUA::No_default_constructor</a>&gt;::Result&gt;::construct(l);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            } </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            luaL_error(l,<span class="stringliteral">&quot;%s %d %s %s&quot;</span>,<span class="stringliteral">&quot;Could not match&quot;</span>,stack_count,<span class="stringliteral">&quot;parameter constructor for type&quot;</span>,<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::class_name</a>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">return</span> 0;<span class="comment">/*required by function sig yet luaL_error never returns*/</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTOR_GENERATE_NUM(NUM) \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">namespace OOLUA \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">{ \</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">    namespace INTERNAL \</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">        template&lt;typename Class OOLUA_COMMA_PREFIXED_TYPENAMES_##NUM &gt; \</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">        struct Constructor##NUM \</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">        { \</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">            static int construct(lua_State* l) \</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">            { \</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">                int index(1); \</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">                if( OOLUA_CONSTRUCTOR_PARAM_IS_OF_TYPE_##NUM ) \</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">                { \</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">                    valid_construct(l); \</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">                    return 1; \</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">                } \</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">                return 0; \</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">            } \</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">            static void valid_construct(lua_State* l) \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">            { \</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">                int index(1); \</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">                OOLUA_CONSTRUCTOR_PARAM_##NUM \</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">                Class* obj = new Class( OOLUA_CONVERTER_PARAMS_##NUM ); \</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">                add_ptr(l,obj,false,Lua); \</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">            } \</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">        }; \</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">    } \</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">}</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTORS_BEGIN \</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">static int oolua_factory_function(lua_State* l) \</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">{ \</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">    int const stack_count = lua_gettop(l);</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTOR_IMP(...) \</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">    MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA \</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">    if( (stack_count == OOLUA_NARG(__VA_ARGS__) &amp;&amp; TYPELIST::IndexOf&lt;Type_list&lt; __VA_ARGS__ &gt;::type, calling_lua_state&gt;::value == -1) \</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">    || (stack_count == OOLUA_NARG(__VA_ARGS__)-1 &amp;&amp; TYPELIST::IndexOf&lt;Type_list&lt; __VA_ARGS__ &gt;::type, calling_lua_state&gt;::value != -1) ) \</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">    { \</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">        if( OOLUA_VA_CONSTRUCTOR(__VA_ARGS__)&lt;class_ VA_PARAM_TYPES(__VA_ARGS__) &gt;::construct(l) ) return 1; \</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">    } \</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    MSC_POP_COMPILER_WARNING_OOLUA</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTORS_END \</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">    if(stack_count == 0 ) \</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">    { \</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">        return INTERNAL::Constructor&lt;class_,INTERNAL::has_typedef&lt;this_type, No_default_constructor&gt;::Result&gt;::construct(l); \</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">    } \</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">    luaL_error(l,&quot;%s %d %s %s&quot;,&quot;Could not match&quot;,stack_count,&quot;parameter constructor for type&quot;,class_name); \</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">    return 0;</span><span class="comment">/*required by function sig yet luaL_error never returns*/</span><span class="preprocessor">  \</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">} \</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    typedef class_ ctor_block_check;</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#define OOLUA_ONLY_DEFAULT_CONSTRUCTOR \</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_BEGIN \</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">OOLUA_CONSTRUCTORS_END</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif </span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;OOLUA_INTERNAL_CONSTRUCTORS_GEN</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTORS_BEGIN \</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">static int oolua_factory_function(lua_State* l) \</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">{ \</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">    int const stack_count = lua_gettop(l);</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc">  119</a></span>&#160;<span class="preprocessor">#define OOLUA_CTOR(...) \</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">    MSC_PUSH_DISABLE_CONDITIONAL_CONSTANT_OOLUA \</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    if( (stack_count == OOLUA_NARG(__VA_ARGS__) &amp;&amp; TYPELIST::IndexOf&lt;Type_list&lt; __VA_ARGS__ &gt;::type, calling_lua_state&gt;::value == -1) \</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">    || (stack_count == OOLUA_NARG(__VA_ARGS__)-1 &amp;&amp; TYPELIST::IndexOf&lt;Type_list&lt; __VA_ARGS__ &gt;::type, calling_lua_state&gt;::value != -1) ) \</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">        if( OOLUA_VA_CONSTRUCTOR(__VA_ARGS__)&lt;class_ VA_PARAM_TYPES(__VA_ARGS__) &gt;::construct(l) ) return 1; \</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">    } \</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">    MSC_POP_COMPILER_WARNING_OOLUA</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#define OOLUA_CONSTRUCTORS_END \</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">    if(stack_count == 0 ) \</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">    { \</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">        return INTERNAL::Constructor&lt;class_,INTERNAL::has_typedef&lt;this_type, No_default_constructor&gt;::Result&gt;::construct(l); \</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">    } \</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">    luaL_error(l,&quot;%s %d %s %s&quot;,&quot;Could not match&quot;,stack_count,&quot;parameter constructor for type&quot;,class_name); \</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">    return 0;</span><span class="comment">/*required by function sig yet luaL_error never returns*/</span><span class="preprocessor">  \</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">} \</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">    typedef class_ ctor_block_check;</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb">  168</a></span>&#160;<span class="preprocessor">#   define OOLUA_CTORS(ConstructorEntriesList) OOLUA_CONSTRUCTORS_BEGIN ConstructorEntriesList OOLUA_CONSTRUCTORS_END</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#endif </span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="cpp__constructor_8h.html">cpp_constructor.h</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:19 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

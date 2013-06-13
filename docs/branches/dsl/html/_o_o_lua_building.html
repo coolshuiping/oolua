@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('_o_o_lua_building.html','');});
 </p>
 <h1><a class="anchor" id="OOLuaPremake"></a>
 Makefiles and IDE projects</h1>
-<p>OOLua does not provide solution files instead it provides Premake4 <a class="el" href="_o_o_lua_building.html#PremakeDownload">[1]</a> scripts. Premake is a simple <a class="el" href="_o_o_lua_building.html#PremakeQuickStart">[2]</a> to use IDE project or makefile generator and can be used to help create a static library or to run <a class="el" href="_o_o_lua_unit_tests.html">Library tests</a> <br/>
+<p>OOLua does not provide solution files instead it provides Premake4 <a class="el" href="_o_o_lua_building.html#PremakeDownload">[1]</a> scripts. Premake is a simple <a class="el" href="_o_o_lua_building.html#PremakeQuickStart">[2]</a> to use IDE project or makefile generator and can be used to help create a static library or to run <a class="el" href="_o_o_lua_unit_tests.html">Library Tests</a> <br/>
  </p>
 <h2><a class="anchor" id="OOLuaPremakeFormat"></a>
 Premake format</h2>
@@ -143,16 +143,53 @@ CodeBlocks</h3>
 </div><!-- fragment --> <ul>
 <li>windows </li>
 <li>linux </li>
-<li>macosx </li>
+<li>macosx</li>
 </ul>
-<h1><a class="anchor" id="OOLuaPremakeLocalInstall"></a>
-Local install</h1>
+<h1><a class="anchor" id="IncreasingLibraryLimits"></a>
+Library limits</h1>
+<p>The <a class="el" href="group___o_o_lua_file_generation.html">"oolua_generate"</a> Lua module provides information about the default limits and allows generation of boilerplate code using user defined limits or regeneration with default values, the details of these being : <a class="anchor" id="OOLuaConfigLuaParams"></a><a class="anchor" id="OOLuaConfigCppParams"></a><a class="anchor" id="OOLuaConfigConstructorParams"></a> <a class="anchor" id="OOLuaConfigClassFunctions"></a> </p>
+<div class="fragment"><div class="line">    <span class="keywordflow">return</span></div>
+<div class="line">    {</div>
+<div class="line">        lua_params =</div>
+<div class="line">        {   desc =<span class="stringliteral">&#39;Maximum amount of parameters for a call to a Lua function&#39;</span></div>
+<div class="line">            ,value=10</div>
+<div class="line">        }</div>
+<div class="line">        ,cpp_params = </div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum number of parameters a C++ function can have&#39;</span></div>
+<div class="line">            ,value=8</div>
+<div class="line">        }</div>
+<div class="line">        ,constructor_params =</div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum amount of parameters for a constructor of a proxied type&#39;</span></div>
+<div class="line">            ,value=5</div>
+<div class="line">        }</div>
+<div class="line">        ,class_functions =</div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum amount of class functions that can be registered for each proxied type&#39;</span></div>
+<div class="line">            ,value=15</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+</div><!-- fragment --><p> The most common change to these options is the number of functions which can be registered for a proxy class, this limit applies individually to constant and none constant functions, base class methods that are registered in a base class do not decrease the count for a derived class.<br/>
+ Using the Lua interpreter to regenerate the OOLua files increasing this option whilst using default values for the remaining options: </p>
+<div class="fragment"><div class="line">lua -e <span class="stringliteral">&quot;require&#39;build_scripts.oolua_generate&#39;.gen({class_functions=30},&#39;include/&#39;)&quot;</span></div>
+</div><!-- fragment --> <p>For convenience you do not need a version of Lua installed on a machine to run this module, Premake the project file generator used in OOLua already contains a copy of Lua 5.1 (it has some modifications to the core libraries). To generate the files with the same options as above : </p>
+<div class="fragment"><div class="line">premake4 --class_functions=30 oolua-<a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a></div>
+</div><!-- fragment --> <p>The module returns a table with the following functions <br/>
+ </p>
+<div class="fragment"><div class="line"><span class="keywordflow">return</span> { <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a> = <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a>, <a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>=<a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>, <a class="code" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45" title="Returns the library defaults and details. ">default_details</a>=default_details }</div>
+</div><!-- fragment --> <h1><a class="anchor" id="LibraryConfig"></a>
+Library Config</h1>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_config.html">Library Configuration</a></dd></dl>
 <h1><a class="anchor" id="OOLuaBuildScripts"></a>
 Build Scripts</h1>
 <div class="fragment"><div class="line">[make or IDE]_build.[sh or bat]</div>
-</div><!-- fragment --><p> When these build scripts are run from the build_scripts directory they create a "local_install" directory which contains compiled debug and release static libraries also the library header in a sub directory "oolua".<br/>
+</div><!-- fragment --><p> When these build scripts are run from the build_scripts directory they create a "../local_install" directory into which newly compiled debug and release static libraries will be place along with the library headers in a sub directory "oolua".<br/>
 </p>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_config.html">Library Configuration</a> </dd></dl>
+<h1><a class="anchor" id="OOLuaTestScripts"></a>
+Test Unit scripts</h1>
+<div class="fragment"><div class="line">[make or IDE]_tests.[sh or bat]</div>
+</div><!-- fragment --><p> The scripts test the library <a class="el" href="group___o_o_lua_error_reporting.html#gad6b917765fceabe906d0cb6e34784a3e">using exceptions</a> and <a class="el" href="group___o_o_lua_error_reporting.html#ga9f17233fa877a2f7c8e555d41779ed53">error return values</a> in both debug and release configurations. When run from the build_scripts directory these will produce compiler and test unit output saved to disk in the directory "../build_logs", if an error occurs during a test then a message to stdout will inform of where to locate the full error message and compile log. These test scripts clean up any other files produced during their running.</p>
 <p><a class="anchor" id="PremakeDownload"></a> [1] Premake download <a href="http://industriousone.com/premake/download">http://industriousone.com/premake/download</a> </p>
 <p><a class="anchor" id="PremakeQuickStart"></a> [2] Premake quick start <a href="http://industriousone.com/premake-quick-start">http://industriousone.com/premake-quick-start</a> </p>
 </div></div><!-- contents -->
@@ -160,7 +197,7 @@ Build Scripts</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('group___o_o_lua_file_generation.html',
 </div><!--header-->
 <div class="contents">
 
-<p>Lua module for generating required OOLua configurable boilerplate code.  
+<p>Lua module for generating configurable OOLua boilerplate code.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -123,18 +123,8 @@ Functions</h2></td></tr>
 <tr class="separator:gacde9e110eb23187754bc948dc43ef555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Lua module for generating required OOLua configurable boilerplate code. </p>
-<p>This module allows for a user to set limits which are different from the defaults or for the files to be regenerated using the default values.<br/>
- You do not need a version of Lua to run this module, premake the project file generator used in OOLua already contains a copy of Lua 5.1 with some modifications to the core. For premake information see and the OOLua specific options added run the following in the OOLua root directory:</p>
-<div class="fragment"><div class="line">premake4 --help</div>
-</div><!-- fragment --><p>The most common change to these options is the number of functions which can be registered for a proxy class, this limit applies individually to constant and none constant functions, base class methods that are registered in a base class do not decrease the count for a derived class.<br/>
- Regenerates the OOLua files and specifies to increase the count whilst using default values for the remaining options: </p>
-<div class="fragment"><div class="line">premake4 --class_functions=30 oolua-<a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a></div>
-</div><!-- fragment --><p> Returns a module with the following functions <br/>
- </p>
-<div class="fragment"><div class="line"><span class="keywordflow">return</span> { <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a> = <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a>, <a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>=<a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>, <a class="code" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45" title="Returns the library defaults and details. ">default_details</a>=default_details }</div>
-</div><!-- fragment --><p> Default Options: <br/>
- <a class="anchor" id="OOLuaConfigLuaParams"></a><a class="anchor" id="OOLuaConfigCppParams"></a><a class="anchor" id="OOLuaConfigConstructorParams"></a> <a class="anchor" id="OOLuaConfigClassFunctions"></a> </p>
+<p>Lua module for generating configurable OOLua boilerplate code. </p>
+<p>The <a class="el" href="group___o_o_lua_file_generation.html">"oolua_generate"</a> Lua module provides information about the default limits and allows generation of boilerplate code using user defined limits or regeneration with default values, the details of these being : <a class="anchor" id="OOLuaConfigLuaParams"></a><a class="anchor" id="OOLuaConfigCppParams"></a><a class="anchor" id="OOLuaConfigConstructorParams"></a> <a class="anchor" id="OOLuaConfigClassFunctions"></a> </p>
 <div class="fragment"><div class="line">    <span class="keywordflow">return</span></div>
 <div class="line">    {</div>
 <div class="line">        lua_params =</div>
@@ -157,6 +147,14 @@ Functions</h2></td></tr>
 <div class="line">            ,value=15</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
+</div><!-- fragment --><p> The most common change to these options is the number of functions which can be registered for a proxy class, this limit applies individually to constant and none constant functions, base class methods that are registered in a base class do not decrease the count for a derived class.<br/>
+ Using the Lua interpreter to regenerate the OOLua files increasing this option whilst using default values for the remaining options: </p>
+<div class="fragment"><div class="line">lua -e <span class="stringliteral">&quot;require&#39;build_scripts.oolua_generate&#39;.gen({class_functions=30},&#39;include/&#39;)&quot;</span></div>
+</div><!-- fragment --> <p>For convenience you do not need a version of Lua installed on a machine to run this module, Premake the project file generator used in OOLua already contains a copy of Lua 5.1 (it has some modifications to the core libraries). To generate the files with the same options as above : </p>
+<div class="fragment"><div class="line">premake4 --class_functions=30 oolua-<a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a></div>
+</div><!-- fragment --> <p>The module returns a table with the following functions <br/>
+ </p>
+<div class="fragment"><div class="line"><span class="keywordflow">return</span> { <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a> = <a class="code" href="group___o_o_lua_file_generation.html#gab6d297e01da9745bc6782aec2200f342" title="Generate boilerplate header files. ">gen</a>, <a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>=<a class="code" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555" title="Gets the default options as key(string) and value(number) entries in a table. ">defaults</a>, <a class="code" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45" title="Returns the library defaults and details. ">default_details</a>=default_details }</div>
 </div><!-- fragment --><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga134514629f62281a008a3f5f0c10ff45"></a>
 <div class="memitem">
@@ -173,7 +171,29 @@ Functions</h2></td></tr>
 
 <p>Returns the library defaults and details. </p>
 <p>Returns a table detailing the library defaults and descriptions </p>
-<dl class="section return"><dt>Returns</dt><dd>Table of the format { config_option ={desc='blurb',value=0} } </dd></dl>
+<div class="fragment"><div class="line">    <span class="keywordflow">return</span></div>
+<div class="line">    {</div>
+<div class="line">        lua_params =</div>
+<div class="line">        {   desc =<span class="stringliteral">&#39;Maximum amount of parameters for a call to a Lua function&#39;</span></div>
+<div class="line">            ,value=10</div>
+<div class="line">        }</div>
+<div class="line">        ,cpp_params = </div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum number of parameters a C++ function can have&#39;</span></div>
+<div class="line">            ,value=8</div>
+<div class="line">        }</div>
+<div class="line">        ,constructor_params =</div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum amount of parameters for a constructor of a proxied type&#39;</span></div>
+<div class="line">            ,value=5</div>
+<div class="line">        }</div>
+<div class="line">        ,class_functions =</div>
+<div class="line">        {</div>
+<div class="line">            desc=<span class="stringliteral">&#39;Maximum amount of class functions that can be registered for each proxied type&#39;</span></div>
+<div class="line">            ,value=15</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+</div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>Table of the format { config_option ={desc='blurb',value=0} } </dd></dl>
 
 </div>
 </div>
@@ -191,7 +211,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the default options as key(string) and value(number) entries in a table. </p>
-<p>Modifies the table returned by <a class="el" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45">default_details</a> so the it formatted correctly for any functions it will be passed to. </p>
+<p>Modifies the table returned by <a class="el" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45">default_details</a> so the it is formatted correctly for any functions it will be passed to. </p>
 <dl class="section return"><dt>Returns</dt><dd>Table of the format { config_option = 0 } </dd></dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_file_generation.html#ga134514629f62281a008a3f5f0c10ff45" title="Returns the library defaults and details. ">default_details</a> </dd></dl>
 
@@ -225,11 +245,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">options</td><td>[optional] Defaults to the library <a class="el" href="group___o_o_lua_file_generation.html#gacde9e110eb23187754bc948dc43ef555">defaults</a> </td></tr>
-    <tr><td class="paramname">path</td><td>[optional] Defaults to Current working directory</td></tr>
+    <tr><td class="paramname">path</td><td>[optional] Defaults to the current working directory</td></tr>
   </table>
   </dd>
 </dl>
-<p>Generates boilerplate C++ files code required for OOLua using the passed options or if an option is not present then the default is used. </p>
+<p>Generates boilerplate C++ files code required for OOLua using the passed options or if an option is not present then the default is used. If Path is not nil then it is required to be a string which is slash postfixed. </p>
 
 </div>
 </div>
@@ -238,7 +258,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

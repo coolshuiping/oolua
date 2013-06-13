@@ -11,6 +11,7 @@ var searchData=
   ['cpp_5fin_5fp',['cpp_in_p',['../struct_o_o_l_u_a_1_1cpp__in__p.html',1,'OOLUA']]],
   ['cpp_5fmember_5ffunc_2eh',['cpp_member_func.h',['../cpp__member__func_8h.html',1,'']]],
   ['comparison_20overview',['Comparison overview',['../_library_comparison_overview.html',1,'OOLuaComparison']]],
+  ['change_20log',['Change Log',['../_o_o_lua_change_log.html',1,'']]],
   ['comparison_20code',['Comparison code',['../_o_o_lua_comparison_test_code.html',1,'OOLuaComparison']]],
   ['comparison_20results',['Comparison results',['../_o_o_lua_library_comparison_results.html',1,'OOLuaComparison']]]
 ];

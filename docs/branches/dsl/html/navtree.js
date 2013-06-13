@@ -8,7 +8,6 @@ var NAVTREE =
     [ "Lua compatibility", "index.html#OOLuaCompatibility", null ],
     [ "Links", "index.html#OOLuaLinks", null ],
     [ "Licence", "index.html#OOLuaLicence", null ],
-    [ "Usage", "_o_o_lua_useage.html", "_o_o_lua_useage" ],
     [ "Building", "_o_o_lua_building.html", [
       [ "Makefiles and IDE projects", "_o_o_lua_building.html#OOLuaPremake", [
         [ "Premake format", "_o_o_lua_building.html#OOLuaPremakeFormat", [
@@ -18,11 +17,27 @@ var NAVTREE =
           [ "CodeBlocks", "_o_o_lua_building.html#OOLuaPremakeCodeBlocks", null ]
         ] ]
       ] ],
-      [ "Local install", "_o_o_lua_building.html#OOLuaPremakeLocalInstall", null ],
-      [ "Build Scripts", "_o_o_lua_building.html#OOLuaBuildScripts", null ]
+      [ "Library limits", "_o_o_lua_building.html#IncreasingLibraryLimits", null ],
+      [ "Library Config", "_o_o_lua_building.html#LibraryConfig", null ],
+      [ "Build Scripts", "_o_o_lua_building.html#OOLuaBuildScripts", null ],
+      [ "Test Unit scripts", "_o_o_lua_building.html#OOLuaTestScripts", null ]
     ] ],
-    [ "Library tests", "_o_o_lua_unit_tests.html", [
-      [ "Directory layout", "_o_o_lua_unit_tests.html#OOLuaTestFiles", null ]
+    [ "Usage", "_o_o_lua_useage.html", "_o_o_lua_useage" ],
+    [ "Library Tests", "_o_o_lua_unit_tests.html", [
+      [ "Directory Layout", "_o_o_lua_unit_tests.html#OOLuaTestFiles", null ],
+      [ "Test Scripts", "_o_o_lua_unit_tests.html#OOLuaDupTestScripts", null ]
+    ] ],
+    [ "Change Log", "_o_o_lua_change_log.html", [
+      [ "2.0.0", "_o_o_lua_change_log.html#OOLuaChanges2-0-0", null ],
+      [ "1.4.0", "_o_o_lua_change_log.html#OOLuaChanges1-4-0", null ],
+      [ "1.3.2", "_o_o_lua_change_log.html#OOLuaChanges1-3-2", null ],
+      [ "1.3.1", "_o_o_lua_change_log.html#OOLuaChanges1-3-1", null ],
+      [ "1.3.0", "_o_o_lua_change_log.html#OOLuaChanges1-3-0", null ],
+      [ "1.2.2", "_o_o_lua_change_log.html#OOLuaChanges1-2-2", null ],
+      [ "1.2.1", "_o_o_lua_change_log.html#OOLuaChanges1-2-1", null ],
+      [ "1.2.0", "_o_o_lua_change_log.html#OOLuaChanges1-2-0", null ],
+      [ "1.1.0", "_o_o_lua_change_log.html#OOLuaChanges1-1-0", null ],
+      [ "1.0.0", "_o_o_lua_change_log.html#OOLuaChanges1-0-0", null ]
     ] ],
     [ "Library Comparisons", "_o_o_lua_comparison.html", "_o_o_lua_comparison" ],
     [ "Todo List", "todo.html", null ],
@@ -42,6 +57,7 @@ var NAVTREE =
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
@@ -61,7 +77,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_library_comparison_overview.html",
-"lua__class__ops_8h_source.html"
+"group___o_o_lua_minimalist.html#gadb95e992a32ab9c2a76683c3c628ea6c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

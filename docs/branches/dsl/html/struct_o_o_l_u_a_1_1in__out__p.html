@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -74,6 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -122,7 +123,17 @@ struct OOLUA::in_out_p&lt; T &gt;</h3>
 
 <p>Input and output parameter trait. </p>
 <p>The calling Lua procedure supplies the parameter to the proxied function, the value of the parameter after the proxied call will be passed back to the calling procedure as a return value. No change of ownership occurs. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<div class="fragment"><div class="line"><span class="keyword">struct </span>foo</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">void</span> bar( <span class="keywordtype">int</span>&amp; input_and_result){++input_and_result;}</div>
+<div class="line">};</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(foo)</div>
+<div class="line">    <a class="code" href="group___o_o_lua_expressive.html#ga63b334c4b6ee82dd4a1497a6c6bb65e9" title="Generates a member function proxy which will also be the named FunctionName. ">OOLUA_MEM_FUNC</a>(<span class="keywordtype">void</span>,bar,in_out_p&lt;<span class="keywordtype">int</span>&amp;&gt;)</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
+<div class="line">local input = 1</div>
+<div class="line">local result = foo.new():bar(input)</div>
+<div class="line">assert(result and result~=input)</div>
+</div><!-- fragment --> </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="param__traits_8h_source.html">param_traits.h</a></li>
 </ul>
 </div><!-- contents -->
@@ -131,7 +142,7 @@ struct OOLUA::in_out_p&lt; T &gt;</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_o_l_u_a.html">OOLUA</a></li><li class="navelem"><a class="el" href="struct_o_o_l_u_a_1_1in__out__p.html">in_out_p</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:21 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

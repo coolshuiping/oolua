@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -116,41 +116,35 @@ $(document).ready(function(){initNavTree('oolua__version_8h_source.html','');});
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define OOLUA_DO_STRINGISE(a)   #a</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define OOLUA_STRINGISE(a)   OOLUA_DO_STRINGISE(a)</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//#ifndef OOLUA_VERSION</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289">   12</a></span>&#160;<span class="comment"></span><span class="preprocessor">#       define OOLUA_VERSION_MAJ 2</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28">   15</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION_MIN 0</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09">   18</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION_PATCH 0</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#aff5fdfcdc7f5913690ae988ee6fff184">   22</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION \</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_MAJ) &quot;.&quot; \</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_MIN) &quot;.&quot; \</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_PATCH) &quot; Alpha&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span><span class="comment">//#endif</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span>OOLUA</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822">   34</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822" title="OOLua version string. ">version_str</a>[] = <a class="code" href="oolua__version_8h.html#aff5fdfcdc7f5913690ae988ee6fff184" title="OOLua version string. ">OOLUA_VERSION</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#ae6fb5b63d0153c8200ac02b77abb4cfe">   37</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespace_o_o_l_u_a.html#ae6fb5b63d0153c8200ac02b77abb4cfe" title="OOLua version int. ">version_number</a> = <a class="code" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289" title="OOLua version string. ">OOLUA_VERSION_MAJ</a>*10000+<a class="code" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28" title="OOLua version string. ">OOLUA_VERSION_MIN</a>*1000+<a class="code" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09" title="OOLua version string. ">OOLUA_VERSION_PATCH</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#undef OOLUA_DO_STRINGISE</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#undef OOLUA_STRINGISE</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span><span class="comment">//#undef OOLUA_VERSION_MAJ</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//#undef OOLUA_VERSION_MIN</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//#undef OOLUA_VERSION_PATCH</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//#undef OOLUA_VERSION</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289">   11</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION_MAJ 2</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28">   14</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION_MIN 0</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09">   17</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION_PATCH 0</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="code" href="oolua__version_8h.html#aff5fdfcdc7f5913690ae988ee6fff184">   21</a></span>&#160;<span class="preprocessor">#       define OOLUA_VERSION \</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_MAJ) &quot;.&quot; \</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_MIN) &quot;.&quot; \</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">                    OOLUA_STRINGISE(OOLUA_VERSION_PATCH) &quot; Beta&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>OOLUA</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822">   32</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822" title="OOLua version string. ">version_str</a>[] = <a class="code" href="oolua__version_8h.html#aff5fdfcdc7f5913690ae988ee6fff184" title="OOLua version string. ">OOLUA_VERSION</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#ae6fb5b63d0153c8200ac02b77abb4cfe">   35</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespace_o_o_l_u_a.html#ae6fb5b63d0153c8200ac02b77abb4cfe" title="OOLua version int. ">version_number</a> = <a class="code" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289" title="OOLua version string. ">OOLUA_VERSION_MAJ</a>*10000+<a class="code" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28" title="OOLua version string. ">OOLUA_VERSION_MIN</a>*1000+<a class="code" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09" title="OOLua version string. ">OOLUA_VERSION_PATCH</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#undef OOLUA_DO_STRINGISE</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#undef OOLUA_STRINGISE</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="oolua__version_8h.html">oolua_version.h</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

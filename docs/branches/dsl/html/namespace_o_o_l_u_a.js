@@ -24,6 +24,7 @@ var namespace_o_o_l_u_a =
     [ "in_out_p", "struct_o_o_l_u_a_1_1in__out__p.html", null ],
     [ "cpp_in_p", "struct_o_o_l_u_a_1_1cpp__in__p.html", null ],
     [ "lua_out_p", "struct_o_o_l_u_a_1_1lua__out__p.html", null ],
+    [ "Proxy_class", "class_o_o_l_u_a_1_1_proxy__class.html", null ],
     [ "Syntax_error", "struct_o_o_l_u_a_1_1_syntax__error.html", null ],
     [ "Runtime_error", "struct_o_o_l_u_a_1_1_runtime__error.html", null ],
     [ "Memory_error", "struct_o_o_l_u_a_1_1_memory__error.html", null ],

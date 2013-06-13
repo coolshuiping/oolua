@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -252,7 +252,7 @@ $(document).ready(function(){initNavTree('lua__operator_8h_source.html','');});
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keyword">struct </span>class_or_base_has_tag_block</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        {</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_tag_block(<span class="keyword">typename</span> OOLUA::Proxy_class&lt;U&gt;::tag_block_check*))[1] ;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_tag_block(<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;U&gt;::tag_block_check</a>*))[1] ;</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; </div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_tag_block(...))[2];</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keyword">enum</span> {value = <span class="keyword">sizeof</span>( check_for_tag_block&lt;ClassType &gt;(0) ) == 1 ? 1 : 0} ;</div>
@@ -272,7 +272,7 @@ $(document).ready(function(){initNavTree('lua__operator_8h_source.html','');});
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ClassType,<span class="keywordtype">int</span> has_proxy_tags&gt;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keyword">struct </span>proxy_tag_type</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keyword">typedef</span> <span class="keyword">typename</span> Proxy_class&lt;ClassType&gt;::Typedef type;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keyword">typedef</span> <span class="keyword">typename</span> Proxy_class&lt;ClassType&gt;::Tags type;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        };</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ClassType&gt;</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">struct </span>proxy_tag_type&lt;ClassType,0&gt;</div>
@@ -304,7 +304,7 @@ $(document).ready(function(){initNavTree('lua__operator_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="lua__operator_8h.html">lua_operator.h</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

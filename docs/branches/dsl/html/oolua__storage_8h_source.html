@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -302,8 +302,8 @@ $(document).ready(function(){initNavTree('oolua__storage_8h_source.html','');});
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="comment">//change the metatable associated with the ud</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            lua_getfield(l, LUA_REGISTRYINDEX</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                         ,  (<span class="keywordtype">char</span>*) (is_const ? OOLUA::Proxy_class&lt;T&gt;::class_name_const </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                                                     : OOLUA::Proxy_class&lt;T&gt;::class_name)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                         ,  (<span class="keywordtype">char</span>*) (is_const ? <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::class_name_const</a> </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                                                     : <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::class_name</a>)</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                         );</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            lua_setmetatable(l,-2);<span class="comment">//set ud&#39;s metatable to this</span></div>
@@ -311,7 +311,7 @@ $(document).ready(function(){initNavTree('oolua__storage_8h_source.html','');});
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordtype">int</span> weak_index = push_weak_table(l);<span class="comment">//ud weakTable</span></div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="comment">//then register all the bases that need it</span></div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            Add_ptr&lt;T</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                    ,<span class="keyword">typename</span> OOLUA::Proxy_class&lt;T&gt;::AllBases</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                    ,<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::AllBases</a></div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                    ,0</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; typename OOLUA::Proxy_class&lt;T&gt;::AllBases, 0, TYPE::Null_type &gt;::Result</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                &gt; addThisTypesBases;</div>
@@ -326,8 +326,8 @@ $(document).ready(function(){initNavTree('oolua__storage_8h_source.html','');});
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            Lua_ud* ud = new_userdata(l, ptr, is_const,&amp;stack_top_type_is_base&lt;T&gt;,&amp;OOLUA::register_class&lt;T&gt;);</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            <span class="keywordflow">if</span>(owner != <a class="code" href="group___o_o_lua_traits.html#gga9ed61e64cfd7c94046082221f524aac1afb78aaa1226c3fdc9b30339781cf3afe">No_change</a>)userdata_gc_value(ud, owner == <a class="code" href="group___o_o_lua_traits.html#gga9ed61e64cfd7c94046082221f524aac1a43ffb484d9a2177fcb67a2c0975cc913">Lua</a>);</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            lua_getfield(l, LUA_REGISTRYINDEX</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                         ,  (<span class="keywordtype">char</span>*) (is_const ? OOLUA::Proxy_class&lt;T&gt;::class_name_const </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                                     : OOLUA::Proxy_class&lt;T&gt;::class_name)</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                         ,  (<span class="keywordtype">char</span>*) (is_const ? <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::class_name_const</a> </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                                     : <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::class_name</a>)</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                         );</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">#if OOLUA_DEBUG_CHECKS ==1</span></div>
@@ -341,7 +341,7 @@ $(document).ready(function(){initNavTree('oolua__storage_8h_source.html','');});
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            add_ptr_if_required(l,ptr,udIndex,weakIndex);<span class="comment">//it is required</span></div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            Add_ptr&lt;T</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                    ,<span class="keyword">typename</span> OOLUA::Proxy_class&lt;T&gt;::AllBases</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                    ,<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::AllBases</a></div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                    ,0</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt; typename OOLUA::Proxy_class&lt;T&gt;::AllBases, 0, TYPE::Null_type &gt;::Result</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                &gt; addThisTypesBases;</div>
@@ -412,7 +412,7 @@ $(document).ready(function(){initNavTree('oolua__storage_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>oolua_storage.h</b></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

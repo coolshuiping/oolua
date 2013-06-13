@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -154,20 +154,17 @@ $(document).ready(function(){initNavTree('cpp__out__params_8h_source.html','');}
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::string str;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">class </span>OutParamsUserData</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="class_out_params_user_data.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_out_params_user_data.html">OutParamsUserData</a></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> ~OutParamsUserData(){}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_out_params_user_data.html">OutParamsUserData</a>(){}</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ref(<a class="code" href="struct_stub1.html">Stub1</a> &amp; stub)=0;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ptr(<a class="code" href="struct_stub1.html">Stub1</a>* stub) = 0;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> by_value(<a class="code" href="struct_stub1.html">Stub1</a> stub) = 0;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ref_param(MockParamWithStringMember&amp; mock) = 0;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">class </span>MockOutParamsUserData : <span class="keyword">public</span> OutParamsUserData</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="code" href="class_mock_out_params_user_data.html">   58</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_mock_out_params_user_data.html">MockOutParamsUserData</a> : <span class="keyword">public</span> <a class="code" href="class_out_params_user_data.html">OutParamsUserData</a></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    MOCK_METHOD1(ref,<span class="keywordtype">void</span> (<a class="code" href="struct_stub1.html">Stub1</a>&amp;));</div>
@@ -184,7 +181,7 @@ $(document).ready(function(){initNavTree('cpp__out__params_8h_source.html','');}
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_e7c608ee7a349a990cecd74a7d13d4b1.html">unit_tests</a></li><li class="navelem"><a class="el" href="dir_ccadb01704b8fa23df8e16b50ef612c5.html">cpp_classes</a></li><li class="navelem"><b>cpp_out_params.h</b></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:19 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

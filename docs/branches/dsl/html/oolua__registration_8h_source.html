@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;base_checker.h&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;oolua_char_arrays.h&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lvd__types_8h.html">lvd_types.h</a>&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="oolua__typedefs_8h.html">oolua_typedefs.h</a>&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="oolua__tags_8h.html">oolua_tags.h</a>&quot;</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lua__table_8h.html">lua_table.h</a>&quot;</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;oolua_config.h&quot;</span></div>
@@ -431,7 +431,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="keyword">struct </span>class_or_base_has_ctor_block</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        {</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_ctor_block(<span class="keyword">typename</span> OOLUA::Proxy_class&lt;U&gt;::ctor_block_check*))[1] ;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_ctor_block(<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;U&gt;::ctor_block_check</a>*))[1] ;</div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; </div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            <span class="keyword">static</span> char (&amp; check_for_ctor_block(...))[2];</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            <span class="keyword">enum</span> {value = <span class="keyword">sizeof</span>( check_for_ctor_block&lt;T &gt;(0) ) == 1 ? 1 : 0} ;</div>
@@ -462,7 +462,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            {</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                set_function_in_table(l</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                                      ,new_str</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                                      ,&amp;OOLUA::Proxy_class&lt;T&gt;::oolua_factory_function</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                                      ,&amp;<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::oolua_factory_function</a></div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                                      ,methods);</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            }</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            <span class="keyword">static</span> <span class="keywordtype">void</span> do_set(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a>* <span class="keyword">const</span> l,<span class="keywordtype">int</span> methods, LVD::Int2type&lt;0&gt; <span class="comment">/*needs generic function*/</span>)</div>
@@ -512,7 +512,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00453"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#a889336ee34b6edc3eb37dd109cf28a18">  453</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespace_o_o_l_u_a.html#a889336ee34b6edc3eb37dd109cf28a18" title="Registers the class type T with an instance of lua_State. ">register_class</a>(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="comment">/*const*/</span> l)</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    {</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="keywordflow">if</span>(OOLUA::INTERNAL::class_name_is_already_registered(l,Proxy_class&lt;T&gt;::class_name)) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="keywordflow">if</span>(OOLUA::INTERNAL::class_name_is_already_registered(l,<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T&gt;::class_name</a>)) <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;</div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        <span class="comment">//set none constant operator methods, constructor etc...</span></div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;        <span class="keywordtype">int</span> none_const_mt(0);</div>
@@ -521,27 +521,27 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        <span class="keywordtype">int</span> const_methods ( INTERNAL::set_const_methods&lt;T&gt;(l,none_const_methods,none_const_mt ));</div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;        <span class="comment">// fill method table with methods from class Proxy_class&lt;T&gt;</span></div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">typename</span> Proxy_class&lt;T &gt;::Reg_type *r = Proxy_class&lt;T &gt;::class_methods; r-&gt;name; r++)</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T &gt;::Reg_type</a> *r = <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T &gt;::class_methods</a>; r-&gt;name; r++)</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        {</div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            INTERNAL::set_function_in_table_with_upvalue(l</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                                               , r-&gt;name</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                                               ,&amp;OOLUA::INTERNAL::member_caller&lt;Proxy_class&lt;T&gt;,T&gt;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                                               ,&amp;OOLUA::INTERNAL::member_caller&lt;<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T&gt;</a>,T&gt;</div>
 <div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                                               , none_const_methods</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                                                , reinterpret_cast&lt;void*&gt; (r));</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        }</div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        <span class="comment">// fill constant method table with methods from class Proxy_class&lt;T&gt;</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">typename</span> Proxy_class&lt;T &gt;::Reg_type_const *r = Proxy_class&lt;T &gt;::class_methods_const; r-&gt;name; ++r)</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T &gt;::Reg_type_const</a> *r = <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T &gt;::class_methods_const</a>; r-&gt;name; ++r)</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        {</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;            INTERNAL::set_function_in_table_with_upvalue(l</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                                               , r-&gt;name</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                                               ,&amp;OOLUA::INTERNAL::const_member_caller&lt;Proxy_class&lt;T&gt;,T&gt;</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                                               ,&amp;OOLUA::INTERNAL::const_member_caller&lt;<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T&gt;</a>,T&gt;</div>
 <div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                                               , const_methods</div>
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                                               , reinterpret_cast&lt;void*&gt; (r));</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        }</div>
 <div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;        <span class="comment">//recursively register any base class methods</span></div>
 <div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        INTERNAL::Register_base&lt;Proxy_class&lt;T&gt;</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;                                    ,<span class="keyword">typename</span> Proxy_class&lt;T&gt;::Bases</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;                                    ,<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T&gt;::Bases</a></div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;                                    ,0</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;                                    ,<span class="keyword">typename</span> TYPELIST::At_default&lt;typename Proxy_class&lt;T&gt;::Bases, 0, TYPE::Null_type &gt;::Result</div>
 <div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;                                &gt; recursive_worker;</div>
@@ -553,7 +553,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span> K,<span class="keyword">typename</span> V&gt;</div>
 <div class="line"><a name="l00495"></a><span class="lineno"><a class="code" href="namespace_o_o_l_u_a.html#a4a9fa9782150dbbfeed4b110b8b24ca6">  495</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespace_o_o_l_u_a.html#a4a9fa9782150dbbfeed4b110b8b24ca6" title="Registers a key K and value V entry into class T. ">register_class_static</a>(<a class="code" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> * <span class="keyword">const</span> l,K <span class="keyword">const</span>&amp; k, V <span class="keyword">const</span>&amp; v)</div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    {</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        <a class="code" href="class_o_o_l_u_a_1_1_table.html" title="Wrapper around a table in Lua which allows quick and easy access. ">Table</a> meth(l,Proxy_class&lt;T&gt;::class_name);</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        <a class="code" href="class_o_o_l_u_a_1_1_table.html" title="Wrapper around a table in Lua which allows quick and easy access. ">Table</a> meth(l,<a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">Proxy_class&lt;T&gt;::class_name</a>);</div>
 <div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        meth.<a class="code" href="class_o_o_l_u_a_1_1_table.html#a8f62608d29c2c3cf11f2298b551ad4ab" title="Inserts the key value pair into the table if key is not present else it updates the table&#39;s key entry...">set_value</a>(k,v);</div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    }</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    </div>
@@ -586,7 +586,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    {</div>
 <div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        register_class&lt;T&gt;(l);</div>
 <div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        INTERNAL::Register_bases_with_lua&lt;0</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                                ,<span class="keyword">typename</span> OOLUA::Proxy_class&lt;T&gt;::AllBases</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                                ,<span class="keyword">typename</span> <a class="code" href="class_o_o_l_u_a_1_1_proxy__class.html" title="A template wrapper for class objects of type T used by the script binding. ">OOLUA::Proxy_class&lt;T&gt;::AllBases</a></div>
 <div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;                                ,<span class="keyword">typename</span> TYPELIST::At_default&lt;typename OOLUA::Proxy_class&lt;T&gt;::AllBases,0,TYPE::Null_type&gt;::Result </div>
 <div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;                        &gt;::work(l);</div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    }</div>
@@ -599,7 +599,7 @@ $(document).ready(function(){initNavTree('oolua__registration_8h_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="oolua__registration_8h.html">oolua_registration.h</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:49 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

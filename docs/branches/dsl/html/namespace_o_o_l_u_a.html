@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -193,6 +193,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_o_l_u_a_1_1lua__out__p.html">lua_out_p</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output parameter trait which will be owned by Lua.  <a href="struct_o_o_l_u_a_1_1lua__out__p.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_o_l_u_a_1_1_proxy__class.html">Proxy_class</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for class objects of type T used by the script binding.  <a href="class_o_o_l_u_a_1_1_proxy__class.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_o_l_u_a_1_1_syntax__error.html">Syntax_error</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports LUA_ERRSYNTAX.  <a href="struct_o_o_l_u_a_1_1_syntax__error.html#details">More...</a><br/></td></tr>
@@ -376,7 +379,7 @@ template&lt;typename T , typename T1 &gt; </td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a6e07ca0a0918cd78db1b70c7c303e822"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e07ca0a0918cd78db1b70c7c303e822"></a>
-static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822">version_str</a> [] = OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289">OOLUA_VERSION_MAJ</a>) &quot;.&quot; OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28">OOLUA_VERSION_MIN</a>) &quot;.&quot; OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09">OOLUA_VERSION_PATCH</a>) &quot; Alpha&quot;</td></tr>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_o_l_u_a.html#a6e07ca0a0918cd78db1b70c7c303e822">version_str</a> [] = OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#a42deed297f288debc0b831e70080e289">OOLUA_VERSION_MAJ</a>) &quot;.&quot; OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#a4f0cfbfa327e3951f1632ff9d45fda28">OOLUA_VERSION_MIN</a>) &quot;.&quot; OOLUA_STRINGISE(<a class="el" href="oolua__version_8h.html#aaf03575abf1fd828341f146c7ebfdf09">OOLUA_VERSION_PATCH</a>) &quot; Beta&quot;</td></tr>
 <tr class="memdesc:a6e07ca0a0918cd78db1b70c7c303e822"><td class="mdescLeft">&#160;</td><td class="mdescRight">OOLua version string. <br/></td></tr>
 <tr class="separator:a6e07ca0a0918cd78db1b70c7c303e822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6fb5b63d0153c8200ac02b77abb4cfe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6fb5b63d0153c8200ac02b77abb4cfe"></a>
@@ -503,14 +506,7 @@ template&lt;typename T &gt; </div>
 <p>Loads a chunk leaving the resulting function on the stack. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lua</td><td>[in]</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Lua virtual machine. </p>
-<p>Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">lua</td><td>[in] Lua virtual machine. Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </td></tr>
     <tr><td class="paramname">chunk</td><td>[in] </td></tr>
   </table>
   </dd>
@@ -545,14 +541,7 @@ template&lt;typename T &gt; </div>
 <p>Loads a file leaving the resulting function on the stack. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lua</td><td>[in]</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Lua virtual machine. </p>
-<p>Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">lua</td><td>[in] Lua virtual machine. Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </td></tr>
     <tr><td class="paramname">filename</td><td>[in] </td></tr>
   </table>
   </dd>
@@ -1536,14 +1525,7 @@ template&lt;typename T , typename K , typename V &gt; </div>
 <p>Loads and runs a chunk of code. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lua</td><td>[in]</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Lua virtual machine. </p>
-<p>Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">lua</td><td>[in] Lua virtual machine. Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </td></tr>
     <tr><td class="paramname">chunk</td><td>[in] </td></tr>
   </table>
   </dd>
@@ -1578,14 +1560,7 @@ template&lt;typename T , typename K , typename V &gt; </div>
 <p>Loads and runs the file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lua</td><td>[in]</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Lua virtual machine. </p>
-<p>Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+    <tr><td class="paramname">lua</td><td>[in] Lua virtual machine. Taken from Lua manual : An opaque structure that points to a thread and indirectly (through the thread) to the whole state of a Lua interpreter. The Lua library is fully reentrant: it has no global variables. All information about a state is accessible through this structure. </td></tr>
     <tr><td class="paramname">filename</td><td>[in] </td></tr>
   </table>
   </dd>
@@ -1710,7 +1685,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_o_l_u_a.html">OOLUA</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:21 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

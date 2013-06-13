@@ -31,7 +31,7 @@
   <td id="projectlogo"><img alt="Logo" src="OOLua.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">OOLua
-   &#160;<span id="projectnumber">2.0.0 Alpha</span>
+   &#160;<span id="projectnumber">2.0.0-Beta1</span>
    </div>
    <div id="projectbrief">C++ and Lua binding</div>
   </td>
@@ -106,56 +106,44 @@ $(document).ready(function(){initNavTree('_o_o_lua_proxying.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="OOLuaProxyDSL"></a>
 DSL</h1>
-<p>The Domain specific language used for generating C++ bindings for Lua. </p>
+<p>The Domain specific language used for generating C++ bindings for Lua.</p>
 <p>OOLua provides a DSL for defining C++ types which are to be made available to a Lua script. The intention of this DSL is to hide the details whilst providing a simple and rememberable interface for performing the actions required. </p>
 <dl class="section note"><dt>Note</dt><dd>"Optional" here means that extra macro parameters are optional, up to the configuration <a class="el" href="group___o_o_lua_file_generation.html#OOLuaConfigCppParams">max</a> for a specific operation. </dd></dl>
-<p><a class="el" href="group___o_o_lua_minimalist.html">Minimalist</a> </p>
+<p><a class="el" href="group___o_o_lua_minimalist.html">Minimalist</a></p>
 <p>Generates a function using the only the name FunctionName/RealClass::FunctionName to resolve the function which is to be proxied. As with taking the address of any C++ function, if there is any ambiguity it will fail to compile, in which case a user should help the compiler by specifying more information via the <a class="el" href="group___o_o_lua_expressive.html">Expressive</a> macros. i.e. The longer the name the more information. <br/>
  </p>
 <dl class="section note"><dt>Note</dt><dd>If the optional parmeter is not supplied then FunctionName is used for both parameters </dd>
 <dd>
 No <a class="el" href="group___o_o_lua_traits.html">Traits</a> can be expressed with this group of macros </dd></dl>
-<p><a class="el" href="group___o_o_lua_expressive.html">Expressive</a> </p>
-<p>Generates a function for which the user has expressed all the parameters for a function these may additionally have <a class="el" href="group___o_o_lua_traits.html">Traits</a>. </p>
-<h1><a class="anchor" id="OOLuaProxyTraits"></a>
-Traits</h1>
-<p>In C++ the use of traits which have a lua_ or cpp_ prefix can control ownership for parameters, returns values and stack entries whilst traits which specify direction for parameters contain as part of their name "out", "in" or a combination.</p>
-<ul>
-<li><a class="el" href="struct_o_o_l_u_a_1_1in__p.html">in_p</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1out__p.html">out_p</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1in__out__p.html">in_out_p</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1cpp__in__p.html">cpp_in_p</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1lua__out__p.html">lua_out_p</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1cpp__acquire__ptr.html">cpp_acquire_ptr</a> </li>
-<li><a class="el" href="struct_o_o_l_u_a_1_1lua__acquire__ptr.html">lua_acquire_ptr</a> </li>
-</ul>
+<p><a class="el" href="group___o_o_lua_expressive.html">Expressive</a></p>
+<p>Generates a function for which the user has expressed all the parameters for a function these may additionally have <a class="el" href="group___o_o_lua_traits.html">Traits</a>.</p>
 <h1><a class="anchor" id="ClassProxy"></a>
 Class Proxy</h1>
 <p>Generating a proxy for a class normally takes place between two DSL procedures <a class="el" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd">OOLUA_PROXY</a> and <a class="el" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e">OOLUA_PROXY_END</a> although alone these do not supply enough information for a proxy to be generated, the following shows the usage of the DSL to proxy and use a C++ class in Lua.</p>
 <h2><a class="anchor" id="MinimalClassProxy"></a>
 Minimal Class Proxy</h2>
-<div class="fragment"><div class="line"><span class="keyword">struct </span><a class="code" href="struct_stub1.html">Stub1</a> {};</div>
+<div class="fragment"><div class="line"><span class="keyword">struct </span>Stub1 {};</div>
 </div><!-- fragment --><p> To proxy a class and be able to use it in Lua requires a three part process. </p>
 <h3><a class="anchor" id="ProxyBlock"></a>
-Proxy block</h3>
+Proxy Block</h3>
 <p>Firstly you create a proxy block which starts with a OOLUA_PROXY call to which you pass the name of the C++ class to be proxied, this block ends at the next OOLUA_PROXY_END. Soon we will see how to proxy other aspects of a class in this block. </p>
-<div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(<a class="code" href="struct_stub1.html">Stub1</a>)</div>
+<div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(Stub1)</div>
 <div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
 </div><!-- fragment --> <h3><a class="anchor" id="ClassExporting"></a>
 Exporting</h3>
-<p>Secondly export member functions which are to be available to Lua for the type. </p>
+<p>Secondly export member functions which are to be available to Lua for the type.</p>
 <p>Defines which member functions will be registered with Lua when the class type is registered. Even when there are no member functions to be exported you still need to inform OOLua about this. Calling an <a class="el" href="group___o_o_lua_exporting.html">OOLUA_EXPORT*</a> procedure in a header file is an error that will fail to compile.</p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group___o_o_lua_exporting.html#ga6a15603355073c969178db64d32b8d07" title="Exports zero or more member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS</a> <br/>
  <a class="el" href="group___o_o_lua_exporting.html#ga8dbe5b8a090a86ade26f86d395c03fb0" title="Exports zero or more const member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS_CONST</a> <br/>
  <a class="el" href="group___o_o_lua_exporting.html#ga1df8f4cd9cdffef161de3c201d6b1a39" title="Inform that there are no functions of interest. ">OOLUA_EXPORT_NO_FUNCTIONS</a> </dd></dl>
-<div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga1df8f4cd9cdffef161de3c201d6b1a39" title="Inform that there are no functions of interest. ">OOLUA_EXPORT_NO_FUNCTIONS</a>(<a class="code" href="struct_stub1.html">Stub1</a>)</div>
+<div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga1df8f4cd9cdffef161de3c201d6b1a39" title="Inform that there are no functions of interest. ">OOLUA_EXPORT_NO_FUNCTIONS</a>(Stub1)</div>
 </div><!-- fragment --> <h3><a class="anchor" id="ClassRegistering"></a>
 Registering</h3>
 <p>Lastly we register the type with a <a class="el" href="structlua___state.html" title="Lua virtual machine. ">lua_State</a> after which the type can be <a class="el" href="_o_o_lua_proxying.html#DefaultConstructor">created</a> and used in Lua. </p>
 <div class="fragment"><div class="line">    <span class="keywordtype">void</span> setUp()</div>
 <div class="line">    {</div>
 <div class="line">        m_lua = <span class="keyword">new</span> <a class="code" href="class_o_o_l_u_a_1_1_script.html" title="OOLua helper class. ">OOLUA::Script</a>;</div>
-<div class="line">        m_lua-&gt;<a class="code" href="class_o_o_l_u_a_1_1_script.html#a870cd14a0757100bafcd5e4352894e83" title="Helper function. ">register_class</a>&lt;<a class="code" href="struct_stub1.html">Stub1</a>&gt;();</div>
+<div class="line">        m_lua-&gt;<a class="code" href="class_o_o_l_u_a_1_1_script.html#a870cd14a0757100bafcd5e4352894e83" title="Helper function. ">register_class</a>&lt;Stub1&gt;();</div>
 <div class="line">    }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">    <span class="keywordtype">void</span> new_luaCreatesInstance_noException()</div>
 <div class="line">    {</div>
@@ -163,26 +151,26 @@ Registering</h3>
 <div class="line">    }</div>
 </div><!-- fragment --> <h2><a class="anchor" id="ProxyTags"></a>
 Tags</h2>
-<p><a class="el" href="group___o_o_lua_d_s_l.html#ga648dba626b4328aad9e995d4bb6391c2" title="Allows more information to be specified about the proxy class. ">OOLUA_TAGS(TagList)</a> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">TagList</td><td>Comma seperated list of <a class="el" href="group___o_o_lua_tags.html">Tags</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Tags specifiy more information about the class which should be exposed, such as: </p>
-<ul>
+<pre class="fragment">    Tags specifiy more information about the class which should be exposed, 
+    such as:
+</pre> <ul>
 <li>Does the class support any operators? </li>
 <li>Is it abstract ? </li>
 <li>Does the class have enumerations? </li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>An OOLUA_TAGS list without any <a class="el" href="group___o_o_lua_tags.html">Tags</a> entries is invalid. </dd></dl>
+<p><a class="el" href="group___o_o_lua_d_s_l.html#ga648dba626b4328aad9e995d4bb6391c2" title="Allows more information to be specified about the proxy class. ">OOLUA_TAGS(TagList)</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TagList</td><td>Comma seperated list of <a class="el" href="group___o_o_lua_tags.html">Tags</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>An OOLUA_TAGS list without any <a class="el" href="group___o_o_lua_tags.html">Tags</a> entries is invalid.</dd></dl>
 <h2><a class="anchor" id="DefaultConstructor"></a>
 Default Constructor</h2>
 <p>The default class constructor is a special member function like C++ and it will be impliclty defined for a type unless <a class="el" href="group___o_o_lua_tags.html">otherwise specified</a>. When available for a type "foo" in can be called in Lua using the following syntax. </p>
-<div class="fragment"><div class="line">foo:<span class="keyword">new</span>()</div>
-</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>Notice that the call is a self call </dd></dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="struct_o_o_l_u_a_1_1_abstract.html" title="The class being mirrored is an abstract class. ">OOLUA::Abstract</a> <a class="el" href="struct_o_o_l_u_a_1_1_no__default__constructor.html" title="There is not a default constructor in the public interface yet there are other constructors. ">OOLUA::No_default_constructor</a> <a class="el" href="struct_o_o_l_u_a_1_1_no__public__constructors.html" title="There are no constructors in the public interface. ">OOLUA::No_public_constructors</a></dd></dl>
+<div class="fragment"><div class="line">foo.new()</div>
+</div><!-- fragment --> <dl class="section see"><dt>See Also</dt><dd><a class="el" href="struct_o_o_l_u_a_1_1_abstract.html" title="The class being mirrored is an abstract class. ">OOLUA::Abstract</a> <a class="el" href="struct_o_o_l_u_a_1_1_no__default__constructor.html" title="There is not a default constructor in the public interface yet there are other constructors. ">OOLUA::No_default_constructor</a> <a class="el" href="struct_o_o_l_u_a_1_1_no__public__constructors.html" title="There are no constructors in the public interface. ">OOLUA::No_public_constructors</a></dd></dl>
 <h2><a class="anchor" id="ClassConstructors"></a>
 Constructors</h2>
 <p><a class="el" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb" title="Creates a block into which none default constructors can be defined with OOLUA_CTOR. ">OOLUA_CTORS(ConstructorEntriesList)</a> </p>
@@ -205,8 +193,8 @@ Constructors</h2>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<span class="keywordtype">int</span> )</div>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<span class="keywordtype">char</span> const*)</div>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<span class="keywordtype">int</span>,<span class="keywordtype">bool</span>)</div>
-<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<a class="code" href="struct_stub1.html">Stub1</a> *)</div>
-<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<a class="code" href="struct_stub1.html">Stub1</a> *,<a class="code" href="struct_stub2.html">Stub2</a>*)</div>
+<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(Stub1 *)</div>
+<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(Stub1 *,<a class="code" href="struct_stub2.html">Stub2</a>*)</div>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(<a class="code" href="struct_stub2.html">Stub2</a>)</div>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(Stub3*)</div>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(Stub3 const *)</div>
@@ -215,7 +203,7 @@ Constructors</h2>
 <div class="line">    )</div>
 <div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
 </div><!-- fragment --> <h2><a class="anchor" id="ExposingMemberFunctions"></a>
-Exposing member functions</h2>
+Exposing Member Functions</h2>
 <p><a class="el" href="group___o_o_lua_minimalist.html#ga3c1cca539f85a5728c9896d54ea4e275" title="Deduce and generate a proxy for a member function. ">OOLUA_MFUNC( FunctionName, Optional)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -254,8 +242,7 @@ Exposing member functions</h2>
 <div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga8dbe5b8a090a86ade26f86d395c03fb0" title="Exports zero or more const member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS_CONST</a>(vector_int,size)</div>
 </div><!-- fragment --> <h2><a class="anchor" id="AbstractClass"></a>
 Abstract Class</h2>
-<p>Generating an abstract proxy requires that you specify the <a class="el" href="struct_o_o_l_u_a_1_1_abstract.html">Abstract</a> tag in the <a class="el" href="group___o_o_lua_d_s_l.html#ga648dba626b4328aad9e995d4bb6391c2">OOLUA_TAGS</a> block </p>
-<p>When OOLua encounters the <a class="el" href="struct_o_o_l_u_a_1_1_abstract.html">Abstract</a> tag it will not look for any constructors for the type and the type will not be constructable from Lua. Specifying an <a class="el" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb">OOLUA_CTORS</a> block will have no effect and such a block will be ignored. </p>
+<p>Generating an abstract proxy requires that you specify the <a class="el" href="struct_o_o_l_u_a_1_1_abstract.html">Abstract</a> tag in the <a class="el" href="group___o_o_lua_d_s_l.html#ga648dba626b4328aad9e995d4bb6391c2">OOLUA_TAGS</a> block When OOLua encounters the <a class="el" href="struct_o_o_l_u_a_1_1_abstract.html">Abstract</a> tag it will not look for any constructors for the type and the type will not be constructable from Lua. Specifying an <a class="el" href="group___o_o_lua_d_s_l.html#ga1f118192493f759ce94b47470f9075bb">OOLUA_CTORS</a> block will have no effect and such a block will be ignored. </p>
 <div class="fragment"><div class="line"><span class="keyword">class </span>Abstract1</div>
 <div class="line">{</div>
 <div class="line"><span class="keyword">public</span>:</div>
@@ -272,8 +259,7 @@ Abstract Class</h2>
 <div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga8dbe5b8a090a86ade26f86d395c03fb0" title="Exports zero or more const member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS_CONST</a>(Abstract1)</div>
 </div><!-- fragment --> <h2><a class="anchor" id="BaseClass"></a>
 Base Classes</h2>
-<p>Using <a class="el" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd">OOLUA_PROXY's</a> optional parameter(s) specifies base class(es) for the proxy </p>
-<p><a class="el" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY(ClassName, Optional)</a> </p>
+<p>Using <a class="el" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd">OOLUA_PROXY's</a> optional parameter(s) specifies base class(es) for the proxy <a class="el" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY(ClassName, Optional)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ClassName</td><td>Class to be proxied </td></tr>
@@ -365,7 +351,7 @@ Operators</h2>
 </div><!-- fragment --> <div class="fragment"><div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga6a15603355073c969178db64d32b8d07" title="Exports zero or more member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS</a>(Class_ops)</div>
 <div class="line"><a class="code" href="group___o_o_lua_exporting.html#ga8dbe5b8a090a86ade26f86d395c03fb0" title="Exports zero or more const member functions which will be registered with Lua. ">OOLUA_EXPORT_FUNCTIONS_CONST</a>(Class_ops,geti)</div>
 </div><!-- fragment --> <h2><a class="anchor" id="ClassPublicMembers"></a>
-Public members</h2>
+Public Members</h2>
 <p><a class="el" href="group___o_o_lua_minimalist.html#ga5adf4043ac3defad4dee307f9683a951" title="Generates a getter for a public member. ">OOLUA_MGET(id)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -440,12 +426,12 @@ Enumerations</h2>
 <p><a class="el" href="group___o_o_lua_d_s_l.html#ga794911527043d10c8d7a142d56d64673" title="Creates a block into which enumerators can be defined with OOLUA_ENUM. ">OOLUA_ENUMS(EnumEntriesList)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">EnumEntriesList</td><td>List of <a class="el" href="group___o_o_lua_d_s_l.html#ga845a2ff6e9b5f8207f802a5a66d74d9e">OOLUA_ENUM</a> </td></tr>
+    <tr><td class="paramname">EnumEntriesList</td><td>List of <a class="el" href="group___o_o_lua_d_s_l.html#gad8fa42b0c1d1c9a67302c255287412fd">OOLUA_ENUM</a> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>An OOLUA_ENUMS block without any <a class="el" href="group___o_o_lua_d_s_l.html#ga845a2ff6e9b5f8207f802a5a66d74d9e">OOLUA_ENUM</a> entries is invalid. </dd></dl>
-<p><a class="el" href="group___o_o_lua_d_s_l.html#ga845a2ff6e9b5f8207f802a5a66d74d9e" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM(EnumName)</a> </p>
+<dl class="section note"><dt>Note</dt><dd>An OOLUA_ENUMS block without any <a class="el" href="group___o_o_lua_d_s_l.html#gad8fa42b0c1d1c9a67302c255287412fd">OOLUA_ENUM</a> entries is invalid. </dd></dl>
+<p><a class="el" href="group___o_o_lua_d_s_l.html#gad8fa42b0c1d1c9a67302c255287412fd" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM(EnumName)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EnumName</td><td>The class enumeration name </td></tr>
@@ -480,8 +466,8 @@ Enumerations</h2>
 <div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga437d72d20968100efe9fb362247176cc" title="Generates a constructor in a constructor block. ">OOLUA_CTOR</a>(Enums::COLOUR)</div>
 <div class="line">    )</div>
 <div class="line">    <a class="code" href="group___o_o_lua_d_s_l.html#ga794911527043d10c8d7a142d56d64673" title="Creates a block into which enumerators can be defined with OOLUA_ENUM. ">OOLUA_ENUMS</a>(</div>
-<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga845a2ff6e9b5f8207f802a5a66d74d9e" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM</a>(GREEN)</div>
-<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#ga845a2ff6e9b5f8207f802a5a66d74d9e" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM</a>(INVALID)</div>
+<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#gad8fa42b0c1d1c9a67302c255287412fd" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM</a>(GREEN)</div>
+<div class="line">        <a class="code" href="group___o_o_lua_d_s_l.html#gad8fa42b0c1d1c9a67302c255287412fd" title="Creates a entry into a OOLUA_ENUMS block. ">OOLUA_ENUM</a>(INVALID)</div>
 <div class="line">    )</div>
 <div class="line">    <a class="code" href="group___o_o_lua_minimalist.html#ga3c1cca539f85a5728c9896d54ea4e275" title="Deduce and generate a proxy for a member function. ">OOLUA_MFUNC</a>(set_enum)</div>
 <div class="line">    <a class="code" href="group___o_o_lua_minimalist.html#ga3c1cca539f85a5728c9896d54ea4e275" title="Deduce and generate a proxy for a member function. ">OOLUA_MFUNC</a>(get_enum)</div>
@@ -504,7 +490,7 @@ Enumerations</h2>
 <div class="line">        CPPUNIT_ASSERT_EQUAL(Enums::GREEN,result);</div>
 <div class="line">    }</div>
 </div><!-- fragment --> <h2><a class="anchor" id="ClassStaticFunctions"></a>
-Static functions</h2>
+Static Functions</h2>
 <p><a class="el" href="group___o_o_lua_minimalist.html#ga8ce05f53d7da2b3c2226f03002fa75db" title="Deduce and generate a proxy for a class static function. ">OOLUA_SFUNC(FunctionName,Optional)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -531,9 +517,7 @@ Static functions</h2>
 C Functions</h1>
 <h2><a class="anchor" id="CFunctionMinimalist"></a>
 Minimalist</h2>
-<p>We have already seen the <a class="el" href="group___o_o_lua_minimalist.html">Minimalist</a> version in the Hello Moon example. </p>
-<p>Deduce and generate a proxy for a C function. </p>
-<p><a class="el" href="group___o_o_lua_minimalist.html#gadb95e992a32ab9c2a76683c3c628ea6c" title="Deduce and generate a proxy for a C function. ">OOLUA_CFUNC(FunctionName,Optional)</a> </p>
+<p>We have already seen the <a class="el" href="group___o_o_lua_minimalist.html">Minimalist</a> version in the Hello Moon example. Deduce and generate a proxy for a C function. <a class="el" href="group___o_o_lua_minimalist.html#gadb95e992a32ab9c2a76683c3c628ea6c" title="Deduce and generate a proxy for a C function. ">OOLUA_CFUNC(FunctionName,Optional)</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">FunctionName</td><td>Name of the C function to be proxied </td></tr>
@@ -554,13 +538,70 @@ Minimalist</h2>
 <div class="line">        <a class="code" href="namespace_o_o_l_u_a.html#a372e58326dc9259a4791e770ac407871" title="Helper function to set a Lua global variable. ">set_global</a>(vm, <span class="stringliteral">&quot;say&quot;</span>, l_say);</div>
 <div class="line">        <a class="code" href="namespace_o_o_l_u_a.html#a0c799adcc6a9c3865bca1256dd083f65" title="Loads and runs a chunk of code. ">run_chunk</a>(vm, <span class="stringliteral">&quot;say(&#39;Hello Lua&#39;)&quot;</span>);</div>
 <div class="line">    }</div>
-</div><!-- fragment --></div></div><!-- contents -->
+</div><!-- fragment --> <h1><a class="anchor" id="OOLuaProxyTraits"></a>
+Traits</h1>
+<p>In C++ the use of traits which have a lua_ or cpp_ prefix can control ownership for parameters, returns values and stack entries whilst traits which specify direction for parameters contain as part of their name "out", "in" or a combination. </p>
+<table class="doxtable">
+<tr>
+<th align="left">Trait </th><th align="left">Details  </th></tr>
+<tr>
+<td align="left"><a class="el" href="struct_o_o_l_u_a_1_1in__p.html">in_p</a> </td><td align="left">The calling Lua procedure supplies the parameter to the proxied function. No change of ownership occurs. <dl class="section note"><dt>Note</dt><dd>This is the default trait used for function parameters when no trait is supplied. </dd></dl>
+</td></tr>
+<tr>
+<td align="left"><a class="el" href="struct_o_o_l_u_a_1_1out__p.html">out_p</a> </td><td align="left">The calling Lua procedure does not pass the parameter to the proxied function, instead one is created using the default constructor and passed to the proxied function. The result after the proxied call with be returned to the calling procedure. If this is a type which has a proxy then it will cause a heap allocation of the type, which Lua will own. <div class="fragment"><div class="line"><span class="keyword">struct </span>foo</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">void</span> bar( <span class="keywordtype">int</span>&amp; result);</div>
+<div class="line">};</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(foo)</div>
+<div class="line">    <a class="code" href="group___o_o_lua_expressive.html#ga63b334c4b6ee82dd4a1497a6c6bb65e9" title="Generates a member function proxy which will also be the named FunctionName. ">OOLUA_MEM_FUNC</a>(<span class="keywordtype">void</span>,bar,out_p&lt;<span class="keywordtype">int</span>&amp;&gt;)</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
+<div class="line">local result = foo.new():bar()</div>
+<div class="line">assert(result)</div>
+</div><!-- fragment --> </td></tr>
+<tr>
+<td align="left"><a class="el" href="struct_o_o_l_u_a_1_1in__out__p.html">in_out_p</a> </td><td align="left">The calling Lua procedure supplies the parameter to the proxied function, the value of the parameter after the proxied call will be passed back to the calling procedure as a return value. No change of ownership occurs. <div class="fragment"><div class="line"><span class="keyword">struct </span>foo</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">void</span> bar( <span class="keywordtype">int</span>&amp; input_and_result){++input_and_result;}</div>
+<div class="line">};</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(foo)</div>
+<div class="line">    <a class="code" href="group___o_o_lua_expressive.html#ga63b334c4b6ee82dd4a1497a6c6bb65e9" title="Generates a member function proxy which will also be the named FunctionName. ">OOLUA_MEM_FUNC</a>(<span class="keywordtype">void</span>,bar,in_out_p&lt;<span class="keywordtype">int</span>&amp;&gt;)</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
+<div class="line">local input = 1</div>
+<div class="line">local result = foo.new():bar(input)</div>
+<div class="line">assert(result and result~=input)</div>
+</div><!-- fragment --> </td></tr>
+<tr>
+<td align="left"><a class="el" href="struct_o_o_l_u_a_1_1cpp__in__p.html">cpp_in_p</a> </td><td align="left">Parameter supplied via Lua changes ownership to C++. <div class="fragment"><div class="line"><span class="keyword">struct </span>foo</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">void</span> take_ownership(foo*);</div>
+<div class="line">};</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(foo)</div>
+<div class="line">    <a class="code" href="group___o_o_lua_expressive.html#ga63b334c4b6ee82dd4a1497a6c6bb65e9" title="Generates a member function proxy which will also be the named FunctionName. ">OOLUA_MEM_FUNC</a>(<span class="keywordtype">void</span>,take_ownership,cpp_in_p&lt;foo*&gt;)</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
+<div class="line"></div>
+<div class="line">m_lua-&gt;<a class="code" href="namespace_o_o_l_u_a.html#a0c799adcc6a9c3865bca1256dd083f65" title="Loads and runs a chunk of code. ">run_chunk</a>(&quot;local f = foo.new() \n&quot;</div>
+<div class="line">                &quot;f:take_ownership(foo.new())&quot;);</div>
+</div><!-- fragment --> </td></tr>
+<tr>
+<td align="left"><a class="el" href="struct_o_o_l_u_a_1_1lua__out__p.html">lua_out_p</a> </td><td align="left">Lua code does not pass an instance to the C++ function, yet the pushed back value after the function call will be owned by Lua. This is meaningful only if called with a type which has a proxy and it is by reference, otherwise undefined. <div class="fragment"><div class="line"><span class="keyword">struct </span>foo</div>
+<div class="line">{</div>
+<div class="line">    foo* create();</div>
+<div class="line">};</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga7941d8799929590eace6acdeec68f7dd" title="Starts the generation a proxy class. ">OOLUA_PROXY</a>(foo)</div>
+<div class="line">    <a class="code" href="group___o_o_lua_expressive.html#ga63b334c4b6ee82dd4a1497a6c6bb65e9" title="Generates a member function proxy which will also be the named FunctionName. ">OOLUA_MEM_FUNC</a>(lua_out_p&lt;foo*&gt;,create)</div>
+<div class="line"><a class="code" href="group___o_o_lua_d_s_l.html#ga8dccd4d1893d0352a0f5e486c527c49e" title="Ends the generation of the proxy class. ">OOLUA_PROXY_END</a></div>
+<div class="line"></div>
+<div class="line">local automatically_owned_by_lua = foo.new()</div>
+<div class="line">local also_owned_by_lua = automatically_owned_by_lua:create()</div>
+</div><!-- fragment --> </td></tr>
+</table>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_o_o_lua_useage.html">Usage</a></li>
-    <li class="footer">Generated on Tue Jun 11 2013 02:18:50 for OOLua by
+    <li class="footer">Generated on Thu Jun 13 2013 21:19:20 for OOLua by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>
